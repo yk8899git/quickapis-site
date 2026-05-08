@@ -1,5 +1,5 @@
 {
-  "categories": ["全部", "聊天AI", "图像生成", "代码助手", "视频制作", "音频工具", "办公效率", "搜索研究", "3D建模", "设计工具", "写作助手", "大模型API", "其他"],
+  "categories": ["全部", "聊天AI", "图像生成", "代码助手", "视频制作", "音频工具", "办公效率", "搜索研究", "3D建模", "设计工具", "写作助手", "大模型API", "开发者工具", "教育学习", "其他"],
   "tools": [
     {
       "id": "chatgpt",
@@ -255,6 +255,28 @@
       "featured": false
     },
     {
+      "id": "recraft",
+      "name": "Recraft",
+      "nameCn": "Recraft",
+      "category": "图像生成",
+      "description": "专业级AI图像生成，矢量图输出，品牌级设计质量控制",
+      "url": "https://www.recraft.ai",
+      "tags": ["绘画", "矢量", "品牌"],
+      "icon": "🎯",
+      "featured": false
+    },
+    {
+      "id": "imagen3",
+      "name": "Imagen 3",
+      "nameCn": "Imagen 3",
+      "category": "图像生成",
+      "description": "Google最新图像生成模型，照片级真实感，文本渲染精准",
+      "url": "https://deepmind.google/technologies/imagen-3",
+      "tags": ["绘画", "Google", "高清"],
+      "icon": "📸",
+      "featured": false
+    },
+    {
       "id": "copilot",
       "name": "GitHub Copilot",
       "nameCn": "Copilot",
@@ -340,6 +362,28 @@
       "url": "https://aws.amazon.com/q",
       "tags": ["代码", "AWS", "企业"],
       "icon": "📦",
+      "featured": false
+    },
+    {
+      "id": "supermaven",
+      "name": "Supermaven",
+      "nameCn": "Supermaven",
+      "category": "开发者工具",
+      "description": "超快AI代码补全，100万token上下文窗口，响应速度领先",
+      "url": "https://supermaven.com",
+      "tags": ["代码", "快速", "补全"],
+      "icon": "🚀",
+      "featured": false
+    },
+    {
+      "id": "bolt",
+      "name": "Bolt.new",
+      "nameCn": "Bolt",
+      "category": "开发者工具",
+      "description": "AI全栈开发平台，一句话生成完整Web应用，零配置部署",
+      "url": "https://bolt.new",
+      "tags": ["代码", "全栈", "快速开发"],
+      "icon": "⚡",
       "featured": false
     },
     {
@@ -431,6 +475,17 @@
       "featured": false
     },
     {
+      "id": "vidu",
+      "name": "Vidu",
+      "nameCn": "Vidu",
+      "category": "视频制作",
+      "description": "国产AI视频生成，16秒高清视频，角色一致性保持",
+      "url": "https://www.vidu.studio",
+      "tags": ["视频", "国产", "角色一致"],
+      "icon": "📹",
+      "featured": false
+    },
+    {
       "id": "elevenlabs",
       "name": "ElevenLabs",
       "nameCn": "ElevenLabs",
@@ -486,6 +541,50 @@
       "featured": false
     },
     {
+      "id": "murf",
+      "name": "Murf AI",
+      "nameCn": "Murf",
+      "category": "音频工具",
+      "description": "AI配音工具，120+真实人声，支持语气调整、多语言配音",
+      "url": "https://murf.ai",
+      "tags": ["语音", "配音", "多语言"],
+      "icon": "🎤",
+      "featured": false
+    },
+    {
+      "id": "resembleai",
+      "name": "Resemble AI",
+      "nameCn": "Resemble AI",
+      "category": "音频工具",
+      "description": "AI语音克隆平台，实时语音合成，企业级声音定制",
+      "url": "https://www.resemble.ai",
+      "tags": ["语音", "克隆", "企业"],
+      "icon": "🔊",
+      "featured": false
+    },
+    {
+      "id": "playht",
+      "name": "PlayHT",
+      "nameCn": "PlayHT",
+      "category": "音频工具",
+      "description": "AI文本转语音，800+声音，超写实语音合成，支持情感表达",
+      "url": "https://play.ht",
+      "tags": ["语音", "TTS", "多声音"],
+      "icon": "🎧",
+      "featured": false
+    },
+    {
+      "id": "wellsaid",
+      "name": "WellSaid Labs",
+      "nameCn": "WellSaid",
+      "category": "音频工具",
+      "description": "企业级AI配音，100+专业声音，商用授权清晰",
+      "url": "https://wellsaidlabs.com",
+      "tags": ["语音", "企业", "商用"],
+      "icon": "🎙️",
+      "featured": false
+    },
+    {
       "id": "jianying",
       "name": "Jianying",
       "nameCn": "剪映",
@@ -538,6 +637,39 @@
       "url": "https://www.tiangong.cn",
       "tags": ["搜索", "国产", "多模态"],
       "icon": "☀️",
+      "featured": false
+    },
+    {
+      "id": "phind",
+      "name": "Phind",
+      "nameCn": "Phind",
+      "category": "搜索研究",
+      "description": "开发者AI搜索引擎，代码示例丰富，技术问答精准",
+      "url": "https://www.phind.com",
+      "tags": ["搜索", "代码", "开发者"],
+      "icon": "🔍",
+      "featured": false
+    },
+    {
+      "id": "elicit",
+      "name": "Elicit",
+      "nameCn": "Elicit",
+      "category": "搜索研究",
+      "description": "AI学术研究助手，自动文献综述、研究问题分解",
+      "url": "https://elicit.com",
+      "tags": ["学术", "文献", "研究"],
+      "icon": "📖",
+      "featured": false
+    },
+    {
+      "id": "scispace",
+      "name": "SciSpace",
+      "nameCn": "SciSpace",
+      "category": "搜索研究",
+      "description": "AI论文阅读助手，PDF对话问答、复杂公式解释",
+      "url": "https://typeset.io",
+      "tags": ["学术", "论文", "阅读"],
+      "icon": "📄",
       "featured": false
     },
     {
@@ -651,6 +783,17 @@
       "featured": false
     },
     {
+      "id": "lrstudio",
+      "name": "LRStudio",
+      "nameCn": "LRStudio",
+      "category": "3D建模",
+      "description": "AI 3D资产生成，游戏开发专用，PBR材质自动生成",
+      "url": "https://lrstudio.ai",
+      "tags": ["3D", "游戏", "材质"],
+      "icon": "🎮",
+      "featured": false
+    },
+    {
       "id": "notionai",
       "name": "Notion AI",
       "nameCn": "Notion AI",
@@ -736,6 +879,39 @@
       "url": "https://xiezuocat.com",
       "tags": ["写作", "中文", "纠错"],
       "icon": "🐱",
+      "featured": false
+    },
+    {
+      "id": "sudowrite",
+      "name": "Sudowrite",
+      "nameCn": "Sudowrite",
+      "category": "写作助手",
+      "description": "AI小说写作工具，剧情生成、角色发展、创意续写",
+      "url": "https://www.sudowrite.com",
+      "tags": ["写作", "小说", "创意"],
+      "icon": "✍️",
+      "featured": false
+    },
+    {
+      "id": "rytr",
+      "name": "Rytr",
+      "nameCn": "Rytr",
+      "category": "写作助手",
+      "description": "AI写作助手，30+用例模板，支持多语言、SEO优化",
+      "url": "https://rytr.me",
+      "tags": ["写作", "模板", "多语言"],
+      "icon": "📝",
+      "featured": false
+    },
+    {
+      "id": "prowritingaid",
+      "name": "ProWritingAid",
+      "nameCn": "ProWritingAid",
+      "category": "写作助手",
+      "description": "AI写作润色，深度语法检查、风格建议、小说分析",
+      "url": "https://prowritingaid.com",
+      "tags": ["写作", "润色", "语法"],
+      "icon": "📚",
       "featured": false
     },
     {
@@ -835,6 +1011,105 @@
       "url": "https://openai.com/codex",
       "tags": ["代码", "OpenAI", "API"],
       "icon": "🔢",
+      "featured": false
+    },
+    {
+      "id": "groq",
+      "name": "Groq",
+      "nameCn": "Groq",
+      "category": "大模型API",
+      "description": "超高速推理API，LPU芯片驱动，响应速度行业领先",
+      "url": "https://groq.com",
+      "tags": ["API", "高速", "推理"],
+      "icon": "⚡",
+      "featured": false
+    },
+    {
+      "id": "fireworks",
+      "name": "Fireworks AI",
+      "nameCn": "Fireworks AI",
+      "category": "大模型API",
+      "description": "高速大模型API，100+模型可选，企业级稳定性",
+      "url": "https://fireworks.ai",
+      "tags": ["API", "多模型", "企业"],
+      "icon": "🎆",
+      "featured": false
+    },
+    {
+      "id": "together",
+      "name": "Together AI",
+      "nameCn": "Together AI",
+      "category": "大模型API",
+      "description": "开源大模型API平台，支持Llama、Mixtral等主流模型",
+      "url": "https://together.ai",
+      "tags": ["API", "开源", "多模型"],
+      "icon": "🤝",
+      "featured": false
+    },
+    {
+      "id": "cerebras",
+      "name": "Cerebras",
+      "nameCn": "Cerebras",
+      "category": "大模型API",
+      "description": "晶圆级AI加速，超快推理速度，专为大模型优化",
+      "url": "https://cerebras.ai",
+      "tags": ["API", "硬件", "高速"],
+      "icon": "🔧",
+      "featured": false
+    },
+    {
+      "id": "titanlabs",
+      "name": "Titan Labs",
+      "nameCn": "Titan Labs",
+      "category": "大模型API",
+      "description": "企业级大模型API，私有化部署，数据安全可控",
+      "url": "https://titanlabs.ai",
+      "tags": ["API", "企业", "私有化"],
+      "icon": "🔐",
+      "featured": false
+    },
+    {
+      "id": "khanacademyai",
+      "name": "Khan Academy AI",
+      "nameCn": "Khanmigo",
+      "category": "教育学习",
+      "description": "可汗学院AI助教，个性化学习路径，题目讲解详细",
+      "url": "https://www.khanacademy.org/khanmigo",
+      "tags": ["教育", "学习", "个性化"],
+      "icon": "🎓",
+      "featured": false
+    },
+    {
+      "id": "duolingomax",
+      "name": "Duolingo Max",
+      "nameCn": "多邻国Max",
+      "category": "教育学习",
+      "description": "AI语言学习，对话练习、语法解释、个性化课程",
+      "url": "https://www.duolingo.com",
+      "tags": ["教育", "语言", "AI对话"],
+      "icon": "🦉",
+      "featured": false
+    },
+    {
+      "id": "quizletai",
+      "name": "Quizlet AI",
+      "nameCn": "Quizlet AI",
+      "category": "教育学习",
+      "description": "AI学习卡片生成，自动创建题库、智能复习提醒",
+      "url": "https://quizlet.com",
+      "tags": ["教育", "卡片", "复习"],
+      "icon": "📇",
+      "featured": false
+    },
+    {
+      "id": "coursehero",
+      "name": "Course Hero",
+      "nameCn": "Course Hero",
+      "category": "教育学习",
+      "description": "AI学习助手，作业解答、课程笔记、考试准备",
+      "url": "https://www.coursehero.com",
+      "tags": ["教育", "作业", "笔记"],
+      "icon": "📚",
       "featured": false
     }
   ]
