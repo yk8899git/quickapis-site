@@ -1,5 +1,5 @@
 {
-  "categories": ["全部", "聊天AI", "图像生成", "代码助手", "视频制作", "音频工具", "办公效率", "其他"],
+  "categories": ["全部", "聊天AI", "图像生成", "代码助手", "视频制作", "音频工具", "办公效率", "搜索研究", "3D建模", "设计工具", "写作助手", "大模型API", "其他"],
   "tools": [
     {
       "id": "chatgpt",
@@ -35,10 +35,43 @@
       "featured": true
     },
     {
+      "id": "kimi",
+      "name": "Kimi",
+      "nameCn": "Kimi",
+      "category": "聊天AI",
+      "description": "月之暗面Moonshot AI，超长上下文支持（20万字），支持联网搜索与文件分析",
+      "url": "https://kimi.moonshot.cn",
+      "tags": ["对话", "超长上下文", "联网"],
+      "icon": "🌙",
+      "featured": true
+    },
+    {
+      "id": "deepseek",
+      "name": "DeepSeek",
+      "nameCn": "深度求索",
+      "category": "聊天AI",
+      "description": "国产大模型黑马，DeepSeek-V3推理能力出色，性价比极高，API价格行业最低",
+      "url": "https://chat.deepseek.com",
+      "tags": ["对话", "推理", "低价"],
+      "icon": "🔍",
+      "featured": true
+    },
+    {
+      "id": "doubao",
+      "name": "Doubao",
+      "nameCn": "豆包",
+      "category": "聊天AI",
+      "description": "字节跳动AI助手，支持对话、写作、图片生成，深度集成抖音生态",
+      "url": "https://www.doubao.com",
+      "tags": ["对话", "字节", "国产"],
+      "icon": "🫛",
+      "featured": false
+    },
+    {
       "id": "siliconflow",
       "name": "SiliconFlow",
       "nameCn": "硅基流动",
-      "category": "聊天AI",
+      "category": "大模型API",
       "description": "国产平价API平台，聚合Qwen、DeepSeek、GLM等国产大模型，价格实惠",
       "url": "https://siliconflow.cn",
       "tags": ["API", "国产", "低价"],
@@ -49,10 +82,10 @@
       "id": "zhipuai",
       "name": "ZhipuAI",
       "nameCn": "智谱AI",
-      "category": "聊天AI",
+      "category": "大模型API",
       "description": "清华智谱GLM系列大模型，ChatGLM、CodeGeeX等，覆盖对话、代码、Agent多场景",
-      "url": "https://zhipuai.cn",
-      "tags": ["对话", "代码", "Agent"],
+      "url": "https://open.bigmodel.cn",
+      "tags": ["API", "GLM", "国产"],
       "icon": "🔬",
       "featured": false
     },
@@ -79,15 +112,37 @@
       "featured": false
     },
     {
-      "id": "kimi",
-      "name": "Kimi",
-      "nameCn": "Kimi",
+      "id": "spark",
+      "name": "Spark",
+      "nameCn": "讯飞星火",
       "category": "聊天AI",
-      "description": "月之暗面Moonshot AI，超长上下文支持（20万字），支持联网搜索与文件分析",
-      "url": "https://kimi.moonshot.cn",
-      "tags": ["对话", "超长上下文", "联网"],
-      "icon": "🌙",
-      "featured": true
+      "description": "科大讯飞大模型，语音交互能力强，教育场景优化",
+      "url": "https://xinghuo.xfyun.cn",
+      "tags": ["对话", "语音", "教育"],
+      "icon": "⚡",
+      "featured": false
+    },
+    {
+      "id": "hunyuan",
+      "name": "Hunyuan",
+      "nameCn": "腾讯混元",
+      "category": "大模型API",
+      "description": "腾讯大模型，支持对话、图像生成，深度集成微信生态",
+      "url": "https://hunyuan.tencent.com",
+      "tags": ["API", "腾讯", "国产"],
+      "icon": "🌊",
+      "featured": false
+    },
+    {
+      "id": "minimax",
+      "name": "MiniMax",
+      "nameCn": "MiniMax",
+      "category": "大模型API",
+      "description": "国产大模型新锐，支持长文本、多模态，API性价比高",
+      "url": "https://www.minimaxi.com",
+      "tags": ["API", "国产", "长文本"],
+      "icon": "🎯",
+      "featured": false
     },
     {
       "id": "midjourney",
@@ -109,6 +164,39 @@
       "url": "https://stability.ai",
       "tags": ["绘画", "开源", "本地部署"],
       "icon": "🖼️",
+      "featured": false
+    },
+    {
+      "id": "dalle",
+      "name": "DALL·E",
+      "nameCn": "DALL·E",
+      "category": "图像生成",
+      "description": "OpenAI图像生成模型，DALL·E 3支持精准文本渲染、图像编辑",
+      "url": "https://openai.com/dall-e-3",
+      "tags": ["绘画", "OpenAI", "编辑"],
+      "icon": "🎭",
+      "featured": false
+    },
+    {
+      "id": "ideogram",
+      "name": "Ideogram",
+      "nameCn": "Ideogram",
+      "category": "图像生成",
+      "description": "AI图像生成工具，文字渲染能力出色，适合海报、Logo设计",
+      "url": "https://ideogram.ai",
+      "tags": ["绘画", "文字", "设计"],
+      "icon": "🔤",
+      "featured": false
+    },
+    {
+      "id": "flux",
+      "name": "FLUX",
+      "nameCn": "FLUX",
+      "category": "图像生成",
+      "description": "Black Forest Labs图像生成模型，画质出色，开源可商用",
+      "url": "https://blackforestlabs.ai",
+      "tags": ["绘画", "开源", "高清"],
+      "icon": "💫",
       "featured": false
     },
     {
@@ -145,11 +233,33 @@
       "featured": false
     },
     {
+      "id": "jimeng",
+      "name": "Jimeng AI",
+      "nameCn": "即梦AI",
+      "category": "图像生成",
+      "description": "字节跳动AI创作平台，支持文生图、图生图、视频生成，一站式创作",
+      "url": "https://jimeng.jianying.com",
+      "tags": ["绘画", "字节", "视频"],
+      "icon": "🌈",
+      "featured": false
+    },
+    {
+      "id": "liblib",
+      "name": "LiblibAI",
+      "nameCn": "哩布哩布",
+      "category": "图像生成",
+      "description": "国产AI绘画社区，提供Stable Diffusion在线生成、模型分享",
+      "url": "https://liblib.art",
+      "tags": ["绘画", "社区", "国产"],
+      "icon": "🎪",
+      "featured": false
+    },
+    {
       "id": "copilot",
       "name": "GitHub Copilot",
       "nameCn": "Copilot",
       "category": "代码助手",
-      "description": "GitHub官方代码助手，集成在VS Code等IDE，GPT-4驱动",
+      "description": "GitHub官方代码助手，集成在VS Code等IDE，GPT-4驱动，支持Agent模式",
       "url": "https://github.com/features/copilot",
       "tags": ["代码", "补全", "IDE集成"],
       "icon": "💻",
@@ -175,6 +285,61 @@
       "url": "https://codeium.com",
       "tags": ["代码", "免费", "多语言"],
       "icon": "⚡",
+      "featured": false
+    },
+    {
+      "id": "windsurf",
+      "name": "Windsurf",
+      "nameCn": "Windsurf",
+      "category": "代码助手",
+      "description": "Codeium推出的AI IDE，支持上下文记忆、多文件编辑",
+      "url": "https://codeium.com/windsurf",
+      "tags": ["代码", "IDE", "免费"],
+      "icon": "🌬️",
+      "featured": false
+    },
+    {
+      "id": "replit",
+      "name": "Replit",
+      "nameCn": "Replit",
+      "category": "代码助手",
+      "description": "在线IDE平台，集成AI助手Ghostwriter，支持多语言协作开发",
+      "url": "https://replit.com",
+      "tags": ["代码", "在线IDE", "协作"],
+      "icon": "🔄",
+      "featured": false
+    },
+    {
+      "id": "cody",
+      "name": "Sourcegraph Cody",
+      "nameCn": "Cody",
+      "category": "代码助手",
+      "description": "代码理解与生成助手，支持整个代码库搜索、自动补全",
+      "url": "https://sourcegraph.com/cody",
+      "tags": ["代码", "搜索", "补全"],
+      "icon": "🤠",
+      "featured": false
+    },
+    {
+      "id": "tabnine",
+      "name": "Tabnine",
+      "nameCn": "Tabnine",
+      "category": "代码助手",
+      "description": "AI代码补全工具，支持本地部署保护隐私，企业级安全",
+      "url": "https://tabnine.com",
+      "tags": ["代码", "补全", "隐私"],
+      "icon": "🔢",
+      "featured": false
+    },
+    {
+      "id": "amazonq",
+      "name": "Amazon Q",
+      "nameCn": "Amazon Q",
+      "category": "代码助手",
+      "description": "AWS AI助手，支持代码生成、AWS服务问答、IDE集成",
+      "url": "https://aws.amazon.com/q",
+      "tags": ["代码", "AWS", "企业"],
+      "icon": "📦",
       "featured": false
     },
     {
@@ -222,6 +387,50 @@
       "featured": false
     },
     {
+      "id": "veo",
+      "name": "Google Veo",
+      "nameCn": "Veo",
+      "category": "视频制作",
+      "description": "Google视频生成模型，支持1080p长视频、多风格生成",
+      "url": "https://deepmind.google/technologies/veo",
+      "tags": ["视频", "Google", "高清"],
+      "icon": "📹",
+      "featured": false
+    },
+    {
+      "id": "pixverse",
+      "name": "PixVerse",
+      "nameCn": "PixVerse",
+      "category": "视频制作",
+      "description": "AI视频生成工具，V4版本支持4K画质、物理引擎准确性",
+      "url": "https://pixverse.ai",
+      "tags": ["视频", "4K", "高清"],
+      "icon": "🌟",
+      "featured": false
+    },
+    {
+      "id": "haikei",
+      "name": "Haiper",
+      "nameCn": "Haiper",
+      "category": "视频制作",
+      "description": "AI视频生成平台，支持文生视频、图生视频，生成速度快",
+      "url": "https://haiper.ai",
+      "tags": ["视频", "快速", "易用"],
+      "icon": "🎬",
+      "featured": false
+    },
+    {
+      "id": "luma",
+      "name": "Luma Dream Machine",
+      "nameCn": "Luma",
+      "category": "视频制作",
+      "description": "Luma AI视频生成，支持高质量视频、相机运动控制",
+      "url": "https://lumalabs.ai/dream-machine",
+      "tags": ["视频", "3D", "相机控制"],
+      "icon": "🎥",
+      "featured": false
+    },
+    {
       "id": "elevenlabs",
       "name": "ElevenLabs",
       "nameCn": "ElevenLabs",
@@ -233,6 +442,28 @@
       "featured": false
     },
     {
+      "id": "suno",
+      "name": "Suno",
+      "nameCn": "Suno",
+      "category": "音频工具",
+      "description": "AI音乐生成平台，V5.5支持9分钟歌曲、声音克隆、个性化引擎",
+      "url": "https://suno.ai",
+      "tags": ["音乐", "歌曲", "创作"],
+      "icon": "🎵",
+      "featured": true
+    },
+    {
+      "id": "udio",
+      "name": "Udio",
+      "nameCn": "Udio",
+      "category": "音频工具",
+      "description": "AI音乐生成工具，支持高质量音乐、分轨导出、纯器乐模式",
+      "url": "https://www.udio.com",
+      "tags": ["音乐", "分轨", "创作"],
+      "icon": "🎶",
+      "featured": false
+    },
+    {
       "id": "stableaudio",
       "name": "Stable Audio",
       "nameCn": "Stable Audio",
@@ -240,14 +471,25 @@
       "description": "Stability AI音乐生成模型，支持歌词生成、背景音乐、纯音乐创作",
       "url": "https://stability.ai/audio",
       "tags": ["音乐", "生成", "开源"],
-      "icon": "🎵",
+      "icon": "🎧",
+      "featured": false
+    },
+    {
+      "id": "aiva",
+      "name": "AIVA",
+      "nameCn": "AIVA",
+      "category": "音频工具",
+      "description": "AI作曲平台，支持多种音乐风格，商用授权友好",
+      "url": "https://www.aiva.ai",
+      "tags": ["音乐", "作曲", "商用"],
+      "icon": "🎹",
       "featured": false
     },
     {
       "id": "jianying",
       "name": "Jianying",
       "nameCn": "剪映",
-      "category": "音频工具",
+      "category": "视频制作",
       "description": "字节跳动AI视频剪辑工具，智能字幕、音频分离、AI成片",
       "url": "https://www.capcut.cn",
       "tags": ["剪辑", "字幕", "国产"],
@@ -255,14 +497,157 @@
       "featured": false
     },
     {
+      "id": "perplexity",
+      "name": "Perplexity",
+      "nameCn": "Perplexity",
+      "category": "搜索研究",
+      "description": "AI搜索引擎，引用来源、实时联网、文档分析，研究型AI工具首选",
+      "url": "https://www.perplexity.ai",
+      "tags": ["搜索", "研究", "引用"],
+      "icon": "🔎",
+      "featured": true
+    },
+    {
+      "id": "consensus",
+      "name": "Consensus",
+      "nameCn": "Consensus",
+      "category": "搜索研究",
+      "description": "学术AI问答工具，关联数亿篇论文，探究研究问题的学界共识",
+      "url": "https://consensus.app",
+      "tags": ["学术", "论文", "研究"],
+      "icon": "📚",
+      "featured": false
+    },
+    {
+      "id": "metaso",
+      "name": "Metaso",
+      "nameCn": "秘塔AI",
+      "category": "搜索研究",
+      "description": "国产AI搜索引擎，无广告、结构化答案、学术搜索模式",
+      "url": "https://metaso.cn",
+      "tags": ["搜索", "国产", "学术"],
+      "icon": "🔍",
+      "featured": false
+    },
+    {
+      "id": "tiangong",
+      "name": "Tiangong AI",
+      "nameCn": "天工AI",
+      "category": "搜索研究",
+      "description": "昆仑万维AI搜索，支持联网搜索、多模态问答",
+      "url": "https://www.tiangong.cn",
+      "tags": ["搜索", "国产", "多模态"],
+      "icon": "☀️",
+      "featured": false
+    },
+    {
       "id": "gamma",
       "name": "Gamma",
       "nameCn": "Gamma",
-      "category": "办公效率",
+      "category": "设计工具",
       "description": "AI幻灯片生成，输入文字描述自动生成精美PPT，支持网页/幻灯片格式",
       "url": "https://gamma.app",
       "tags": ["幻灯片", "PPT", "AI生成"],
       "icon": "📊",
+      "featured": true
+    },
+    {
+      "id": "canva",
+      "name": "Canva",
+      "nameCn": "Canva可画",
+      "category": "设计工具",
+      "description": "在线设计平台，Canva AI 2.0支持文字描述生成设计，海量模板",
+      "url": "https://www.canva.com",
+      "tags": ["设计", "模板", "AI生成"],
+      "icon": "🎨",
+      "featured": false
+    },
+    {
+      "id": "beautifulai",
+      "name": "Beautiful.ai",
+      "nameCn": "Beautiful.ai",
+      "category": "设计工具",
+      "description": "AI演示文稿工具，智能布局、自动设计，适合商务演示",
+      "url": "https://www.beautiful.ai",
+      "tags": ["PPT", "演示", "商务"],
+      "icon": "📽️",
+      "featured": false
+    },
+    {
+      "id": "tome",
+      "name": "Tome",
+      "nameCn": "Tome",
+      "category": "设计工具",
+      "description": "AI故事叙述工具，自动生成演示文稿、支持多模态内容",
+      "url": "https://tome.app",
+      "tags": ["PPT", "故事", "多模态"],
+      "icon": "📖",
+      "featured": false
+    },
+    {
+      "id": "chatppt",
+      "name": "ChatPPT",
+      "nameCn": "ChatPPT",
+      "category": "设计工具",
+      "description": "国产AI PPT生成工具，中文优化，支持模板定制",
+      "url": "https://www.chatppt.cn",
+      "tags": ["PPT", "国产", "中文"],
+      "icon": "📑",
+      "featured": false
+    },
+    {
+      "id": "meshy",
+      "name": "Meshy AI",
+      "nameCn": "Meshy",
+      "category": "3D建模",
+      "description": "AI 3D建模工具，支持文生3D、图生3D，3D打印全链路解决方案",
+      "url": "https://www.meshy.ai",
+      "tags": ["3D", "建模", "打印"],
+      "icon": "🧊",
+      "featured": true
+    },
+    {
+      "id": "tripo",
+      "name": "Tripo",
+      "nameCn": "Tripo",
+      "category": "3D建模",
+      "description": "AI 3D模型生成，8秒生成干净线框网格，支持多格式导出",
+      "url": "https://www.tripo3d.ai",
+      "tags": ["3D", "快速", "建模"],
+      "icon": "💎",
+      "featured": false
+    },
+    {
+      "id": "rodin",
+      "name": "Rodin",
+      "nameCn": "Rodin",
+      "category": "3D建模",
+      "description": "Deemos AI 3D生成模型，高质量资产生成，游戏影视级精度",
+      "url": "https://hyperhuman.deemos.com/rodin",
+      "tags": ["3D", "高质量", "游戏"],
+      "icon": "🗿",
+      "featured": false
+    },
+    {
+      "id": "luma3d",
+      "name": "Luma AI",
+      "nameCn": "Luma AI",
+      "category": "3D建模",
+      "description": "3D扫描与生成平台，支持NeRF、Gaussian Splatting技术",
+      "url": "https://lumalabs.ai",
+      "tags": ["3D", "扫描", "NeRF"],
+      "icon": "🔮",
+      "featured": false
+    },
+    {
+      "id": "hi3d",
+      "name": "Hi3D",
+      "nameCn": "Hi3D",
+      "category": "3D建模",
+      "description": "AI 3D建模工具，单图生成3D模型，支持游戏资产创建",
+      "url": "https://hi3d.ai",
+      "tags": ["3D", "单图", "游戏"],
+      "icon": "🎮",
       "featured": false
     },
     {
@@ -277,10 +662,32 @@
       "featured": false
     },
     {
+      "id": "feishu",
+      "name": "Feishu",
+      "nameCn": "飞书",
+      "category": "办公效率",
+      "description": "字节跳动办公平台，AI助手集成，支持会议纪要、智能总结",
+      "url": "https://www.feishu.cn",
+      "tags": ["办公", "协作", "字节"],
+      "icon": "🪰",
+      "featured": false
+    },
+    {
+      "id": "dingtalk",
+      "name": "DingTalk",
+      "nameCn": "钉钉",
+      "category": "办公效率",
+      "description": "阿里办公平台，AI助手钉钉魔法，支持智能会议、文档生成",
+      "url": "https://www.dingtalk.com",
+      "tags": ["办公", "协作", "阿里"],
+      "icon": "📌",
+      "featured": false
+    },
+    {
       "id": "quillbot",
       "name": "QuillBot",
       "nameCn": "QuillBot",
-      "category": "办公效率",
+      "category": "写作助手",
       "description": "AI写作润色工具，同义改写、语法检查、摘要生成",
       "url": "https://quillbot.com",
       "tags": ["写作", "润色", "改写"],
@@ -288,10 +695,43 @@
       "featured": false
     },
     {
+      "id": "jasper",
+      "name": "Jasper",
+      "nameCn": "Jasper",
+      "category": "写作助手",
+      "description": "AI写作平台，SEO优化内容生成，50+模板支持营销文案",
+      "url": "https://www.jasper.ai",
+      "tags": ["写作", "营销", "SEO"],
+      "icon": "📝",
+      "featured": false
+    },
+    {
+      "id": "copyai",
+      "name": "Copy.ai",
+      "nameCn": "Copy.ai",
+      "category": "写作助手",
+      "description": "AI营销文案工具，快速生成广告文案、社交媒体内容",
+      "url": "https://www.copy.ai",
+      "tags": ["写作", "营销", "文案"],
+      "icon": "📋",
+      "featured": false
+    },
+    {
+      "id": "writesonic",
+      "name": "Writesonic",
+      "nameCn": "Writesonic",
+      "category": "写作助手",
+      "description": "AI写作工具，支持博客文章、广告文案、多语言生成",
+      "url": "https://writesonic.com",
+      "tags": ["写作", "博客", "多语言"],
+      "icon": "✏️",
+      "featured": false
+    },
+    {
       "id": "xiezuocat",
       "name": "Xiezuocat",
       "nameCn": "秘塔写作猫",
-      "category": "办公效率",
+      "category": "写作助手",
       "description": "AI写作助手，中文纠错、改写润色、素材推荐、模板写作",
       "url": "https://xiezuocat.com",
       "tags": ["写作", "中文", "纠错"],
@@ -307,6 +747,94 @@
       "url": "https://tingwu.aliyun.com",
       "tags": ["会议", "转写", "摘要"],
       "icon": "👂",
+      "featured": false
+    },
+    {
+      "id": "otter",
+      "name": "Otter.ai",
+      "nameCn": "Otter",
+      "category": "办公效率",
+      "description": "AI会议记录工具，实时转录、说话人识别、会议摘要",
+      "url": "https://otter.ai",
+      "tags": ["会议", "转录", "英语"],
+      "icon": "🦦",
+      "featured": false
+    },
+    {
+      "id": "firefly",
+      "name": "Adobe Firefly",
+      "nameCn": "Firefly",
+      "category": "图像生成",
+      "description": "Adobe AI图像生成，集成Photoshop，商用版权友好",
+      "url": "https://firefly.adobe.com",
+      "tags": ["绘画", "Adobe", "商用"],
+      "icon": "🔥",
+      "featured": false
+    },
+    {
+      "id": "bingimage",
+      "name": "Bing Image Creator",
+      "nameCn": "必应图像创建",
+      "category": "图像生成",
+      "description": "微软AI图像生成，DALL·E驱动，免费使用",
+      "url": "https://www.bing.com/images/create",
+      "tags": ["绘画", "免费", "微软"],
+      "icon": "🖼️",
+      "featured": false
+    },
+    {
+      "id": "krea",
+      "name": "Krea AI",
+      "nameCn": "Krea",
+      "category": "图像生成",
+      "description": "AI图像生成与编辑，实时生成、图像增强、风格迁移",
+      "url": "https://www.krea.ai",
+      "tags": ["绘画", "实时", "编辑"],
+      "icon": "🎯",
+      "featured": false
+    },
+    {
+      "id": "playground",
+      "name": "Playground AI",
+      "nameCn": "Playground",
+      "category": "图像生成",
+      "description": "AI图像生成平台，免费额度大，支持多种模型",
+      "url": "https://playground.com",
+      "tags": ["绘画", "免费", "多模型"],
+      "icon": "🎪",
+      "featured": false
+    },
+    {
+      "id": "zed",
+      "name": "Zed",
+      "nameCn": "Zed",
+      "category": "代码助手",
+      "description": "高性能AI编辑器，内置AI助手，支持多语言LSP",
+      "url": "https://zed.dev",
+      "tags": ["代码", "编辑器", "高性能"],
+      "icon": "⚡",
+      "featured": false
+    },
+    {
+      "id": "claudecode",
+      "name": "Claude Code",
+      "nameCn": "Claude Code",
+      "category": "代码助手",
+      "description": "Anthropic终端AI编程助手，支持代码生成、调试、重构",
+      "url": "https://www.anthropic.com/claude-code",
+      "tags": ["代码", "终端", "Claude"],
+      "icon": "🖥️",
+      "featured": false
+    },
+    {
+      "id": "openai_codex",
+      "name": "OpenAI Codex",
+      "nameCn": "Codex",
+      "category": "代码助手",
+      "description": "OpenAI代码模型，支持代码生成、翻译、解释",
+      "url": "https://openai.com/codex",
+      "tags": ["代码", "OpenAI", "API"],
+      "icon": "🔢",
       "featured": false
     }
   ]
