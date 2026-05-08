@@ -1,0 +1,1730 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickAPIs - AI工具导航 | 发现全球优质AI工具</title>
+  <meta name="description" content="QuickAPIs收录100+精选AI应用，覆盖ChatGPT、Midjourney、Claude、Gemini等主流工具，支持分类浏览和关键词搜索。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    /* =============================================
+       CSS RESET & BASE
+    ============================================= */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #0f0f1a;
+      --bg-card: #111827;
+      --bg-card-hover: #1a1f35;
+      --bg-glass: rgba(17, 24, 39, 0.7);
+      --neon-blue: #00d4ff;
+      --neon-purple: #a855f7;
+      --neon-green: #00ff88;
+      --neon-pink: #ff00aa;
+      --neon-orange: #ff8c00;
+      --neon-yellow: #ffcc00;
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(0, 212, 255, 0.3);
+      --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
+      --shadow-glow-blue: 0 0 20px rgba(0, 212, 255, 0.15);
+      --shadow-glow-purple: 0 0 20px rgba(168, 85, 247, 0.15);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --transition-fast: 0.2s ease;
+      --transition-med: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-family: inherit;
+    }
+
+    input {
+      font-family: inherit;
+    }
+
+    /* =============================================
+       BACKGROUND EFFECTS
+    ============================================= */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 0%, rgba(0, 212, 255, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 10%, rgba(168, 85, 247, 0.06) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 30% at 50% 80%, rgba(0, 255, 136, 0.03) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+        linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* =============================================
+       LAYOUT CONTAINERS
+    ============================================= */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* =============================================
+       NAVIGATION
+    ============================================= */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 10, 15, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-color);
+      transition: var(--transition-med);
+    }
+
+    .navbar.scrolled {
+      background: rgba(10, 10, 15, 0.95);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .navbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+      gap: 24px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .logo-icon {
+      font-size: 28px;
+      filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.6));
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .logo-name {
+      font-size: 20px;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-tagline {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav-link {
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: var(--transition-fast);
+      position: relative;
+      white-space: nowrap;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-link.active {
+      color: var(--neon-blue);
+      background: rgba(0, 212, 255, 0.08);
+    }
+
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 16px;
+      height: 2px;
+      background: var(--neon-blue);
+      border-radius: 1px;
+      box-shadow: 0 0 8px var(--neon-blue);
+    }
+
+    .nav-search {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 8px 14px;
+      gap: 8px;
+      transition: var(--transition-fast);
+      width: 200px;
+    }
+
+    .nav-search:focus-within {
+      border-color: rgba(0, 212, 255, 0.4);
+      box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.08);
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .nav-search-icon {
+      font-size: 14px;
+      opacity: 0.5;
+      flex-shrink: 0;
+    }
+
+    .nav-search input {
+      background: none;
+      border: none;
+      outline: none;
+      color: var(--text-primary);
+      font-size: 13px;
+      width: 100%;
+    }
+
+    .nav-search input::placeholder {
+      color: var(--text-muted);
+    }
+
+    /* =============================================
+       HERO SECTION
+    ============================================= */
+    .hero {
+      padding: 80px 0 60px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 212, 255, 0.08);
+      border: 1px solid rgba(0, 212, 255, 0.2);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 13px;
+      color: var(--neon-blue);
+      margin-bottom: 28px;
+      animation: pulse-glow 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 10px rgba(0, 212, 255, 0.1); }
+      50% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.25); }
+    }
+
+    .hero-badge-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--neon-blue);
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--neon-blue);
+      animation: blink 2s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .hero-title {
+      font-size: clamp(36px, 6vw, 68px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 20px;
+    }
+
+    .hero-title-main {
+      display: block;
+      background: linear-gradient(135deg, #ffffff 0%, #c8d6e5 50%, #ffffff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-title-accent {
+      display: block;
+      background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      background-size: 200% 200%;
+      animation: gradient-shift 4s ease-in-out infinite;
+    }
+
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .hero-subtitle {
+      font-size: clamp(15px, 2vw, 18px);
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .hero-subtitle .highlight {
+      color: var(--neon-blue);
+      font-weight: 500;
+    }
+
+    .hero-search {
+      max-width: 620px;
+      margin: 0 auto 40px;
+      position: relative;
+    }
+
+    .hero-search-wrapper {
+      display: flex;
+      align-items: center;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: 8px 8px 8px 24px;
+      gap: 12px;
+      transition: var(--transition-med);
+      box-shadow: var(--shadow-card);
+    }
+
+    .hero-search-wrapper:focus-within {
+      border-color: rgba(0, 212, 255, 0.5);
+      box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.08), var(--shadow-card);
+    }
+
+    .hero-search-icon {
+      font-size: 20px;
+      opacity: 0.5;
+      flex-shrink: 0;
+    }
+
+    .hero-search input {
+      flex: 1;
+      background: none;
+      border: none;
+      outline: none;
+      color: var(--text-primary);
+      font-size: 16px;
+    }
+
+    .hero-search input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .hero-search-btn {
+      background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-lg);
+      padding: 12px 28px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .hero-search-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
+    }
+
+    .hero-search-btn:active {
+      transform: translateY(0);
+    }
+
+    .hero-stats {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 32px;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .stat-divider {
+      width: 1px;
+      height: 40px;
+      background: var(--border-color);
+    }
+
+    /* =============================================
+       CATEGORY TABS
+    ============================================= */
+    .category-section {
+      padding: 0 0 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .category-tabs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .category-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category-tab {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-color);
+      transition: var(--transition-fast);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .category-tab:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .category-tab.active {
+      color: var(--neon-blue);
+      background: rgba(0, 212, 255, 0.1);
+      border-color: rgba(0, 212, 255, 0.3);
+      box-shadow: 0 0 15px rgba(0, 212, 255, 0.1);
+    }
+
+    .category-tab-icon {
+      font-size: 16px;
+    }
+
+    .category-count {
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 100px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+      margin-left: 2px;
+    }
+
+    .category-tab.active .category-count {
+      background: rgba(0, 212, 255, 0.15);
+      color: var(--neon-blue);
+    }
+
+    /* =============================================
+       TOOLS GRID
+    ============================================= */
+    .tools-section {
+      padding: 16px 0 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tools-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .tools-count-text {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .tools-count-text span {
+      color: var(--neon-blue);
+      font-weight: 600;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .tool-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      transition: var(--transition-med);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+      opacity: 0;
+      transition: var(--transition-fast);
+    }
+
+    .tool-card:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(0, 212, 255, 0.2);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 212, 255, 0.06);
+    }
+
+    .tool-card:hover::before {
+      opacity: 1;
+    }
+
+    .tool-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .tool-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      flex-shrink: 0;
+      transition: var(--transition-fast);
+    }
+
+    .tool-card:hover .tool-icon {
+      border-color: rgba(0, 212, 255, 0.2);
+      box-shadow: 0 0 15px rgba(0, 212, 255, 0.1);
+    }
+
+    .tool-tag {
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 100px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .tool-tag-chat { background: rgba(0, 212, 255, 0.1); color: var(--neon-blue); border: 1px solid rgba(0, 212, 255, 0.2); }
+    .tool-tag-image { background: rgba(168, 85, 247, 0.1); color: var(--neon-purple); border: 1px solid rgba(168, 85, 247, 0.2); }
+    .tool-tag-code { background: rgba(0, 255, 136, 0.1); color: var(--neon-green); border: 1px solid rgba(0, 255, 136, 0.2); }
+    .tool-tag-video { background: rgba(255, 140, 0, 0.1); color: var(--neon-orange); border: 1px solid rgba(255, 140, 0, 0.2); }
+    .tool-tag-audio { background: rgba(255, 204, 0, 0.1); color: var(--neon-yellow); border: 1px solid rgba(255, 204, 0, 0.2); }
+    .tool-tag-office { background: rgba(255, 0, 170, 0.1); color: var(--neon-pink); border: 1px solid rgba(255, 0, 170, 0.2); }
+    .tool-tag-other { background: rgba(148, 163, 184, 0.1); color: var(--text-secondary); border: 1px solid rgba(148, 163, 184, 0.2); }
+
+    .tool-info {
+      flex: 1;
+    }
+
+    .tool-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .tool-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 8px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .tool-domain {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .tool-domain-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .tool-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .tool-rating {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .tool-rating-icon {
+      color: #fbbf24;
+    }
+
+    .tool-visit-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      background: rgba(0, 212, 255, 0.08);
+      color: var(--neon-blue);
+      border: 1px solid rgba(0, 212, 255, 0.2);
+      transition: var(--transition-fast);
+      text-decoration: none;
+    }
+
+    .tool-visit-btn:hover {
+      background: rgba(0, 212, 255, 0.15);
+      border-color: rgba(0, 212, 255, 0.4);
+      box-shadow: 0 0 12px rgba(0, 212, 255, 0.15);
+      transform: translateX(2px);
+    }
+
+    .tool-card-extra {
+      display: none;
+      padding: 12px;
+      background: rgba(0, 212, 255, 0.05);
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(0, 212, 255, 0.1);
+      margin-top: 4px;
+    }
+
+    .tool-card:hover .tool-card-extra {
+      display: block;
+    }
+
+    .tool-card-extra p {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .tool-card-extra .extra-label {
+      font-size: 11px;
+      color: var(--neon-blue);
+      opacity: 0.7;
+      margin-bottom: 3px;
+    }
+
+    /* =============================================
+       EMPTY STATE
+    ============================================= */
+    .empty-state {
+      text-align: center;
+      padding: 80px 20px;
+      display: none;
+    }
+
+    .empty-state.visible {
+      display: block;
+    }
+
+    .empty-state-icon {
+      font-size: 64px;
+      margin-bottom: 20px;
+      opacity: 0.4;
+    }
+
+    .empty-state-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .empty-state-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    .footer {
+      border-top: 1px solid var(--border-color);
+      padding: 40px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-left {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .footer-disclaimer {
+      font-size: 12px;
+      color: var(--text-muted);
+      max-width: 400px;
+    }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .footer-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      transition: var(--transition-fast);
+    }
+
+    .footer-link:hover {
+      color: var(--neon-blue);
+    }
+
+    .footer-link-icon {
+      font-size: 16px;
+    }
+
+    .footer-divider {
+      width: 1px;
+      height: 16px;
+      background: var(--border-color);
+    }
+
+    .footer-copyright {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    /* =============================================
+       SCROLL TO TOP
+    ============================================= */
+    .scroll-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition-med);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      z-index: 50;
+      box-shadow: var(--shadow-card);
+    }
+
+    .scroll-top.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .scroll-top:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(0, 212, 255, 0.3);
+      color: var(--neon-blue);
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
+    }
+
+    /* =============================================
+       CARD ANIMATION
+    ============================================= */
+    .card-enter {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: card-enter 0.4s ease forwards;
+    }
+
+    @keyframes card-enter {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* =============================================
+       RESPONSIVE DESIGN
+    ============================================= */
+    @media (max-width: 1100px) {
+      .tools-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .tools-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-search {
+        width: 160px;
+      }
+
+      .hero {
+        padding: 60px 0 40px;
+      }
+
+      .hero-stats {
+        gap: 24px;
+      }
+
+      .stat-divider {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .tools-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .container {
+        padding: 0 16px;
+      }
+
+      .hero-search-wrapper {
+        flex-direction: column;
+        padding: 16px;
+        border-radius: var(--radius-lg);
+      }
+
+      .hero-search input {
+        text-align: center;
+        font-size: 15px;
+        padding: 8px 0;
+      }
+
+      .hero-search-btn {
+        width: 100%;
+        padding: 14px;
+      }
+
+      .hero-stats {
+        gap: 16px;
+      }
+
+      .stat-value {
+        font-size: 26px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .footer-right {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .scroll-top {
+        bottom: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+      }
+    }
+
+    /* =============================================
+       MOBILE NAV OVERLAY
+    ============================================= */
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 8px;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    .mobile-menu-btn span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text-secondary);
+      border-radius: 1px;
+      transition: var(--transition-fast);
+    }
+
+    @media (max-width: 900px) {
+      .mobile-menu-btn {
+        display: flex;
+      }
+
+      .nav-links.active {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: rgba(10, 10, 15, 0.98);
+        backdrop-filter: blur(20px);
+        padding: 16px;
+        border-bottom: 1px solid var(--border-color);
+        gap: 4px;
+        z-index: 99;
+      }
+
+      .nav-link {
+        width: 100%;
+        padding: 12px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <div class="navbar-inner">
+        <a href="#" class="logo">
+          <span class="logo-icon">⚡</span>
+          <div class="logo-text">
+            <span class="logo-name">QuickAPIs</span>
+            <span class="logo-tagline">AI工具导航</span>
+          </div>
+        </a>
+
+        <div class="nav-links" id="navLinks">
+          <button class="nav-link active" data-category="all">全部</button>
+          <button class="nav-link" data-category="chat">聊天AI</button>
+          <button class="nav-link" data-category="image">图像生成</button>
+          <button class="nav-link" data-category="code">代码助手</button>
+          <button class="nav-link" data-category="video">视频制作</button>
+          <button class="nav-link" data-category="audio">音频工具</button>
+          <button class="nav-link" data-category="office">办公效率</button>
+          <button class="nav-link" data-category="other">其他</button>
+        </div>
+
+        <div class="nav-search">
+          <span class="nav-search-icon">🔍</span>
+          <input type="text" id="navSearchInput" placeholder="搜索工具..." aria-label="搜索工具">
+        </div>
+
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="菜单">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        持续更新中 · 发现最新AI工具
+      </div>
+      <h1 class="hero-title">
+        <span class="hero-title-main">发现全球优质</span>
+        <span class="hero-title-accent">AI 工具</span>
+      </h1>
+      <p class="hero-subtitle">
+        收录 <span class="highlight">100+</span> 精选AI应用，覆盖
+        <span class="highlight">ChatGPT</span>、<span class="highlight">Midjourney</span>、
+        <span class="highlight">Claude</span>、<span class="highlight">Gemini</span> 等主流工具
+      </p>
+
+      <div class="hero-search">
+        <div class="hero-search-wrapper">
+          <span class="hero-search-icon">🔍</span>
+          <input
+            type="text"
+            id="heroSearchInput"
+            placeholder="搜索 AI 工具..."
+            aria-label="搜索AI工具"
+            autocomplete="off"
+          >
+          <button class="hero-search-btn" id="heroSearchBtn">搜索</button>
+        </div>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-value" id="statTools">24</div>
+          <div class="stat-label">收录工具</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-value">8</div>
+          <div class="stat-label">精选分类</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-value">每日</div>
+          <div class="stat-label">持续更新</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CATEGORY TABS ==================== -->
+  <section class="category-section">
+    <div class="container">
+      <div class="category-tabs" id="categoryTabs">
+        <button class="category-tab active" data-category="all">
+          <span class="category-tab-icon">🧭</span>
+          全部
+          <span class="category-count" id="count-all">24</span>
+        </button>
+        <button class="category-tab" data-category="chat">
+          <span class="category-tab-icon">💬</span>
+          聊天AI
+          <span class="category-count" id="count-chat">6</span>
+        </button>
+        <button class="category-tab" data-category="image">
+          <span class="category-tab-icon">🎨</span>
+          图像生成
+          <span class="category-count" id="count-image">4</span>
+        </button>
+        <button class="category-tab" data-category="code">
+          <span class="category-tab-icon">💻</span>
+          代码助手
+          <span class="category-count" id="count-code">3</span>
+        </button>
+        <button class="category-tab" data-category="video">
+          <span class="category-tab-icon">🎬</span>
+          视频制作
+          <span class="category-count" id="count-video">3</span>
+        </button>
+        <button class="category-tab" data-category="audio">
+          <span class="category-tab-icon">🎵</span>
+          音频工具
+          <span class="category-count" id="count-audio">2</span>
+        </button>
+        <button class="category-tab" data-category="office">
+          <span class="category-tab-icon">📊</span>
+          办公效率
+          <span class="category-count" id="count-office">3</span>
+        </button>
+        <button class="category-tab" data-category="other">
+          <span class="category-tab-icon">🔮</span>
+          其他
+          <span class="category-count" id="count-other">3</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TOOLS GRID ==================== -->
+  <section class="tools-section">
+    <div class="container">
+      <div class="tools-header">
+        <div class="tools-count-text">
+          共 <span id="visibleCount">24</span> 个工具
+        </div>
+      </div>
+
+      <div class="tools-grid" id="toolsGrid"></div>
+
+      <div class="empty-state" id="emptyState">
+        <div class="empty-state-icon">🔍</div>
+        <div class="empty-state-title">未找到相关工具</div>
+        <div class="empty-state-desc">换个关键词试试，或浏览其他分类</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <div class="footer-logo">⚡ QuickAPIs</div>
+          <p class="footer-disclaimer">
+            本网站仅提供工具导航服务，不参与任何工具的运营与开发。所有工具版权归其各自所有者所有。
+          </p>
+        </div>
+        <div class="footer-right">
+          <div class="footer-links">
+            <a href="mailto:submit@quickapis.top" class="footer-link">
+              <span class="footer-link-icon">📧</span>
+              提交工具
+            </a>
+            <div class="footer-divider"></div>
+            <a href="https://github.com/quickapis" class="footer-link" target="_blank" rel="noopener">
+              <span class="footer-link-icon">🐙</span>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        © 2026 QuickAPIs.top · 仅供导航学习，请合理使用AI工具
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== SCROLL TO TOP ==================== -->
+  <button class="scroll-top" id="scrollTopBtn" aria-label="回到顶部">↑</button>
+
+  <!-- ==================== JAVASCRIPT ==================== -->
+  <script>
+    // =============================================
+    // TOOLS DATA
+    // =============================================
+    const toolsData = [
+      // Chat AI
+      {
+        id: 1,
+        name: 'ChatGPT',
+        icon: '🤖',
+        category: 'chat',
+        categoryLabel: '聊天AI',
+        description: 'OpenAI 开发的对话式 AI，可进行自然语言对话、写作、编程和数据分析。',
+        domain: 'chat.openai.com',
+        url: 'https://chat.openai.com',
+        rating: 4.9,
+        tags: ['对话', '写作', '编程']
+      },
+      {
+        id: 2,
+        name: 'Claude',
+        icon: '🧠',
+        category: 'chat',
+        categoryLabel: '聊天AI',
+        description: 'Anthropic 推出的 AI 助手，以长文本分析和安全性著称，适合复杂推理任务。',
+        domain: 'claude.ai',
+        url: 'https://claude.ai',
+        rating: 4.9,
+        tags: ['对话', '推理', '安全']
+      },
+      {
+        id: 3,
+        name: 'Gemini',
+        icon: '✨',
+        category: 'chat',
+        categoryLabel: '聊天AI',
+        description: 'Google AI 双子座模型，集成 Google 搜索能力，支持多模态输入与实时信息。',
+        domain: 'gemini.google',
+        url: 'https://gemini.google.com',
+        rating: 4.7,
+        tags: ['对话', '多模态', '搜索']
+      },
+      {
+        id: 4,
+        name: '硅基流动',
+        icon: '⚡',
+        category: 'chat',
+        categoryLabel: '聊天AI',
+        description: '国产高性价比大模型 API 平台，支持多种开源模型调用，适合开发者集成。',
+        domain: 'siliconflow.cn',
+        url: 'https://siliconflow.cn',
+        rating: 4.5,
+        tags: ['API', '开源', '平价']
+      },
+      {
+        id: 5,
+        name: '智谱AI',
+        icon: '🔬',
+        category: 'chat',
+        categoryLabel: '聊天AI',
+        description: '清华智谱自研 GLM 系列大模型，支持中英双语，在中文理解上有突出表现。',
+        domain: 'zhipuai.cn',
+        url: 'https://zhipuai.cn',
+        rating: 4.6,
+        tags: ['对话', '中文', 'GLM']
+      },
+      {
+        id: 6,
+        name: '通义千问',
+        icon: '🌐',
+        category: 'chat',
+        categoryLabel: '聊天AI',
+        description: '阿里云自研大模型，擅长中文对话与内容创作，已开源多版本模型供研究使用。',
+        domain: 'tongyi.aliyun.com',
+        url: 'https://tongyi.aliyun.com',
+        rating: 4.5,
+        tags: ['对话', '开源', '阿里云']
+      },
+      // Image Generation
+      {
+        id: 7,
+        name: 'Midjourney',
+        icon: '🎨',
+        category: 'image',
+        categoryLabel: '图像生成',
+        description: 'AI 绘画神器，通过文字描述生成惊艳的图像作品，广泛用于设计、创意和艺术。',
+        domain: 'midjourney.com',
+        url: 'https://midjourney.com',
+        rating: 4.8,
+        tags: ['绘画', '创意', '设计']
+      },
+      {
+        id: 8,
+        name: 'Stable Diffusion',
+        icon: '🖼️',
+        category: 'image',
+        categoryLabel: '图像生成',
+        description: '开源图像生成模型，支持本地部署和自定义训练，生态丰富插件众多。',
+        domain: 'stability.ai',
+        url: 'https://stability.ai',
+        rating: 4.7,
+        tags: ['开源', '本地部署', '自定义']
+      },
+      {
+        id: 9,
+        name: 'Leonardo.ai',
+        icon: '🎮',
+        category: 'image',
+        categoryLabel: '图像生成',
+        description: '专注于游戏资产的 AI 生成平台，提供角色、道具、场景等素材的批量生成。',
+        domain: 'leonardo.ai',
+        url: 'https://leonardo.ai',
+        rating: 4.5,
+        tags: ['游戏', '素材', '批量']
+      },
+      {
+        id: 10,
+        name: '触手AI',
+        icon: '🖌️',
+        category: 'image',
+        categoryLabel: '图像生成',
+        description: '国产 AI 绘画平台，支持中文 Prompt，集成多种模型，适合国内用户使用。',
+        domain: 'chuanshou.com',
+        url: 'https://chuanshou.com',
+        rating: 4.4,
+        tags: ['中文', '绘画', '国产']
+      },
+      // Code Assistant
+      {
+        id: 11,
+        name: 'Copilot',
+        icon: '💻',
+        category: 'code',
+        categoryLabel: '代码助手',
+        description: 'GitHub 推出的 AI 代码助手，深度集成 VS Code，实时补全代码并提供建议。',
+        domain: 'github.com',
+        url: 'https://github.com/features/copilot',
+        rating: 4.8,
+        tags: ['补全', 'VS Code', 'GitHub']
+      },
+      {
+        id: 12,
+        name: 'Cursor',
+        icon: '📝',
+        category: 'code',
+        categoryLabel: '代码助手',
+        description: '专为 AI 时代打造的代码编辑器，基于 VS Code，内置 GPT-4/Claude 对话功能。',
+        domain: 'cursor.com',
+        url: 'https://cursor.com',
+        rating: 4.7,
+        tags: ['编辑器', '对话', 'AI原生']
+      },
+      {
+        id: 13,
+        name: 'Codeium',
+        icon: '⚡',
+        category: 'code',
+        categoryLabel: '代码助手',
+        description: '免费 AI 代码补全工具，支持 70+ 编程语言，无需注册即可使用基础功能。',
+        domain: 'codeium.com',
+        url: 'https://codeium.com',
+        rating: 4.5,
+        tags: ['免费', '补全', '多语言']
+      },
+      // Video
+      {
+        id: 14,
+        name: 'Sora',
+        icon: '🎬',
+        category: 'video',
+        categoryLabel: '视频制作',
+        description: 'OpenAI 推出的 AI 视频生成模型，可根据文字描述生成长达一分钟的高清视频。',
+        domain: 'sora.openai.com',
+        url: 'https://sora.openai.com',
+        rating: 4.8,
+        tags: ['视频生成', '文生视频', '高清']
+      },
+      {
+        id: 15,
+        name: 'Runway',
+        icon: '🎥',
+        category: 'video',
+        categoryLabel: '视频制作',
+        description: 'AI 视频创作平台，提供视频生成、编辑、特效等功能，被广泛应用于影视制作。',
+        domain: 'runwayml.com',
+        url: 'https://runwayml.com',
+        rating: 4.6,
+        tags: ['编辑', '特效', '创作']
+      },
+      {
+        id: 16,
+        name: 'Pika',
+        icon: '🚀',
+        category: 'video',
+        categoryLabel: '视频制作',
+        description: '新兴 AI 视频生成工具，操作简单，支持图片转视频和文本生成视频功能。',
+        domain: 'pika.art',
+        url: 'https://pika.art',
+        rating: 4.4,
+        tags: ['图生视频', '文生视频', '易用']
+      },
+      // Audio
+      {
+        id: 17,
+        name: 'ElevenLabs',
+        icon: '🎙️',
+        category: 'audio',
+        categoryLabel: '音频工具',
+        description: 'AI 语音合成平台，提供超逼真的多语言语音生成，支持克隆声音和情绪控制。',
+        domain: 'elevenlabs.io',
+        url: 'https://elevenlabs.io',
+        rating: 4.8,
+        tags: ['语音合成', '克隆', '多语言']
+      },
+      {
+        id: 18,
+        name: 'Stable Audio',
+        icon: '🎵',
+        category: 'audio',
+        categoryLabel: '音频工具',
+        description: 'Stability AI 推出的 AI 音乐生成工具，支持根据文字描述生成背景音乐和音效。',
+        domain: 'stability.ai',
+        url: 'https://stability.ai/audio',
+        rating: 4.5,
+        tags: ['音乐生成', '音效', '文生音']
+      },
+      // Office Efficiency
+      {
+        id: 19,
+        name: 'Gamma',
+        icon: '📊',
+        category: 'office',
+        categoryLabel: '办公效率',
+        description: 'AI 幻灯片生成工具，输入主题即可自动生成精美 PPT，支持在线编辑和协作。',
+        domain: 'gamma.app',
+        url: 'https://gamma.app',
+        rating: 4.6,
+        tags: ['PPT', '幻灯片', '协作']
+      },
+      {
+        id: 20,
+        name: 'Notion AI',
+        icon: '📒',
+        category: 'office',
+        categoryLabel: '办公效率',
+        description: 'Notion 内置的 AI 助手，支持智能写作、摘要生成、翻译和任务管理等功能。',
+        domain: 'notion.so',
+        url: 'https://notion.so',
+        rating: 4.7,
+        tags: ['笔记', '写作', '协作']
+      },
+      {
+        id: 21,
+        name: 'QuillBot',
+        icon: '✍️',
+        category: 'office',
+        categoryLabel: '办公效率',
+        description: 'AI 写作润色工具，提供改写、摘要、纠错、翻译等功能，助你提升英文写作质量。',
+        domain: 'quillbot.com',
+        url: 'https://quillbot.com',
+        rating: 4.6,
+        tags: ['润色', '改写', '翻译']
+      },
+      // Other
+      {
+        id: 22,
+        name: 'Perplexity',
+        icon: '🔍',
+        category: 'other',
+        categoryLabel: '其他',
+        description: 'AI 搜索引擎，结合大模型与实时网络信息，提供带来源引用的精确答案。',
+        domain: 'perplexity.ai',
+        url: 'https://perplexity.ai',
+        rating: 4.7,
+        tags: ['搜索', '引用', '实时']
+      },
+      {
+        id: 23,
+        name: 'D-ID',
+        icon: '👤',
+        category: 'other',
+        categoryLabel: '其他',
+        description: 'AI 数字人视频生成平台，可将照片转换为会说话的数字人头像，支持多语言。',
+        domain: 'd-id.com',
+        url: 'https://d-id.com',
+        rating: 4.4,
+        tags: ['数字人', '视频', '头像']
+      },
+      {
+        id: 24,
+        name: 'Photomath',
+        icon: '🔢',
+        category: 'other',
+        categoryLabel: '其他',
+        description: 'AI 数学解题助手，拍照即可获得详细解题步骤，覆盖小学到高等数学各阶段。',
+        domain: 'photomath.com',
+        url: 'https://photomath.com',
+        rating: 4.6,
+        tags: ['数学', '解题', '学习']
+      }
+    ];
+
+    // =============================================
+    // STATE
+    // =============================================
+    let currentCategory = 'all';
+    let currentSearch = '';
+    let isMobileMenuOpen = false;
+
+    // =============================================
+    // DOM ELEMENTS
+    // =============================================
+    const toolsGrid = document.getElementById('toolsGrid');
+    const emptyState = document.getElementById('emptyState');
+    const heroSearchInput = document.getElementById('heroSearchInput');
+    const heroSearchBtn = document.getElementById('heroSearchBtn');
+    const navSearchInput = document.getElementById('navSearchInput');
+    const categoryTabs = document.querySelectorAll('.category-tab');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const visibleCount = document.getElementById('visibleCount');
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    const navbar = document.getElementById('navbar');
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinksContainer = document.getElementById('navLinks');
+
+    // =============================================
+    // RENDER CARDS
+    // =============================================
+    function renderTools() {
+      let filtered = toolsData;
+
+      if (currentCategory !== 'all') {
+        filtered = filtered.filter(t => t.category === currentCategory);
+      }
+
+      if (currentSearch.trim() !== '') {
+        const q = currentSearch.toLowerCase().trim();
+        filtered = filtered.filter(t =>
+          t.name.toLowerCase().includes(q) ||
+          t.description.toLowerCase().includes(q) ||
+          t.categoryLabel.toLowerCase().includes(q) ||
+          t.tags.some(tag => tag.toLowerCase().includes(q)) ||
+          t.domain.toLowerCase().includes(q)
+        );
+      }
+
+      visibleCount.textContent = filtered.length;
+
+      if (filtered.length === 0) {
+        toolsGrid.innerHTML = '';
+        emptyState.classList.add('visible');
+        return;
+      }
+
+      emptyState.classList.remove('visible');
+
+      toolsGrid.innerHTML = filtered.map((tool, index) => `
+        <div class="tool-card card-enter" style="animation-delay: ${index * 40}ms" data-id="${tool.id}">
+          <div class="tool-card-top">
+            <div class="tool-icon">${tool.icon}</div>
+            <span class="tool-tag tool-tag-${tool.category}">${tool.categoryLabel}</span>
+          </div>
+          <div class="tool-info">
+            <h3 class="tool-name">${tool.name}</h3>
+            <p class="tool-desc">${tool.description}</p>
+            <div class="tool-domain">
+              <span class="tool-domain-dot"></span>
+              ${tool.domain}
+            </div>
+          </div>
+          <div class="tool-card-extra">
+            <p class="extra-label">标签</p>
+            <p>${tool.tags.join(' · ')}</p>
+          </div>
+          <div class="tool-footer">
+            <div class="tool-rating">
+              <span class="tool-rating-icon">★</span>
+              <span>${tool.rating}</span>
+              <span style="margin-left: 4px; opacity: 0.6;">(${Math.floor(Math.random() * 500 + 50)} 条评价)</span>
+            </div>
+            <a href="${tool.url}" target="_blank" rel="noopener" class="tool-visit-btn" onclick="event.stopPropagation()">
+              访问 <span>→</span>
+            </a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // =============================================
+    // CATEGORY FILTER
+    // =============================================
+    function setCategory(cat) {
+      currentCategory = cat;
+
+      categoryTabs.forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.category === cat);
+      });
+
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.dataset.category === cat);
+      });
+
+      renderTools();
+    }
+
+    categoryTabs.forEach(tab => {
+      tab.addEventListener('click', () => setCategory(tab.dataset.category));
+    });
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        setCategory(link.dataset.category);
+        navLinksContainer.classList.remove('active');
+        isMobileMenuOpen = false;
+      });
+    });
+
+    // =============================================
+    // SEARCH
+    // =============================================
+    heroSearchInput.addEventListener('input', () => {
+      currentSearch = heroSearchInput.value.trim();
+      navSearchInput.value = currentSearch;
+      renderTools();
+    });
+
+    heroSearchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        navSearchInput.value = heroSearchInput.value.trim();
+      }
+    });
+
+    heroSearchBtn.addEventListener('click', () => {
+      navSearchInput.value = heroSearchInput.value.trim();
+    });
+
+    navSearchInput.addEventListener('input', () => {
+      currentSearch = navSearchInput.value.trim();
+      heroSearchInput.value = currentSearch;
+      renderTools();
+    });
+
+    navSearchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        heroSearchInput.value = navSearchInput.value.trim();
+      }
+    });
+
+    // =============================================
+    // MOBILE MENU
+    // =============================================
+    mobileMenuBtn.addEventListener('click', () => {
+      isMobileMenuOpen = !isMobileMenuOpen;
+      navLinksContainer.classList.toggle('active', isMobileMenuOpen);
+    });
+
+    // =============================================
+    // SCROLL HANDLERS
+    // =============================================
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      navbar.classList.toggle('scrolled', scrollY > 10);
+      scrollTopBtn.classList.toggle('visible', scrollY > 400);
+    }, { passive: true });
+
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // =============================================
+    // UPDATE CATEGORY COUNTS
+    // =============================================
+    function updateCategoryCounts() {
+      const counts = { all: toolsData.length };
+      toolsData.forEach(t => {
+        counts[t.category] = (counts[t.category] || 0) + 1;
+      });
+      Object.keys(counts).forEach(cat => {
+        const el = document.getElementById('count-' + cat);
+        if (el) el.textContent = counts[cat];
+      });
+      document.getElementById('statTools').textContent = counts.all;
+    }
+
+    // =============================================
+    // INIT
+    // =============================================
+    updateCategoryCounts();
+    renderTools();
+  </script>
+
+</body>
+</html>
