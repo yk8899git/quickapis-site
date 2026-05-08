@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
@@ -20,25 +20,29 @@
     }
 
     :root {
-      --bg-primary: #050510;
-      --bg-secondary: #0a0a1e;
-      --bg-card: #0c0c24;
-      --bg-card-hover: #12123a;
-      --bg-glass: rgba(12, 12, 36, 0.7);
-      --neon-blue: #6eb6ff;
-      --neon-purple: #b48eff;
+      --bg-primary: #020206;
+      --bg-secondary: #060612;
+      --bg-card: rgba(8, 8, 24, 0.75);
+      --bg-card-hover: rgba(14, 14, 40, 0.85);
+      --bg-glass: rgba(8, 8, 24, 0.6);
+      --starlight: #8aa4f0;
+      --nebula-rose: #d4738a;
+      --nebula-teal: #5bb8c4;
+      --nebula-gold: #c4a55a;
+      --neon-blue: #8aa4f0;
+      --neon-purple: #a78bfa;
       --neon-green: #6ee7b7;
-      --neon-pink: #f0abfc;
-      --neon-orange: #fbbf24;
+      --neon-pink: #e8a0bf;
+      --neon-orange: #f0b866;
       --neon-yellow: #fde68a;
-      --text-primary: #e8e8f0;
-      --text-secondary: #8888aa;
-      --text-muted: #555570;
-      --border-color: rgba(130, 130, 200, 0.1);
-      --border-glow: rgba(110, 182, 255, 0.3);
+      --text-primary: #e0e0f0;
+      --text-secondary: #7878a0;
+      --text-muted: #4a4a6e;
+      --border-color: rgba(120, 120, 180, 0.08);
+      --border-glow: rgba(138, 164, 240, 0.25);
       --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.6);
-      --shadow-glow-blue: 0 0 20px rgba(110, 182, 255, 0.12);
-      --shadow-glow-purple: 0 0 20px rgba(180, 142, 255, 0.12);
+      --shadow-glow-blue: 0 0 20px rgba(138, 164, 240, 0.1);
+      --shadow-glow-purple: 0 0 20px rgba(167, 139, 250, 0.1);
       --radius-sm: 8px;
       --radius-md: 12px;
       --radius-lg: 16px;
@@ -81,7 +85,7 @@
     /* =============================================
        BACKGROUND EFFECTS
     ============================================= */
-    /* Milky Way nebula glow — under canvas */
+    /* Canvas handles the full space scene; this is just a subtle warm ambient underlay */
     body::before {
       content: '';
       position: fixed;
@@ -89,25 +93,12 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background:
-        /* Milky Way core band — diagonal from top-left to bottom-right */
-        radial-gradient(ellipse 120% 35% at 35% 30%, rgba(60, 50, 130, 0.22) 0%, transparent 60%),
-        radial-gradient(ellipse 80% 25% at 45% 45%, rgba(90, 60, 150, 0.18) 0%, transparent 55%),
-        /* Milky Way dust glow */
-        radial-gradient(ellipse 60% 18% at 40% 38%, rgba(140, 100, 200, 0.1) 0%, transparent 50%),
-        /* Nebula pockets */
-        radial-gradient(ellipse 50% 40% at 15% 15%, rgba(40, 60, 160, 0.2) 0%, transparent 50%),
-        radial-gradient(ellipse 40% 30% at 80% 25%, rgba(100, 40, 140, 0.15) 0%, transparent 50%),
-        radial-gradient(ellipse 35% 25% at 60% 70%, rgba(50, 80, 150, 0.12) 0%, transparent 45%),
-        radial-gradient(ellipse 30% 20% at 25% 65%, rgba(120, 50, 130, 0.1) 0%, transparent 40%),
-        /* Subtle warm nebula accent */
-        radial-gradient(ellipse 20% 15% at 50% 35%, rgba(180, 80, 100, 0.06) 0%, transparent 50%),
-        /* Deep space base */
-        radial-gradient(ellipse 100% 80% at 50% 50%, rgba(10, 10, 40, 0.3) 0%, transparent 70%);
+      background: radial-gradient(ellipse at 35% 35%, rgba(30, 20, 50, 0.15) 0%, transparent 50%);
       pointer-events: none;
       z-index: 0;
     }
 
+    /* Cinematic vignette — darkens edges, focuses the eye */
     body::after {
       content: '';
       position: fixed;
@@ -115,9 +106,9 @@
       left: 0;
       width: 100%;
       height: 100%;
+      background: radial-gradient(ellipse 70% 65% at 50% 45%, transparent 30%, rgba(0,0,0,0.45) 100%);
       pointer-events: none;
       z-index: 0;
-      background: none;
     }
 
     /* =============================================
@@ -138,16 +129,16 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(10, 10, 15, 0.8);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      background: rgba(5, 5, 15, 0.65);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       border-bottom: 1px solid var(--border-color);
       transition: var(--transition-med);
     }
 
     .navbar.scrolled {
-      background: rgba(10, 10, 15, 0.95);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      background: rgba(5, 5, 15, 0.88);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
     }
 
     .navbar-inner {
@@ -220,7 +211,7 @@
 
     .nav-link.active {
       color: var(--neon-blue);
-      background: rgba(110, 182, 255, 0.08);
+      background: rgba(138, 164, 240, 0.08);
     }
 
     .nav-link.active::after {
@@ -249,8 +240,8 @@
     }
 
     .nav-search:focus-within {
-      border-color: rgba(110, 182, 255, 0.4);
-      box-shadow: 0 0 0 3px rgba(110, 182, 255, 0.08);
+      border-color: rgba(138, 164, 240, 0.4);
+      box-shadow: 0 0 0 3px rgba(138, 164, 240, 0.08);
       background: rgba(255, 255, 255, 0.06);
     }
 
@@ -286,8 +277,8 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(110, 182, 255, 0.08);
-      border: 1px solid rgba(110, 182, 255, 0.2);
+      background: rgba(138, 164, 240, 0.08);
+      border: 1px solid rgba(138, 164, 240, 0.2);
       border-radius: 100px;
       padding: 6px 16px;
       font-size: 13px;
@@ -306,7 +297,7 @@
       height: 6px;
       background: var(--neon-blue);
       border-radius: 50%;
-      box-shadow: 0 0 8px var(--neon-blue), 0 0 16px rgba(110, 182, 255, 0.3);
+      box-shadow: 0 0 8px var(--neon-blue), 0 0 16px rgba(138, 164, 240, 0.3);
       animation: blink 2s ease-in-out infinite;
     }
 
@@ -378,8 +369,8 @@
     }
 
     .hero-search-wrapper:focus-within {
-      border-color: rgba(110, 182, 255, 0.5);
-      box-shadow: 0 0 0 4px rgba(110, 182, 255, 0.08), var(--shadow-card);
+      border-color: rgba(138, 164, 240, 0.5);
+      box-shadow: 0 0 0 4px rgba(138, 164, 240, 0.08), var(--shadow-card);
     }
 
     .hero-search-icon {
@@ -505,9 +496,9 @@
 
     .category-tab.active {
       color: var(--neon-blue);
-      background: rgba(110, 182, 255, 0.1);
-      border-color: rgba(110, 182, 255, 0.3);
-      box-shadow: 0 0 15px rgba(110, 182, 255, 0.1);
+      background: rgba(138, 164, 240, 0.1);
+      border-color: rgba(138, 164, 240, 0.3);
+      box-shadow: 0 0 15px rgba(138, 164, 240, 0.1);
     }
 
     .category-tab-icon {
@@ -524,7 +515,7 @@
     }
 
     .category-tab.active .category-count {
-      background: rgba(110, 182, 255, 0.15);
+      background: rgba(138, 164, 240, 0.15);
       color: var(--neon-blue);
     }
 
@@ -572,8 +563,8 @@
       display: flex;
       flex-direction: column;
       gap: 14px;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
 
     .tool-card::before {
@@ -590,9 +581,9 @@
 
     .tool-card:hover {
       background: var(--bg-card-hover);
-      border-color: rgba(110, 182, 255, 0.25);
+      border-color: rgba(138, 164, 240, 0.25);
       transform: translateY(-4px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 25px rgba(110, 182, 255, 0.08);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 25px rgba(138, 164, 240, 0.08);
     }
 
     .tool-card:hover::before {
@@ -620,8 +611,8 @@
     }
 
     .tool-card:hover .tool-icon {
-      border-color: rgba(110, 182, 255, 0.25);
-      box-shadow: 0 0 15px rgba(110, 182, 255, 0.1);
+      border-color: rgba(138, 164, 240, 0.25);
+      box-shadow: 0 0 15px rgba(138, 164, 240, 0.1);
     }
 
     .tool-tag {
@@ -632,7 +623,7 @@
       white-space: nowrap;
     }
 
-    .tool-tag-chat { background: rgba(110, 182, 255, 0.1); color: var(--neon-blue); border: 1px solid rgba(110, 182, 255, 0.2); }
+    .tool-tag-chat { background: rgba(138, 164, 240, 0.1); color: var(--neon-blue); border: 1px solid rgba(138, 164, 240, 0.2); }
     .tool-tag-image { background: rgba(180, 142, 255, 0.1); color: var(--neon-purple); border: 1px solid rgba(180, 142, 255, 0.2); }
     .tool-tag-code { background: rgba(110, 231, 183, 0.1); color: var(--neon-green); border: 1px solid rgba(110, 231, 183, 0.2); }
     .tool-tag-video { background: rgba(251, 191, 36, 0.1); color: var(--neon-orange); border: 1px solid rgba(251, 191, 36, 0.2); }
@@ -707,17 +698,17 @@
       border-radius: var(--radius-sm);
       font-size: 13px;
       font-weight: 600;
-      background: rgba(110, 182, 255, 0.08);
+      background: rgba(138, 164, 240, 0.08);
       color: var(--neon-blue);
-      border: 1px solid rgba(110, 182, 255, 0.2);
+      border: 1px solid rgba(138, 164, 240, 0.2);
       transition: var(--transition-fast);
       text-decoration: none;
     }
 
     .tool-visit-btn:hover {
-      background: rgba(110, 182, 255, 0.15);
-      border-color: rgba(110, 182, 255, 0.4);
-      box-shadow: 0 0 12px rgba(110, 182, 255, 0.15);
+      background: rgba(138, 164, 240, 0.15);
+      border-color: rgba(138, 164, 240, 0.4);
+      box-shadow: 0 0 12px rgba(138, 164, 240, 0.15);
       transform: translateX(2px);
     }
 
@@ -898,9 +889,9 @@
 
     .scroll-top:hover {
       background: var(--bg-card-hover);
-      border-color: rgba(110, 182, 255, 0.3);
+      border-color: rgba(138, 164, 240, 0.3);
       color: var(--neon-blue);
-      box-shadow: 0 0 20px rgba(110, 182, 255, 0.12);
+      box-shadow: 0 0 20px rgba(138, 164, 240, 0.12);
     }
 
     /* =============================================
@@ -1073,7 +1064,7 @@
     <div class="container">
       <div class="navbar-inner">
         <a href="#" class="logo">
-          <span class="logo-icon">⚡</span>
+          <span class="logo-icon">?</span>
           <div class="logo-text">
             <span class="logo-name">QuickAPIs</span>
             <span class="logo-tagline">AI工具导航</span>
@@ -1094,7 +1085,7 @@
         </div>
 
         <div class="nav-search">
-          <span class="nav-search-icon">🔍</span>
+          <span class="nav-search-icon">??</span>
           <input type="text" id="navSearchInput" placeholder="搜索工具..." aria-label="搜索工具">
         </div>
 
@@ -1126,7 +1117,7 @@
 
       <div class="hero-search">
         <div class="hero-search-wrapper">
-          <span class="hero-search-icon">🔍</span>
+          <span class="hero-search-icon">??</span>
           <input
             type="text"
             id="heroSearchInput"
@@ -1162,42 +1153,42 @@
     <div class="container">
       <div class="category-tabs" id="categoryTabs">
         <button class="category-tab active" data-category="all">
-          <span class="category-tab-icon">🧭</span>
+          <span class="category-tab-icon">??</span>
           全部
           <span class="category-count" id="count-all">24</span>
         </button>
         <button class="category-tab" data-category="chat">
-          <span class="category-tab-icon">💬</span>
+          <span class="category-tab-icon">??</span>
           聊天AI
           <span class="category-count" id="count-chat">6</span>
         </button>
         <button class="category-tab" data-category="image">
-          <span class="category-tab-icon">🎨</span>
+          <span class="category-tab-icon">??</span>
           图像生成
           <span class="category-count" id="count-image">4</span>
         </button>
         <button class="category-tab" data-category="code">
-          <span class="category-tab-icon">💻</span>
+          <span class="category-tab-icon">??</span>
           代码助手
           <span class="category-count" id="count-code">3</span>
         </button>
         <button class="category-tab" data-category="video">
-          <span class="category-tab-icon">🎬</span>
+          <span class="category-tab-icon">??</span>
           视频制作
           <span class="category-count" id="count-video">3</span>
         </button>
         <button class="category-tab" data-category="audio">
-          <span class="category-tab-icon">🎵</span>
+          <span class="category-tab-icon">??</span>
           音频工具
           <span class="category-count" id="count-audio">2</span>
         </button>
         <button class="category-tab" data-category="office">
-          <span class="category-tab-icon">📊</span>
+          <span class="category-tab-icon">??</span>
           办公效率
           <span class="category-count" id="count-office">3</span>
         </button>
         <button class="category-tab" data-category="other">
-          <span class="category-tab-icon">🔮</span>
+          <span class="category-tab-icon">??</span>
           其他
           <span class="category-count" id="count-other">3</span>
         </button>
@@ -1217,7 +1208,7 @@
       <div class="tools-grid" id="toolsGrid"></div>
 
       <div class="empty-state" id="emptyState">
-        <div class="empty-state-icon">🔍</div>
+        <div class="empty-state-icon">??</div>
         <div class="empty-state-title">未找到相关工具</div>
         <div class="empty-state-desc">换个关键词试试，或浏览其他分类</div>
       </div>
@@ -1229,7 +1220,7 @@
     <div class="container">
       <div class="footer-inner">
         <div class="footer-left">
-          <div class="footer-logo">⚡ QuickAPIs</div>
+          <div class="footer-logo">? QuickAPIs</div>
           <p class="footer-disclaimer">
             本网站仅提供工具导航服务，不参与任何工具的运营与开发。所有工具版权归其各自所有者所有。
           </p>
@@ -1237,19 +1228,19 @@
         <div class="footer-right">
           <div class="footer-links">
             <a href="mailto:submit@quickapis.top" class="footer-link">
-              <span class="footer-link-icon">📧</span>
+              <span class="footer-link-icon">??</span>
               提交工具
             </a>
             <div class="footer-divider"></div>
             <a href="https://github.com/quickapis" class="footer-link" target="_blank" rel="noopener">
-              <span class="footer-link-icon">🐙</span>
+              <span class="footer-link-icon">??</span>
               GitHub
             </a>
           </div>
         </div>
       </div>
       <div class="footer-copyright">
-        © 2026 QuickAPIs.top · 仅供导航学习，请合理使用AI工具
+        ? 2026 QuickAPIs.top · 仅供导航学习，请合理使用AI工具
       </div>
     </div>
           <a href="about.html" class="footer-link">关于我们</a>
@@ -1266,287 +1257,389 @@
   <!-- ==================== JAVASCRIPT ==================== -->
   <script>
     // =============================================
-    // MILKY WAY STARFIELD — 8K Deep Space
+    // DEEP SPACE STARFIELD - Drifting Through the Cosmos
     // =============================================
     (function() {
-      /* Two-layer canvas system:
-         Layer 1 (static): Pre-rendered once — Milky Way band, dense star field, nebula glow, bright star diffraction
-         Layer 2 (dynamic): Animated every frame — twinkling stars, shooting stars */
-      const staticCvs = document.createElement('canvas');
-      staticCvs.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;';
-      const dynamicCvs = document.createElement('canvas');
-      dynamicCvs.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;';
-      document.body.prepend(dynamicCvs);
-      document.body.prepend(staticCvs);
+      /**
+       * Architecture:
+       * - Offscreen canvas (1.8x 脳 1.5x viewport): Rendered once with Milky Way, nebulae, stars
+       * - Display canvas (viewport): Draws offscreen with sin/cos offset 鈫?slow drift
+       * - Dynamic canvas (viewport): Twinkling + shooting stars, animated per frame
+       * The sin/cos drift creates an organic "floating through space" feel.
+       */
 
-      const sCtx = staticCvs.getContext('2d');
-      const dCtx = dynamicCvs.getContext('2d');
-      let w, h;
+      const offscreen = document.createElement('canvas');
+      const display = document.createElement('canvas');
+      const dynamic = document.createElement('canvas');
+
+      [display, dynamic].forEach(c => {
+        c.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;';
+      });
+      document.body.prepend(dynamic);
+      document.body.prepend(display);
+
+      const oCtx = offscreen.getContext('2d');
+      const dCtx = display.getContext('2d');
+      const dyCtx = dynamic.getContext('2d');
+
+      let vw, vh, ow, oh;
       let twinkleStars = [];
       let shootingStars = [];
 
-      /* Realistic stellar color palette by spectral type */
-      const starColors = [
-        { r: 155, g: 175, b: 255 },  // O-type blue
-        { r: 170, g: 190, b: 255 },  // B-type blue-white
-        { r: 200, g: 215, b: 255 },  // A-type white-blue
-        { r: 240, g: 240, b: 255 },  // F-type white
-        { r: 255, g: 250, b: 235 },  // G-type (Sun-like)
-        { r: 255, g: 225, b: 175 },  // K-type orange
-        { r: 255, g: 195, b: 145 },  // M-type red-orange
+      /* Stellar spectral colors 鈥?realistic temperature-based palette */
+      const STAR_COLORS = [
+        { r: 155, g: 175, b: 255 },   // O 鈥?hot blue
+        { r: 170, g: 195, b: 255 },   // B 鈥?blue-white
+        { r: 205, g: 218, b: 255 },   // A 鈥?white-blue
+        { r: 245, g: 242, b: 255 },   // F 鈥?white
+        { r: 255, g: 248, b: 230 },   // G 鈥?sun-like yellow-white
+        { r: 255, g: 222, b: 170 },   // K 鈥?orange
+        { r: 255, g: 190, b: 140 },   // M 鈥?red-orange
       ];
 
-      function pickColor() {
-        const weights = [0.1, 0.15, 0.25, 0.22, 0.14, 0.08, 0.06];
+      function pickColor(bias) {
+        // bias: 'warm' | 'cool' | 'any'
+        let weights;
+        if (bias === 'warm') weights = [0.03, 0.05, 0.10, 0.20, 0.25, 0.20, 0.17];
+        else if (bias === 'cool') weights = [0.25, 0.30, 0.25, 0.12, 0.05, 0.02, 0.01];
+        else weights = [0.08, 0.14, 0.22, 0.24, 0.16, 0.10, 0.06];
         let r = Math.random(), sum = 0;
         for (let i = 0; i < weights.length; i++) {
           sum += weights[i];
-          if (r < sum) return starColors[i];
+          if (r < sum) return STAR_COLORS[i];
         }
-        return starColors[3];
+        return STAR_COLORS[3];
       }
 
-      /* ---- Render static layer (runs once) ---- */
-      function renderStatic() {
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        staticCvs.width = w * dpr;
-        staticCvs.height = h * dpr;
-        staticCvs.style.width = w + 'px';
-        staticCvs.style.height = h + 'px';
-        sCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      /* ============================================
+         RENDER OFFSCREEN 鈥?the full space scene
+         ============================================ */
+      function renderSpace() {
+        ow = Math.max(vw * 1.8, 2800);
+        oh = Math.max(vh * 1.5, 1600);
+        offscreen.width = ow;
+        offscreen.height = oh;
 
-        // Deep space base
-        sCtx.fillStyle = '#030310';
-        sCtx.fillRect(0, 0, w, h);
+        // Deep black void
+        oCtx.fillStyle = '#020208';
+        oCtx.fillRect(0, 0, ow, oh);
 
-        // === MILKY WAY BAND ===
-        // Dense diagonal band from upper-left to lower-right with gentle curve
-        const bandCenterY = (x) => {
-          const t = x / w;
-          return h * (0.22 + t * 0.28 + Math.sin(t * Math.PI * 0.8) * 0.05);
+        // ---- MILKY WAY BAND ----
+        // A bright, warm-core galactic band curving across the canvas
+        // Band center path: diagonal arc from upper-left to lower-right
+        const bandY = (x) => {
+          const t = x / ow;
+          return oh * (0.20 + t * 0.35 + Math.sin(t * Math.PI * 0.7) * 0.06);
         };
-        const bandWidth = h * 0.25;
+        const bandH = oh * 0.28;
 
-        // Milky Way diffuse glow — column-by-column gradient
-        sCtx.save();
-        sCtx.globalCompositeOperation = 'screen';
-        for (let x = 0; x < w; x += 2) {
-          const cy = bandCenterY(x);
-          const grad = sCtx.createLinearGradient(x, cy - bandWidth, x, cy + bandWidth);
-          grad.addColorStop(0, 'rgba(0,0,0,0)');
-          grad.addColorStop(0.2, 'rgba(25,20,65,0.01)');
-          grad.addColorStop(0.35, 'rgba(40,35,100,0.025)');
-          grad.addColorStop(0.45, 'rgba(55,45,120,0.04)');
-          grad.addColorStop(0.5, 'rgba(65,50,135,0.05)'); // Core brightest
-          grad.addColorStop(0.55, 'rgba(55,45,120,0.04)');
-          grad.addColorStop(0.65, 'rgba(40,35,100,0.025)');
-          grad.addColorStop(0.8, 'rgba(25,20,65,0.01)');
-          grad.addColorStop(1, 'rgba(0,0,0,0)');
-          sCtx.fillStyle = grad;
-          sCtx.fillRect(x, cy - bandWidth, 2, bandWidth * 2);
+        // Step 1: Wide diffuse glow 鈥?the galactic light
+        oCtx.save();
+        oCtx.globalCompositeOperation = 'screen';
+        for (let x = 0; x < ow; x += 3) {
+          const cy = bandY(x);
+          const grad = oCtx.createLinearGradient(x, cy - bandH, x, cy + bandH);
+          grad.addColorStop(0,    'rgba(0,0,0,0)');
+          grad.addColorStop(0.15, 'rgba(20,15,45,0.01)');
+          grad.addColorStop(0.30, 'rgba(45,30,80,0.025)');
+          grad.addColorStop(0.40, 'rgba(70,45,100,0.045)');
+          grad.addColorStop(0.48, 'rgba(100,70,110,0.065)');  // warm purple core
+          grad.addColorStop(0.52, 'rgba(120,85,95,0.07)');    // warm rose-amber core
+          grad.addColorStop(0.60, 'rgba(70,45,100,0.045)');
+          grad.addColorStop(0.70, 'rgba(45,30,80,0.025)');
+          grad.addColorStop(0.85, 'rgba(20,15,45,0.01)');
+          grad.addColorStop(1,    'rgba(0,0,0,0)');
+          oCtx.fillStyle = grad;
+          oCtx.fillRect(x, cy - bandH, 3, bandH * 2);
         }
-        sCtx.restore();
+        oCtx.restore();
 
-        // === LAYER 1: Ultra-fine background stars (thousands of tiny dots) ===
-        const bgCount = Math.floor((w * h) / 900);
-        for (let i = 0; i < bgCount; i++) {
-          const x = Math.random() * w;
-          const y = Math.random() * h;
-          const r = Math.random() * 0.6 + 0.08;
-          const alpha = Math.random() * 0.4 + 0.08;
-          const c = pickColor();
-          sCtx.fillStyle = `rgba(${c.r},${c.g},${c.b},${alpha})`;
-          sCtx.beginPath();
-          sCtx.arc(x, y, r, 0, Math.PI * 2);
-          sCtx.fill();
+        // Step 2: Bright galactic core 鈥?warm amber glow at the densest point
+        oCtx.save();
+        oCtx.globalCompositeOperation = 'screen';
+        const coreX = ow * 0.42, coreY = bandY(ow * 0.42);
+        const coreGrad = oCtx.createRadialGradient(coreX, coreY, 0, coreX, coreY, bandH * 1.2);
+        coreGrad.addColorStop(0,   'rgba(180,140,90,0.08)');
+        coreGrad.addColorStop(0.2, 'rgba(140,100,70,0.05)');
+        coreGrad.addColorStop(0.5, 'rgba(80,50,60,0.025)');
+        coreGrad.addColorStop(1,   'rgba(0,0,0,0)');
+        oCtx.fillStyle = coreGrad;
+        oCtx.beginPath();
+        oCtx.ellipse(coreX, coreY, bandH * 1.2, bandH * 0.7, 0, 0, Math.PI * 2);
+        oCtx.fill();
+        oCtx.restore();
+
+        // Step 3: Dust lanes 鈥?dark semi-transparent strips within the band
+        oCtx.save();
+        for (let i = 0; i < 5; i++) {
+          const dustX = ow * (0.15 + Math.random() * 0.7);
+          const cy = bandY(dustX);
+          const dustW = Math.random() * 300 + 100;
+          const dustH = Math.random() * 6 + 2;
+          const dustAngle = (Math.random() - 0.5) * 0.3;
+          oCtx.translate(dustX, cy + (Math.random() - 0.5) * bandH * 0.4);
+          oCtx.rotate(dustAngle);
+          oCtx.fillStyle = `rgba(2,2,8,${Math.random() * 0.15 + 0.08})`;
+          oCtx.fillRect(-dustW / 2, -dustH / 2, dustW, dustH);
+          oCtx.setTransform(1, 0, 0, 1, 0, 0);
         }
+        oCtx.restore();
 
-        // === LAYER 2: Milky Way dense star concentration ===
-        const mwCount = Math.floor((w * h) / 350);
-        for (let i = 0; i < mwCount; i++) {
-          const x = Math.random() * w;
-          const cy = bandCenterY(x);
-          // Gaussian-ish distribution (sum of 3 randoms)
-          const spread = (Math.random() + Math.random() + Math.random() - 1.5) / 1.5;
-          const y = cy + spread * bandWidth * 0.85;
-          const distFromCenter = Math.abs(y - cy) / bandWidth;
-          const density = Math.exp(-distFromCenter * distFromCenter * 2.5);
-
-          if (Math.random() > density * 0.85 + 0.15) continue;
-
-          const r = Math.random() * 0.9 + 0.12;
-          const alpha = (Math.random() * 0.55 + 0.15) * (1 - distFromCenter * 0.4);
-          const c = pickColor();
-          sCtx.fillStyle = `rgba(${c.r},${c.g},${c.b},${alpha})`;
-          sCtx.beginPath();
-          sCtx.arc(x, y, r, 0, Math.PI * 2);
-          sCtx.fill();
-        }
-
-        // === LAYER 3: Medium stars with glow halos ===
-        const medCount = Math.floor((w * h) / 6000);
-        for (let i = 0; i < medCount; i++) {
-          const x = Math.random() * w;
-          const y = Math.random() * h;
-          const r = Math.random() * 1.4 + 0.6;
-          const alpha = Math.random() * 0.5 + 0.4;
-          const c = pickColor();
-          sCtx.fillStyle = `rgba(${c.r},${c.g},${c.b},${alpha})`;
-          sCtx.beginPath();
-          sCtx.arc(x, y, r, 0, Math.PI * 2);
-          sCtx.fill();
-          // Glow halo
-          const haloR = r * 4;
-          const grad = sCtx.createRadialGradient(x, y, r * 0.3, x, y, haloR);
-          grad.addColorStop(0, `rgba(${c.r},${c.g},${c.b},${alpha * 0.2})`);
-          grad.addColorStop(1, 'rgba(0,0,0,0)');
-          sCtx.fillStyle = grad;
-          sCtx.beginPath();
-          sCtx.arc(x, y, haloR, 0, Math.PI * 2);
-          sCtx.fill();
-        }
-
-        // === LAYER 4: Bright stars with diffraction spikes ===
-        const brightCount = Math.max(3, Math.floor(w * h / 30000));
-        for (let i = 0; i < brightCount; i++) {
-          const x = Math.random() * w;
-          const y = Math.random() * h;
-          const r = Math.random() * 1.8 + 1.2;
-          const alpha = Math.random() * 0.3 + 0.7;
-          const c = pickColor();
-
-          // Core dot
-          sCtx.fillStyle = `rgba(${c.r},${c.g},${c.b},${alpha})`;
-          sCtx.beginPath();
-          sCtx.arc(x, y, r, 0, Math.PI * 2);
-          sCtx.fill();
-
-          // Wide glow
-          const glowR = r * 10;
-          const grad = sCtx.createRadialGradient(x, y, r, x, y, glowR);
-          grad.addColorStop(0, `rgba(${c.r},${c.g},${c.b},${alpha * 0.25})`);
-          grad.addColorStop(0.3, `rgba(${c.r},${c.g},${c.b},${alpha * 0.06})`);
-          grad.addColorStop(1, 'rgba(0,0,0,0)');
-          sCtx.fillStyle = grad;
-          sCtx.beginPath();
-          sCtx.arc(x, y, glowR, 0, Math.PI * 2);
-          sCtx.fill();
-
-          // Diffraction spikes (4-point cross)
-          const spikeLen = r * 15;
-          const spikeAlpha = alpha * 0.18;
-          sCtx.save();
-          sCtx.strokeStyle = `rgba(${c.r},${c.g},${c.b},${spikeAlpha})`;
-          sCtx.lineWidth = 0.7;
-          // Main cross
-          sCtx.beginPath();
-          sCtx.moveTo(x - spikeLen, y); sCtx.lineTo(x + spikeLen, y);
-          sCtx.moveTo(x, y - spikeLen); sCtx.lineTo(x, y + spikeLen);
-          sCtx.stroke();
-          // 45-degree cross (fainter)
-          const diagLen = spikeLen * 0.5;
-          sCtx.strokeStyle = `rgba(${c.r},${c.g},${c.b},${spikeAlpha * 0.4})`;
-          sCtx.beginPath();
-          sCtx.moveTo(x - diagLen * 0.707, y - diagLen * 0.707);
-          sCtx.lineTo(x + diagLen * 0.707, y + diagLen * 0.707);
-          sCtx.moveTo(x + diagLen * 0.707, y - diagLen * 0.707);
-          sCtx.lineTo(x - diagLen * 0.707, y + diagLen * 0.707);
-          sCtx.stroke();
-          sCtx.restore();
-        }
-
-        // === NEBULA CLOUDS (painted on top with 'screen' blend) ===
-        sCtx.save();
-        sCtx.globalCompositeOperation = 'screen';
+        // ---- NEBULAE 鈥?colorful gas clouds ----
+        oCtx.save();
+        oCtx.globalCompositeOperation = 'screen';
         const nebulae = [
-          // In Milky Way band
-          { x: w * 0.32, y: h * 0.24, rx: 200, ry: 130, color: [70, 45, 150], a: 0.04 },
-          { x: w * 0.50, y: h * 0.38, rx: 280, ry: 160, color: [90, 55, 165], a: 0.055 },
-          { x: w * 0.68, y: h * 0.42, rx: 180, ry: 110, color: [55, 75, 175], a: 0.04 },
-          // Scattered around
-          { x: w * 0.15, y: h * 0.50, rx: 150, ry: 90, color: [110, 45, 135], a: 0.03 },
-          { x: w * 0.82, y: h * 0.55, rx: 140, ry: 85, color: [45, 65, 155], a: 0.025 },
-          // Rosette-like warm accent
-          { x: w * 0.48, y: h * 0.32, rx: 120, ry: 80, color: [155, 65, 90], a: 0.025 },
-          // Faint outer glow
-          { x: w * 0.60, y: h * 0.25, rx: 350, ry: 200, color: [40, 35, 100], a: 0.02 },
+          // In the Milky Way band
+          { x: ow * 0.28, y: bandY(ow * 0.28) - oh * 0.02, rx: 220, ry: 140, c: [160, 70, 95],  a: 0.05 },   // Rosette 鈥?rose
+          { x: ow * 0.38, y: bandY(ow * 0.38) + oh * 0.01, rx: 300, ry: 180, c: [130, 90, 60],  a: 0.06 },   // Warm amber
+          { x: ow * 0.52, y: bandY(ow * 0.52),              rx: 260, ry: 160, c: [80, 60, 140],   a: 0.05 },   // Purple
+          { x: ow * 0.65, y: bandY(ow * 0.65) - oh * 0.03, rx: 200, ry: 130, c: [60, 120, 160],  a: 0.04 },   // Teal
+          // Scattered around the sky
+          { x: ow * 0.12, y: oh * 0.55,                     rx: 170, ry: 100, c: [140, 55, 120],  a: 0.03 },   // Magenta
+          { x: ow * 0.85, y: oh * 0.25,                     rx: 180, ry: 110, c: [50, 100, 170],  a: 0.035 },  // Deep blue
+          { x: ow * 0.72, y: oh * 0.70,                     rx: 150, ry: 90,  c: [170, 100, 60],  a: 0.025 },  // Orange
+          { x: ow * 0.90, y: oh * 0.65,                     rx: 130, ry: 80,  c: [70, 140, 130],  a: 0.02 },   // Cyan-teal
         ];
         for (const n of nebulae) {
           const maxR = Math.max(n.rx, n.ry);
-          const grad = sCtx.createRadialGradient(n.x, n.y, 0, n.x, n.y, maxR);
-          grad.addColorStop(0, `rgba(${n.color[0]},${n.color[1]},${n.color[2]},${n.a})`);
-          grad.addColorStop(0.4, `rgba(${n.color[0]},${n.color[1]},${n.color[2]},${n.a * 0.45})`);
-          grad.addColorStop(1, 'rgba(0,0,0,0)');
-          sCtx.fillStyle = grad;
-          sCtx.beginPath();
-          sCtx.ellipse(n.x, n.y, n.rx, n.ry, 0, 0, Math.PI * 2);
-          sCtx.fill();
+          const ng = oCtx.createRadialGradient(n.x, n.y, 0, n.x, n.y, maxR);
+          ng.addColorStop(0,   `rgba(${n.c[0]},${n.c[1]},${n.c[2]},${n.a})`);
+          ng.addColorStop(0.3, `rgba(${n.c[0]},${n.c[1]},${n.c[2]},${n.a * 0.5})`);
+          ng.addColorStop(0.7, `rgba(${n.c[0]},${n.c[1]},${n.c[2]},${n.a * 0.15})`);
+          ng.addColorStop(1,   'rgba(0,0,0,0)');
+          oCtx.fillStyle = ng;
+          oCtx.beginPath();
+          oCtx.ellipse(n.x, n.y, n.rx, n.ry, 0, 0, Math.PI * 2);
+          oCtx.fill();
         }
-        sCtx.restore();
+        oCtx.restore();
+
+        // ---- STARS 鈥?5 layers from faint to brilliant ----
+
+        // Layer 1: Ultra-faint background dust (thousands of pinpoints)
+        const l1 = Math.floor(ow * oh / 600);
+        for (let i = 0; i < l1; i++) {
+          const x = Math.random() * ow, y = Math.random() * oh;
+          const c = pickColor('cool');
+          oCtx.fillStyle = `rgba(${c.r},${c.g},${c.b},${Math.random() * 0.3 + 0.05})`;
+          oCtx.beginPath();
+          oCtx.arc(x, y, Math.random() * 0.5 + 0.06, 0, Math.PI * 2);
+          oCtx.fill();
+        }
+
+        // Layer 2: Milky Way concentration (Gaussian distribution in the band)
+        const l2 = Math.floor(ow * oh / 200);
+        for (let i = 0; i < l2; i++) {
+          const x = Math.random() * ow;
+          const cy = bandY(x);
+          const spread = (Math.random() + Math.random() + Math.random() - 1.5) / 1.5;
+          const y = cy + spread * bandH * 0.8;
+          const dist = Math.abs(y - cy) / bandH;
+          if (Math.random() > Math.exp(-dist * dist * 2) * 0.8 + 0.2) continue;
+          // More warm stars in the Milky Way core
+          const c = pickColor(dist < 0.3 ? 'warm' : 'any');
+          const a = (Math.random() * 0.5 + 0.15) * (1 - dist * 0.4);
+          oCtx.fillStyle = `rgba(${c.r},${c.g},${c.b},${a})`;
+          oCtx.beginPath();
+          oCtx.arc(x, y, Math.random() * 0.8 + 0.1, 0, Math.PI * 2);
+          oCtx.fill();
+        }
+
+        // Layer 3: Scattered medium stars with halos
+        const l3 = Math.floor(ow * oh / 5000);
+        for (let i = 0; i < l3; i++) {
+          const x = Math.random() * ow, y = Math.random() * oh;
+          const r = Math.random() * 1.3 + 0.5;
+          const a = Math.random() * 0.5 + 0.4;
+          const c = pickColor('any');
+          oCtx.fillStyle = `rgba(${c.r},${c.g},${c.b},${a})`;
+          oCtx.beginPath();
+          oCtx.arc(x, y, r, 0, Math.PI * 2);
+          oCtx.fill();
+          // Halo
+          const hg = oCtx.createRadialGradient(x, y, r * 0.3, x, y, r * 4);
+          hg.addColorStop(0, `rgba(${c.r},${c.g},${c.b},${a * 0.18})`);
+          hg.addColorStop(1, 'rgba(0,0,0,0)');
+          oCtx.fillStyle = hg;
+          oCtx.beginPath();
+          oCtx.arc(x, y, r * 4, 0, Math.PI * 2);
+          oCtx.fill();
+        }
+
+        // Layer 4: Bright stars with wide glow
+        const l4 = Math.max(4, Math.floor(ow * oh / 20000));
+        for (let i = 0; i < l4; i++) {
+          const x = Math.random() * ow, y = Math.random() * oh;
+          const r = Math.random() * 1.5 + 1.2;
+          const a = Math.random() * 0.3 + 0.7;
+          const c = pickColor('any');
+          // Core
+          oCtx.fillStyle = `rgba(${c.r},${c.g},${c.b},${a})`;
+          oCtx.beginPath();
+          oCtx.arc(x, y, r, 0, Math.PI * 2);
+          oCtx.fill();
+          // Wide glow
+          const gg = oCtx.createRadialGradient(x, y, r, x, y, r * 12);
+          gg.addColorStop(0, `rgba(${c.r},${c.g},${c.b},${a * 0.2})`);
+          gg.addColorStop(0.3, `rgba(${c.r},${c.g},${c.b},${a * 0.05})`);
+          gg.addColorStop(1, 'rgba(0,0,0,0)');
+          oCtx.fillStyle = gg;
+          oCtx.beginPath();
+          oCtx.arc(x, y, r * 12, 0, Math.PI * 2);
+          oCtx.fill();
+        }
+
+        // Layer 5: Brilliant stars 鈥?8-point diffraction spikes (Hubble/James Webb style)
+        const l5 = Math.max(3, Math.floor(ow * oh / 50000));
+        for (let i = 0; i < l5; i++) {
+          const x = Math.random() * ow, y = Math.random() * oh;
+          const r = Math.random() * 2 + 1.5;
+          const a = Math.random() * 0.2 + 0.8;
+          const c = pickColor('cool'); // Brightest stars tend blue
+
+          // Core
+          oCtx.fillStyle = `rgba(255,255,255,${a * 0.9})`;
+          oCtx.beginPath();
+          oCtx.arc(x, y, r * 0.6, 0, Math.PI * 2);
+          oCtx.fill();
+
+          // Color core
+          oCtx.fillStyle = `rgba(${c.r},${c.g},${c.b},${a})`;
+          oCtx.beginPath();
+          oCtx.arc(x, y, r, 0, Math.PI * 2);
+          oCtx.fill();
+
+          // Wide glow
+          const sg = oCtx.createRadialGradient(x, y, r, x, y, r * 18);
+          sg.addColorStop(0, `rgba(${c.r},${c.g},${c.b},${a * 0.15})`);
+          sg.addColorStop(0.4, `rgba(${c.r},${c.g},${c.b},${a * 0.03})`);
+          sg.addColorStop(1, 'rgba(0,0,0,0)');
+          oCtx.fillStyle = sg;
+          oCtx.beginPath();
+          oCtx.arc(x, y, r * 18, 0, Math.PI * 2);
+          oCtx.fill();
+
+          // Diffraction spikes 鈥?main cross
+          const sLen = r * 22;
+          oCtx.save();
+          oCtx.strokeStyle = `rgba(${c.r},${c.g},${c.b},${a * 0.15})`;
+          oCtx.lineWidth = 0.8;
+          oCtx.beginPath();
+          oCtx.moveTo(x - sLen, y); oCtx.lineTo(x + sLen, y);
+          oCtx.moveTo(x, y - sLen); oCtx.lineTo(x, y + sLen);
+          oCtx.stroke();
+
+          // 45掳 secondary spikes
+          const dLen = sLen * 0.45;
+          oCtx.strokeStyle = `rgba(${c.r},${c.g},${c.b},${a * 0.07})`;
+          oCtx.lineWidth = 0.5;
+          oCtx.beginPath();
+          oCtx.moveTo(x - dLen * 0.707, y - dLen * 0.707);
+          oCtx.lineTo(x + dLen * 0.707, y + dLen * 0.707);
+          oCtx.moveTo(x + dLen * 0.707, y - dLen * 0.707);
+          oCtx.lineTo(x - dLen * 0.707, y + dLen * 0.707);
+          oCtx.stroke();
+          oCtx.restore();
+        }
+
+        // ---- STAR CLUSTERS 鈥?dense groups of tiny stars ----
+        oCtx.save();
+        oCtx.globalCompositeOperation = 'screen';
+        const clusters = [
+          { x: ow * 0.35, y: bandY(ow * 0.35) - oh * 0.03 },
+          { x: ow * 0.55, y: bandY(ow * 0.55) + oh * 0.02 },
+          { x: ow * 0.48, y: bandY(ow * 0.48) },
+          { x: ow * 0.70, y: bandY(ow * 0.70) - oh * 0.01 },
+        ];
+        for (const cl of clusters) {
+          const cSize = Math.random() * 40 + 25;
+          const cCount = Math.floor(Math.random() * 30 + 20);
+          const cg = oCtx.createRadialGradient(cl.x, cl.y, 0, cl.x, cl.y, cSize);
+          cg.addColorStop(0, 'rgba(180,170,220,0.06)');
+          cg.addColorStop(1, 'rgba(0,0,0,0)');
+          oCtx.fillStyle = cg;
+          oCtx.beginPath();
+          oCtx.arc(cl.x, cl.y, cSize, 0, Math.PI * 2);
+          oCtx.fill();
+          for (let j = 0; j < cCount; j++) {
+            const angle = Math.random() * Math.PI * 2;
+            const dist = Math.random() * cSize * 0.8;
+            const sx = cl.x + Math.cos(angle) * dist;
+            const sy = cl.y + Math.sin(angle) * dist;
+            const c = pickColor('warm');
+            oCtx.fillStyle = `rgba(${c.r},${c.g},${c.b},${Math.random() * 0.6 + 0.3})`;
+            oCtx.beginPath();
+            oCtx.arc(sx, sy, Math.random() * 0.6 + 0.15, 0, Math.PI * 2);
+            oCtx.fill();
+          }
+        }
+        oCtx.restore();
       }
 
-      /* ---- Dynamic layer (animated every frame) ---- */
+      /* ============================================
+         DYNAMIC LAYER 鈥?twinkling + shooting stars
+         ============================================ */
       function initDynamic() {
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        dynamicCvs.width = w * dpr;
-        dynamicCvs.height = h * dpr;
-        dynamicCvs.style.width = w + 'px';
-        dynamicCvs.style.height = h + 'px';
-        dCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        dynamic.width = vw;
+        dynamic.height = vh;
 
         twinkleStars = [];
-        const count = Math.floor(w * h / 12000);
+        const count = Math.floor(vw * vh / 10000);
         for (let i = 0; i < count; i++) {
-          const c = pickColor();
           twinkleStars.push({
-            x: Math.random() * w,
-            y: Math.random() * h,
-            r: Math.random() * 1.3 + 0.4,
-            baseAlpha: Math.random() * 0.35 + 0.45,
-            speed: Math.random() * 2.5 + 0.8,
+            x: Math.random() * vw,
+            y: Math.random() * vh,
+            r: Math.random() * 1.2 + 0.3,
+            baseA: Math.random() * 0.35 + 0.4,
+            speed: Math.random() * 2.5 + 0.6,
             phase: Math.random() * Math.PI * 2,
-            c: c
+            c: pickColor('any')
           });
         }
         shootingStars = [];
       }
 
-      let time = 0;
-      function animate() {
-        time += 0.016;
-        dCtx.clearRect(0, 0, w, h);
+      function animate(t) {
+        // ---- DRIFT the display canvas ----
+        // Slow, organic sin/cos movement 鈥?feels like floating through space
+        const driftX = Math.sin(t * 0.000013) * vw * 0.25 + Math.sin(t * 0.000007) * vw * 0.08;
+        const driftY = Math.cos(t * 0.000010) * vh * 0.12 + Math.cos(t * 0.000005) * vh * 0.05;
 
-        // Twinkling stars
+        // Clear display and draw the offscreen scene with drift offset
+        dCtx.clearRect(0, 0, vw, vh);
+        dCtx.drawImage(offscreen, -driftX, -driftY);
+
+        // ---- DYNAMIC: twinkle ----
+        dyCtx.clearRect(0, 0, vw, vh);
         for (const s of twinkleStars) {
-          const flicker = Math.sin(time * s.speed + s.phase) * 0.4 + 0.6;
-          const a = s.baseAlpha * flicker;
-          dCtx.fillStyle = `rgba(${s.c.r},${s.c.g},${s.c.b},${a})`;
-          dCtx.beginPath();
-          dCtx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-          dCtx.fill();
-          // Halo for brighter twinklers
-          if (s.r > 0.8) {
-            const grad = dCtx.createRadialGradient(s.x, s.y, s.r * 0.2, s.x, s.y, s.r * 4);
-            grad.addColorStop(0, `rgba(${s.c.r},${s.c.g},${s.c.b},${a * 0.18})`);
-            grad.addColorStop(1, 'rgba(0,0,0,0)');
-            dCtx.fillStyle = grad;
-            dCtx.beginPath();
-            dCtx.arc(s.x, s.y, s.r * 4, 0, Math.PI * 2);
-            dCtx.fill();
+          const flicker = Math.sin(t * 0.001 * s.speed + s.phase) * 0.4 + 0.6;
+          const a = s.baseA * flicker;
+          dyCtx.fillStyle = `rgba(${s.c.r},${s.c.g},${s.c.b},${a})`;
+          dyCtx.beginPath();
+          dyCtx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          dyCtx.fill();
+          if (s.r > 0.9) {
+            const tg = dyCtx.createRadialGradient(s.x, s.y, s.r * 0.2, s.x, s.y, s.r * 4);
+            tg.addColorStop(0, `rgba(${s.c.r},${s.c.g},${s.c.b},${a * 0.15})`);
+            tg.addColorStop(1, 'rgba(0,0,0,0)');
+            dyCtx.fillStyle = tg;
+            dyCtx.beginPath();
+            dyCtx.arc(s.x, s.y, s.r * 4, 0, Math.PI * 2);
+            dyCtx.fill();
           }
         }
 
-        // Shooting stars — frequent for drama
-        if (Math.random() < 0.01) {
+        // ---- DYNAMIC: shooting stars ----
+        if (Math.random() < 0.012) {
           shootingStars.push({
-            x: Math.random() * w * 0.6 + w * 0.15,
-            y: Math.random() * h * 0.25,
-            len: Math.random() * 140 + 50,
+            x: Math.random() * vw * 0.6 + vw * 0.15,
+            y: Math.random() * vh * 0.25,
+            len: Math.random() * 150 + 60,
             speed: Math.random() * 10 + 5,
-            angle: Math.PI / 4.2 + (Math.random() - 0.5) * 0.5,
+            angle: Math.PI / 4.5 + (Math.random() - 0.5) * 0.4,
             alpha: 1,
             decay: Math.random() * 0.01 + 0.005,
-            width: Math.random() * 1.8 + 0.8,
+            w: Math.random() * 1.5 + 0.8,
             headR: Math.random() * 2.5 + 1.5
           });
         }
@@ -1556,33 +1649,32 @@
           const dx = Math.cos(ss.angle) * ss.len;
           const dy = Math.sin(ss.angle) * ss.len;
 
-          // Bright tail
-          const tGrad = dCtx.createLinearGradient(ss.x, ss.y, ss.x - dx, ss.y - dy);
-          tGrad.addColorStop(0, `rgba(230,240,255,${ss.alpha})`);
-          tGrad.addColorStop(0.2, `rgba(190,210,255,${ss.alpha * 0.6})`);
-          tGrad.addColorStop(1, 'rgba(160,190,255,0)');
-          dCtx.strokeStyle = tGrad;
-          dCtx.lineWidth = ss.width;
-          dCtx.lineCap = 'round';
-          dCtx.beginPath();
-          dCtx.moveTo(ss.x, ss.y);
-          dCtx.lineTo(ss.x - dx, ss.y - dy);
-          dCtx.stroke();
+          const tg = dyCtx.createLinearGradient(ss.x, ss.y, ss.x - dx, ss.y - dy);
+          tg.addColorStop(0, `rgba(240,245,255,${ss.alpha})`);
+          tg.addColorStop(0.25, `rgba(190,210,255,${ss.alpha * 0.5})`);
+          tg.addColorStop(1, 'rgba(160,185,255,0)');
+          dyCtx.strokeStyle = tg;
+          dyCtx.lineWidth = ss.w;
+          dyCtx.lineCap = 'round';
+          dyCtx.beginPath();
+          dyCtx.moveTo(ss.x, ss.y);
+          dyCtx.lineTo(ss.x - dx, ss.y - dy);
+          dyCtx.stroke();
 
-          // Bright head with glow
-          const hGrad = dCtx.createRadialGradient(ss.x, ss.y, 0, ss.x, ss.y, ss.headR * 6);
-          hGrad.addColorStop(0, `rgba(255,255,255,${ss.alpha * 0.9})`);
-          hGrad.addColorStop(0.2, `rgba(210,225,255,${ss.alpha * 0.4})`);
-          hGrad.addColorStop(1, 'rgba(180,200,255,0)');
-          dCtx.fillStyle = hGrad;
-          dCtx.beginPath();
-          dCtx.arc(ss.x, ss.y, ss.headR * 6, 0, Math.PI * 2);
-          dCtx.fill();
+          // Head glow
+          const hg = dyCtx.createRadialGradient(ss.x, ss.y, 0, ss.x, ss.y, ss.headR * 6);
+          hg.addColorStop(0, `rgba(255,255,255,${ss.alpha * 0.85})`);
+          hg.addColorStop(0.25, `rgba(210,225,255,${ss.alpha * 0.3})`);
+          hg.addColorStop(1, 'rgba(180,200,255,0)');
+          dyCtx.fillStyle = hg;
+          dyCtx.beginPath();
+          dyCtx.arc(ss.x, ss.y, ss.headR * 6, 0, Math.PI * 2);
+          dyCtx.fill();
 
           ss.x += Math.cos(ss.angle) * ss.speed;
           ss.y += Math.sin(ss.angle) * ss.speed;
           ss.alpha -= ss.decay;
-          if (ss.alpha <= 0 || ss.x > w + 60 || ss.y > h + 60) {
+          if (ss.alpha <= 0 || ss.x > vw + 60 || ss.y > vh + 60) {
             shootingStars.splice(i, 1);
           }
         }
@@ -1590,23 +1682,30 @@
         requestAnimationFrame(animate);
       }
 
+      /* ============================================
+         INIT & RESIZE
+         ============================================ */
       function init() {
-        w = window.innerWidth;
-        h = window.innerHeight;
-        renderStatic();
+        vw = window.innerWidth;
+        vh = window.innerHeight;
+        display.width = vw;
+        display.height = vh;
+        renderSpace();
         initDynamic();
-        animate();
+        requestAnimationFrame(animate);
       }
 
       let resizeTimer;
       window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
-          w = window.innerWidth;
-          h = window.innerHeight;
-          renderStatic();
+          vw = window.innerWidth;
+          vh = window.innerHeight;
+          display.width = vw;
+          display.height = vh;
+          renderSpace();
           initDynamic();
-        }, 250);
+        }, 300);
       });
 
       init();
@@ -1619,7 +1718,7 @@
       {
         id: 1,
         name: 'ChatGPT',
-        icon: '🤖',
+        icon: '??',
         category: 'chat',
         categoryLabel: '聊天AI',
         description: 'OpenAI开发的对话AI，GPT-4o模型，支持多轮对话、代码生成、创意写作',
@@ -1631,7 +1730,7 @@
       {
         id: 2,
         name: 'Claude',
-        icon: '🧠',
+        icon: '??',
         category: 'chat',
         categoryLabel: '聊天AI',
         description: 'Anthropic推出的AI助手，Claude 3.5系列模型，支持长文档分析、多模态推理',
@@ -1643,7 +1742,7 @@
       {
         id: 3,
         name: 'Gemini',
-        icon: '✨',
+        icon: '?',
         category: 'chat',
         categoryLabel: '聊天AI',
         description: 'Google AI双子座模型，支持多模态、超长上下文、实时联网搜索',
@@ -1655,7 +1754,7 @@
       {
         id: 4,
         name: 'Kimi',
-        icon: '🌙',
+        icon: '??',
         category: 'chat',
         categoryLabel: '聊天AI',
         description: '月之暗面Moonshot AI，超长上下文支持（20万字），支持联网搜索与文件分析',
@@ -1667,7 +1766,7 @@
       {
         id: 5,
         name: 'DeepSeek',
-        icon: '🔍',
+        icon: '??',
         category: 'chat',
         categoryLabel: '聊天AI',
         description: '国产大模型黑马，DeepSeek-V3推理能力出色，性价比极高，API价格行业最低',
@@ -1679,7 +1778,7 @@
       {
         id: 6,
         name: 'Doubao',
-        icon: '🫛',
+        icon: '??',
         category: 'chat',
         categoryLabel: '聊天AI',
         description: '字节跳动AI助手，支持对话、写作、图片生成，深度集成抖音生态',
@@ -1691,7 +1790,7 @@
       {
         id: 7,
         name: 'SiliconFlow',
-        icon: '💧',
+        icon: '??',
         category: 'api',
         categoryLabel: '大模型API',
         description: '国产平价API平台，聚合Qwen、DeepSeek、GLM等国产大模型，价格实惠',
@@ -1703,7 +1802,7 @@
       {
         id: 8,
         name: 'ZhipuAI',
-        icon: '🔬',
+        icon: '??',
         category: 'api',
         categoryLabel: '大模型API',
         description: '清华智谱GLM系列大模型，ChatGLM、CodeGeeX等，覆盖对话、代码、Agent多场景',
@@ -1715,7 +1814,7 @@
       {
         id: 9,
         name: 'Tongyi Qianwen',
-        icon: '🐉',
+        icon: '??',
         category: 'chat',
         categoryLabel: '聊天AI',
         description: '阿里云大模型，支持百亿级参数，千问系列开源可商用',
@@ -1727,7 +1826,7 @@
       {
         id: 10,
         name: 'ERNIE Bot',
-        icon: '📝',
+        icon: '??',
         category: 'chat',
         categoryLabel: '聊天AI',
         description: '百度文心大模型，ERNIE 4.0系列，支持知识增强、多模态生成',
@@ -1739,7 +1838,7 @@
       {
         id: 11,
         name: 'Spark',
-        icon: '⚡',
+        icon: '?',
         category: 'chat',
         categoryLabel: '聊天AI',
         description: '科大讯飞大模型，语音交互能力强，教育场景优化',
@@ -1751,7 +1850,7 @@
       {
         id: 12,
         name: 'Hunyuan',
-        icon: '🌊',
+        icon: '??',
         category: 'api',
         categoryLabel: '大模型API',
         description: '腾讯大模型，支持对话、图像生成，深度集成微信生态',
@@ -1763,7 +1862,7 @@
       {
         id: 13,
         name: 'MiniMax',
-        icon: '🎯',
+        icon: '??',
         category: 'api',
         categoryLabel: '大模型API',
         description: '国产大模型新锐，支持长文本、多模态，API性价比高',
@@ -1775,7 +1874,7 @@
       {
         id: 14,
         name: 'Midjourney',
-        icon: '🎨',
+        icon: '??',
         category: 'image',
         categoryLabel: '图像生成',
         description: 'AI绘画神器，Midjourney V6模型，以高质量艺术风格著称',
@@ -1787,7 +1886,7 @@
       {
         id: 15,
         name: 'Stable Diffusion',
-        icon: '🖼️',
+        icon: '???',
         category: 'image',
         categoryLabel: '图像生成',
         description: '开源图像生成模型，Stable Diffusion 3 / XL，本地部署可商用',
@@ -1799,7 +1898,7 @@
       {
         id: 16,
         name: 'DALL·E',
-        icon: '🎭',
+        icon: '??',
         category: 'image',
         categoryLabel: '图像生成',
         description: 'OpenAI图像生成模型，DALL·E 3支持精准文本渲染、图像编辑',
@@ -1811,7 +1910,7 @@
       {
         id: 17,
         name: 'Ideogram',
-        icon: '🔤',
+        icon: '??',
         category: 'image',
         categoryLabel: '图像生成',
         description: 'AI图像生成工具，文字渲染能力出色，适合海报、Logo设计',
@@ -1823,7 +1922,7 @@
       {
         id: 18,
         name: 'FLUX',
-        icon: '💫',
+        icon: '??',
         category: 'image',
         categoryLabel: '图像生成',
         description: 'Black Forest Labs图像生成模型，画质出色，开源可商用',
@@ -1835,7 +1934,7 @@
       {
         id: 19,
         name: 'Leonardo.ai',
-        icon: '🎮',
+        icon: '??',
         category: 'image',
         categoryLabel: '图像生成',
         description: '游戏资产AI生成平台，支持角色设计、场景图、UI素材',
@@ -1847,7 +1946,7 @@
       {
         id: 20,
         name: '触手AI',
-        icon: '🦑',
+        icon: '??',
         category: 'image',
         categoryLabel: '图像生成',
         description: '国产AI绘画平台，支持中文提示词，专为国内用户优化',
@@ -1859,7 +1958,7 @@
       {
         id: 21,
         name: 'Tongyi Wanxiang',
-        icon: '🖌️',
+        icon: '???',
         category: 'image',
         categoryLabel: '图像生成',
         description: '阿里云图像生成，支持文生图、图生图、局部重绘等',
@@ -1871,7 +1970,7 @@
       {
         id: 22,
         name: 'Jimeng AI',
-        icon: '🌈',
+        icon: '??',
         category: 'image',
         categoryLabel: '图像生成',
         description: '字节跳动AI创作平台，支持文生图、图生图、视频生成，一站式创作',
@@ -1883,7 +1982,7 @@
       {
         id: 23,
         name: 'LiblibAI',
-        icon: '🎪',
+        icon: '??',
         category: 'image',
         categoryLabel: '图像生成',
         description: '国产AI绘画社区，提供Stable Diffusion在线生成、模型分享',
@@ -1895,7 +1994,7 @@
       {
         id: 24,
         name: 'Recraft',
-        icon: '🎯',
+        icon: '??',
         category: 'image',
         categoryLabel: '图像生成',
         description: '专业级AI图像生成，矢量图输出，品牌级设计质量控制',
@@ -1907,7 +2006,7 @@
       {
         id: 25,
         name: 'Imagen 3',
-        icon: '📸',
+        icon: '??',
         category: 'image',
         categoryLabel: '图像生成',
         description: 'Google最新图像生成模型，照片级真实感，文本渲染精准',
@@ -1919,7 +2018,7 @@
       {
         id: 26,
         name: 'GitHub Copilot',
-        icon: '💻',
+        icon: '??',
         category: 'code',
         categoryLabel: '代码助手',
         description: 'GitHub官方代码助手，集成在VS Code等IDE，GPT-4驱动，支持Agent模式',
@@ -1931,7 +2030,7 @@
       {
         id: 27,
         name: 'Cursor',
-        icon: '📊',
+        icon: '??',
         category: 'code',
         categoryLabel: '代码助手',
         description: 'AI代码编辑器，基于VS Code，内置GPT-4/Claude，支持全项目感知',
@@ -1943,7 +2042,7 @@
       {
         id: 28,
         name: 'Codeium',
-        icon: '⚡',
+        icon: '?',
         category: 'code',
         categoryLabel: '代码助手',
         description: '免费AI代码补全，支持70+语言，VS Code/JetBrains等主流IDE插件',
@@ -1955,7 +2054,7 @@
       {
         id: 29,
         name: 'Windsurf',
-        icon: '🌬️',
+        icon: '???',
         category: 'code',
         categoryLabel: '代码助手',
         description: 'Codeium推出的AI IDE，支持上下文记忆、多文件编辑',
@@ -1967,7 +2066,7 @@
       {
         id: 30,
         name: 'Replit',
-        icon: '🔄',
+        icon: '??',
         category: 'code',
         categoryLabel: '代码助手',
         description: '在线IDE平台，集成AI助手Ghostwriter，支持多语言协作开发',
@@ -1979,7 +2078,7 @@
       {
         id: 31,
         name: 'Sourcegraph Cody',
-        icon: '🤠',
+        icon: '??',
         category: 'code',
         categoryLabel: '代码助手',
         description: '代码理解与生成助手，支持整个代码库搜索、自动补全',
@@ -1991,7 +2090,7 @@
       {
         id: 32,
         name: 'Tabnine',
-        icon: '🔢',
+        icon: '??',
         category: 'code',
         categoryLabel: '代码助手',
         description: 'AI代码补全工具，支持本地部署保护隐私，企业级安全',
@@ -2003,7 +2102,7 @@
       {
         id: 33,
         name: 'Amazon Q',
-        icon: '📦',
+        icon: '??',
         category: 'code',
         categoryLabel: '代码助手',
         description: 'AWS AI助手，支持代码生成、AWS服务问答、IDE集成',
@@ -2015,7 +2114,7 @@
       {
         id: 34,
         name: 'Supermaven',
-        icon: '🚀',
+        icon: '??',
         category: 'dev',
         categoryLabel: '开发者工具',
         description: '超快AI代码补全，100万token上下文窗口，响应速度领先',
@@ -2027,7 +2126,7 @@
       {
         id: 35,
         name: 'Bolt.new',
-        icon: '⚡',
+        icon: '?',
         category: 'dev',
         categoryLabel: '开发者工具',
         description: 'AI全栈开发平台，一句话生成完整Web应用，零配置部署',
@@ -2039,7 +2138,7 @@
       {
         id: 36,
         name: 'Sora',
-        icon: '🎬',
+        icon: '??',
         category: 'video',
         categoryLabel: '视频制作',
         description: 'OpenAI视频生成模型，支持最长60秒1080p高质量视频',
@@ -2051,7 +2150,7 @@
       {
         id: 37,
         name: 'Runway',
-        icon: '🎥',
+        icon: '??',
         category: 'video',
         categoryLabel: '视频制作',
         description: 'AI视频创作平台，Gen-3系列，支持文生视频、图生视频、视频编辑',
@@ -2063,7 +2162,7 @@
       {
         id: 38,
         name: 'Pika',
-        icon: '🎞️',
+        icon: '???',
         category: 'video',
         categoryLabel: '视频制作',
         description: 'AI视频生成工具，支持图生视频、视频局部编辑，界面简洁易用',
@@ -2075,7 +2174,7 @@
       {
         id: 39,
         name: 'Kling AI',
-        icon: '🦘',
+        icon: '??',
         category: 'video',
         categoryLabel: '视频制作',
         description: '快手AI视频生成，支持3分钟视频、电影级镜头控制',
@@ -2087,7 +2186,7 @@
       {
         id: 40,
         name: 'Google Veo',
-        icon: '📹',
+        icon: '??',
         category: 'video',
         categoryLabel: '视频制作',
         description: 'Google视频生成模型，支持1080p长视频、多风格生成',
@@ -2099,7 +2198,7 @@
       {
         id: 41,
         name: 'PixVerse',
-        icon: '🌟',
+        icon: '??',
         category: 'video',
         categoryLabel: '视频制作',
         description: 'AI视频生成工具，V4版本支持4K画质、物理引擎准确性',
@@ -2111,7 +2210,7 @@
       {
         id: 42,
         name: 'Haiper',
-        icon: '🎬',
+        icon: '??',
         category: 'video',
         categoryLabel: '视频制作',
         description: 'AI视频生成平台，支持文生视频、图生视频，生成速度快',
@@ -2123,7 +2222,7 @@
       {
         id: 43,
         name: 'Luma Dream Machine',
-        icon: '🎥',
+        icon: '??',
         category: 'video',
         categoryLabel: '视频制作',
         description: 'Luma AI视频生成，支持高质量视频、相机运动控制',
@@ -2135,7 +2234,7 @@
       {
         id: 44,
         name: 'Vidu',
-        icon: '📹',
+        icon: '??',
         category: 'video',
         categoryLabel: '视频制作',
         description: '国产AI视频生成，16秒高清视频，角色一致性保持',
@@ -2147,7 +2246,7 @@
       {
         id: 45,
         name: 'ElevenLabs',
-        icon: '🎙️',
+        icon: '???',
         category: 'audio',
         categoryLabel: '音频工具',
         description: 'AI语音合成，支持28种语言、120种声音，语音克隆技术领先',
@@ -2159,7 +2258,7 @@
       {
         id: 46,
         name: 'Suno',
-        icon: '🎵',
+        icon: '??',
         category: 'audio',
         categoryLabel: '音频工具',
         description: 'AI音乐生成平台，V5.5支持9分钟歌曲、声音克隆、个性化引擎',
@@ -2171,7 +2270,7 @@
       {
         id: 47,
         name: 'Udio',
-        icon: '🎶',
+        icon: '??',
         category: 'audio',
         categoryLabel: '音频工具',
         description: 'AI音乐生成工具，支持高质量音乐、分轨导出、纯器乐模式',
@@ -2183,7 +2282,7 @@
       {
         id: 48,
         name: 'Stable Audio',
-        icon: '🎧',
+        icon: '??',
         category: 'audio',
         categoryLabel: '音频工具',
         description: 'Stability AI音乐生成模型，支持歌词生成、背景音乐、纯音乐创作',
@@ -2195,7 +2294,7 @@
       {
         id: 49,
         name: 'AIVA',
-        icon: '🎹',
+        icon: '??',
         category: 'audio',
         categoryLabel: '音频工具',
         description: 'AI作曲平台，支持多种音乐风格，商用授权友好',
@@ -2207,7 +2306,7 @@
       {
         id: 50,
         name: 'Murf AI',
-        icon: '🎤',
+        icon: '??',
         category: 'audio',
         categoryLabel: '音频工具',
         description: 'AI配音工具，120+真实人声，支持语气调整、多语言配音',
@@ -2219,7 +2318,7 @@
       {
         id: 51,
         name: 'Resemble AI',
-        icon: '🔊',
+        icon: '??',
         category: 'audio',
         categoryLabel: '音频工具',
         description: 'AI语音克隆平台，实时语音合成，企业级声音定制',
@@ -2231,7 +2330,7 @@
       {
         id: 52,
         name: 'PlayHT',
-        icon: '🎧',
+        icon: '??',
         category: 'audio',
         categoryLabel: '音频工具',
         description: 'AI文本转语音，800+声音，超写实语音合成，支持情感表达',
@@ -2243,7 +2342,7 @@
       {
         id: 53,
         name: 'WellSaid Labs',
-        icon: '🎙️',
+        icon: '???',
         category: 'audio',
         categoryLabel: '音频工具',
         description: '企业级AI配音，100+专业声音，商用授权清晰',
@@ -2255,7 +2354,7 @@
       {
         id: 54,
         name: 'Jianying',
-        icon: '✂️',
+        icon: '??',
         category: 'video',
         categoryLabel: '视频制作',
         description: '字节跳动AI视频剪辑工具，智能字幕、音频分离、AI成片',
@@ -2267,7 +2366,7 @@
       {
         id: 55,
         name: 'Perplexity',
-        icon: '🔎',
+        icon: '??',
         category: 'search',
         categoryLabel: '搜索研究',
         description: 'AI搜索引擎，引用来源、实时联网、文档分析，研究型AI工具首选',
@@ -2279,7 +2378,7 @@
       {
         id: 56,
         name: 'Consensus',
-        icon: '📚',
+        icon: '??',
         category: 'search',
         categoryLabel: '搜索研究',
         description: '学术AI问答工具，关联数亿篇论文，探究研究问题的学界共识',
@@ -2291,7 +2390,7 @@
       {
         id: 57,
         name: 'Metaso',
-        icon: '🔍',
+        icon: '??',
         category: 'search',
         categoryLabel: '搜索研究',
         description: '国产AI搜索引擎，无广告、结构化答案、学术搜索模式',
@@ -2303,7 +2402,7 @@
       {
         id: 58,
         name: 'Tiangong AI',
-        icon: '☀️',
+        icon: '??',
         category: 'search',
         categoryLabel: '搜索研究',
         description: '昆仑万维AI搜索，支持联网搜索、多模态问答',
@@ -2315,7 +2414,7 @@
       {
         id: 59,
         name: 'Phind',
-        icon: '🔍',
+        icon: '??',
         category: 'search',
         categoryLabel: '搜索研究',
         description: '开发者AI搜索引擎，代码示例丰富，技术问答精准',
@@ -2327,7 +2426,7 @@
       {
         id: 60,
         name: 'Elicit',
-        icon: '📖',
+        icon: '??',
         category: 'search',
         categoryLabel: '搜索研究',
         description: 'AI学术研究助手，自动文献综述、研究问题分解',
@@ -2339,7 +2438,7 @@
       {
         id: 61,
         name: 'SciSpace',
-        icon: '📄',
+        icon: '??',
         category: 'search',
         categoryLabel: '搜索研究',
         description: 'AI论文阅读助手，PDF对话问答、复杂公式解释',
@@ -2351,7 +2450,7 @@
       {
         id: 62,
         name: 'Gamma',
-        icon: '📊',
+        icon: '??',
         category: 'design',
         categoryLabel: '设计工具',
         description: 'AI幻灯片生成，输入文字描述自动生成精美PPT，支持网页/幻灯片格式',
@@ -2363,7 +2462,7 @@
       {
         id: 63,
         name: 'Canva',
-        icon: '🎨',
+        icon: '??',
         category: 'design',
         categoryLabel: '设计工具',
         description: '在线设计平台，Canva AI 2.0支持文字描述生成设计，海量模板',
@@ -2375,7 +2474,7 @@
       {
         id: 64,
         name: 'Beautiful.ai',
-        icon: '📽️',
+        icon: '???',
         category: 'design',
         categoryLabel: '设计工具',
         description: 'AI演示文稿工具，智能布局、自动设计，适合商务演示',
@@ -2387,7 +2486,7 @@
       {
         id: 65,
         name: 'Tome',
-        icon: '📖',
+        icon: '??',
         category: 'design',
         categoryLabel: '设计工具',
         description: 'AI故事叙述工具，自动生成演示文稿、支持多模态内容',
@@ -2399,7 +2498,7 @@
       {
         id: 66,
         name: 'ChatPPT',
-        icon: '📑',
+        icon: '??',
         category: 'design',
         categoryLabel: '设计工具',
         description: '国产AI PPT生成工具，中文优化，支持模板定制',
@@ -2411,7 +2510,7 @@
       {
         id: 67,
         name: 'Meshy AI',
-        icon: '🧊',
+        icon: '??',
         category: '3d',
         categoryLabel: '3D建模',
         description: 'AI 3D建模工具，支持文生3D、图生3D，3D打印全链路解决方案',
@@ -2423,7 +2522,7 @@
       {
         id: 68,
         name: 'Tripo',
-        icon: '💎',
+        icon: '??',
         category: '3d',
         categoryLabel: '3D建模',
         description: 'AI 3D模型生成，8秒生成干净线框网格，支持多格式导出',
@@ -2435,7 +2534,7 @@
       {
         id: 69,
         name: 'Rodin',
-        icon: '🗿',
+        icon: '??',
         category: '3d',
         categoryLabel: '3D建模',
         description: 'Deemos AI 3D生成模型，高质量资产生成，游戏影视级精度',
@@ -2447,7 +2546,7 @@
       {
         id: 70,
         name: 'Luma AI',
-        icon: '🔮',
+        icon: '??',
         category: '3d',
         categoryLabel: '3D建模',
         description: '3D扫描与生成平台，支持NeRF、Gaussian Splatting技术',
@@ -2459,7 +2558,7 @@
       {
         id: 71,
         name: 'Hi3D',
-        icon: '🎮',
+        icon: '??',
         category: '3d',
         categoryLabel: '3D建模',
         description: 'AI 3D建模工具，单图生成3D模型，支持游戏资产创建',
@@ -2471,7 +2570,7 @@
       {
         id: 72,
         name: 'LRStudio',
-        icon: '🎮',
+        icon: '??',
         category: '3d',
         categoryLabel: '3D建模',
         description: 'AI 3D资产生成，游戏开发专用，PBR材质自动生成',
@@ -2483,7 +2582,7 @@
       {
         id: 73,
         name: 'Notion AI',
-        icon: '📓',
+        icon: '??',
         category: 'productivity',
         categoryLabel: '办公效率',
         description: 'Notion内置AI助手，智能摘要、续写、翻译、数据库自动填充',
@@ -2495,7 +2594,7 @@
       {
         id: 74,
         name: 'Feishu',
-        icon: '🪰',
+        icon: '??',
         category: 'productivity',
         categoryLabel: '办公效率',
         description: '字节跳动办公平台，AI助手集成，支持会议纪要、智能总结',
@@ -2507,7 +2606,7 @@
       {
         id: 75,
         name: 'DingTalk',
-        icon: '📌',
+        icon: '??',
         category: 'productivity',
         categoryLabel: '办公效率',
         description: '阿里办公平台，AI助手钉钉魔法，支持智能会议、文档生成',
@@ -2519,7 +2618,7 @@
       {
         id: 76,
         name: 'QuillBot',
-        icon: '✍️',
+        icon: '??',
         category: 'writing',
         categoryLabel: '写作助手',
         description: 'AI写作润色工具，同义改写、语法检查、摘要生成',
@@ -2531,7 +2630,7 @@
       {
         id: 77,
         name: 'Jasper',
-        icon: '📝',
+        icon: '??',
         category: 'writing',
         categoryLabel: '写作助手',
         description: 'AI写作平台，SEO优化内容生成，50+模板支持营销文案',
@@ -2543,7 +2642,7 @@
       {
         id: 78,
         name: 'Copy.ai',
-        icon: '📋',
+        icon: '??',
         category: 'writing',
         categoryLabel: '写作助手',
         description: 'AI营销文案工具，快速生成广告文案、社交媒体内容',
@@ -2555,7 +2654,7 @@
       {
         id: 79,
         name: 'Writesonic',
-        icon: '✏️',
+        icon: '??',
         category: 'writing',
         categoryLabel: '写作助手',
         description: 'AI写作工具，支持博客文章、广告文案、多语言生成',
@@ -2567,7 +2666,7 @@
       {
         id: 80,
         name: 'Xiezuocat',
-        icon: '🐱',
+        icon: '??',
         category: 'writing',
         categoryLabel: '写作助手',
         description: 'AI写作助手，中文纠错、改写润色、素材推荐、模板写作',
@@ -2579,7 +2678,7 @@
       {
         id: 81,
         name: 'Sudowrite',
-        icon: '✍️',
+        icon: '??',
         category: 'writing',
         categoryLabel: '写作助手',
         description: 'AI小说写作工具，剧情生成、角色发展、创意续写',
@@ -2591,7 +2690,7 @@
       {
         id: 82,
         name: 'Rytr',
-        icon: '📝',
+        icon: '??',
         category: 'writing',
         categoryLabel: '写作助手',
         description: 'AI写作助手，30+用例模板，支持多语言、SEO优化',
@@ -2603,7 +2702,7 @@
       {
         id: 83,
         name: 'ProWritingAid',
-        icon: '📚',
+        icon: '??',
         category: 'writing',
         categoryLabel: '写作助手',
         description: 'AI写作润色，深度语法检查、风格建议、小说分析',
@@ -2615,7 +2714,7 @@
       {
         id: 84,
         name: 'Tingwu',
-        icon: '👂',
+        icon: '??',
         category: 'productivity',
         categoryLabel: '办公效率',
         description: '阿里云AI会议记录，实时语音转文字，会议要点自动摘要',
@@ -2627,7 +2726,7 @@
       {
         id: 85,
         name: 'Otter.ai',
-        icon: '🦦',
+        icon: '??',
         category: 'productivity',
         categoryLabel: '办公效率',
         description: 'AI会议记录工具，实时转录、说话人识别、会议摘要',
@@ -2639,7 +2738,7 @@
       {
         id: 86,
         name: 'Adobe Firefly',
-        icon: '🔥',
+        icon: '??',
         category: 'image',
         categoryLabel: '图像生成',
         description: 'Adobe AI图像生成，集成Photoshop，商用版权友好',
@@ -2651,7 +2750,7 @@
       {
         id: 87,
         name: 'Bing Image Creator',
-        icon: '🖼️',
+        icon: '???',
         category: 'image',
         categoryLabel: '图像生成',
         description: '微软AI图像生成，DALL·E驱动，免费使用',
@@ -2663,7 +2762,7 @@
       {
         id: 88,
         name: 'Krea AI',
-        icon: '🎯',
+        icon: '??',
         category: 'image',
         categoryLabel: '图像生成',
         description: 'AI图像生成与编辑，实时生成、图像增强、风格迁移',
@@ -2675,7 +2774,7 @@
       {
         id: 89,
         name: 'Playground AI',
-        icon: '🎪',
+        icon: '??',
         category: 'image',
         categoryLabel: '图像生成',
         description: 'AI图像生成平台，免费额度大，支持多种模型',
@@ -2687,7 +2786,7 @@
       {
         id: 90,
         name: 'Zed',
-        icon: '⚡',
+        icon: '?',
         category: 'code',
         categoryLabel: '代码助手',
         description: '高性能AI编辑器，内置AI助手，支持多语言LSP',
@@ -2699,7 +2798,7 @@
       {
         id: 91,
         name: 'Claude Code',
-        icon: '🖥️',
+        icon: '???',
         category: 'code',
         categoryLabel: '代码助手',
         description: 'Anthropic终端AI编程助手，支持代码生成、调试、重构',
@@ -2711,7 +2810,7 @@
       {
         id: 92,
         name: 'OpenAI Codex',
-        icon: '🔢',
+        icon: '??',
         category: 'code',
         categoryLabel: '代码助手',
         description: 'OpenAI代码模型，支持代码生成、翻译、解释',
@@ -2723,7 +2822,7 @@
       {
         id: 93,
         name: 'Groq',
-        icon: '⚡',
+        icon: '?',
         category: 'api',
         categoryLabel: '大模型API',
         description: '超高速推理API，LPU芯片驱动，响应速度行业领先',
@@ -2735,7 +2834,7 @@
       {
         id: 94,
         name: 'Fireworks AI',
-        icon: '🎆',
+        icon: '??',
         category: 'api',
         categoryLabel: '大模型API',
         description: '高速大模型API，100+模型可选，企业级稳定性',
@@ -2747,7 +2846,7 @@
       {
         id: 95,
         name: 'Together AI',
-        icon: '🤝',
+        icon: '??',
         category: 'api',
         categoryLabel: '大模型API',
         description: '开源大模型API平台，支持Llama、Mixtral等主流模型',
@@ -2759,7 +2858,7 @@
       {
         id: 96,
         name: 'Cerebras',
-        icon: '🔧',
+        icon: '??',
         category: 'api',
         categoryLabel: '大模型API',
         description: '晶圆级AI加速，超快推理速度，专为大模型优化',
@@ -2771,7 +2870,7 @@
       {
         id: 97,
         name: 'Titan Labs',
-        icon: '🔐',
+        icon: '??',
         category: 'api',
         categoryLabel: '大模型API',
         description: '企业级大模型API，私有化部署，数据安全可控',
@@ -2783,7 +2882,7 @@
       {
         id: 98,
         name: 'Khan Academy AI',
-        icon: '🎓',
+        icon: '??',
         category: 'education',
         categoryLabel: '教育学习',
         description: '可汗学院AI助教，个性化学习路径，题目讲解详细',
@@ -2795,7 +2894,7 @@
       {
         id: 99,
         name: 'Duolingo Max',
-        icon: '🦉',
+        icon: '??',
         category: 'education',
         categoryLabel: '教育学习',
         description: 'AI语言学习，对话练习、语法解释、个性化课程',
@@ -2807,7 +2906,7 @@
       {
         id: 100,
         name: 'Quizlet AI',
-        icon: '📇',
+        icon: '??',
         category: 'education',
         categoryLabel: '教育学习',
         description: 'AI学习卡片生成，自动创建题库、智能复习提醒',
@@ -2819,7 +2918,7 @@
       {
         id: 101,
         name: 'Course Hero',
-        icon: '📚',
+        icon: '??',
         category: 'education',
         categoryLabel: '教育学习',
         description: 'AI学习助手，作业解答、课程笔记、考试准备',
@@ -2831,7 +2930,7 @@
       {
         id: 102,
         name: 'HeyGen',
-        icon: '🎬',
+        icon: '??',
         category: 'video',
         categoryLabel: '视频制作',
         description: 'AI数字人视频生成，支持多语言配音、真人克隆，营销视频首选',
@@ -2843,7 +2942,7 @@
       {
         id: 103,
         name: 'D-ID',
-        icon: '🎥',
+        icon: '??',
         category: 'video',
         categoryLabel: '视频制作',
         description: 'AI数字人视频制作，照片变视频、虚拟主播，企业培训视频神器',
@@ -2855,7 +2954,7 @@
       {
         id: 104,
         name: 'Synthesia',
-        icon: '🎭',
+        icon: '??',
         category: 'video',
         categoryLabel: '视频制作',
         description: 'AI视频生成平台，140+AI数字人、120+语言，企业级视频制作',
@@ -2867,7 +2966,7 @@
       {
         id: 105,
         name: 'Descript',
-        icon: '✂️',
+        icon: '??',
         category: 'video',
         categoryLabel: '视频制作',
         description: 'AI视频编辑工具，文字编辑视频、自动字幕、多轨音频',
@@ -2879,7 +2978,7 @@
       {
         id: 106,
         name: 'OpenCat',
-        icon: '🐱',
+        icon: '??',
         category: 'chat',
         categoryLabel: '聊天AI',
         description: '国产ChatGPT客户端，支持多模型切换、API接入，桌面端体验优秀',
@@ -2891,7 +2990,7 @@
       {
         id: 107,
         name: 'Poe',
-        icon: '🤖',
+        icon: '??',
         category: 'chat',
         categoryLabel: '聊天AI',
         description: 'Quora旗下AI聚合平台，一键切换GPT-4、Claude、Gemini等模型',
@@ -2903,7 +3002,7 @@
       {
         id: 108,
         name: 'Character.AI',
-        icon: '🎭',
+        icon: '??',
         category: 'chat',
         categoryLabel: '聊天AI',
         description: 'AI角色扮演聊天，自定义虚拟角色、沉浸式对话体验',
@@ -2915,7 +3014,7 @@
       {
         id: 109,
         name: 'Coze',
-        icon: '🤖',
+        icon: '??',
         category: 'dev',
         categoryLabel: '开发者工具',
         description: '字节跳动AI Bot开发平台，零代码创建智能助手，一键发布多平台',
@@ -2927,7 +3026,7 @@
       {
         id: 110,
         name: 'Dify',
-        icon: '🔧',
+        icon: '??',
         category: 'dev',
         categoryLabel: '开发者工具',
         description: '开源LLM应用开发平台，可视化构建AI应用，支持RAG和Agent',
@@ -2939,7 +3038,7 @@
       {
         id: 111,
         name: 'LangChain',
-        icon: '⛓️',
+        icon: '??',
         category: 'dev',
         categoryLabel: '开发者工具',
         description: 'LLM应用开发框架，Python/JS双语言支持，链式调用、工具集成',
@@ -2951,7 +3050,7 @@
       {
         id: 112,
         name: 'Flowise',
-        icon: '🎨',
+        icon: '??',
         category: 'dev',
         categoryLabel: '开发者工具',
         description: '可视化LLM流程构建，拖拽式设计，支持LangChain全功能',
@@ -2963,7 +3062,7 @@
       {
         id: 113,
         name: 'GPT Engineer',
-        icon: '👷',
+        icon: '??',
         category: 'dev',
         categoryLabel: '开发者工具',
         description: 'AI代码生成工具，自然语言描述生成完整代码库',
@@ -2975,7 +3074,7 @@
       {
         id: 114,
         name: 'v0.dev',
-        icon: '⚡',
+        icon: '?',
         category: 'dev',
         categoryLabel: '开发者工具',
         description: 'Vercel AI前端生成，一句话生成React组件，Shadcn UI风格',
@@ -2987,7 +3086,7 @@
       {
         id: 115,
         name: 'Replicate',
-        icon: '🔄',
+        icon: '??',
         category: 'api',
         categoryLabel: '大模型API',
         description: 'AI模型托管平台，一键部署开源模型，按使用付费',
@@ -2999,7 +3098,7 @@
       {
         id: 116,
         name: 'Hugging Face',
-        icon: '🤗',
+        icon: '??',
         category: 'api',
         categoryLabel: '大模型API',
         description: 'AI模型社区，开源模型聚集地，Inference API快速调用',
@@ -3011,7 +3110,7 @@
       {
         id: 117,
         name: 'OpenRouter',
-        icon: '🛤️',
+        icon: '???',
         category: 'api',
         categoryLabel: '大模型API',
         description: '大模型API聚合平台，100+模型统一接口，透明定价',
@@ -3023,7 +3122,7 @@
       {
         id: 118,
         name: 'Midjourney中文版',
-        icon: '🎨',
+        icon: '??',
         category: 'image',
         categoryLabel: '图像生成',
         description: 'Midjourney官方中文版，QQ频道内测，中文提示词优化',
@@ -3035,7 +3134,7 @@
       {
         id: 119,
         name: 'Yuanqi',
-        icon: '🎨',
+        icon: '??',
         category: 'image',
         categoryLabel: '图像生成',
         description: '腾讯混元图像生成，中文理解强，微信生态集成',
@@ -3047,7 +3146,7 @@
       {
         id: 120,
         name: 'CogView',
-        icon: '🖼️',
+        icon: '???',
         category: 'image',
         categoryLabel: '图像生成',
         description: '智谱AI图像生成模型，中文提示词友好，支持多尺寸',
@@ -3059,7 +3158,7 @@
       {
         id: 121,
         name: 'Remove.bg',
-        icon: '✂️',
+        icon: '??',
         category: 'image',
         categoryLabel: '图像生成',
         description: 'AI抠图工具，一键去除背景，批量处理，API接口',
@@ -3071,7 +3170,7 @@
       {
         id: 122,
         name: 'Upscayl',
-        icon: '🔍',
+        icon: '??',
         category: 'image',
         categoryLabel: '图像生成',
         description: 'AI图片放大工具，开源免费，本地运行，支持多种模型',
@@ -3083,7 +3182,7 @@
       {
         id: 123,
         name: 'ClipDrop',
-        icon: '📸',
+        icon: '??',
         category: 'image',
         categoryLabel: '图像生成',
         description: 'AI图像处理套件，背景移除、重新打光、图像放大',
@@ -3095,7 +3194,7 @@
       {
         id: 124,
         name: 'Palette.fm',
-        icon: '🎨',
+        icon: '??',
         category: 'image',
         categoryLabel: '图像生成',
         description: 'AI照片上色，黑白照片自动着色，多种风格滤镜',
@@ -3107,7 +3206,7 @@
       {
         id: 125,
         name: 'PhotoRoom',
-        icon: '📷',
+        icon: '??',
         category: 'image',
         categoryLabel: '图像生成',
         description: 'AI产品照片工具，自动抠图、背景生成，电商必备',
@@ -3119,7 +3218,7 @@
       {
         id: 126,
         name: 'Look Scanned',
-        icon: '📄',
+        icon: '??',
         category: 'productivity',
         categoryLabel: '办公效率',
         description: 'AI扫描效果生成，PDF变扫描件，隐私安全本地处理',
@@ -3131,7 +3230,7 @@
       {
         id: 127,
         name: 'TinyWow',
-        icon: '🛠️',
+        icon: '???',
         category: 'productivity',
         categoryLabel: '办公效率',
         description: '免费在线文件处理，PDF转换、图片编辑、视频压缩',
@@ -3143,7 +3242,7 @@
       {
         id: 128,
         name: 'iLovePDF',
-        icon: '📕',
+        icon: '??',
         category: 'productivity',
         categoryLabel: '办公效率',
         description: '在线PDF处理工具，合并、拆分、压缩、转换全支持',
@@ -3155,7 +3254,7 @@
       {
         id: 129,
         name: 'tldraw',
-        icon: '📝',
+        icon: '??',
         category: 'design',
         categoryLabel: '设计工具',
         description: 'AI白板工具，手绘转图形、实时协作，开源免费',
@@ -3167,7 +3266,7 @@
       {
         id: 130,
         name: 'Excalidraw',
-        icon: '✏️',
+        icon: '??',
         category: 'design',
         categoryLabel: '设计工具',
         description: '手绘风格白板，流程图、架构图，实时协作',
@@ -3179,7 +3278,7 @@
       {
         id: 131,
         name: 'Whimsical',
-        icon: '🧠',
+        icon: '??',
         category: 'design',
         categoryLabel: '设计工具',
         description: 'AI思维导图工具，流程图、线框图，设计协作一体化',
@@ -3191,7 +3290,7 @@
       {
         id: 132,
         name: 'Eraser',
-        icon: '📐',
+        icon: '??',
         category: 'design',
         categoryLabel: '设计工具',
         description: '开发者文档工具，AI生成架构图、API文档',
@@ -3203,7 +3302,7 @@
       {
         id: 133,
         name: 'Figma AI',
-        icon: '🎨',
+        icon: '??',
         category: 'design',
         categoryLabel: '设计工具',
         description: 'Figma内置AI功能，自动设计、内容填充、原型生成',
@@ -3215,7 +3314,7 @@
       {
         id: 134,
         name: 'Uizard',
-        icon: '🖼️',
+        icon: '???',
         category: 'design',
         categoryLabel: '设计工具',
         description: 'AI UI设计工具，手绘变线框图、自动生成界面',
@@ -3227,7 +3326,7 @@
       {
         id: 135,
         name: 'Grammarly',
-        icon: '✓',
+        icon: '?',
         category: 'writing',
         categoryLabel: '写作助手',
         description: 'AI语法检查工具，实时纠错、风格建议，英语写作必备',
@@ -3239,7 +3338,7 @@
       {
         id: 136,
         name: 'Wordtune',
-        icon: '✍️',
+        icon: '??',
         category: 'writing',
         categoryLabel: '写作助手',
         description: 'AI写作改写工具，润色句子、调整语气，英语写作',
@@ -3251,7 +3350,7 @@
       {
         id: 137,
         name: 'Hemingway Editor',
-        icon: '📝',
+        icon: '??',
         category: 'writing',
         categoryLabel: '写作助手',
         description: 'AI写作风格检查，句子复杂度分析、可读性评分',
@@ -3263,7 +3362,7 @@
       {
         id: 138,
         name: 'NovelAI',
-        icon: '📖',
+        icon: '??',
         category: 'writing',
         categoryLabel: '写作助手',
         description: 'AI小说写作平台，续写、角色扮演、图像生成一体化',
@@ -3275,7 +3374,7 @@
       {
         id: 139,
         name: 'DeepL',
-        icon: '🌐',
+        icon: '??',
         category: 'productivity',
         categoryLabel: '办公效率',
         description: 'AI翻译工具，翻译质量业界领先，支持31种语言',
@@ -3287,7 +3386,7 @@
       {
         id: 140,
         name: 'Immersive Translate',
-        icon: '🌐',
+        icon: '??',
         category: 'productivity',
         categoryLabel: '办公效率',
         description: '浏览器翻译插件，双语对照、PDF翻译，免费开源',
@@ -3299,7 +3398,7 @@
       {
         id: 141,
         name: 'ChatPDF',
-        icon: '📄',
+        icon: '??',
         category: 'productivity',
         categoryLabel: '办公效率',
         description: 'AI PDF对话工具，上传文档即可提问，快速提取信息',
@@ -3311,7 +3410,7 @@
       {
         id: 142,
         name: 'Humata',
-        icon: '📚',
+        icon: '??',
         category: 'productivity',
         categoryLabel: '办公效率',
         description: 'AI文档问答工具，多文档分析、自动摘要生成',
@@ -3323,7 +3422,7 @@
       {
         id: 143,
         name: 'Krisp',
-        icon: '🔇',
+        icon: '??',
         category: 'audio',
         categoryLabel: '音频工具',
         description: 'AI降噪工具，实时消除背景噪音，会议通话必备',
@@ -3335,7 +3434,7 @@
       {
         id: 144,
         name: 'Mubert',
-        icon: '🎵',
+        icon: '??',
         category: 'audio',
         categoryLabel: '音频工具',
         description: 'AI背景音乐生成，根据场景生成无限音乐流',
@@ -3347,7 +3446,7 @@
       {
         id: 145,
         name: 'Soundraw',
-        icon: '🎶',
+        icon: '??',
         category: 'audio',
         categoryLabel: '音频工具',
         description: 'AI音乐生成，自定义情绪、长度、节奏，商用授权',
@@ -3359,7 +3458,7 @@
       {
         id: 146,
         name: 'Boomy',
-        icon: '🎸',
+        icon: '??',
         category: 'audio',
         categoryLabel: '音频工具',
         description: 'AI音乐创作平台，一键生成原创歌曲，可发布到流媒体',
@@ -3371,7 +3470,7 @@
       {
         id: 147,
         name: 'Speechify',
-        icon: '🔊',
+        icon: '??',
         category: 'audio',
         categoryLabel: '音频工具',
         description: 'AI文本转语音，自然流畅朗读，支持多语言多声音',
@@ -3383,7 +3482,7 @@
       {
         id: 148,
         name: 'Descript',
-        icon: '🎙️',
+        icon: '???',
         category: 'audio',
         categoryLabel: '音频工具',
         description: 'AI播客编辑工具，文字编辑音频、自动转录、降噪',
@@ -3395,7 +3494,7 @@
       {
         id: 149,
         name: 'Spline',
-        icon: '🎨',
+        icon: '??',
         category: '3d',
         categoryLabel: '3D建模',
         description: 'AI 3D设计工具，浏览器端建模、实时协作、交互设计',
@@ -3407,7 +3506,7 @@
       {
         id: 150,
         name: 'Blockade Labs',
-        icon: '🌐',
+        icon: '??',
         category: '3d',
         categoryLabel: '3D建模',
         description: 'AI天空盒生成，360度全景图，VR/游戏开发必备',
@@ -3419,7 +3518,7 @@
       {
         id: 151,
         name: 'Kaedim',
-        icon: '🔄',
+        icon: '??',
         category: '3d',
         categoryLabel: '3D建模',
         description: 'AI 2D转3D工具，图片生成3D模型，游戏资产制作',
@@ -3431,7 +3530,7 @@
       {
         id: 152,
         name: 'Point-E',
-        icon: '☁️',
+        icon: '??',
         category: '3d',
         categoryLabel: '3D建模',
         description: 'OpenAI 3D点云生成，文本生成3D模型，开源免费',
@@ -3443,7 +3542,7 @@
       {
         id: 153,
         name: 'Semantic Scholar',
-        icon: '📚',
+        icon: '??',
         category: 'search',
         categoryLabel: '搜索研究',
         description: 'AI学术搜索引擎，AI驱动的论文发现和引用分析',
@@ -3455,7 +3554,7 @@
       {
         id: 154,
         name: 'Connected Papers',
-        icon: '🕸️',
+        icon: '???',
         category: 'search',
         categoryLabel: '搜索研究',
         description: 'AI论文关联图谱，可视化论文引用关系，发现相关研究',
@@ -3467,7 +3566,7 @@
       {
         id: 155,
         name: 'Research Rabbit',
-        icon: '🐰',
+        icon: '??',
         category: 'search',
         categoryLabel: '搜索研究',
         description: 'AI文献发现工具，个性化推荐、协作收藏集',
@@ -3479,7 +3578,7 @@
       {
         id: 156,
         name: 'Scholarcy',
-        icon: '📝',
+        icon: '??',
         category: 'search',
         categoryLabel: '搜索研究',
         description: 'AI论文摘要工具，自动提取要点、生成闪卡',
@@ -3491,7 +3590,7 @@
       {
         id: 157,
         name: 'Jenni AI',
-        icon: '✍️',
+        icon: '??',
         category: 'writing',
         categoryLabel: '写作助手',
         description: 'AI学术写作助手，自动引用、文献管理、续写辅助',
@@ -3503,7 +3602,7 @@
       {
         id: 158,
         name: 'Webpilot',
-        icon: '🌐',
+        icon: '??',
         category: 'search',
         categoryLabel: '搜索研究',
         description: 'AI网页对话工具，与任何网页对话、提取信息、总结内容',
@@ -3515,7 +3614,7 @@
       {
         id: 159,
         name: 'Monica',
-        icon: '🤖',
+        icon: '??',
         category: 'productivity',
         categoryLabel: '办公效率',
         description: 'AI浏览器助手，侧边栏对话、翻译、写作、总结一体化',
@@ -3527,7 +3626,7 @@
       {
         id: 160,
         name: 'Merlin',
-        icon: '🧙',
+        icon: '??',
         category: 'productivity',
         categoryLabel: '办公效率',
         description: 'AI浏览器插件，全网内容对话、YouTube总结、邮件撰写',
@@ -3539,7 +3638,7 @@
       {
         id: 161,
         name: 'Harpa AI',
-        icon: '🤖',
+        icon: '??',
         category: 'productivity',
         categoryLabel: '办公效率',
         description: 'AI浏览器自动化，网页监控、数据提取、自动化任务',
@@ -3551,7 +3650,7 @@
       {
         id: 162,
         name: 'Namelix',
-        icon: '💡',
+        icon: '??',
         category: 'other',
         categoryLabel: '其他',
         description: 'AI品牌命名工具，生成创意品牌名、Logo设计',
@@ -3563,7 +3662,7 @@
       {
         id: 163,
         name: 'Looka',
-        icon: '🎨',
+        icon: '??',
         category: 'design',
         categoryLabel: '设计工具',
         description: 'AI Logo设计平台，品牌视觉全套方案，Logo+VI设计',
@@ -3575,7 +3674,7 @@
       {
         id: 164,
         name: 'Designs.ai',
-        icon: '🎨',
+        icon: '??',
         category: 'design',
         categoryLabel: '设计工具',
         description: 'AI设计套件，Logo、视频、网页、语音一站式生成',
@@ -3587,7 +3686,7 @@
       {
         id: 165,
         name: 'Fontjoy',
-        icon: '🔤',
+        icon: '??',
         category: 'design',
         categoryLabel: '设计工具',
         description: 'AI字体配对工具，自动生成和谐字体组合',
@@ -3599,7 +3698,7 @@
       {
         id: 166,
         name: 'Khroma',
-        icon: '🎨',
+        icon: '??',
         category: 'design',
         categoryLabel: '设计工具',
         description: 'AI配色工具，学习你的偏好生成个性化调色板',
@@ -3611,7 +3710,7 @@
       {
         id: 167,
         name: 'Tabler',
-        icon: '🎯',
+        icon: '??',
         category: 'dev',
         categoryLabel: '开发者工具',
         description: 'AI图标生成工具，文本描述生成SVG图标',
@@ -3623,7 +3722,7 @@
       {
         id: 168,
         name: 'Carbon',
-        icon: '📸',
+        icon: '??',
         category: 'dev',
         categoryLabel: '开发者工具',
         description: '代码截图美化工具，生成精美代码图片，社交分享',
@@ -3635,7 +3734,7 @@
       {
         id: 169,
         name: 'Raycast',
-        icon: '⚡',
+        icon: '?',
         category: 'productivity',
         categoryLabel: '办公效率',
         description: 'Mac效率启动器，内置AI助手、剪贴板历史、窗口管理',
@@ -3647,7 +3746,7 @@
       {
         id: 170,
         name: 'Mem AI',
-        icon: '📝',
+        icon: '??',
         category: 'productivity',
         categoryLabel: '办公效率',
         description: 'AI笔记工具，自动组织、智能关联、快速检索',
@@ -3659,7 +3758,7 @@
       {
         id: 171,
         name: 'Reflect',
-        icon: '📓',
+        icon: '??',
         category: 'productivity',
         categoryLabel: '办公效率',
         description: 'AI笔记应用，双向链接、自动总结、语音转文字',
@@ -3671,7 +3770,7 @@
       {
         id: 172,
         name: 'Taskade',
-        icon: '📋',
+        icon: '??',
         category: 'productivity',
         categoryLabel: '办公效率',
         description: 'AI项目管理工具，任务分解、思维导图、团队协作',
@@ -3683,7 +3782,7 @@
       {
         id: 173,
         name: 'Reclaim.ai',
-        icon: '📅',
+        icon: '??',
         category: 'productivity',
         categoryLabel: '办公效率',
         description: 'AI日程管理，自动安排会议、保护专注时间、智能调度',
@@ -3695,7 +3794,7 @@
       {
         id: 174,
         name: 'Motion',
-        icon: '🗓️',
+        icon: '???',
         category: 'productivity',
         categoryLabel: '办公效率',
         description: 'AI日历与任务管理，自动规划日程、优先级排序',
@@ -3707,7 +3806,7 @@
       {
         id: 175,
         name: 'Tika',
-        icon: '🎯',
+        icon: '??',
         category: 'productivity',
         categoryLabel: '办公效率',
         description: 'AI面试助手，实时提示、回答建议、录音转文字',
@@ -3719,7 +3818,7 @@
       {
         id: 176,
         name: 'Final Round AI',
-        icon: '🎤',
+        icon: '??',
         category: 'productivity',
         categoryLabel: '办公效率',
         description: 'AI面试准备，模拟面试、简历优化、实时辅导',
@@ -3731,7 +3830,7 @@
       {
         id: 177,
         name: 'Kickresume',
-        icon: '📄',
+        icon: '??',
         category: 'productivity',
         categoryLabel: '办公效率',
         description: 'AI简历生成器，一键创建精美简历、求职信',
@@ -3743,7 +3842,7 @@
       {
         id: 178,
         name: 'Teal',
-        icon: '🦆',
+        icon: '??',
         category: 'productivity',
         categoryLabel: '办公效率',
         description: 'AI求职助手，职位追踪、简历优化、面试准备',
@@ -3755,7 +3854,7 @@
       {
         id: 179,
         name: 'ChatGPT App',
-        icon: '📱',
+        icon: '??',
         category: 'chat',
         categoryLabel: '聊天AI',
         description: 'OpenAI官方App，iOS/Android，支持语音对话、图片识别',
@@ -3767,7 +3866,7 @@
       {
         id: 180,
         name: 'Poe App',
-        icon: '📱',
+        icon: '??',
         category: 'chat',
         categoryLabel: '聊天AI',
         description: 'Poe移动端，一键切换多模型、自定义Bot',
@@ -3779,7 +3878,7 @@
       {
         id: 181,
         name: 'Perplexity App',
-        icon: '📱',
+        icon: '??',
         category: 'search',
         categoryLabel: '搜索研究',
         description: 'Perplexity移动端，AI搜索、语音提问、即时答案',
