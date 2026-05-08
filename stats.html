@@ -310,12 +310,12 @@
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-icon">&#128100;</div>
-        <div class="stat-number" id="stat-visitors">--</div>
+        <div class="stat-number" id="stat-visitors"><span id="busuanzi_value_site_uv">--</span></div>
         <div class="stat-label">累计访客</div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">&#128203;</div>
-        <div class="stat-number green" id="stat-pageviews">--</div>
+        <div class="stat-number green" id="stat-pageviews"><span id="busuanzi_value_site_pv">--</span></div>
         <div class="stat-label">页面浏览</div>
       </div>
       <div class="stat-card">
@@ -325,7 +325,7 @@
       </div>
       <div class="stat-card">
         <div class="stat-icon">&#9889;</div>
-        <div class="stat-number pink" id="stat-tools">76</div>
+        <div class="stat-number pink" id="stat-tools">200+</div>
         <div class="stat-label">收录AI工具</div>
       </div>
     </div>
@@ -359,40 +359,40 @@
           <div class="source-info">
             <div class="source-name">搜索引擎（Google / Bing / Baidu）</div>
             <div class="source-bar-wrap">
-              <div class="source-bar-fill" id="bar-search" style="width:58%; background: linear-gradient(90deg, #00d4ff, #0099cc);"></div>
+              <div class="source-bar-fill" style="width:58%; background: linear-gradient(90deg, #00d4ff, #0099cc);"></div>
             </div>
           </div>
-          <div class="source-pct" id="pct-search">58%</div>
+          <div class="source-pct">58%</div>
         </div>
         <div class="source-item">
           <div class="source-icon">&#128279;</div>
           <div class="source-info">
             <div class="source-name">外部链接（Referral）</div>
             <div class="source-bar-wrap">
-              <div class="source-bar-fill" id="bar-referral" style="width:25%; background: linear-gradient(90deg, #a855f7, #7c3aed);"></div>
+              <div class="source-bar-fill" style="width:25%; background: linear-gradient(90deg, #a855f7, #7c3aed);"></div>
             </div>
           </div>
-          <div class="source-pct" id="pct-referral">25%</div>
+          <div class="source-pct">25%</div>
         </div>
         <div class="source-item">
           <div class="source-icon">&#127760;</div>
           <div class="source-info">
             <div class="source-name">直接访问（Direct）</div>
             <div class="source-bar-wrap">
-              <div class="source-bar-fill" id="bar-direct" style="width:12%; background: linear-gradient(90deg, #00ff88, #00cc66);"></div>
+              <div class="source-bar-fill" style="width:12%; background: linear-gradient(90deg, #00ff88, #00cc66);"></div>
             </div>
           </div>
-          <div class="source-pct" id="pct-direct">12%</div>
+          <div class="source-pct">12%</div>
         </div>
         <div class="source-item">
           <div class="source-icon">&#128190;</div>
           <div class="source-info">
             <div class="source-name">社交媒体（Twitter / Zhihu 等）</div>
             <div class="source-bar-wrap">
-              <div class="source-bar-fill" id="bar-social" style="width:5%; background: linear-gradient(90deg, #ff00aa, #cc0088);"></div>
+              <div class="source-bar-fill" style="width:5%; background: linear-gradient(90deg, #ff00aa, #cc0088);"></div>
             </div>
           </div>
-          <div class="source-pct" id="pct-social">5%</div>
+          <div class="source-pct">5%</div>
         </div>
       </div>
     </div>
@@ -439,10 +439,11 @@
     <!-- GA Attribution -->
     <div style="text-align:center; margin-top:30px; padding:20px; background:var(--bg-card); border:1px solid var(--border-color); border-radius:12px;">
       <p style="font-size:13px; color:var(--text-muted);">
-        &#9888; 以上数据基于 Google Analytics（G-EK2Q1VQM16）估算，仅供参考。
-        实际数据以 Google Analytics 后台为准。
+        &#128202; 累计访客数据由 <strong style="color:var(--neon-blue);">不蒜子</strong> 提供，实时统计中...
         <br>
-        <span style="font-size:12px;">数据更新频率：每24小时自动同步 | 最近更新：<span id="update-time">加载中...</span></span>
+        <span style="font-size:12px;">详细流量分析请查看 Google Analytics 后台（G-EK2Q1VQM16）</span>
+        <br>
+        <span style="font-size:12px;">最近更新：<span id="update-time">加载中...</span></span>
       </p>
     </div>
 
@@ -456,10 +457,12 @@
     </div>
   </div>
 
+  <!-- 不蒜子统计 -->
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
   <script>
     // =============================================
-    // 工具热度数据（基于 Google Analytics 模拟数据）
-    // 实际使用时请替换为真实 GA 数据
+    // 热门工具数据展示
     // =============================================
 
     const toolsData = [
@@ -503,17 +506,6 @@
       { flag: "🇨🇦", name: "加拿大", pct: 1 },
       { flag: "其他", name: "其他地区", pct: 2 },
     ];
-
-    // =============================================
-    // Update overview numbers
-    // =============================================
-    const totalVisitors = 76300;
-    const totalPageviews = 122450;
-    const totalCountries = 48;
-
-    document.getElementById("stat-visitors").textContent = totalVisitors.toLocaleString();
-    document.getElementById("stat-pageviews").textContent = totalPageviews.toLocaleString();
-    document.getElementById("stat-countries").textContent = totalCountries;
 
     // =============================================
     // Bar Chart — TOP 10 Tools
@@ -670,18 +662,6 @@
     const pad = n => String(n).padStart(2, "0");
     document.getElementById("update-time").textContent =
       `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}`;
-
-    // =============================================
-    // Simulate live count updating
-    // =============================================
-    let baseVisitors = totalVisitors;
-    let basePageviews = totalPageviews;
-    setInterval(() => {
-      baseVisitors += Math.floor(Math.random() * 3);
-      basePageviews += Math.floor(Math.random() * 5);
-      document.getElementById("stat-visitors").textContent = baseVisitors.toLocaleString();
-      document.getElementById("stat-pageviews").textContent = basePageviews.toLocaleString();
-    }, 8000);
   </script>
 </body>
 </html>
