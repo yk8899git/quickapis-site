@@ -811,6 +811,104 @@
     }
 
     /* =============================================
+       HOT REVIEWS SECTION
+    ============================================= */
+    .reviews-section {
+      padding: 60px 0 50px;
+      background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    }
+
+    .reviews-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .reviews-title {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .reviews-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .reviews-scroll {
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: var(--neon-blue) transparent;
+      padding-bottom: 12px;
+    }
+
+    .reviews-scroll::-webkit-scrollbar { height: 6px; }
+    .reviews-scroll::-webkit-scrollbar-track { background: transparent; }
+    .reviews-scroll::-webkit-scrollbar-thumb { background: var(--neon-blue); border-radius: 3px; }
+
+    .reviews-track {
+      display: flex;
+      gap: 16px;
+      width: max-content;
+      padding: 4px 0;
+    }
+
+    .review-card {
+      flex: 0 0 300px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .review-card:hover {
+      border-color: rgba(59,130,246,0.35);
+      box-shadow: 0 8px 28px rgba(59,130,246,0.1);
+      transform: translateY(-3px);
+    }
+
+    .review-card-tag {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(59,130,246,0.1);
+      color: var(--neon-blue);
+      margin-bottom: 10px;
+    }
+
+    .review-card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.5;
+      margin-bottom: 8px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .review-card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .review-card-source {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* =============================================
        EMPTY STATE
     ============================================= */
     .empty-state {
@@ -1325,6 +1423,19 @@
         <div class="empty-state-icon">&#8709;</div>
         <div class="empty-state-title">未找到相关工具</div>
         <div class="empty-state-desc">换个关键词试试，或浏览其他分类</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== HOT REVIEWS ==================== -->
+  <section class="reviews-section">
+    <div class="container">
+      <div class="reviews-header">
+        <h2 class="reviews-title">📡 热门评测</h2>
+        <p class="reviews-subtitle">来自知乎、CSDN、36氪等平台的最新AI工具测评</p>
+      </div>
+      <div class="reviews-scroll" id="reviewsScroll">
+        <div class="reviews-track" id="reviewsTrack"></div>
       </div>
     </div>
   </section>
@@ -2070,53 +2181,38 @@
     loadToolsData();
   </script>
 
-  <!-- PATCH: reviews + favicon fix -->
   <script>
-    (function() {
-      var origRender = typeof renderTools !== 'undefined' ? null : true;
-      document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(function() {
-          var cards = document.querySelectorAll('.tool-card');
-          cards.forEach(function(card) {
-            var id = card.getAttribute('data-id');
-            if (!id) return;
-            var tool = null;
-            for (var i = 0; i < toolsData.length; i++) {
-              if (toolsData[i].id === id) { tool = toolsData[i]; break; }
-            }
-            if (!tool || !tool.reviews || !tool.reviews.length) return;
-            var div = document.createElement('div');
-            div.className = 'tool-reviews';
-            var label = document.createElement('p');
-            label.className = 'extra-label';
-            label.textContent = '\ud83d\udce1 \u6700\u65b0\u8bc4\u6d4b';
-            div.appendChild(label);
-            for (var ri = 0; ri < Math.min(3, tool.reviews.length); ri++) {
-              var r = tool.reviews[ri];
-              var item = document.createElement('div');
-              item.className = 'review-item';
-              var link = document.createElement('a');
-              link.href = r.url; link.target = '_blank'; link.rel = 'noopener';
-              link.className = 'review-link';
-              var tSpan = document.createElement('span');
-              tSpan.className = 'review-title';
-              tSpan.textContent = r.title;
-              var mSpan = document.createElement('span');
-              mSpan.className = 'review-meta';
-              mSpan.textContent = r.source + ' \u00b7 ' + r.time;
-              link.appendChild(tSpan); link.appendChild(mSpan);
-              item.appendChild(link); div.appendChild(item);
-            }
-            var footer = card.querySelector('.tool-footer');
-            if (footer) card.insertBefore(div, footer);
-            var img = card.querySelector('.tool-favicon');
-            if (img && img.src.indexOf('google.com') > -1) {
-              img.src = img.src.replace('www.google.com/s2/favicons', 'favicon.im');
-            }
-          });
-        }, 500);
+    var REVIEWS_DATA = [
+      {tool: "ChatGPT", toolIcon: "🤖", title: "OpenAI一口气更新三款超强语音AI", url: "https://so.html5.qq.com/page/real/search_news?docid=70000021_00569fd4daf84052", source: "企鹅号", time: "2026-05-08"},
+      {tool: "ChatGPT", toolIcon: "🤖", title: "OpenAI官方CLI上线，跟复杂的SDK说拜拜", url: "https://so.html5.qq.com/page/real/search_news?docid=70000021_61869fdad9187052", source: "企鹅号", time: "2026-05-08"},
+      {tool: "ChatGPT", toolIcon: "🤖", title: "OpenAI GPT-5.5实测：准确率75.3%", url: "https://blog.csdn.net/easyllm/article/details/160546801", source: "CSDN", time: "2026-05-07"},
+      {tool: "DeepSeek", toolIcon: "🔍", title: "DeepSeek开放识图模式，跨入图文交互时代", url: "https://so.html5.qq.com/page/real/search_news?docid=70000021_03069fe909637652", source: "企鹅号", time: "2026-05-09"},
+      {tool: "DeepSeek", toolIcon: "🔍", title: "DeepSeek V4预览版实测：4家API聚合平台延迟横评", url: "https://blog.csdn.net/ofoxcoding/article/details/160562211", source: "CSDN", time: "2026-05-07"},
+      {tool: "DeepSeek", toolIcon: "🔍", title: "DeepSeek V4「叫好不叫座」：Codex才是决赛圈", url: "https://36kr.com/p/3797839722410758", source: "36氪", time: "2026-05-07"},
+      {tool: "SiliconFlow", toolIcon: "💧", title: "2026年AI大模型API加速平台深度测评", url: "https://so.html5.qq.com/page/real/search_news?docid=70000021_08169fc2a6425952", source: "企鹅号", time: "2026-05-07"},
+      {tool: "SiliconFlow", toolIcon: "💧", title: "MyClaw初体验：从零配置到成功调用SiliconFlow", url: "https://download.csdn.net/blog/column/11568299/158893860", source: "CSDN", time: "2026-05-05"},
+      {tool: "SiliconFlow", toolIcon: "💧", title: "API中转站对比：不同平台各有主场", url: "https://www.sohu.com/a/1018962535_122667257", source: "搜狐", time: "2026-05-06"},
+      {tool: "OpenRouter", toolIcon: "🛤️", title: "2026大模型API怎么选？四大聚合平台横评", url: "https://blog.csdn.net/aidoudoulong/article/details/160204951", source: "CSDN", time: "2026-05-07"},
+      {tool: "Claude", toolIcon: "🧠", title: "2026AI模型API中转平台榜单大揭秘", url: "https://so.html5.qq.com/page/real/search_news?docid=70000021_17469fada2669652", source: "企鹅号", time: "2026-05-06"},
+      {tool: "Gemini", toolIcon: "✨", title: "2026全球AI大模型API聚合平台深度评测", url: "https://blog.csdn.net/lulu1216544078/article/details/160006751", source: "CSDN", time: "2026-05-03"},
+      {tool: "Groq", toolIcon: "⚡", title: "2026年开发者API中转选型指南", url: "https://blog.csdn.net/xinlianyq/article/details/160119241", source: "CSDN", time: "2026-05-03"}
+    ];
+
+    var track = document.getElementById('reviewsTrack');
+    if (track) {
+      REVIEWS_DATA.forEach(function(r) {
+        var card = document.createElement('div');
+        card.className = 'review-card';
+        card.innerHTML = '<span class="review-card-tag">' + r.toolIcon + ' ' + r.tool + '</span>' +
+          '<div class="review-card-title">' + r.title + '</div>' +
+          '<div class="review-card-meta">' +
+            '<span class="review-card-source">📰 ' + r.source + '</span>' +
+            '<span>' + r.time + '</span>' +
+          '</div>';
+        card.onclick = function() { window.open(r.url, '_blank'); };
+        track.appendChild(card);
       });
-    })();
+    }
   </script>
 
 </body>
