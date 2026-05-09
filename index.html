@@ -144,7 +144,9 @@
 
     .logo-icon {
       font-size: 28px;
-      filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.6));
+      filter: none;
+      display: flex;
+      align-items: center;
     }
 
     .logo-text {
@@ -1134,7 +1136,7 @@
     <div class="container">
       <div class="navbar-inner">
         <a href="#" class="logo">
-          <span class="logo-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 9H22L16 13.5L18 21L12 16.5L6 21L8 13.5L2 9H9.5L12 2Z" fill="url(%23starGrad)" stroke="%233b82f6" stroke-width="1"/><defs><linearGradient id="starGrad" x1="2" y1="2" x2="22" y2="22"><stop offset="0%25" stop-color="%233b82f6"/><stop offset="100%25" stop-color="%23ec4899"/></linearGradient></defs></svg></span>
+          <span class="logo-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 9H22L16 13.5L18 21L12 16.5L6 21L8 13.5L2 9H9.5L12 2Z" fill="url(#starGrad)" stroke="#3b82f6" stroke-width="1"/><defs><linearGradient id="starGrad" x1="2" y1="2" x2="22" y2="22"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#ec4899"/></linearGradient></defs></svg></span>
           <div class="logo-text">
             <span class="logo-name">QuickAPIs</span>
             <span class="logo-tagline">AI工具导航</span>
@@ -1194,7 +1196,7 @@
 
       <div class="hero-search">
         <div class="hero-search-wrapper">
-          <span class="hero-search-icon">🔍</span>
+          <span class="hero-search-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></span>
           <input
             type="text"
             id="heroSearchInput"
@@ -1390,9 +1392,10 @@
       // document.body.prepend(dynamic);
       // document.body.prepend(display);
 
-      const oCtx = offscreen.getContext('2d');
-      const dCtx = display.getContext('2d');
-      const dyCtx = dynamic.getContext('2d');
+      // oCtx, dCtx, dyCtx — DISABLED (canvas removed for white theme)
+      // const oCtx = offscreen.getContext('2d');
+      // const dCtx = display.getContext('2d');
+      // const dyCtx = dynamic.getContext('2d');
 
       let vw, vh, ow, oh;
       let twinkleStars = [];
