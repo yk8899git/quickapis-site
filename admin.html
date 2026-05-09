@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>后台管理 - QuickAPIs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #0f0f1a;
+      --bg-card: #111827;
+      --neon-blue: #00d4ff;
+      --neon-purple: #a855f7;
+      --neon-green: #00ff88;
+      --neon-pink: #ff00aa;
+      --neon-orange: #ff9500;
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --success: #10b981;
+      --danger: #ef4444;
+    }
+    body {
+      font-family: 'Noto Sans SC', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
+    
+    /* Header */
+    .header {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+      padding: 16px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header h1 {
+      font-size: 20px;
+      background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .header-actions {
+      display: flex;
+      gap: 12px;
+    }
+    .btn {
+      padding: 8px 16px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover {
+      border-color: var(--neon-blue);
+      box-shadow: 0 0 12px rgba(0, 212, 255, 0.2);
+    }
+    .btn-primary {
+      background: var(--neon-blue);
+      color: #000;
+      border-color: var(--neon-blue);
+      font-weight: 500;
+    }
+    .btn-success {
+      background: var(--success);
+      border-color: var(--success);
+      color: #fff;
+    }
+    .btn-danger {
+      background: var(--danger);
+      border-color: var(--danger);
+      color: #fff;
+    }
+    
+    /* Stats Bar */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      padding: 20px 24px;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .stat-item {
+      text-align: center;
+    }
+    .stat-value {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--neon-blue);
+    }
+    .stat-value.purple { color: var(--neon-purple); }
+    .stat-value.green { color: var(--neon-green); }
+    .stat-value.orange { color: var(--neon-orange); }
+    .stat-value.pink { color: var(--neon-pink); }
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+    
+    /* Filters */
+    .filters {
+      padding: 16px 24px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .filter-label {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+    select, input[type="text"] {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      outline: none;
+    }
+    select:focus, input[type="text"]:focus {
+      border-color: var(--neon-blue);
+    }
+    
+    /* Tools Table */
+    .table-container {
+      padding: 24px;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+    th {
+      background: var(--bg-secondary);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      position: sticky;
+      top: 0;
+    }
+    tr:hover {
+      background: rgba(0, 212, 255, 0.05);
+    }
+    .tool-icon {
+      font-size: 24px;
+    }
+    .tool-name {
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    .tool-name-cn {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    .tool-desc {
+      max-width: 300px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .tag {
+      display: inline-block;
+      background: rgba(168, 85, 247, 0.15);
+      color: var(--neon-purple);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      margin-right: 4px;
+    }
+    .tag.featured {
+      background: rgba(0, 255, 136, 0.15);
+      color: var(--neon-green);
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+    .badge-featured {
+      background: var(--neon-green);
+      color: #000;
+    }
+    .badge-normal {
+      background: var(--text-secondary);
+      color: #000;
+    }
+    .actions {
+      display: flex;
+      gap: 8px;
+    }
+    .action-btn {
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .action-btn:hover {
+      border-color: var(--neon-blue);
+      color: var(--neon-blue);
+    }
+    .action-btn.danger:hover {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+    
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .modal {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      width: 90%;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: translateY(-20px);
+      transition: all 0.3s;
+    }
+    .modal-overlay.active .modal {
+      transform: translateY(0);
+    }
+    .modal-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-header h2 {
+      font-size: 18px;
+      color: var(--neon-blue);
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 24px;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .modal-close:hover {
+      color: var(--text-primary);
+    }
+    .modal-body {
+      padding: 20px;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--neon-blue);
+    }
+    .form-group textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .checkbox-group input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--neon-green);
+    }
+    .modal-footer {
+      padding: 16px 20px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+    
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-secondary);
+    }
+    .empty-state-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+    
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--success);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      z-index: 2000;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s;
+    }
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .toast.error {
+      background: var(--danger);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .stats-bar {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .table-container {
+        padding: 12px;
+      }
+      th, td {
+        padding: 8px;
+        font-size: 12px;
+      }
+      .tool-desc {
+        max-width: 150px;
+      }
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <h1>🎛️ QuickAPIs 后台管理</h1>
+    <div class="header-actions">
+      <a href="index.html" class="btn">🌐 查看站点</a>
+      <button class="btn btn-primary" onclick="openAddModal()">➕ 新增工具</button>
+      <button class="btn btn-success" onclick="exportJSON()">📥 导出 JSON</button>
+    </div>
+  </div>
+  
+  <!-- Stats Bar -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-value" id="stat-total">0</div>
+      <div class="stat-label">总工具数</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value purple" id="stat-featured">0</div>
+      <div class="stat-label">推荐工具</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value green" id="stat-categories">0</div>
+      <div class="stat-label">分类数</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value orange" id="stat-reviews">0</div>
+      <div class="stat-label">评测文章</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value pink" id="stat-tags">0</div>
+      <div class="stat-label">标签数</div>
+    </div>
+  </div>
+  
+  <!-- Filters -->
+  <div class="filters">
+    <div class="filter-group">
+      <span class="filter-label">分类：</span>
+      <select id="filter-category" onchange="filterTools()">
+        <option value="">全部</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">状态：</span>
+      <select id="filter-featured" onchange="filterTools()">
+        <option value="">全部</option>
+        <option value="true">推荐</option>
+        <option value="false">普通</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">搜索：</span>
+      <input type="text" id="filter-search" placeholder="工具名称/描述..." onkeyup="filterTools()">
+    </div>
+  </div>
+  
+  <!-- Tools Table -->
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>图标</th>
+          <th>名称</th>
+          <th>分类</th>
+          <th>描述</th>
+          <th>标签</th>
+          <th>状态</th>
+          <th>评测</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody id="tools-table">
+        <!-- Dynamic content -->
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- Add/Edit Modal -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modal-title">新增工具</h2>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="edit-id">
+        <div class="form-row">
+          <div class="form-group">
+            <label>工具 ID（英文，唯一）</label>
+            <input type="text" id="form-id" placeholder="如: chatgpt">
+          </div>
+          <div class="form-group">
+            <label>图标（emoji）</label>
+            <input type="text" id="form-icon" placeholder="如: 🤖">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>英文名称</label>
+            <input type="text" id="form-name" placeholder="ChatGPT">
+          </div>
+          <div class="form-group">
+            <label>中文名称</label>
+            <input type="text" id="form-name-cn" placeholder="ChatGPT">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>分类</label>
+            <select id="form-category"></select>
+          </div>
+          <div class="form-group">
+            <label>官网链接</label>
+            <input type="url" id="form-url" placeholder="https://...">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>描述</label>
+          <textarea id="form-desc" placeholder="简短描述工具功能和特点..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>标签（逗号分隔）</label>
+          <input type="text" id="form-tags" placeholder="对话, GPT-4, 免费可用">
+        </div>
+        <div class="form-group checkbox-group">
+          <input type="checkbox" id="form-featured">
+          <label for="form-featured">推荐工具（首页展示）</label>
+        </div>
+        <div class="form-group">
+          <label>评测链接（JSON格式，可选）</label>
+          <textarea id="form-reviews" placeholder='[{"title": "评测标题", "url": "链接", "source": "来源", "time": "2026-05-10"}]'></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" onclick="closeModal()">取消</button>
+        <button class="btn btn-primary" onclick="saveTool()">保存</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+  
+  <script>
+    let toolsData = { categories: [], tools: [] };
+    let filteredTools = [];
+    
+    // Load data
+    fetch('tools.json')
+      .then(res => res.json())
+      .then(data => {
+        toolsData = data;
+        filteredTools = data.tools;
+        updateStats();
+        renderCategoryFilter();
+        renderTable();
+      })
+      .catch(err => {
+        showToast('加载 tools.json 失败：' + err.message, true);
+      });
+    
+    // Update stats
+    function updateStats() {
+      const totalTools = toolsData.tools.length;
+      const featured = toolsData.tools.filter(t => t.featured).length;
+      const categories = toolsData.categories.length;
+      const reviews = toolsData.tools.reduce((sum, t) => sum + (t.reviews?.length || 0), 0);
+      const allTags = new Set(toolsData.tools.flatMap(t => t.tags || []));
+      
+      document.getElementById('stat-total').textContent = totalTools;
+      document.getElementById('stat-featured').textContent = featured;
+      document.getElementById('stat-categories').textContent = categories;
+      document.getElementById('stat-reviews').textContent = reviews;
+      document.getElementById('stat-tags').textContent = allTags.size;
+    }
+    
+    // Render category filter
+    function renderCategoryFilter() {
+      const select = document.getElementById('filter-category');
+      const formSelect = document.getElementById('form-category');
+      
+      toolsData.categories.forEach(cat => {
+        select.innerHTML += `<option value="${cat}">${cat}</option>`;
+        formSelect.innerHTML += `<option value="${cat}">${cat}</option>`;
+      });
+    }
+    
+    // Render table
+    function renderTable() {
+      const tbody = document.getElementById('tools-table');
+      
+      if (filteredTools.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8">
+              <div class="empty-state">
+                <div class="empty-state-icon">🔍</div>
+                <div>没有找到匹配的工具</div>
+              </div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+      
+      tbody.innerHTML = filteredTools.map(tool => `
+        <tr>
+          <td><span class="tool-icon">${tool.icon || '📦'}</span></td>
+          <td>
+            <div class="tool-name">${tool.name}</div>
+            <div class="tool-name-cn">${tool.nameCn || ''}</div>
+          </td>
+          <td><span class="tag">${tool.category}</span></td>
+          <td><div class="tool-desc">${tool.description || ''}</div></td>
+          <td>${(tool.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}</td>
+          <td><span class="badge ${tool.featured ? 'badge-featured' : 'badge-normal'}">${tool.featured ? '推荐' : '普通'}</span></td>
+          <td>${tool.reviews?.length || 0} 篇</td>
+          <td>
+            <div class="actions">
+              <button class="action-btn" onclick="editTool('${tool.id}')">编辑</button>
+              <button class="action-btn" onclick="copyTool('${tool.id}')">复制</button>
+              <button class="action-btn danger" onclick="deleteTool('${tool.id}')">删除</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+    
+    // Filter tools
+    function filterTools() {
+      const category = document.getElementById('filter-category').value;
+      const featured = document.getElementById('filter-featured').value;
+      const search = document.getElementById('filter-search').value.toLowerCase();
+      
+      filteredTools = toolsData.tools.filter(tool => {
+        if (category && tool.category !== category) return false;
+        if (featured === 'true' && !tool.featured) return false;
+        if (featured === 'false' && tool.featured) return false;
+        if (search) {
+          const matchName = tool.name.toLowerCase().includes(search);
+          const matchNameCn = (tool.nameCn || '').toLowerCase().includes(search);
+          const matchDesc = (tool.description || '').toLowerCase().includes(search);
+          if (!matchName && !matchNameCn && !matchDesc) return false;
+        }
+        return true;
+      });
+      
+      renderTable();
+    }
+    
+    // Open add modal
+    function openAddModal() {
+      document.getElementById('modal-title').textContent = '新增工具';
+      document.getElementById('edit-id').value = '';
+      document.getElementById('form-id').value = '';
+      document.getElementById('form-id').disabled = false;
+      document.getElementById('form-icon').value = '📦';
+      document.getElementById('form-name').value = '';
+      document.getElementById('form-name-cn').value = '';
+      document.getElementById('form-category').value = toolsData.categories[0];
+      document.getElementById('form-url').value = '';
+      document.getElementById('form-desc').value = '';
+      document.getElementById('form-tags').value = '';
+      document.getElementById('form-featured').checked = false;
+      document.getElementById('form-reviews').value = '';
+      document.getElementById('modal-overlay').classList.add('active');
+    }
+    
+    // Edit tool
+    function editTool(id) {
+      const tool = toolsData.tools.find(t => t.id === id);
+      if (!tool) return;
+      
+      document.getElementById('modal-title').textContent = '编辑工具';
+      document.getElementById('edit-id').value = id;
+      document.getElementById('form-id').value = tool.id;
+      document.getElementById('form-id').disabled = true;
+      document.getElementById('form-icon').value = tool.icon || '📦';
+      document.getElementById('form-name').value = tool.name;
+      document.getElementById('form-name-cn').value = tool.nameCn || '';
+      document.getElementById('form-category').value = tool.category;
+      document.getElementById('form-url').value = tool.url;
+      document.getElementById('form-desc').value = tool.description || '';
+      document.getElementById('form-tags').value = (tool.tags || []).join(', ');
+      document.getElementById('form-featured').checked = tool.featured || false;
+      document.getElementById('form-reviews').value = tool.reviews ? JSON.stringify(tool.reviews, null, 2) : '';
+      document.getElementById('modal-overlay').classList.add('active');
+    }
+    
+    // Copy tool
+    function copyTool(id) {
+      const tool = toolsData.tools.find(t => t.id === id);
+      if (!tool) return;
+      
+      const newTool = JSON.parse(JSON.stringify(tool));
+      newTool.id = tool.id + '-copy';
+      newTool.name = tool.name + ' (副本)';
+      
+      toolsData.tools.push(newTool);
+      filteredTools = toolsData.tools;
+      updateStats();
+      renderTable();
+      showToast('已复制，请保存 JSON 文件');
+    }
+    
+    // Delete tool
+    function deleteTool(id) {
+      if (!confirm('确定删除这个工具吗？')) return;
+      
+      const index = toolsData.tools.findIndex(t => t.id === id);
+      if (index > -1) {
+        toolsData.tools.splice(index, 1);
+        filteredTools = toolsData.tools;
+        updateStats();
+        renderTable();
+        showToast('已删除，请保存 JSON 文件');
+      }
+    }
+    
+    // Save tool
+    function saveTool() {
+      const editId = document.getElementById('edit-id').value;
+      const id = document.getElementById('form-id').value.trim();
+      
+      if (!id) {
+        showToast('请输入工具 ID', true);
+        return;
+      }
+      
+      // Check duplicate ID
+      if (!editId && toolsData.tools.find(t => t.id === id)) {
+        showToast('工具 ID 已存在', true);
+        return;
+      }
+      
+      const tool = {
+        id: id,
+        name: document.getElementById('form-name').value.trim(),
+        nameCn: document.getElementById('form-name-cn').value.trim(),
+        category: document.getElementById('form-category').value,
+        description: document.getElementById('form-desc').value.trim(),
+        url: document.getElementById('form-url').value.trim(),
+        tags: document.getElementById('form-tags').value.split(',').map(t => t.trim()).filter(t => t),
+        icon: document.getElementById('form-icon').value.trim(),
+        featured: document.getElementById('form-featured').checked
+      };
+      
+      const reviewsStr = document.getElementById('form-reviews').value.trim();
+      if (reviewsStr) {
+        try {
+          tool.reviews = JSON.parse(reviewsStr);
+        } catch (e) {
+          showToast('评测链接 JSON 格式错误', true);
+          return;
+        }
+      }
+      
+      if (editId) {
+        // Update existing
+        const index = toolsData.tools.findIndex(t => t.id === editId);
+        if (index > -1) {
+          toolsData.tools[index] = tool;
+        }
+      } else {
+        // Add new
+        toolsData.tools.push(tool);
+      }
+      
+      filteredTools = toolsData.tools;
+      updateStats();
+      renderTable();
+      closeModal();
+      showToast('已保存，请导出 JSON 文件');
+    }
+    
+    // Close modal
+    function closeModal() {
+      document.getElementById('modal-overlay').classList.remove('active');
+    }
+    
+    // Export JSON
+    function exportJSON() {
+      const dataStr = JSON.stringify(toolsData, null, 2);
+      const blob = new Blob([dataStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'tools.json';
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('已导出 tools.json，请替换原文件并 git push');
+    }
+    
+    // Show toast
+    function showToast(message, isError = false) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.className = 'toast show' + (isError ? ' error' : '');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+    
+    // Close modal on overlay click
+    document.getElementById('modal-overlay').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+    
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModal();
+      if (e.key === 'n' && e.ctrlKey) {
+        e.preventDefault();
+        openAddModal();
+      }
+    });
+  </script>
+</body>
+</html>
