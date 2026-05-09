@@ -858,8 +858,6 @@
     .review-card {
       flex: 0 0 320px;
       scroll-snap-align: start;
-    }
-      flex: 0 0 300px;
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-md);
@@ -1422,10 +1420,7 @@
         <h2 class="reviews-title">📡 热门评测</h2>
         <p class="reviews-subtitle">来自知乎、CSDN、36氪等平台的最新AI工具测评</p>
       </div>
-      <div class="reviews-grid">
-        <div class="reviews-col"></div>
-        <div class="reviews-col"></div>
-      </div>
+      <div class="reviews-grid" id="reviewsGrid"></div>
     </div>
   </section>
 
@@ -2210,10 +2205,9 @@
     ];
 
     var track = document.getElementById('reviewsTrack');
-    var cols = document.querySelectorAll('.reviews-col');
-    if (cols.length >= 2) {
-      REVIEWS_DATA.forEach(function(r, idx) {
-        var col = cols[idx % 2];
+    var grid = document.getElementById('reviewsGrid');
+    if (grid) {
+      REVIEWS_DATA.forEach(function(r) {
         var card = document.createElement('div');
         card.className = 'review-card';
         card.innerHTML = '<span class="review-card-tag">' + r.toolIcon + ' ' + r.tool + '</span>' +
@@ -2223,7 +2217,7 @@
             '<span>' + r.time + '</span>' +
           '</div>';
         card.onclick = function() { window.open(r.url, '_blank'); };
-        col.appendChild(card);
+        grid.appendChild(card);
       });
     }
   </script>
