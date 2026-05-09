@@ -594,7 +594,8 @@
             url: t.url,
             rating: 4.5,
             tags: t.tags,
-            featured: t.featured || false
+            featured: t.featured || false,
+            reviews: t.reviews || null
           };
         });
         
@@ -658,7 +659,22 @@
 
       emptyState.classList.remove('visible');
 
-      toolsGrid.innerHTML = filtered.map((tool, index) => `
+      toolsGrid.innerHTML = filtered.map((tool, index) => {
+        const reviewsHTML = tool.reviews && tool.reviews.length > 0
+          ? `<div class="tool-reviews">
+              <p class="extra-label">📡 最新评测</p>
+              ${tool.reviews.slice(0, 3).map(r => `
+                <div class="review-item">
+                  <a href="${r.url}" target="_blank" rel="noopener" class="review-link">
+                    <span class="review-title">${r.title}</span>
+                    <span class="review-meta">${r.source} · ${r.time}</span>
+                  </a>
+                </div>
+              `).join('')}
+            </div>`
+          : '';
+
+        return `
         <div class="tool-card card-enter" style="animation-delay: ${index * 40}ms" data-id="${tool.id}">
           <div class="tool-card-top">
             <div class="tool-icon"><img class="tool-favicon" src="https://www.google.com/s2/favicons?domain=${tool.domain}&sz=64" alt="${tool.name}" onerror="this.onerror=null;this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>◈</text></svg>'"></div>
@@ -676,6 +692,7 @@
             <p class="extra-label">标签</p>
             <p>${tool.tags.join(' · ')}</p>
           </div>
+          ${reviewsHTML}
           <div class="tool-footer">
             <div class="tool-rating">
               <span class="tool-rating-icon">★</span>
@@ -686,8 +703,8 @@
               访问 <span>→</span>
             </a>
           </div>
-        </div>
-      `).join('');
+        </div>`;
+      }).join('');
     }
 
     // =============================================
