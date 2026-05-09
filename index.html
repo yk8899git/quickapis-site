@@ -6,6 +6,7 @@
   <title>QuickAPIs - AI工具导航 | 发现全球优质AI工具</title>
     <meta name="google-site-verification" content="WutduuXwKXg6Bvwvzgund-UMnxwhBSn9GQVC0ukQu2U" />
   <meta name="description" content="QuickAPIs收录100+精选AI应用，覆盖ChatGPT、Midjourney、Claude、Gemini等主流工具，支持分类浏览和关键词搜索。">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
@@ -85,18 +86,7 @@
     /* =============================================
        BACKGROUND EFFECTS
     ============================================= */
-    /* Canvas handles the full space scene; this is just a subtle warm ambient underlay */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(ellipse at 35% 35%, rgba(30, 20, 50, 0.15) 0%, transparent 50%);
-      pointer-events: none;
-      z-index: 0;
-    }
+    /* Canvas handles the full space scene - no CSS background needed */
 
     /* Cinematic vignette — darkens edges, focuses the eye */
     body::after {
@@ -1389,28 +1379,28 @@
           const cy = bandY(x);
           const grad = oCtx.createLinearGradient(x, cy - bandH, x, cy + bandH);
           grad.addColorStop(0,    'rgba(0,0,0,0)');
-          grad.addColorStop(0.15, 'rgba(20,15,45,0.01)');
-          grad.addColorStop(0.30, 'rgba(45,30,80,0.025)');
-          grad.addColorStop(0.40, 'rgba(70,45,100,0.045)');
-          grad.addColorStop(0.48, 'rgba(100,70,110,0.065)');  // warm purple core
-          grad.addColorStop(0.52, 'rgba(120,85,95,0.07)');    // warm rose-amber core
-          grad.addColorStop(0.60, 'rgba(70,45,100,0.045)');
-          grad.addColorStop(0.70, 'rgba(45,30,80,0.025)');
-          grad.addColorStop(0.85, 'rgba(20,15,45,0.01)');
+          grad.addColorStop(0.15, 'rgba(60,30,120,0.08)');
+          grad.addColorStop(0.30, 'rgba(100,50,180,0.15)');
+          grad.addColorStop(0.40, 'rgba(150,80,200,0.25)');
+          grad.addColorStop(0.48, 'rgba(200,120,180,0.35)');  // warm purple core
+          grad.addColorStop(0.52, 'rgba(220,150,120,0.38)');    // warm rose-amber core
+          grad.addColorStop(0.60, 'rgba(150,80,200,0.25)');
+          grad.addColorStop(0.70, 'rgba(100,50,180,0.15)');
+          grad.addColorStop(0.85, 'rgba(60,30,120,0.08)');
           grad.addColorStop(1,    'rgba(0,0,0,0)');
           oCtx.fillStyle = grad;
           oCtx.fillRect(x, cy - bandH, 3, bandH * 2);
         }
         oCtx.restore();
 
-        // Step 2: Bright galactic core 鈥?warm amber glow at the densest point
+        // Step 2: Bright galactic core - warm amber glow at the densest point
         oCtx.save();
         oCtx.globalCompositeOperation = 'screen';
         const coreX = ow * 0.42, coreY = bandY(ow * 0.42);
         const coreGrad = oCtx.createRadialGradient(coreX, coreY, 0, coreX, coreY, bandH * 1.2);
-        coreGrad.addColorStop(0,   'rgba(180,140,90,0.08)');
-        coreGrad.addColorStop(0.2, 'rgba(140,100,70,0.05)');
-        coreGrad.addColorStop(0.5, 'rgba(80,50,60,0.025)');
+        coreGrad.addColorStop(0,   'rgba(255,200,120,0.25)');
+        coreGrad.addColorStop(0.2, 'rgba(220,160,80,0.18)');
+        coreGrad.addColorStop(0.5, 'rgba(180,100,60,0.10)');
         coreGrad.addColorStop(1,   'rgba(0,0,0,0)');
         oCtx.fillStyle = coreGrad;
         oCtx.beginPath();
@@ -1438,16 +1428,16 @@
         oCtx.save();
         oCtx.globalCompositeOperation = 'screen';
         const nebulae = [
-          // In the Milky Way band
-          { x: ow * 0.28, y: bandY(ow * 0.28) - oh * 0.02, rx: 220, ry: 140, c: [160, 70, 95],  a: 0.05 },   // Rosette 鈥?rose
-          { x: ow * 0.38, y: bandY(ow * 0.38) + oh * 0.01, rx: 300, ry: 180, c: [130, 90, 60],  a: 0.06 },   // Warm amber
-          { x: ow * 0.52, y: bandY(ow * 0.52),              rx: 260, ry: 160, c: [80, 60, 140],   a: 0.05 },   // Purple
-          { x: ow * 0.65, y: bandY(ow * 0.65) - oh * 0.03, rx: 200, ry: 130, c: [60, 120, 160],  a: 0.04 },   // Teal
+          // In the Milky Way band - VIBRANT COLORS
+          { x: ow * 0.28, y: bandY(ow * 0.28) - oh * 0.02, rx: 280, ry: 180, c: [220, 50, 120],  a: 0.15 },   // Hot pink
+          { x: ow * 0.38, y: bandY(ow * 0.38) + oh * 0.01, rx: 350, ry: 220, c: [255, 140, 40],  a: 0.18 },   // Orange fire
+          { x: ow * 0.52, y: bandY(ow * 0.52),              rx: 300, ry: 190, c: [100, 80, 220],   a: 0.16 },   // Electric purple
+          { x: ow * 0.65, y: bandY(ow * 0.65) - oh * 0.03, rx: 250, ry: 160, c: [40, 180, 220],  a: 0.14 },   // Cyan burst
           // Scattered around the sky
-          { x: ow * 0.12, y: oh * 0.55,                     rx: 170, ry: 100, c: [140, 55, 120],  a: 0.03 },   // Magenta
-          { x: ow * 0.85, y: oh * 0.25,                     rx: 180, ry: 110, c: [50, 100, 170],  a: 0.035 },  // Deep blue
-          { x: ow * 0.72, y: oh * 0.70,                     rx: 150, ry: 90,  c: [170, 100, 60],  a: 0.025 },  // Orange
-          { x: ow * 0.90, y: oh * 0.65,                     rx: 130, ry: 80,  c: [70, 140, 130],  a: 0.02 },   // Cyan-teal
+          { x: ow * 0.12, y: oh * 0.55,                     rx: 200, ry: 130, c: [200, 60, 180],  a: 0.12 },   // Magenta
+          { x: ow * 0.85, y: oh * 0.25,                     rx: 220, ry: 140, c: [60, 120, 255],  a: 0.13 },   // Royal blue
+          { x: ow * 0.72, y: oh * 0.70,                     rx: 180, ry: 110, c: [255, 160, 50],  a: 0.11 },   // Gold
+          { x: ow * 0.90, y: oh * 0.65,                     rx: 160, ry: 100, c: [50, 200, 180],  a: 0.10 },   // Teal
         ];
         for (const n of nebulae) {
           const maxR = Math.max(n.rx, n.ry);
@@ -1744,13 +1734,21 @@
 
       function animate(t) {
         // ---- DRIFT the display canvas ----
-        // Slow, organic sin/cos movement 鈥?feels like floating through space
+        // Slow, organic sin/cos movement + gentle rotation
         const driftX = Math.sin(t * 0.000013) * vw * 0.25 + Math.sin(t * 0.000007) * vw * 0.08;
         const driftY = Math.cos(t * 0.000010) * vh * 0.12 + Math.cos(t * 0.000005) * vh * 0.05;
+        
+        // Gentle rotation - one full rotation every ~10 minutes
+        const rotation = t * 0.00001;
 
-        // Clear display and draw the offscreen scene with drift offset
+        // Clear display and draw the offscreen scene with drift + rotation
         dCtx.clearRect(0, 0, vw, vh);
+        dCtx.save();
+        dCtx.translate(vw / 2, vh / 2);
+        dCtx.rotate(rotation);
+        dCtx.translate(-vw / 2, -vh / 2);
         dCtx.drawImage(offscreen, -driftX, -driftY);
+        dCtx.restore();
 
         // ---- DYNAMIC: twinkle ----
         dyCtx.clearRect(0, 0, vw, vh);

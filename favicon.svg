@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <!-- 星空渐变背景 -->
+    <radialGradient id="spaceGrad" cx="30%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#1a1a4a"/>
+      <stop offset="50%" stop-color="#0a0a20"/>
+      <stop offset="100%" stop-color="#020206"/>
+    </radialGradient>
+    <!-- 星云渐变 -->
+    <radialGradient id="nebulaGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff6b9d" stop-opacity="0.8"/>
+      <stop offset="40%" stop-color="#a855f7" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Q字母渐变 -->
+    <linearGradient id="qGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8aa4f0"/>
+      <stop offset="50%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#f472b6"/>
+    </linearGradient>
+    <!-- 发光效果 -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- 深空背景 -->
+  <rect width="512" height="512" fill="url(#spaceGrad)"/>
+  
+  <!-- 星云 -->
+  <ellipse cx="180" cy="200" rx="120" ry="80" fill="url(#nebulaGrad)" opacity="0.6"/>
+  <ellipse cx="350" cy="320" rx="100" ry="70" fill="url(#nebulaGrad)" opacity="0.4"/>
+  
+  <!-- 星星 -->
+  <circle cx="80" cy="60" r="2" fill="#fff" opacity="0.9"/>
+  <circle cx="420" cy="80" r="3" fill="#fff" opacity="1"/>
+  <circle cx="450" cy="200" r="2" fill="#fff" opacity="0.8"/>
+  <circle cx="60" cy="300" r="2.5" fill="#fff" opacity="0.9"/>
+  <circle cx="100" cy="420" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="380" cy="450" r="3" fill="#fff" opacity="0.9"/>
+  <circle cx="200" cy="50" r="1.5" fill="#fff" opacity="0.6"/>
+  <circle cx="300" cy="480" r="2" fill="#fff" opacity="0.8"/>
+  <circle cx="480" cy="350" r="2.5" fill="#fff" opacity="0.9"/>
+  <circle cx="30" cy="180" r="2" fill="#fff" opacity="0.7"/>
+  <!-- 更多小星星 -->
+  <circle cx="150" cy="100" r="1" fill="#fff" opacity="0.5"/>
+  <circle cx="280" cy="130" r="1.5" fill="#fff" opacity="0.6"/>
+  <circle cx="400" cy="280" r="1" fill="#fff" opacity="0.5"/>
+  <circle cx="120" cy="350" r="1.5" fill="#fff" opacity="0.6"/>
+  <circle cx="250" cy="400" r="1" fill="#fff" opacity="0.5"/>
+  
+  <!-- Q字母 - 星空导航的象征 -->
+  <g filter="url(#glow)">
+    <!-- Q的主体圆 -->
+    <circle cx="256" cy="240" r="100" fill="none" stroke="url(#qGrad)" stroke-width="28"/>
+    <!-- Q的尾巴 -->
+    <path d="M 310 310 Q 360 380 420 420" stroke="url(#qGrad)" stroke-width="28" stroke-linecap="round" fill="none"/>
+    <!-- 内部星星装饰 -->
+    <circle cx="256" cy="240" r="8" fill="#fff" opacity="0.9"/>
+    <circle cx="220" cy="200" r="4" fill="#fff" opacity="0.7"/>
+    <circle cx="290" cy="270" r="5" fill="#fff" opacity="0.8"/>
+  </g>
+</svg>
