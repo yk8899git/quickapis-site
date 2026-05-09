@@ -10,13 +10,8 @@
   <link rel="shortcut icon" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
   <style>
-    /* =============================================
-       FALLBACK FONTS (no external requests)
-    ============================================= */
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "Microsoft YaHei", sans-serif;
-    }
     /* =============================================
        CSS RESET & BASE
     ============================================= */
@@ -557,7 +552,9 @@
 
     .tools-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: 1fr;
+      max-width: 800px;
+      margin: 0 auto;
       gap: 20px;
     }
 
@@ -840,99 +837,37 @@
       color: var(--text-muted);
     }
 
+    .reviews-scroll {
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: var(--neon-blue) transparent;
+      padding-bottom: 12px;
+      mask-image: linear-gradient(90deg, transparent, black 3%, black 97%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, black 3%, black 97%, transparent);
+    }
 
-        margin-bottom: 32px;
-      }
-  
-      .reviews-title {
-        font-size: 28px;
-        font-weight: 900;
-        color: var(--text-primary);
-        margin-bottom: 8px;
-      }
-  
-      .reviews-subtitle {
-        font-size: 14px;
-        color: var(--text-muted);
-      }
-  
->     .reviews-scroll {
-        overflow-x: auto;
-        overflow-y: hidden;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: thin;
-        scrollbar-color: var(--neon-blue) transparent;
-        padding-bottom: 12px;
-        mask-image: linear-gradient(90deg, transparent, black 3%, black 97%, transparent);
-        -webkit-mask-image: linear-gradient(90deg, transparent, black 3%, black 97%, transparent);
-      }
-  
->     .reviews-scroll::-webkit-scrollbar { height: 6px; }
->     .reviews-scroll::-webkit-scrollbar-track { background: transparent; }
->     .reviews-scroll::-webkit-scrollbar-thumb { background: var(--neon-blue); border-radius: 3px; }
-  
->     .reviews-track {
-        display: flex;
-        gap: 16px;
-        width: max-content;
-        padding: 4px 0;
-        animation: scrollReviews 30s linear infinite;
-      }
-  
->     .reviews-scroll:hover .reviews-track {
-        animation-play-state: paused;
-      }
-  
->     @keyframes scrollReviews {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-      }
-  
-      .review-card {
-        flex: 0 0 300px;
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        border-radius: var(--radius-md);
-        padding: 18px;
-        transition: all 0.3s ease;
-        cursor: pointer;
-      }
-  
-      .review-card:hover {
-            <span class="category-tab-icon">◈</span>
-            其他
-            <span class="category-count" id="count-other">0</span>
-          </button>
-        </div>
-      </div>
-    </section>
-  
-    <!-- ==================== HOT REVIEWS ==================== -->
-    <section class="reviews-section">
-      <div class="container">
-        <div class="reviews-header">
-          <h2 class="reviews-title">📡 热门评测</h2>
-          <p class="reviews-subtitle">来自知乎、CSDN、36氪等平台的最新AI工具测评</p>
-        </div>
->       <div class="reviews-scroll" id="reviewsScroll">
->         <div class="reviews-track" id="reviewsTrack"></div>
-        </div>
-      </div>
-    </section>
-  
-    <!-- ==================== TOOLS GRID ==================== -->
-    <section class="tools-section">
-      <div class="container">
-        <div class="tools-header">
-          <div class="tools-count-text">
-            共 <span id="visibleCount">24</span> 个工具
-          </div>
-        </div>
-  
-        <div class="tools-grid" id="toolsGrid"></div>
-  
+    .reviews-scroll::-webkit-scrollbar { height: 6px; }
+    .reviews-scroll::-webkit-scrollbar-track { background: transparent; }
+    .reviews-scroll::-webkit-scrollbar-thumb { background: var(--neon-blue); border-radius: 3px; }
 
+    .reviews-track {
+      display: flex;
+      gap: 16px;
+      width: max-content;
+      padding: 4px 0;
+      animation: scrollReviews 30s linear infinite;
+    }
 
+    .reviews-scroll:hover .reviews-track {
+      animation-play-state: paused;
+    }
+
+    @keyframes scrollReviews {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
 
     .review-card {
       flex: 0 0 300px;
@@ -1297,6 +1232,14 @@
       }
     }
   </style>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EK2Q1VQM16"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', "G-EK2Q1VQM16");
+  </script>
 </head>
 <body>
 
@@ -2121,7 +2064,7 @@
       toolsGrid.innerHTML = filtered.map((tool, index) => `
         <div class="tool-card card-enter" style="animation-delay: ${index * 40}ms" data-id="${tool.id}">
           <div class="tool-card-top">
-            <div class="tool-icon"><img class="tool-favicon" src="icons/${tool.id}.png" alt="${tool.name}" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling?this.nextElementSibling.style.display='block':null"></div>
+            <div class="tool-icon"><img class="tool-favicon" src="https://www.google.com/s2/favicons?domain=${tool.domain}&sz=64" alt="${tool.name}" onerror="this.onerror=null;this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>◈</text></svg>'"></div>
             <span class="tool-tag tool-tag-${tool.category}">${tool.categoryLabel}</span>
           </div>
           <div class="tool-info">
@@ -2269,24 +2212,7 @@
       {tool: "Groq", toolIcon: "⚡", title: "2026年开发者API中转选型指南", url: "https://blog.csdn.net/xinlianyq/article/details/160119241", source: "CSDN", time: "2026-05-03"}
     ];
 
-    
-        {tool: "Groq", toolIcon: "⚡", title: "2026年开发者API中转选型指南", url: "https://blog.csdn.net/xinlianyq/article/details
-/160119241", source: "CSDN", time: "2026-05-03"}
-      ];
-  
-      var track = document.getElementById('reviewsTrack');
-      if (track) {
->       var allReviews = REVIEWS_DATA.concat(REVIEWS_DATA);
->       allReviews.forEach(function(r) {
-          var card = document.createElement('div');
-          card.className = 'review-card';
-          card.innerHTML = '<span class="review-card-tag">' + r.toolIcon + ' ' + r.tool + '</span>' +
-            '<div class="review-card-title">' + r.title + '</div>' +
-            '<div class="review-card-meta">' +
-
-
-
-var track = document.getElementById('reviewsTrack');
+    var track = document.getElementById('reviewsTrack');
     if (track) {
       var allReviews = REVIEWS_DATA.concat(REVIEWS_DATA);
       allReviews.forEach(function(r) {
@@ -2306,5 +2232,4 @@ var track = document.getElementById('reviewsTrack');
 
 </body>
 </html>
-
 
