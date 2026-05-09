@@ -47,10 +47,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .header-actions {
-      display: flex;
-      gap: 12px;
-    }
+    .header-actions { display: flex; gap: 12px; }
     .btn {
       padding: 8px 16px;
       border-radius: 6px;
@@ -65,25 +62,36 @@
       align-items: center;
       gap: 6px;
     }
-    .btn:hover {
-      border-color: var(--neon-blue);
-      box-shadow: 0 0 12px rgba(0, 212, 255, 0.2);
+    .btn:hover { border-color: var(--neon-blue); box-shadow: 0 0 12px rgba(0, 212, 255, 0.2); }
+    .btn-primary { background: var(--neon-blue); color: #000; border-color: var(--neon-blue); font-weight: 500; }
+    .btn-success { background: var(--success); border-color: var(--success); color: #fff; }
+    .btn-danger { background: var(--danger); border-color: var(--danger); color: #fff; }
+    
+    /* Tabs */
+    .tabs {
+      display: flex;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0 24px;
     }
-    .btn-primary {
-      background: var(--neon-blue);
-      color: #000;
-      border-color: var(--neon-blue);
-      font-weight: 500;
+    .tab {
+      padding: 12px 20px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
     }
-    .btn-success {
-      background: var(--success);
-      border-color: var(--success);
-      color: #fff;
-    }
-    .btn-danger {
+    .tab:hover { color: var(--text-primary); }
+    .tab.active { color: var(--neon-blue); border-bottom-color: var(--neon-blue); }
+    .tab .badge {
+      display: inline-block;
       background: var(--danger);
-      border-color: var(--danger);
       color: #fff;
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-size: 11px;
+      margin-left: 6px;
     }
     
     /* Stats Bar */
@@ -95,102 +103,77 @@
       background: var(--bg-secondary);
       border-bottom: 1px solid var(--border-color);
     }
-    .stat-item {
-      text-align: center;
-    }
-    .stat-value {
-      font-size: 28px;
-      font-weight: 900;
-      color: var(--neon-blue);
-    }
+    .stat-item { text-align: center; }
+    .stat-value { font-size: 28px; font-weight: 900; color: var(--neon-blue); }
     .stat-value.purple { color: var(--neon-purple); }
     .stat-value.green { color: var(--neon-green); }
     .stat-value.orange { color: var(--neon-orange); }
     .stat-value.pink { color: var(--neon-pink); }
-    .stat-label {
-      font-size: 12px;
-      color: var(--text-secondary);
-      margin-top: 4px;
-    }
+    .stat-label { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
     
-    /* Filters */
-    .filters {
-      padding: 16px 24px;
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: center;
+    /* Content */
+    .content { padding: 24px; }
+    
+    /* Submissions List */
+    .submissions-list { display: flex; flex-direction: column; gap: 16px; }
+    .submission-card {
       background: var(--bg-card);
-      border-bottom: 1px solid var(--border-color);
-    }
-    .filter-group {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .filter-label {
-      font-size: 13px;
-      color: var(--text-secondary);
-    }
-    select, input[type="text"] {
-      background: var(--bg-secondary);
       border: 1px solid var(--border-color);
-      color: var(--text-primary);
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-size: 13px;
-      outline: none;
+      border-radius: 12px;
+      padding: 20px;
+      transition: all 0.2s;
     }
-    select:focus, input[type="text"]:focus {
-      border-color: var(--neon-blue);
+    .submission-card:hover { border-color: var(--neon-blue); }
+    .submission-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
     }
+    .submission-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+    .submission-meta { font-size: 12px; color: var(--text-secondary); }
+    .submission-status {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .status-pending { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+    .status-approved { background: rgba(16, 185, 129, 0.2); color: var(--success); }
+    .status-rejected { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
+    
+    .submission-body {
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .submission-field { margin-bottom: 12px; }
+    .submission-field:last-child { margin-bottom: 0; }
+    .submission-field-label { font-size: 12px; color: var(--text-secondary); margin-bottom: 4px; }
+    .submission-field-value { font-size: 14px; }
+    .submission-field-value a { color: var(--neon-blue); text-decoration: underline; }
+    
+    .submission-actions { display: flex; gap: 8px; }
     
     /* Tools Table */
-    .table-container {
-      padding: 24px;
-      overflow-x: auto;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    th, td {
-      padding: 12px 16px;
-      text-align: left;
-      border-bottom: 1px solid var(--border-color);
-    }
+    .table-container { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border-color); }
     th {
       background: var(--bg-secondary);
       font-size: 12px;
       font-weight: 500;
       color: var(--text-secondary);
       text-transform: uppercase;
-      letter-spacing: 0.5px;
       position: sticky;
       top: 0;
     }
-    tr:hover {
-      background: rgba(0, 212, 255, 0.05);
-    }
-    .tool-icon {
-      font-size: 24px;
-    }
-    .tool-name {
-      font-weight: 500;
-      color: var(--text-primary);
-    }
-    .tool-name-cn {
-      font-size: 12px;
-      color: var(--text-secondary);
-    }
-    .tool-desc {
-      max-width: 300px;
-      font-size: 13px;
-      color: var(--text-secondary);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
+    tr:hover { background: rgba(0, 212, 255, 0.05); }
+    .tool-icon { font-size: 24px; }
+    .tool-name { font-weight: 500; }
+    .tool-name-cn { font-size: 12px; color: var(--text-secondary); }
+    .tool-desc { max-width: 300px; font-size: 13px; color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .tag {
       display: inline-block;
       background: rgba(168, 85, 247, 0.15);
@@ -200,29 +183,9 @@
       font-size: 11px;
       margin-right: 4px;
     }
-    .tag.featured {
-      background: rgba(0, 255, 136, 0.15);
-      color: var(--neon-green);
-    }
-    .badge {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: 500;
-    }
-    .badge-featured {
-      background: var(--neon-green);
-      color: #000;
-    }
-    .badge-normal {
-      background: var(--text-secondary);
-      color: #000;
-    }
-    .actions {
-      display: flex;
-      gap: 8px;
-    }
+    .badge-featured { background: var(--neon-green); color: #000; padding: 2px 8px; border-radius: 4px; font-size: 11px; }
+    .badge-normal { background: var(--text-secondary); color: #000; padding: 2px 8px; border-radius: 4px; font-size: 11px; }
+    .actions { display: flex; gap: 8px; }
     .action-btn {
       padding: 4px 10px;
       border-radius: 4px;
@@ -233,14 +196,8 @@
       cursor: pointer;
       transition: all 0.2s;
     }
-    .action-btn:hover {
-      border-color: var(--neon-blue);
-      color: var(--neon-blue);
-    }
-    .action-btn.danger:hover {
-      border-color: var(--danger);
-      color: var(--danger);
-    }
+    .action-btn:hover { border-color: var(--neon-blue); color: var(--neon-blue); }
+    .action-btn.danger:hover { border-color: var(--danger); color: var(--danger); }
     
     /* Modal */
     .modal-overlay {
@@ -258,10 +215,7 @@
       visibility: hidden;
       transition: all 0.3s;
     }
-    .modal-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
+    .modal-overlay.active { opacity: 1; visibility: visible; }
     .modal {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
@@ -270,11 +224,6 @@
       max-width: 600px;
       max-height: 90vh;
       overflow-y: auto;
-      transform: translateY(-20px);
-      transition: all 0.3s;
-    }
-    .modal-overlay.active .modal {
-      transform: translateY(0);
     }
     .modal-header {
       padding: 20px;
@@ -283,36 +232,12 @@
       justify-content: space-between;
       align-items: center;
     }
-    .modal-header h2 {
-      font-size: 18px;
-      color: var(--neon-blue);
-    }
-    .modal-close {
-      background: none;
-      border: none;
-      color: var(--text-secondary);
-      font-size: 24px;
-      cursor: pointer;
-      line-height: 1;
-    }
-    .modal-close:hover {
-      color: var(--text-primary);
-    }
-    .modal-body {
-      padding: 20px;
-    }
-    .form-group {
-      margin-bottom: 16px;
-    }
-    .form-group label {
-      display: block;
-      font-size: 13px;
-      color: var(--text-secondary);
-      margin-bottom: 6px;
-    }
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
+    .modal-header h2 { font-size: 18px; color: var(--neon-blue); }
+    .modal-close { background: none; border: none; color: var(--text-secondary); font-size: 24px; cursor: pointer; }
+    .modal-body { padding: 20px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 13px; color: var(--text-secondary); margin-bottom: 6px; }
+    .form-group input, .form-group textarea, .form-group select {
       width: 100%;
       background: var(--bg-secondary);
       border: 1px solid var(--border-color);
@@ -322,30 +247,11 @@
       font-size: 14px;
       outline: none;
     }
-    .form-group input:focus,
-    .form-group textarea:focus,
-    .form-group select:focus {
-      border-color: var(--neon-blue);
-    }
-    .form-group textarea {
-      min-height: 80px;
-      resize: vertical;
-    }
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    .checkbox-group {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .checkbox-group input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      accent-color: var(--neon-green);
-    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--neon-blue); }
+    .form-group textarea { min-height: 80px; resize: vertical; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .checkbox-group { display: flex; align-items: center; gap: 8px; }
+    .checkbox-group input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--neon-green); }
     .modal-footer {
       padding: 16px 20px;
       border-top: 1px solid var(--border-color);
@@ -354,16 +260,9 @@
       gap: 12px;
     }
     
-    /* Empty State */
-    .empty-state {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--text-secondary);
-    }
-    .empty-state-icon {
-      font-size: 48px;
-      margin-bottom: 16px;
-    }
+    /* Empty */
+    .empty-state { text-align: center; padding: 60px 20px; color: var(--text-secondary); }
+    .empty-state-icon { font-size: 48px; margin-bottom: 16px; }
     
     /* Toast */
     .toast {
@@ -380,32 +279,15 @@
       opacity: 0;
       transition: all 0.3s;
     }
-    .toast.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
-    .toast.error {
-      background: var(--danger);
-    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.error { background: var(--danger); }
     
-    /* Responsive */
+    /* Loading */
+    .loading { text-align: center; padding: 40px; color: var(--text-secondary); }
+    
     @media (max-width: 768px) {
-      .stats-bar {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .table-container {
-        padding: 12px;
-      }
-      th, td {
-        padding: 8px;
-        font-size: 12px;
-      }
-      .tool-desc {
-        max-width: 150px;
-      }
-      .form-row {
-        grid-template-columns: 1fr;
-      }
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      .form-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -420,71 +302,80 @@
     </div>
   </div>
   
-  <!-- Stats Bar -->
-  <div class="stats-bar">
-    <div class="stat-item">
-      <div class="stat-value" id="stat-total">0</div>
-      <div class="stat-label">总工具数</div>
+  <!-- Tabs -->
+  <div class="tabs">
+    <div class="tab" id="tab-submissions" onclick="switchTab('submissions')">
+      📬 待审核提交 <span class="badge" id="pending-count">0</span>
     </div>
-    <div class="stat-item">
-      <div class="stat-value purple" id="stat-featured">0</div>
-      <div class="stat-label">推荐工具</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-value green" id="stat-categories">0</div>
-      <div class="stat-label">分类数</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-value orange" id="stat-reviews">0</div>
-      <div class="stat-label">评测文章</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-value pink" id="stat-tags">0</div>
-      <div class="stat-label">标签数</div>
-    </div>
+    <div class="tab active" id="tab-tools" onclick="switchTab('tools')">🛠️ 工具列表</div>
   </div>
   
-  <!-- Filters -->
-  <div class="filters">
-    <div class="filter-group">
-      <span class="filter-label">分类：</span>
-      <select id="filter-category" onchange="filterTools()">
-        <option value="">全部</option>
-      </select>
-    </div>
-    <div class="filter-group">
-      <span class="filter-label">状态：</span>
-      <select id="filter-featured" onchange="filterTools()">
-        <option value="">全部</option>
-        <option value="true">推荐</option>
-        <option value="false">普通</option>
-      </select>
-    </div>
-    <div class="filter-group">
-      <span class="filter-label">搜索：</span>
-      <input type="text" id="filter-search" placeholder="工具名称/描述..." onkeyup="filterTools()">
-    </div>
+  <!-- Submissions Tab -->
+  <div class="content" id="submissions-content" style="display:none;">
+    <div class="loading" id="submissions-loading">加载中...</div>
+    <div class="submissions-list" id="submissions-list"></div>
   </div>
   
-  <!-- Tools Table -->
-  <div class="table-container">
-    <table>
-      <thead>
-        <tr>
-          <th>图标</th>
-          <th>名称</th>
-          <th>分类</th>
-          <th>描述</th>
-          <th>标签</th>
-          <th>状态</th>
-          <th>评测</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody id="tools-table">
-        <!-- Dynamic content -->
-      </tbody>
-    </table>
+  <!-- Tools Tab -->
+  <div id="tools-content">
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="stat-value" id="stat-total">0</div>
+        <div class="stat-label">总工具数</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value purple" id="stat-featured">0</div>
+        <div class="stat-label">推荐工具</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value green" id="stat-categories">0</div>
+        <div class="stat-label">分类数</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value orange" id="stat-reviews">0</div>
+        <div class="stat-label">评测文章</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value pink" id="stat-tags">0</div>
+        <div class="stat-label">标签数</div>
+      </div>
+    </div>
+    
+    <!-- Filters -->
+    <div style="padding: 16px 24px; display: flex; gap: 12px; flex-wrap: wrap; background: var(--bg-card); border-bottom: 1px solid var(--border-color);">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 13px; color: var(--text-secondary);">分类：</span>
+        <select id="filter-category" onchange="filterTools()" style="background: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-primary); padding: 8px 12px; border-radius: 6px;">
+          <option value="">全部</option>
+        </select>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 13px; color: var(--text-secondary);">搜索：</span>
+        <input type="text" id="filter-search" placeholder="名称/描述..." onkeyup="filterTools()" style="background: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-primary); padding: 8px 12px; border-radius: 6px;">
+      </div>
+    </div>
+    
+    <!-- Tools Table -->
+    <div class="content">
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>图标</th>
+              <th>名称</th>
+              <th>分类</th>
+              <th>描述</th>
+              <th>标签</th>
+              <th>状态</th>
+              <th>评测</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="tools-table"></tbody>
+        </table>
+      </div>
+    </div>
   </div>
   
   <!-- Add/Edit Modal -->
@@ -528,19 +419,15 @@
         </div>
         <div class="form-group">
           <label>描述</label>
-          <textarea id="form-desc" placeholder="简短描述工具功能和特点..."></textarea>
+          <textarea id="form-desc" placeholder="简短描述工具功能..."></textarea>
         </div>
         <div class="form-group">
           <label>标签（逗号分隔）</label>
-          <input type="text" id="form-tags" placeholder="对话, GPT-4, 免费可用">
+          <input type="text" id="form-tags" placeholder="对话, GPT-4, 免费">
         </div>
         <div class="form-group checkbox-group">
           <input type="checkbox" id="form-featured">
           <label for="form-featured">推荐工具（首页展示）</label>
-        </div>
-        <div class="form-group">
-          <label>评测链接（JSON格式，可选）</label>
-          <textarea id="form-reviews" placeholder='[{"title": "评测标题", "url": "链接", "source": "来源", "time": "2026-05-10"}]'></textarea>
         </div>
       </div>
       <div class="modal-footer">
@@ -552,12 +439,14 @@
   
   <!-- Toast -->
   <div class="toast" id="toast"></div>
-  
+
   <script>
+    const GITHUB_REPO = 'yk8899git/quickapis-site';
     let toolsData = { categories: [], tools: [] };
     let filteredTools = [];
+    let pendingSubmissions = [];
     
-    // Load data
+    // Load data on startup
     fetch('tools.json')
       .then(res => res.json())
       .then(data => {
@@ -567,30 +456,151 @@
         renderCategoryFilter();
         renderTable();
       })
-      .catch(err => {
-        showToast('加载 tools.json 失败：' + err.message, true);
-      });
+      .catch(err => showToast('加载 tools.json 失败', true));
+    
+    // Tab switching
+    function switchTab(tab) {
+      document.getElementById('tab-submissions').classList.remove('active');
+      document.getElementById('tab-tools').classList.remove('active');
+      document.getElementById('submissions-content').style.display = 'none';
+      document.getElementById('tools-content').style.display = 'none';
+      
+      if (tab === 'submissions') {
+        document.getElementById('tab-submissions').classList.add('active');
+        document.getElementById('submissions-content').style.display = 'block';
+        loadSubmissions();
+      } else {
+        document.getElementById('tab-tools').classList.add('active');
+        document.getElementById('tools-content').style.display = 'block';
+      }
+    }
+    
+    // Load submissions from GitHub Issues
+    async function loadSubmissions() {
+      const list = document.getElementById('submissions-list');
+      const loading = document.getElementById('submissions-loading');
+      list.innerHTML = '';
+      loading.style.display = 'block';
+      
+      try {
+        const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/issues?state=open&labels=工具提交&per_page=50`);
+        const issues = await res.json();
+        
+        loading.style.display = 'none';
+        pendingSubmissions = issues.filter(i => !i.pull_request);
+        
+        document.getElementById('pending-count').textContent = pendingSubmissions.length;
+        
+        if (pendingSubmissions.length === 0) {
+          list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📭</div><div>暂无待审核的提交</div></div>';
+          return;
+        }
+        
+        list.innerHTML = pendingSubmissions.map(issue => {
+          const body = issue.body || '';
+          const lines = body.split('\n');
+          const fields = {};
+          
+          // 解析字段
+          lines.forEach(line => {
+            const match = line.match(/[-*]\s*\*\*(.+?)\*\*:\s*(.+)/);
+            if (match) {
+              fields[match[1]] = match[2].trim();
+            }
+          });
+          
+          return `
+            <div class="submission-card">
+              <div class="submission-header">
+                <div>
+                  <div class="submission-title">${fields['名称'] || issue.title.replace('【工具提交】', '')}</div>
+                  <div class="submission-meta">提交时间: ${new Date(issue.created_at).toLocaleString('zh-CN', {timeZone: 'Asia/Shanghai'})} · #${issue.number}</div>
+                </div>
+                <span class="submission-status status-pending">待审核</span>
+              </div>
+              <div class="submission-body">
+                <div class="submission-field">
+                  <div class="submission-field-label">工具网址</div>
+                  <div class="submission-field-value"><a href="${fields['网址'] || '#'}" target="_blank">${fields['网址'] || '-'}</a></div>
+                </div>
+                <div class="submission-field">
+                  <div class="submission-field-label">分类</div>
+                  <div class="submission-field-value">${fields['分类'] || '-'}</div>
+                </div>
+                <div class="submission-field">
+                  <div class="submission-field-label">一句话简介</div>
+                  <div class="submission-field-value">${fields['简介'] || '-'}</div>
+                </div>
+                <div class="submission-field">
+                  <div class="submission-field-label">详细描述</div>
+                  <div class="submission-field-value">${fields['详细描述'] || '无'}</div>
+                </div>
+                <div class="submission-field">
+                  <div class="submission-field-label">推荐理由</div>
+                  <div class="submission-field-value">${fields['推荐理由'] || '无'}</div>
+                </div>
+                <div class="submission-field">
+                  <div class="submission-field-label">联系方式</div>
+                  <div class="submission-field-value">${fields['联系方式'] || '未填写'}</div>
+                </div>
+              </div>
+              <div class="submission-actions">
+                <button class="btn btn-success" onclick="approveSubmission(${issue.number}, '${(fields['名称'] || '').replace(/'/g, "\\'")}', '${(fields['网址'] || '').replace(/'/g, "\\'")}', '${(fields['分类'] || '').replace(/'/g, "\\'")}', '${(fields['简介'] || '').replace(/'/g, "\\'")}')">✅ 通过并收录</button>
+                <button class="btn btn-danger" onclick="rejectSubmission(${issue.number})">❌ 拒绝</button>
+                <a href="${issue.html_url}" target="_blank" class="btn">🔗 GitHub</a>
+              </div>
+            </div>
+          `;
+        }).join('');
+        
+      } catch (err) {
+        loading.style.display = 'none';
+        list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">⚠️</div><div>加载失败: ' + err.message + '</div></div>';
+      }
+    }
+    
+    // Approve submission
+    function approveSubmission(issueNumber, name, url, category, summary) {
+      // 打开新增工具弹窗，自动填入数据
+      openAddModal();
+      document.getElementById('form-id').value = name.toLowerCase().replace(/[^a-z0-9]/g, '');
+      document.getElementById('form-name').value = name;
+      document.getElementById('form-name-cn').value = name;
+      document.getElementById('form-url').value = url;
+      document.getElementById('form-category').value = category || toolsData.categories[0];
+      document.getElementById('form-desc').value = summary;
+      
+      showToast('已自动填入信息，请补充完整后保存');
+      
+      // 提示用户手动关闭 Issue
+      setTimeout(() => {
+        if (confirm('工具信息已填入弹窗。审核通过后需要关闭 GitHub Issue #' + issueNumber + '，是否现在打开？')) {
+          window.open(`https://github.com/${GITHUB_REPO}/issues/${issueNumber}`, '_blank');
+        }
+      }, 500);
+    }
+    
+    // Reject submission
+    function rejectSubmission(issueNumber) {
+      if (confirm('确定拒绝这个提交吗？')) {
+        window.open(`https://github.com/${GITHUB_REPO}/issues/${issueNumber}?state=closed`, '_blank');
+        showToast('请在新页面关闭 Issue');
+      }
+    }
     
     // Update stats
     function updateStats() {
-      const totalTools = toolsData.tools.length;
-      const featured = toolsData.tools.filter(t => t.featured).length;
-      const categories = toolsData.categories.length;
-      const reviews = toolsData.tools.reduce((sum, t) => sum + (t.reviews?.length || 0), 0);
-      const allTags = new Set(toolsData.tools.flatMap(t => t.tags || []));
-      
-      document.getElementById('stat-total').textContent = totalTools;
-      document.getElementById('stat-featured').textContent = featured;
-      document.getElementById('stat-categories').textContent = categories;
-      document.getElementById('stat-reviews').textContent = reviews;
-      document.getElementById('stat-tags').textContent = allTags.size;
+      document.getElementById('stat-total').textContent = toolsData.tools.length;
+      document.getElementById('stat-featured').textContent = toolsData.tools.filter(t => t.featured).length;
+      document.getElementById('stat-categories').textContent = toolsData.categories.length;
+      document.getElementById('stat-reviews').textContent = toolsData.tools.reduce((sum, t) => sum + (t.reviews?.length || 0), 0);
+      document.getElementById('stat-tags').textContent = new Set(toolsData.tools.flatMap(t => t.tags || [])).size;
     }
     
     // Render category filter
     function renderCategoryFilter() {
       const select = document.getElementById('filter-category');
       const formSelect = document.getElementById('form-category');
-      
       toolsData.categories.forEach(cat => {
         select.innerHTML += `<option value="${cat}">${cat}</option>`;
         formSelect.innerHTML += `<option value="${cat}">${cat}</option>`;
@@ -600,37 +610,23 @@
     // Render table
     function renderTable() {
       const tbody = document.getElementById('tools-table');
-      
       if (filteredTools.length === 0) {
-        tbody.innerHTML = `
-          <tr>
-            <td colspan="8">
-              <div class="empty-state">
-                <div class="empty-state-icon">🔍</div>
-                <div>没有找到匹配的工具</div>
-              </div>
-            </td>
-          </tr>
-        `;
+        tbody.innerHTML = '<tr><td colspan="8"><div class="empty-state"><div class="empty-state-icon">🔍</div><div>没有找到匹配的工具</div></div></td></tr>';
         return;
       }
       
       tbody.innerHTML = filteredTools.map(tool => `
         <tr>
           <td><span class="tool-icon">${tool.icon || '📦'}</span></td>
-          <td>
-            <div class="tool-name">${tool.name}</div>
-            <div class="tool-name-cn">${tool.nameCn || ''}</div>
-          </td>
+          <td><div class="tool-name">${tool.name}</div><div class="tool-name-cn">${tool.nameCn || ''}</div></td>
           <td><span class="tag">${tool.category}</span></td>
           <td><div class="tool-desc">${tool.description || ''}</div></td>
           <td>${(tool.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}</td>
-          <td><span class="badge ${tool.featured ? 'badge-featured' : 'badge-normal'}">${tool.featured ? '推荐' : '普通'}</span></td>
+          <td><span class="${tool.featured ? 'badge-featured' : 'badge-normal'}">${tool.featured ? '推荐' : '普通'}</span></td>
           <td>${tool.reviews?.length || 0} 篇</td>
           <td>
             <div class="actions">
               <button class="action-btn" onclick="editTool('${tool.id}')">编辑</button>
-              <button class="action-btn" onclick="copyTool('${tool.id}')">复制</button>
               <button class="action-btn danger" onclick="deleteTool('${tool.id}')">删除</button>
             </div>
           </td>
@@ -641,13 +637,10 @@
     // Filter tools
     function filterTools() {
       const category = document.getElementById('filter-category').value;
-      const featured = document.getElementById('filter-featured').value;
       const search = document.getElementById('filter-search').value.toLowerCase();
       
       filteredTools = toolsData.tools.filter(tool => {
         if (category && tool.category !== category) return false;
-        if (featured === 'true' && !tool.featured) return false;
-        if (featured === 'false' && tool.featured) return false;
         if (search) {
           const matchName = tool.name.toLowerCase().includes(search);
           const matchNameCn = (tool.nameCn || '').toLowerCase().includes(search);
@@ -656,7 +649,6 @@
         }
         return true;
       });
-      
       renderTable();
     }
     
@@ -674,7 +666,6 @@
       document.getElementById('form-desc').value = '';
       document.getElementById('form-tags').value = '';
       document.getElementById('form-featured').checked = false;
-      document.getElementById('form-reviews').value = '';
       document.getElementById('modal-overlay').classList.add('active');
     }
     
@@ -695,37 +686,19 @@
       document.getElementById('form-desc').value = tool.description || '';
       document.getElementById('form-tags').value = (tool.tags || []).join(', ');
       document.getElementById('form-featured').checked = tool.featured || false;
-      document.getElementById('form-reviews').value = tool.reviews ? JSON.stringify(tool.reviews, null, 2) : '';
       document.getElementById('modal-overlay').classList.add('active');
-    }
-    
-    // Copy tool
-    function copyTool(id) {
-      const tool = toolsData.tools.find(t => t.id === id);
-      if (!tool) return;
-      
-      const newTool = JSON.parse(JSON.stringify(tool));
-      newTool.id = tool.id + '-copy';
-      newTool.name = tool.name + ' (副本)';
-      
-      toolsData.tools.push(newTool);
-      filteredTools = toolsData.tools;
-      updateStats();
-      renderTable();
-      showToast('已复制，请保存 JSON 文件');
     }
     
     // Delete tool
     function deleteTool(id) {
-      if (!confirm('确定删除这个工具吗？')) return;
-      
+      if (!confirm('确定删除？')) return;
       const index = toolsData.tools.findIndex(t => t.id === id);
       if (index > -1) {
         toolsData.tools.splice(index, 1);
         filteredTools = toolsData.tools;
         updateStats();
         renderTable();
-        showToast('已删除，请保存 JSON 文件');
+        showToast('已删除，请导出 JSON');
       }
     }
     
@@ -739,7 +712,6 @@
         return;
       }
       
-      // Check duplicate ID
       if (!editId && toolsData.tools.find(t => t.id === id)) {
         showToast('工具 ID 已存在', true);
         return;
@@ -757,24 +729,10 @@
         featured: document.getElementById('form-featured').checked
       };
       
-      const reviewsStr = document.getElementById('form-reviews').value.trim();
-      if (reviewsStr) {
-        try {
-          tool.reviews = JSON.parse(reviewsStr);
-        } catch (e) {
-          showToast('评测链接 JSON 格式错误', true);
-          return;
-        }
-      }
-      
       if (editId) {
-        // Update existing
         const index = toolsData.tools.findIndex(t => t.id === editId);
-        if (index > -1) {
-          toolsData.tools[index] = tool;
-        }
+        if (index > -1) toolsData.tools[index] = tool;
       } else {
-        // Add new
         toolsData.tools.push(tool);
       }
       
@@ -782,7 +740,7 @@
       updateStats();
       renderTable();
       closeModal();
-      showToast('已保存，请导出 JSON 文件');
+      showToast('已保存，请导出 JSON');
     }
     
     // Close modal
@@ -800,7 +758,7 @@
       a.download = 'tools.json';
       a.click();
       URL.revokeObjectURL(url);
-      showToast('已导出 tools.json，请替换原文件并 git push');
+      showToast('已导出 tools.json');
     }
     
     // Show toast
@@ -808,9 +766,7 @@
       const toast = document.getElementById('toast');
       toast.textContent = message;
       toast.className = 'toast show' + (isError ? ' error' : '');
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 3000);
+      setTimeout(() => toast.classList.remove('show'), 3000);
     }
     
     // Close modal on overlay click
@@ -818,13 +774,9 @@
       if (e.target === this) closeModal();
     });
     
-    // Keyboard shortcuts
+    // Keyboard
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closeModal();
-      if (e.key === 'n' && e.ctrlKey) {
-        e.preventDefault();
-        openAddModal();
-      }
     });
   </script>
 </body>

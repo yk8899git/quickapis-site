@@ -11,222 +11,79 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
   <style>
-    /* =============================================
-       CSS RESET & BASE
-    ============================================= */
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
       --bg-primary: #ffffff;
       --bg-secondary: #f8fafc;
       --bg-card: #ffffff;
-      --bg-card-hover: #f1f5f9;
-      --bg-glass: rgba(255, 255, 255, 0.95);
-      --starlight: #3b82f6;
-      --nebula-rose: #ec4899;
-      --nebula-teal: #06b6d4;
-      --nebula-gold: #f59e0b;
       --neon-blue: #3b82f6;
       --neon-purple: #8b5cf6;
       --neon-green: #10b981;
-      --neon-pink: #ec4899;
-      --neon-orange: #f97316;
-      --neon-yellow: #eab308;
       --text-primary: #0f172a;
       --text-secondary: #475569;
       --text-muted: #94a3b8;
       --border-color: rgba(148, 163, 184, 0.2);
-      --border-glow: rgba(59, 130, 246, 0.3);
-      --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-      --shadow-glow-blue: 0 0 20px rgba(59, 130, 246, 0.15);
-      --shadow-glow-purple: 0 0 20px rgba(139, 92, 246, 0.15);
+      --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.1);
       --radius-sm: 8px;
       --radius-md: 12px;
       --radius-lg: 16px;
-      --radius-xl: 24px;
       --transition-fast: 0.2s ease;
-      --transition-med: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    html { scroll-behavior: smooth; }
     body {
       font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
       background-color: var(--bg-primary);
       color: var(--text-primary);
       line-height: 1.6;
       overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    /* =============================================
-       LAYOUT CONTAINERS
-    ============================================= */
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 24px;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* =============================================
-       NAVIGATION
-    ============================================= */
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+    
+    /* Navbar */
     .navbar {
       position: sticky;
       top: 0;
       z-index: 100;
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border-color);
-      transition: var(--transition-med);
     }
-
     .navbar-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
       min-height: 70px;
       padding: 12px 0;
-      gap: 16px;
-      flex-wrap: wrap;
     }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-shrink: 0;
-    }
-
-    .logo-icon {
-      font-size: 28px;
-      filter: none;
-      display: flex;
-      align-items: center;
-    }
-
-    .logo-text {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.2;
-    }
-
+    .logo { display: flex; align-items: center; gap: 12px; }
+    .logo-icon { font-size: 28px; }
+    .logo-text { display: flex; flex-direction: column; line-height: 1.2; }
     .logo-name {
       font-size: 20px;
       font-weight: 900;
       background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: -0.5px;
     }
-
-    .logo-tagline {
-      font-size: 11px;
-      color: var(--text-muted);
-      font-weight: 400;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      flex-wrap: wrap;
-      flex: 1;
-      justify-content: center;
-    }
-
-    .nav-link {
-      padding: 8px 16px;
-      border-radius: var(--radius-sm);
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text-secondary);
-      transition: var(--transition-fast);
-      position: relative;
-      white-space: nowrap;
-    }
-
-    .nav-link:hover {
-      color: var(--text-primary);
-      background: #f1f5f9;
-    }
-
-    .nav-link.active {
-      color: #3b82f6;
-      background: #eff6ff;
-      font-weight: 600;
-    }
-
-    .nav-link.btn-primary {
-      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-      color: #fff;
-      font-weight: 600;
-    }
-
-    .nav-link.btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-      color: #fff;
-      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-    }
-
-    /* =============================================
-       MAIN CONTENT
-    ============================================= */
-    .main-content {
-      padding: 60px 0 80px;
-      min-height: calc(100vh - 70px - 200px);
-    }
-
-    .page-header {
-      text-align: center;
-      margin-bottom: 50px;
-    }
-
-    .page-title {
-      font-size: clamp(32px, 5vw, 48px);
-      font-weight: 900;
-      line-height: 1.2;
-      margin-bottom: 16px;
-    }
-
+    .logo-tagline { font-size: 11px; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 8px; }
+    .nav-link { padding: 8px 16px; border-radius: var(--radius-sm); font-size: 14px; color: var(--text-secondary); transition: var(--transition-fast); }
+    .nav-link:hover { color: var(--text-primary); background: #f1f5f9; }
+    .nav-link.active { background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #fff; font-weight: 600; }
+    
+    /* Main */
+    .main-content { padding: 60px 0 80px; min-height: calc(100vh - 200px); }
+    .page-header { text-align: center; margin-bottom: 50px; }
+    .page-title { font-size: clamp(32px, 5vw, 48px); font-weight: 900; margin-bottom: 16px; }
     .page-title-gradient {
       background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      background-clip: text;
     }
-
-    .page-subtitle {
-      font-size: 16px;
-      color: var(--text-secondary);
-      max-width: 600px;
-      margin: 0 auto;
-      line-height: 1.7;
-    }
-
-    /* =============================================
-       FORM STYLES
-    ============================================= */
+    .page-subtitle { font-size: 16px; color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+    
+    /* Form */
     .form-container {
       max-width: 800px;
       margin: 0 auto;
@@ -236,27 +93,10 @@
       padding: 40px;
       box-shadow: var(--shadow-card);
     }
-
-    .form-group {
-      margin-bottom: 28px;
-    }
-
-    .form-label {
-      display: block;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 8px;
-    }
-
-    .form-label .required {
-      color: #ef4444;
-      margin-left: 2px;
-    }
-
-    .form-input,
-    .form-select,
-    .form-textarea {
+    .form-group { margin-bottom: 28px; }
+    .form-label { display: block; font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; }
+    .form-label .required { color: #ef4444; }
+    .form-input, .form-select, .form-textarea {
       width: 100%;
       padding: 12px 16px;
       border: 2px solid #e2e8f0;
@@ -267,46 +107,23 @@
       transition: var(--transition-fast);
       font-family: inherit;
     }
-
-    .form-input:focus,
-    .form-select:focus,
-    .form-textarea:focus {
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
       outline: none;
       border-color: #3b82f6;
       box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
     }
-
-    .form-input::placeholder,
-    .form-textarea::placeholder {
-      color: var(--text-muted);
-    }
-
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--text-muted); }
     .form-select {
       cursor: pointer;
       appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23475569' d='M4.5 6l3.5 4 3.5-4z'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Cpath fill='%23475569' d='M4.5 6l3.5 4 3.5-4z'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: right 12px center;
-      background-size: 16px;
       padding-right: 40px;
     }
-
-    .form-textarea {
-      min-height: 120px;
-      resize: vertical;
-      line-height: 1.6;
-    }
-
-    .form-textarea.small {
-      min-height: 80px;
-    }
-
-    .form-hint {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 6px;
-    }
-
+    .form-textarea { min-height: 120px; resize: vertical; }
+    .form-textarea.small { min-height: 80px; }
+    .form-hint { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
     .form-submit {
       width: 100%;
       padding: 16px 32px;
@@ -318,51 +135,16 @@
       font-weight: 700;
       cursor: pointer;
       transition: var(--transition-fast);
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
     }
-
-    .form-submit:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
-    }
-
-    .form-submit:active {
-      transform: translateY(0);
-    }
-
-    /* =============================================
-       SUCCESS MESSAGE
-    ============================================= */
-    .success-message {
-      display: none;
-      text-align: center;
-      padding: 60px 40px;
-    }
-
-    .success-message.visible {
-      display: block;
-    }
-
-    .success-icon {
-      font-size: 64px;
-      margin-bottom: 24px;
-      display: block;
-    }
-
-    .success-title {
-      font-size: 28px;
-      font-weight: 900;
-      color: var(--text-primary);
-      margin-bottom: 12px;
-    }
-
-    .success-desc {
-      font-size: 16px;
-      color: var(--text-secondary);
-      margin-bottom: 32px;
-      line-height: 1.7;
-    }
-
+    .form-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4); }
+    .form-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    
+    /* Success */
+    .success-message { display: none; text-align: center; padding: 60px 40px; }
+    .success-message.visible { display: block; }
+    .success-icon { font-size: 64px; margin-bottom: 24px; }
+    .success-title { font-size: 28px; font-weight: 900; margin-bottom: 12px; }
+    .success-desc { font-size: 16px; color: var(--text-secondary); margin-bottom: 32px; }
     .success-btn {
       display: inline-flex;
       align-items: center;
@@ -370,158 +152,27 @@
       padding: 12px 28px;
       background: linear-gradient(135deg, #3b82f6, #8b5cf6);
       color: #fff;
-      border: none;
       border-radius: var(--radius-md);
       font-size: 15px;
       font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition-fast);
-      text-decoration: none;
     }
-
-    .success-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-    }
-
-    /* =============================================
-       FOOTER
-    ============================================= */
-    .footer {
-      border-top: 1px solid var(--border-color);
-      padding: 40px 0;
-      position: relative;
-      z-index: 1;
-    }
-
-    .footer-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .footer-left {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .footer-logo {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 16px;
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .footer-disclaimer {
-      font-size: 12px;
-      color: var(--text-muted);
-      max-width: 400px;
-    }
-
-    .footer-right {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .footer-links {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .footer-link {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 13px;
-      color: var(--text-secondary);
-      transition: var(--transition-fast);
-    }
-
-    .footer-link:hover {
-      color: var(--neon-blue);
-    }
-
-    .footer-link-icon {
-      font-size: 16px;
-    }
-
-    .footer-divider {
-      width: 1px;
-      height: 16px;
-      background: var(--border-color);
-    }
-
-    .footer-copyright {
-      font-size: 12px;
-      color: var(--text-muted);
-      text-align: center;
-      margin-top: 24px;
-      padding-top: 24px;
-      border-top: 1px solid var(--border-color);
-    }
-
-    /* =============================================
-       RESPONSIVE
-    ============================================= */
-    @media (max-width: 900px) {
-      .nav-links {
-        display: none;
-      }
-
-      .form-container {
-        padding: 28px 20px;
-      }
-    }
-
+    
+    /* Footer */
+    .footer { border-top: 1px solid var(--border-color); padding: 40px 0; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .footer-logo { font-size: 16px; font-weight: 700; background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .footer-copyright { font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color); }
+    
     @media (max-width: 640px) {
-      .container {
-        padding: 0 16px;
-      }
-
-      .main-content {
-        padding: 40px 0 60px;
-      }
-
-      .page-header {
-        margin-bottom: 32px;
-      }
-
-      .form-container {
-        padding: 24px 16px;
-        border-radius: var(--radius-md);
-      }
-
-      .form-submit {
-        padding: 14px 24px;
-        font-size: 15px;
-      }
-
-      .footer-inner {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .footer-right {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-      }
+      .container { padding: 0 16px; }
+      .form-container { padding: 24px 16px; }
+      .nav-links { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ==================== NAVBAR ==================== -->
+  <!-- Navbar -->
   <nav class="navbar">
     <div class="container">
       <div class="navbar-inner">
@@ -532,71 +183,38 @@
             <span class="logo-tagline">AI工具导航</span>
           </div>
         </a>
-
         <div class="nav-links">
           <a href="./index.html" class="nav-link">首页</a>
-          <a href="./submit.html" class="nav-link active btn-primary">提交工具</a>
+          <a href="./submit.html" class="nav-link active">提交工具</a>
         </div>
       </div>
     </div>
   </nav>
 
-  <!-- ==================== MAIN CONTENT ==================== -->
+  <!-- Main -->
   <main class="main-content">
     <div class="container">
       <div class="page-header">
-        <h1 class="page-title">
-          提交 <span class="page-title-gradient">AI 工具</span>
-        </h1>
-        <p class="page-subtitle">
-          发现了一款好用的AI工具？请填写下方表单提交给我们，审核通过后将会展示在网站上。
-        </p>
+        <h1 class="page-title">提交 <span class="page-title-gradient">AI 工具</span></h1>
+        <p class="page-subtitle">发现了一款好用的AI工具？填写表单提交，审核通过后即可展示。</p>
       </div>
 
-      <!-- FORM -->
       <div class="form-container">
-        <form id="submitForm" action="https://formsubmit.co/submit@quickapis.top" method="POST">
-          
-          <!-- Honeypot (anti-spam) -->
-          <input type="text" name="_honey" style="display:none">
-          
-          <!-- Disable CAPTCHA -->
-          <input type="hidden" name="_captcha" value="false">
-
+        <form id="submitForm">
           <div class="form-group">
-            <label class="form-label" for="toolName">
-              工具名称 <span class="required">*</span>
-            </label>
-            <input 
-              type="text" 
-              id="toolName" 
-              name="工具名称" 
-              class="form-input" 
-              placeholder="例如：ChatGPT、Midjourney、DeepSeek..."
-              required
-            >
+            <label class="form-label" for="toolName">工具名称 <span class="required">*</span></label>
+            <input type="text" id="toolName" class="form-input" placeholder="例如：ChatGPT、Midjourney" required>
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="toolUrl">
-              工具网址 <span class="required">*</span>
-            </label>
-            <input 
-              type="url" 
-              id="toolUrl" 
-              name="工具网址" 
-              class="form-input" 
-              placeholder="https://example.com"
-              required
-            >
-            <div class="form-hint">请输入完整的网址，包含 https://</div>
+            <label class="form-label" for="toolUrl">工具网址 <span class="required">*</span></label>
+            <input type="url" id="toolUrl" class="form-input" placeholder="https://example.com" required>
+            <div class="form-hint">请输入完整网址，包含 https://</div>
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="toolCategory">
-              分类 <span class="required">*</span>
-            </label>
-            <select id="toolCategory" name="分类" class="form-select" required>
+            <label class="form-label" for="toolCategory">分类 <span class="required">*</span></label>
+            <select id="toolCategory" class="form-select" required>
               <option value="" disabled selected>请选择分类</option>
               <option value="聊天AI">聊天AI</option>
               <option value="图像生成">图像生成</option>
@@ -616,178 +234,113 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="toolSummary">
-              一句话简介 <span class="required">*</span>
-            </label>
-            <input 
-              type="text" 
-              id="toolSummary" 
-              name="一句话简介" 
-              class="form-input" 
-              placeholder="用一句话介绍这个工具的核心功能"
-              required
-            >
-            <div class="form-hint">简洁明了，不超过50字</div>
+            <label class="form-label" for="toolSummary">一句话简介 <span class="required">*</span></label>
+            <input type="text" id="toolSummary" class="form-input" placeholder="用一句话介绍工具核心功能" required>
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="toolDescription">
-              详细描述
-            </label>
-            <textarea 
-              id="toolDescription" 
-              name="详细描述" 
-              class="form-textarea"
-              placeholder="详细介绍这个工具的功能特点、使用场景、优势等（选填）"
-            ></textarea>
+            <label class="form-label" for="toolDescription">详细描述</label>
+            <textarea id="toolDescription" class="form-textarea" placeholder="详细介绍功能特点、使用场景（选填）"></textarea>
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="toolReason">
-              推荐理由
-            </label>
-            <textarea 
-              id="toolReason" 
-              name="推荐理由" 
-              class="form-textarea small"
-              placeholder="为什么推荐这个工具？它有什么特别之处？（选填）"
-            ></textarea>
+            <label class="form-label" for="toolReason">推荐理由</label>
+            <textarea id="toolReason" class="form-textarea small" placeholder="为什么推荐？有什么特别之处？（选填）"></textarea>
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="contactEmail">
-              您的联系方式
-            </label>
-            <input 
-              type="email" 
-              id="contactEmail" 
-              name="联系方式" 
-              class="form-input" 
-              placeholder="your@email.com（选填，方便我们联系您）"
-            >
+            <label class="form-label" for="contactEmail">您的联系方式</label>
+            <input type="email" id="contactEmail" class="form-input" placeholder="your@email.com（选填）">
           </div>
 
-          <button type="submit" class="form-submit">
-            提交工具
-          </button>
+          <button type="submit" class="form-submit" id="submitBtn">提交审核</button>
         </form>
 
-        <!-- SUCCESS MESSAGE -->
         <div class="success-message" id="successMessage">
           <span class="success-icon">🎉</span>
           <h2 class="success-title">提交成功！</h2>
-          <p class="success-desc">
-            感谢您的提交，我们会在1-3个工作日内审核。<br>
-            审核通过后，该工具将会出现在 QuickAPIs 网站上。
-          </p>
-          <a href="./index.html" class="success-btn">
-            返回首页
-          </a>
+          <p class="success-desc">感谢您的提交，我们会在1-3个工作日内审核。<br>审核通过后，该工具将出现在 QuickAPIs 网站上。</p>
+          <a href="./index.html" class="success-btn">返回首页</a>
         </div>
       </div>
     </div>
   </main>
 
-  <!-- ==================== FOOTER ==================== -->
+  <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-inner">
-        <div class="footer-left">
-          <div class="footer-logo">QuickAPIs</div>
-          <p class="footer-disclaimer">
-            本网站仅提供工具导航服务，不参与任何工具的运营与开发。所有工具版权归其各自所有者所有。
-          </p>
-        </div>
-        <div class="footer-right">
-          <div class="footer-links">
-            <a href="mailto:submit@quickapis.top" class="footer-link">
-              <span class="footer-link-icon">✉</span>
-              提交工具
-            </a>
-            <div class="footer-divider"></div>
-            <a href="https://github.com/quickapis" class="footer-link" target="_blank" rel="noopener">
-              <span class="footer-link-icon">◎</span>
-              GitHub
-            </a>
-          </div>
-        </div>
+        <div class="footer-logo">QuickAPIs</div>
+        <div style="font-size: 13px; color: var(--text-secondary);">AI工具导航</div>
       </div>
-      <div class="footer-copyright">
-        (c) 2026 QuickAPIs.top · 仅供导航学习，请合理使用AI工具
-      </div>
+      <div class="footer-copyright">© 2026 QuickAPIs.top · 仅供导航学习</div>
     </div>
   </footer>
 
-  <!-- ==================== JAVASCRIPT ==================== -->
   <script>
-    // =============================================
-    // FORM SUBMIT HANDLER
-    // =============================================
-    const form = document.getElementById('submitForm');
-    const successMessage = document.getElementById('successMessage');
-
-    form.addEventListener('submit', function(e) {
+    const GITHUB_REPO = 'yk8899git/quickapis-site';
+    const GITHUB_TOKEN = ''; // 留空，用户无需登录即可提交
+    
+    document.getElementById('submitForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       
-      // Basic validation
       const toolName = document.getElementById('toolName').value.trim();
       const toolUrl = document.getElementById('toolUrl').value.trim();
       const toolCategory = document.getElementById('toolCategory').value;
       const toolSummary = document.getElementById('toolSummary').value.trim();
-
-      if (!toolName || !toolUrl || !toolCategory || !toolSummary) {
-        alert('请填写所有必填字段（带 * 的字段）');
-        return;
-      }
-
-      // URL validation
-      try {
-        new URL(toolUrl);
-      } catch (err) {
-        alert('请输入有效的网址（包含 https://）');
-        return;
-      }
-
-      // Submit form using FormSubmit
-      const formData = new FormData(form);
+      const toolDescription = document.getElementById('toolDescription').value.trim();
+      const toolReason = document.getElementById('toolReason').value.trim();
+      const contactEmail = document.getElementById('contactEmail').value.trim();
       
-      fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
-      })
-      .then(response => {
-        if (response.ok) {
-          // Show success message
-          form.style.display = 'none';
-          successMessage.classList.add('visible');
-        } else {
-          alert('提交失败，请稍后重试或直接发送邮件到 submit@quickapis.top');
-        }
-      })
-      .catch(error => {
-        // Even if fetch fails, FormSubmit might have received the data
-        // Show success message anyway (FormSubmit usually works)
-        form.style.display = 'none';
-        successMessage.classList.add('visible');
-      });
-    });
+      if (!toolName || !toolUrl || !toolCategory || !toolSummary) {
+        alert('请填写所有必填字段');
+        return;
+      }
+      
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = '提交中...';
+      
+      // 构建 Issue 标题和内容
+      const issueTitle = `【工具提交】${toolName}`;
+      const issueBody = `## 工具信息
 
-    // =============================================
-    // SMOOTH INPUT FOCUS EFFECTS
-    // =============================================
-    const inputs = document.querySelectorAll('.form-input, .form-select, .form-textarea');
-    inputs.forEach(input => {
-      input.addEventListener('focus', function() {
-        this.parentElement.classList.add('focused');
-      });
-      input.addEventListener('blur', function() {
-        this.parentElement.classList.remove('focused');
-      });
+- **名称**: ${toolName}
+- **网址**: ${toolUrl}
+- **分类**: ${toolCategory}
+- **简介**: ${toolSummary}
+
+## 详细描述
+${toolDescription || '无'}
+
+## 推荐理由
+${toolReason || '无'}
+
+## 提交者联系方式
+${contactEmail || '未填写'}
+
+---
+*提交时间: ${new Date().toLocaleString('zh-CN', {timeZone: 'Asia/Shanghai'})}*`;
+
+      // 方案1: 直接跳转到 GitHub Issue 创建页面（无需 API Token）
+      const issueUrl = `https://github.com/${GITHUB_REPO}/issues/new?title=${encodeURIComponent(issueTitle)}&body=${encodeURIComponent(issueBody)}`;
+      
+      // 打开新窗口让用户确认提交
+      const popup = window.open(issueUrl, '_blank', 'width=800,height=600');
+      
+      if (popup) {
+        // 显示成功消息
+        document.getElementById('submitForm').style.display = 'none';
+        document.getElementById('successMessage').classList.add('visible');
+      } else {
+        // 如果弹窗被阻止，直接跳转
+        alert('请在打开的 GitHub 页面完成提交');
+        window.location.href = issueUrl;
+      }
+      
+      submitBtn.disabled = false;
+      submitBtn.textContent = '提交审核';
     });
   </script>
-
 </body>
 </html>
