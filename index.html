@@ -858,12 +858,12 @@
     }
 
     .review-card {
-      flex: 0 0 320px;
+      flex: 0 0 220px;
       scroll-snap-align: start;
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-md);
-      padding: 18px;
+      padding: 12px 14px;
       transition: all 0.3s ease;
       cursor: pointer;
     }
@@ -2225,7 +2225,7 @@
               '<span class="review-card-source">📰 ' + r.source + '</span>' +
               '<span>' + r.time + '</span>' +
             '</div>';
-          card.onclick = function() { window.open(r.url, '_blank'); };
+          card.onclick = function() { location.href = 'review-detail.html?tool=' + encodeURIComponent(r.tool); };
           reviewTrack.appendChild(card);
         });
         // 复制一份实现无缝循环
@@ -2238,7 +2238,7 @@
               '<span class="review-card-source">📰 ' + r.source + '</span>' +
               '<span>' + r.time + '</span>' +
             '</div>';
-          card.onclick = function() { window.open(r.url, '_blank'); };
+          card.onclick = function() { location.href = 'review-detail.html?tool=' + encodeURIComponent(r.tool); };
           reviewTrack.appendChild(card);
         });
       }
@@ -2248,4 +2248,5 @@
 
 </body>
 </html>
+
 

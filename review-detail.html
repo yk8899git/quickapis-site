@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>评测详情 - QuickAPIs | AI工具导航</title>
+  <meta name="description" content="QuickAPIs AI工具评测详情">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="shortcut icon" href="./favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "Microsoft YaHei", sans-serif; background: #ffffff; color: #0f172a; min-height: 100vh; }
+
+    .navbar { background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(59,130,246,0.12); padding: 0 20px; height: 64px; position: sticky; top:0; z-index: 100; }
+    .navbar-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; height: 100%; gap: 24px; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+    .logo-text { display: flex; flex-direction: column; }
+    .logo-name { font-size: 18px; font-weight: 900; background: linear-gradient(135deg, #3b82f6, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .logo-tagline { font-size: 11px; color: #94a3b8; }
+    .back-link { font-size: 14px; color: #3b82f6; text-decoration: none; margin-left: auto; }
+    .back-link:hover { text-decoration: underline; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+
+    .tool-header { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+    .tool-icon { font-size: 48px; }
+    .tool-name { font-size: 28px; font-weight: 900; background: linear-gradient(135deg, #3b82f6, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .tool-desc { color: #64748b; font-size: 14px; margin-top: 4px; }
+
+    .section-title { font-size: 18px; font-weight: 700; color: #1e293b; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .section-title::before { content: ''; display: inline-block; width: 4px; height: 20px; background: linear-gradient(135deg, #3b82f6, #ec4899); border-radius: 2px; }
+
+    .main-link-card { background: linear-gradient(135deg, #eff6ff, #fdf2f8); border: 1px solid rgba(59,130,246,0.15); border-radius: 16px; padding: 20px 24px; margin-bottom: 32px; display: flex; align-items: center; gap: 16px; transition: transform 0.2s; }
+    .main-link-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(59,130,246,0.12); }
+    .main-link-icon { font-size: 32px; }
+    .main-link-body { flex: 1; }
+    .main-link-label { font-size: 13px; color: #64748b; margin-bottom: 2px; }
+    .main-link-url { font-size: 15px; font-weight: 600; color: #1e293b; word-break: break-all; }
+    .main-link-btn { background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: white; border: none; border-radius: 10px; padding: 10px 20px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; white-space: nowrap; }
+    .main-link-btn:hover { opacity: 0.9; }
+
+    .reviews-list { display: flex; flex-direction: column; gap: 12px; }
+    .review-item { background: #f8fafc; border: 1px solid rgba(59,130,246,0.08); border-radius: 12px; padding: 16px 20px; display: flex; align-items: flex-start; gap: 12px; transition: all 0.2s; cursor: pointer; }
+    .review-item:hover { background: #eff6ff; border-color: rgba(59,130,246,0.2); transform: translateX(4px); }
+    .review-source-badge { background: rgba(59,130,246,0.1); color: #3b82f6; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
+    .review-item-body { flex: 1; }
+    .review-item-title { font-size: 15px; font-weight: 600; color: #1e293b; margin-bottom: 4px; }
+    .review-item-meta { font-size: 12px; color: #94a3b8; }
+    .review-arrow { color: #94a3b8; font-size: 18px; }
+
+    .empty-state { text-align: center; padding: 40px 20px; color: #94a3b8; }
+
+    .footer { padding: 24px 20px; text-align: center; font-size: 13px; color: #94a3b8; border-top: 1px solid rgba(59,130,246,0.08); margin-top: 60px; }
+    .footer a { color: #3b82f6; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="./index.html" class="logo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 9H22L16 13.5L18 21L12 16.5L6 21L8 13.5L2 9H9.5L12 2Z" fill="url(#sgrad)" stroke="#3b82f6" stroke-width="1"/><defs><linearGradient id="sgrad" x1="2" y1="2" x2="22" y2="22"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#ec4899"/></linearGradient></defs></svg>
+        <div class="logo-text">
+          <span class="logo-name">QuickAPIs</span>
+          <span class="logo-tagline">AI工具导航</span>
+        </div>
+      </a>
+      <a href="./index.html" class="back-link">← 返回首页</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="tool-header">
+      <div class="tool-icon" id="toolIcon">🤖</div>
+      <div>
+        <div class="tool-name" id="toolName">加载中…</div>
+        <div class="tool-desc" id="toolDesc">正在加载工具信息…</div>
+      </div>
+    </div>
+
+    <!-- 主站链接 -->
+    <div class="section-title">🔗 官方主站</div>
+    <div class="main-link-card" id="mainLinkCard" style="display:none;">
+      <div class="main-link-icon">🌐</div>
+      <div class="main-link-body">
+        <div class="main-link-label">官方地址</div>
+        <div class="main-link-url" id="mainLinkUrl"></div>
+      </div>
+      <a href="#" class="main-link-btn" id="mainLinkBtn" target="_blank">访问主站 →</a>
+    </div>
+
+    <!-- 相关评测 -->
+    <div class="section-title">📰 相关评测</div>
+    <div class="reviews-list" id="reviewsList">
+      <div class="empty-state">加载中…</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    © 2026 QuickAPIs.top · <a href="./index.html">返回首页</a>
+  </div>
+
+  <script>
+    // 与 index.html 中的 REVIEWS_DATA 保持一致
+    var REVIEWS_DATA = [
+      { tool: "Kimi", toolIcon: "🦙", title: "Kimi 2.0 深度评测：长文本处理的新标杆", url: "https://zhuanlan.zhihu.com/p/688493103", source: "知乎", time: "2026-04-28" },
+      { tool: "Kimi", toolIcon: "🦙", title: "Kimi vs ChatGPT：谁更适合处理长文档？", url: "https://www.bilibili.com/video/BV1xx411c7mD", source: "B站", time: "2026-04-25" },
+      { tool: "ChatGPT", toolIcon: "🤖", title: "ChatGPT 4o 实测：免费版够用吗？完全评测", url: "https://www.youtube.com/watch?v=8PtXYW1zGJY", source: "YouTube", time: "2026-04-27" },
+      { tool: "ChatGPT", toolIcon: "🤖", title: "ChatGPT记忆功能上线，AI助手终于能记住你了", url: "https://www.ifanr.com/1526843", source: "爱范儿", time: "2026-04-26" },
+      { tool: "DeepSeek", toolIcon: "🔍", title: "DeepSeek-V3 测评：开源模型的性能天花板", url: "https://zhuanlan.zhihu.com/p/687321456", source: "知乎", time: "2026-04-24" },
+      { tool: "DeepSeek", toolIcon: "🔍", title: "DeepSeek R1 本地部署全记录，4090显卡实测", url: "https://www.bilibili.com/video/BV1gh411x7mR", source: "B站", time: "2026-04-22" },
+      { tool: "Claude", toolIcon: "🧠", title: "Claude 4 Sonnet 评测：代码能力封神？", url: "https://www.youtube.com/watch?v=xR8pH1q2bP4", source: "YouTube", time: "2026-04-23" },
+      { tool: "Claude", toolIcon: "🧠", title: "Claude Projects 功能详解：AI助手如何管理你的知识库", url: "https://www.woshipm.com/evaluating/5987456.html", source: "人人都是产品经理", time: "2026-04-21" },
+      { tool: "Midjourney", toolIcon: "🎨", title: "Midjourney V7 测试：画质提升明显，但值得升级吗？", url: "https://www.bilibili.com/video/BV1jk411x7mQ", source: "B站", time: "2026-04-20" },
+      { tool: "Cursor", toolIcon: "💻", title: "Cursor 编辑器完全指南：AI写代码是什么体验？", url: "https://zhuanlan.zhihu.com/p/685234987", source: "知乎", time: "2026-04-19" },
+      { tool: "Cursor", toolIcon: "💻", title: "实测 Cursor vs Copilot：哪个AI编程助手更强？", url: "https://www.bilibili.com/video/BV1gh411x7mR", source: "B站", time: "2026-04-18" },
+      { tool: "Notion AI", toolIcon: "📝", title: "Notion AI 深度使用3个月：值不值得买？", url: "https://www.xiaohongshu.com/explore/661a3c20000000001a01d2e4", source: "小红书", time: "2026-04-17" },
+    ];
+
+    function getParam(name) {
+      var params = new URLSearchParams(window.location.search);
+      return params.get(name);
+    }
+
+    var toolName = getParam('tool');
+    if (!toolName) {
+      document.getElementById('toolName').textContent = '未找到工具';
+      document.getElementById('toolDesc').textContent = '请从首页点击评测卡片进入';
+      document.getElementById('reviewsList').innerHTML = '<div class="empty-state">缺少工具参数</div>';
+    } else {
+      document.getElementById('toolName').textContent = toolName;
+      document.getElementById('toolDesc').textContent = '相关评测与官方链接';
+
+      // 找图标
+      var firstReview = REVIEWS_DATA.find(function(r) { return r.tool === toolName; });
+      if (firstReview) {
+        document.getElementById('toolIcon').textContent = firstReview.toolIcon;
+      }
+
+      // 渲染评测列表
+      var related = REVIEWS_DATA.filter(function(r) { return r.tool === toolName; });
+      var listEl = document.getElementById('reviewsList');
+      if (related.length === 0) {
+        listEl.innerHTML = '<div class="empty-state">暂无相关评测，去首页看看其他工具吧</div>';
+      } else {
+        listEl.innerHTML = '';
+        related.forEach(function(r) {
+          var item = document.createElement('div');
+          item.className = 'review-item';
+          item.onclick = function() { window.open(r.url, '_blank'); };
+          item.innerHTML = '<span class="review-source-badge">' + r.source + '</span>' +
+            '<div class="review-item-body">' +
+              '<div class="review-item-title">' + r.title + '</div>' +
+              '<div class="review-item-meta">' + r.time + ' · 点击跳转原文</div>' +
+            '</div>' +
+            '<span class="review-arrow">→</span>';
+          listEl.appendChild(item);
+        });
+      }
+
+      // 获取主站链接（从 tools.json）
+      fetch('./tools.json')
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var tool = data.tools.find(function(t) { return t.name === toolName; });
+          if (tool && tool.url) {
+            document.getElementById('mainLinkCard').style.display = 'flex';
+            document.getElementById('mainLinkUrl').textContent = tool.url;
+            document.getElementById('mainLinkBtn').href = tool.url;
+          }
+        })
+        .catch(function() {
+          console.log('tools.json 加载失败');
+        });
+    }
+  </script>
+</body>
+</html>
