@@ -2142,6 +2142,11 @@
 
     heroSearchBtn.addEventListener('click', () => {
       navSearchInput.value = heroSearchInput.value.trim();
+      // 滚动到工具列表区域
+      const toolsGrid = document.getElementById('toolsGrid');
+      if (toolsGrid) {
+        toolsGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     });
 
     navSearchInput.addEventListener('input', () => {
