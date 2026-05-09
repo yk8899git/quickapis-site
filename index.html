@@ -840,19 +840,21 @@
 
     .reviews-grid {
       display: flex;
-      overflow-x: auto;
+      overflow: hidden;
       gap: 20px;
       padding: 0 5%;
-      scroll-snap-type: x mandatory;
-      scrollbar-width: thin;
     }
-
-    .reviews-grid::-webkit-scrollbar {
-      height: 6px;
+    .reviews-grid .review-track {
+      display: flex;
+      gap: 20px;
+      animation: autoScroll 25s linear infinite;
     }
-    .reviews-grid::-webkit-scrollbar-thumb {
-      background: rgba(59,130,246,0.3);
-      border-radius: 3px;
+    @keyframes autoScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .reviews-grid:hover .review-track {
+      animation-play-state: paused;
     }
 
     .review-card {
@@ -2207,18 +2209,40 @@
     var track = document.getElementById('reviewsTrack');
     var grid = document.getElementById('reviewsGrid');
     if (grid) {
-      REVIEWS_DATA.forEach(function(r) {
-        var card = document.createElement('div');
-        card.className = 'review-card';
-        card.innerHTML = '<span class="review-card-tag">' + r.toolIcon + ' ' + r.tool + '</span>' +
-          '<div class="review-card-title">' + r.title + '</div>' +
-          '<div class="review-card-meta">' +
-            '<span class="review-card-source">📰 ' + r.source + '</span>' +
-            '<span>' + r.time + '</span>' +
-          '</div>';
-        card.onclick = function() { window.open(r.url, '_blank'); };
-        grid.appendChild(card);
-      });
+      // 创建滚动轨道
+      var reviewTrack = document.createElement('div');
+      reviewTrack.className = 'review-track';
+      grid.appendChild(reviewTrack);
+
+      // 渲染卡片（复制两份实现无缝循环）
+      function renderCards() {
+        REVIEWS_DATA.forEach(function(r) {
+          var card = document.createElement('div');
+          card.className = 'review-card';
+          card.innerHTML = '<span class="review-card-tag">' + r.toolIcon + ' ' + r.tool + '</span>' +
+            '<div class="review-card-title">' + r.title + '</div>' +
+            '<div class="review-card-meta">' +
+              '<span class="review-card-source">📰 ' + r.source + '</span>' +
+              '<span>' + r.time + '</span>' +
+            '</div>';
+          card.onclick = function() { window.open(r.url, '_blank'); };
+          reviewTrack.appendChild(card);
+        });
+        // 复制一份实现无缝循环
+        REVIEWS_DATA.forEach(function(r) {
+          var card = document.createElement('div');
+          card.className = 'review-card';
+          card.innerHTML = '<span class="review-card-tag">' + r.toolIcon + ' ' + r.tool + '</span>' +
+            '<div class="review-card-title">' + r.title + '</div>' +
+            '<div class="review-card-meta">' +
+              '<span class="review-card-source">📰 ' + r.source + '</span>' +
+              '<span>' + r.time + '</span>' +
+            '</div>';
+          card.onclick = function() { window.open(r.url, '_blank'); };
+          reviewTrack.appendChild(card);
+        });
+      }
+      renderCards();
     }
   </script>
 
