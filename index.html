@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   <style>
     /* =============================================
        CSS RESET & BASE
@@ -838,16 +839,25 @@
     }
 
     .reviews-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      display: flex;
+      overflow-x: auto;
       gap: 20px;
       padding: 0 5%;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
     }
 
-    .reviews-col {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+    .reviews-grid::-webkit-scrollbar {
+      height: 6px;
+    }
+    .reviews-grid::-webkit-scrollbar-thumb {
+      background: rgba(59,130,246,0.3);
+      border-radius: 3px;
+    }
+
+    .review-card {
+      flex: 0 0 320px;
+      scroll-snap-align: start;
     }
       flex: 0 0 300px;
       background: var(--bg-card);
@@ -1464,6 +1474,8 @@
       </div>
       <div class="footer-copyright">
         (c) 2026 QuickAPIs.top · 仅供导航学习，请合理使用AI工具
+        <br>
+        总访问量 <span id="busuanzi_value_site_pv"></span> 次 · 访客数 <span id="busuanzi_value_site_uv"></span> 人
       </div>
     </div>
           <a href="about.html" class="footer-link">关于我们</a>
