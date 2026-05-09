@@ -838,6 +838,36 @@
     }
 
     .reviews-scroll {
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: var(--neon-blue) transparent;
+      padding-bottom: 12px;
+      mask-image: linear-gradient(90deg, transparent, black 3%, black 97%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, black 3%, black 97%, transparent);
+    }
+
+    .reviews-scroll::-webkit-scrollbar { height: 6px; }
+    .reviews-scroll::-webkit-scrollbar-track { background: transparent; }
+    .reviews-scroll::-webkit-scrollbar-thumb { background: var(--neon-blue); border-radius: 3px; }
+
+    .reviews-track {
+      display: flex;
+      gap: 16px;
+      width: max-content;
+      padding: 4px 0;
+      animation: scrollReviews 30s linear infinite;
+    }
+
+    .reviews-scroll:hover .reviews-track {
+      animation-play-state: paused;
+    }
+
+    @keyframes scrollReviews {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
 
     .review-card {
       flex: 0 0 300px;
