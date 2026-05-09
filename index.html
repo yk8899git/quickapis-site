@@ -2031,19 +2031,21 @@
     function renderTools() {
       let filtered = toolsData;
 
-      if (currentCategory !== 'all') {
-        filtered = filtered.filter(t => t.category === currentCategory);
-      }
-
+      // 智能搜索：有搜索词时全局搜索，忽略分类筛选
       if (currentSearch.trim() !== '') {
         const q = currentSearch.toLowerCase().trim();
-        filtered = filtered.filter(t =>
+        filtered = toolsData.filter(t =>
           t.name.toLowerCase().includes(q) ||
+          t.nameCn.toLowerCase().includes(q) ||
           t.description.toLowerCase().includes(q) ||
           t.categoryLabel.toLowerCase().includes(q) ||
           t.tags.some(tag => tag.toLowerCase().includes(q)) ||
-          t.domain.toLowerCase().includes(q)
+          t.domain.toLowerCase().includes(q) ||
+          t.id.toLowerCase().includes(q)
         );
+      } else if (currentCategory !== 'all') {
+        // 无搜索词时才按分类筛选
+        filtered = filtered.filter(t => t.category === currentCategory);
       }
 
       visibleCount.textContent = filtered.length;
