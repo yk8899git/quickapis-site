@@ -620,10 +620,11 @@
       overflow: hidden;
     }
 
-    .tool-emoji-icon {
-      font-size: 28px;
-      line-height: 1;
-      display: block;
+    .tool-favicon {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      border-radius: 6px;
     }
 
     .tool-card:hover .tool-icon {
@@ -2061,7 +2062,7 @@
       toolsGrid.innerHTML = filtered.map((tool, index) => `
         <div class="tool-card card-enter" style="animation-delay: ${index * 40}ms" data-id="${tool.id}">
           <div class="tool-card-top">
-            <div class="tool-icon"><span class="tool-emoji-icon">${tool.icon}</span></div>
+            <div class="tool-icon"><img class="tool-favicon" src="icons/${tool.id}.png" alt="${tool.name}" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling?this.nextElementSibling.style.display='block':null"></div>
             <span class="tool-tag tool-tag-${tool.category}">${tool.categoryLabel}</span>
           </div>
           <div class="tool-info">
