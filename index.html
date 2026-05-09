@@ -1971,7 +1971,7 @@
       toolsGrid.innerHTML = filtered.map((tool, index) => `
         <div class="tool-card card-enter" style="animation-delay: ${index * 40}ms" data-id="${tool.id}">
           <div class="tool-card-top">
-            <div class="tool-icon"><img class="tool-favicon" src="https://www.google.com/s2/favicons?domain=${tool.domain}&sz=64" alt="${tool.name}" onerror="this.style.display='none'"></div>
+            <div class="tool-icon"><img class="tool-favicon" src="https://www.google.com/s2/favicons?domain=${tool.domain}&sz=64" alt="${tool.name}" onerror="this.onerror=null;this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>◈</text></svg>'"></div>
             <span class="tool-tag tool-tag-${tool.category}">${tool.categoryLabel}</span>
           </div>
           <div class="tool-info">
