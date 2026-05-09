@@ -323,7 +323,8 @@ ${contactEmail || '未填写'}
 *提交时间: ${new Date().toLocaleString('zh-CN', {timeZone: 'Asia/Shanghai'})}*`;
 
       // 方案1: 直接跳转到 GitHub Issue 创建页面（无需 API Token）
-      const issueUrl = `https://github.com/${GITHUB_REPO}/issues/new?title=${encodeURIComponent(issueTitle)}&body=${encodeURIComponent(issueBody)}`;
+      // 使用 issue_template 参数指定模板，模板已配置 labels=工具提交
+      const issueUrl = `https://github.com/${GITHUB_REPO}/issues/new?title=${encodeURIComponent(issueTitle)}&body=${encodeURIComponent(issueBody)}&template=tool-submit.md&labels=${encodeURIComponent('工具提交')}`;
       
       // 打开新窗口让用户确认提交
       const popup = window.open(issueUrl, '_blank', 'width=800,height=600');
