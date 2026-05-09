@@ -1872,8 +1872,7 @@
             url: t.url,
             rating: 4.5,
             tags: t.tags,
-            featured: t.featured || false,
-            reviews: t.reviews || null
+            featured: t.featured || false
           };
         });
         
@@ -1937,22 +1936,10 @@
 
       emptyState.classList.remove('visible');
 
-      toolsGrid.innerHTML = filtered.map((tool, index) => {
-        var rv = '';
-        if (tool.reviews && tool.reviews.length > 0) {
-          rv = '<div class=\"tool-reviews\"><p class=\"extra-label\">📡 最新评测</p>';
-          for (var ri = 0; ri < Math.min(3, tool.reviews.length); ri++) {
-            var r = tool.reviews[ri];
-            rv += '<div class=\"review-item\"><a href=\"' + r.url + '\" target=\"_blank\" class=\"review-link\">';
-            rv += '<span class=\"review-title\">' + r.title + '</span>';
-            rv += '<span class=\"review-meta\">' + r.source + ' · ' + r.time + '</span>';
-            rv += '</a></div>';
-          }
-          rv += '</div>';
-        }
-        return `<div class="tool-card card-enter" style="animation-delay: ${index * 40}ms" data-id="${tool.id}">
+      toolsGrid.innerHTML = filtered.map((tool, index) => `
+        <div class="tool-card card-enter" style="animation-delay: ${index * 40}ms" data-id="${tool.id}">
           <div class="tool-card-top">
-            <div class="tool-icon"><img class="tool-favicon" src="https://favicon.im/${tool.domain}?size=64" alt="${tool.name}" onerror="this.onerror=null;this.parentElement.innerHTML='<span style=font-size:28px>'+tool.icon+'</span>'"></div>
+            <div class="tool-icon"><img class="tool-favicon" src="https://www.google.com/s2/favicons?domain=${tool.domain}&sz=64" alt="${tool.name}" onerror="this.onerror=null;this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>◈</text></svg>'"></div>
             <span class="tool-tag tool-tag-${tool.category}">${tool.categoryLabel}</span>
           </div>
           <div class="tool-info">
@@ -1967,7 +1954,6 @@
             <p class="extra-label">标签</p>
             <p>${tool.tags.join(' · ')}</p>
           </div>
-          ${rv}
           <div class="tool-footer">
             <div class="tool-rating">
               <span class="tool-rating-icon">★</span>
@@ -2082,6 +2068,55 @@
     // INIT
     // =============================================
     loadToolsData();
+  </script>
+
+  <!-- PATCH: reviews + favicon fix -->
+  <script>
+    (function() {
+      var origRender = typeof renderTools !== 'undefined' ? null : true;
+      document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+          var cards = document.querySelectorAll('.tool-card');
+          cards.forEach(function(card) {
+            var id = card.getAttribute('data-id');
+            if (!id) return;
+            var tool = null;
+            for (var i = 0; i < toolsData.length; i++) {
+              if (toolsData[i].id === id) { tool = toolsData[i]; break; }
+            }
+            if (!tool || !tool.reviews || !tool.reviews.length) return;
+            var div = document.createElement('div');
+            div.className = 'tool-reviews';
+            var label = document.createElement('p');
+            label.className = 'extra-label';
+            label.textContent = '\ud83d\udce1 \u6700\u65b0\u8bc4\u6d4b';
+            div.appendChild(label);
+            for (var ri = 0; ri < Math.min(3, tool.reviews.length); ri++) {
+              var r = tool.reviews[ri];
+              var item = document.createElement('div');
+              item.className = 'review-item';
+              var link = document.createElement('a');
+              link.href = r.url; link.target = '_blank'; link.rel = 'noopener';
+              link.className = 'review-link';
+              var tSpan = document.createElement('span');
+              tSpan.className = 'review-title';
+              tSpan.textContent = r.title;
+              var mSpan = document.createElement('span');
+              mSpan.className = 'review-meta';
+              mSpan.textContent = r.source + ' \u00b7 ' + r.time;
+              link.appendChild(tSpan); link.appendChild(mSpan);
+              item.appendChild(link); div.appendChild(item);
+            }
+            var footer = card.querySelector('.tool-footer');
+            if (footer) card.insertBefore(div, footer);
+            var img = card.querySelector('.tool-favicon');
+            if (img && img.src.indexOf('google.com') > -1) {
+              img.src = img.src.replace('www.google.com/s2/favicons', 'favicon.im');
+            }
+          });
+        }, 500);
+      });
+    })();
   </script>
 
 </body>
