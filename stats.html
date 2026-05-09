@@ -3,665 +3,77 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>流量统计 - QuickAPIs AI工具导航</title>
-  <meta name="description" content="QuickAPIs 站点流量统计，了解AI工具热度排行与访客分布。">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <title>流量统计 - QuickAPIs | AI工具导航</title>
+  <meta name="description" content="QuickAPIs 流量统计页面">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="shortcut icon" href="./favicon.svg">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --bg-primary: #0a0a0f;
-      --bg-secondary: #0f0f1a;
-      --bg-card: #111827;
-      --neon-blue: #00d4ff;
-      --neon-purple: #a855f7;
-      --neon-green: #00ff88;
-      --neon-pink: #ff00aa;
-      --neon-yellow: #ffdd00;
-      --text-primary: #ffffff;
-      --text-secondary: #94a3b8;
-      --text-muted: #64748b;
-      --border-color: rgba(255, 255, 255, 0.08);
-    }
-    body {
-      font-family: 'Noto Sans SC', sans-serif;
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      line-height: 1.8;
-      min-height: 100vh;
-    }
-    .back-link {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      color: var(--neon-blue);
-      padding: 10px 20px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-size: 14px;
-      z-index: 99;
-      transition: all 0.3s;
-    }
-    .back-link:hover {
-      background: var(--bg-secondary);
-      box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
-    }
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 80px 20px 60px;
-    }
-
-    /* Hero */
-    .hero { text-align: center; margin-bottom: 50px; }
-    .hero h1 {
-      font-size: 48px;
-      font-weight: 900;
-      background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 16px;
-    }
-    .hero p { color: var(--text-secondary); font-size: 18px; max-width: 600px; margin: 0 auto; }
-
-    .glow-line {
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--neon-blue), var(--neon-purple), transparent);
-      margin-bottom: 50px;
-    }
-
-    /* Stats Overview */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 40px;
-    }
-    .stat-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 24px 20px;
-      text-align: center;
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-    .stat-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    .stat-card:hover::before { opacity: 1; }
-    .stat-card:hover { border-color: var(--neon-blue); box-shadow: 0 0 20px rgba(0, 212, 255, 0.1); }
-    .stat-icon { font-size: 28px; margin-bottom: 8px; }
-    .stat-number {
-      font-size: 32px;
-      font-weight: 900;
-      color: var(--neon-blue);
-      margin-bottom: 4px;
-      font-variant-numeric: tabular-nums;
-    }
-    .stat-number.green { color: var(--neon-green); }
-    .stat-number.purple { color: var(--neon-purple); }
-    .stat-number.pink { color: var(--neon-pink); }
-    .stat-label { color: var(--text-secondary); font-size: 13px; }
-
-    /* Section Title */
-    .section-title {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 20px;
-    }
-    .section-title .dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--neon-blue);
-      box-shadow: 0 0 8px var(--neon-blue);
-    }
-
-    /* Charts Grid */
-    .charts-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin-bottom: 40px;
-    }
-    .chart-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 24px;
-    }
-    .chart-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 4px;
-    }
-    .chart-subtitle { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; }
-    .chart-wrap { position: relative; height: 260px; }
-    .chart-wrap.tall { height: 320px; }
-
-    /* Popular Tools Table */
-    .tools-table-wrap {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 40px;
-    }
-    .tools-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    .tools-table th {
-      text-align: left;
-      padding: 14px 20px;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      background: rgba(255,255,255,0.02);
-      border-bottom: 1px solid var(--border-color);
-    }
-    .tools-table td {
-      padding: 12px 20px;
-      font-size: 14px;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      transition: background 0.2s;
-    }
-    .tools-table tr:last-child td { border-bottom: none; }
-    .tools-table tr:hover td { background: rgba(0, 212, 255, 0.03); }
-    .rank-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 28px;
-      height: 28px;
-      border-radius: 6px;
-      font-size: 13px;
-      font-weight: 700;
-    }
-    .rank-1 { background: rgba(255, 215, 0, 0.15); color: #ffd700; }
-    .rank-2 { background: rgba(192, 192, 192, 0.15); color: #c0c0c0; }
-    .rank-3 { background: rgba(205, 127, 50, 0.15); color: #cd7f32; }
-    .rank-other { background: rgba(255,255,255,0.05); color: var(--text-muted); }
-    .tool-cell { display: flex; align-items: center; gap: 10px; }
-    .tool-cell-icon { font-size: 20px; }
-    .tool-cell-name { font-weight: 600; color: var(--text-primary); }
-    .tool-cell-cat { font-size: 12px; color: var(--text-muted); }
-    .bar-cell { min-width: 120px; }
-    .mini-bar {
-      height: 6px;
-      background: rgba(0, 212, 255, 0.15);
-      border-radius: 3px;
-      overflow: hidden;
-    }
-    .mini-bar-fill {
-      height: 100%;
-      border-radius: 3px;
-      background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
-    }
-    .views-text { font-size: 12px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
-
-    /* Geo Section */
-    .geo-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin-bottom: 40px;
-    }
-    .geo-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 24px;
-      text-align: center;
-    }
-    .geo-card h3 { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 16px; }
-
-    /* Live Indicator */
-    .live-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(0, 255, 136, 0.1);
-      border: 1px solid rgba(0, 255, 136, 0.25);
-      border-radius: 100px;
-      padding: 4px 12px;
-      font-size: 12px;
-      color: var(--neon-green);
-      margin-bottom: 24px;
-    }
-    .live-dot {
-      width: 6px; height: 6px;
-      background: var(--neon-green);
-      border-radius: 50%;
-      animation: live-pulse 1.5s ease-in-out infinite;
-    }
-    @keyframes live-pulse {
-      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0,255,136,0.4); }
-      50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(0,255,136,0); }
-    }
-
-    /* Source badges */
-    .source-list { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
-    .source-item { display: flex; align-items: center; gap: 12px; }
-    .source-icon { font-size: 18px; width: 32px; text-align: center; }
-    .source-info { flex: 1; }
-    .source-name { font-size: 13px; color: var(--text-secondary); }
-    .source-bar-wrap { height: 6px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; margin-top: 4px; }
-    .source-bar-fill { height: 100%; border-radius: 3px; }
-    .source-pct { font-size: 13px; font-weight: 700; color: var(--text-primary); min-width: 40px; text-align: right; font-variant-numeric: tabular-nums; }
-
-    /* Footer */
-    .footer {
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 13px;
-      margin-top: 50px;
-      padding-top: 30px;
-      border-top: 1px solid var(--border-color);
-    }
-    .footer a { color: var(--neon-blue); text-decoration: none; }
-    .footer a:hover { text-decoration: underline; }
-
-    @media (max-width: 768px) {
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .charts-grid { grid-template-columns: 1fr; }
-      .geo-grid { grid-template-columns: 1fr; }
-      .hero h1 { font-size: 32px; }
-      .container { padding: 80px 16px 40px; }
-    }
-    @media (max-width: 480px) {
-      .stats-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "Microsoft YaHei", sans-serif; background: #ffffff; color: #0f172a; min-height: 100vh; }
+    .navbar { background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(59,130,246,0.12); padding: 0 20px; height: 64px; position: sticky; top:0; z-index: 100; }
+    .navbar-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; height: 100%; gap: 24px; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+    .logo-text { display: flex; flex-direction: column; }
+    .logo-name { font-size: 18px; font-weight: 900; background: linear-gradient(135deg, #3b82f6, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .logo-tagline { font-size: 11px; color: #94a3b8; }
+    .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+    h1 { font-size: 28px; font-weight: 900; margin-bottom: 8px; }
+    .subtitle { color: #64748b; margin-bottom: 32px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-bottom: 40px; }
+    .stat-card { background: #f8fafc; border: 1px solid rgba(59,130,246,0.1); border-radius: 16px; padding: 24px; text-align: center; }
+    .stat-number { font-size: 36px; font-weight: 900; color: #3b82f6; }
+    .stat-label { font-size: 13px; color: #64748b; margin-top: 4px; }
+    .placeholder { background: #f8fafc; border: 1px solid rgba(59,130,246,0.1); border-radius: 16px; padding: 60px 24px; text-align: center; color: #94a3b8; }
+    .footer { padding: 24px 20px; text-align: center; font-size: 13px; color: #94a3b8; border-top: 1px solid rgba(59,130,246,0.08); }
+    .footer a { color: #3b82f6; text-decoration: none; }
   </style>
 </head>
 <body>
-  <a href="index.html" class="back-link">&#8592; 返回首页</a>
-  <div class="container">
-
-    <!-- Hero -->
-    <div class="hero">
-      <div class="live-badge">
-        <div class="live-dot"></div>
-        数据实时更新中
-      </div>
-      <h1>站点流量统计</h1>
-      <p>了解 QuickAPIs 上的AI工具热度排行与全球访客分布，让优质工具被更多人看见</p>
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="./index.html" class="logo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 9H22L16 13.5L18 21L12 16.5L6 21L8 13.5L2 9H9.5L12 2Z" fill="url(#sgrad)" stroke="#3b82f6" stroke-width="1"/><defs><linearGradient id="sgrad" x1="2" y1="2" x2="22" y2="22"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#ec4899"/></linearGradient></defs></svg>
+        <div class="logo-text">
+          <span class="logo-name">QuickAPIs</span>
+          <span class="logo-tagline">AI工具导航</span>
+        </div>
+      </a>
     </div>
-    <div class="glow-line"></div>
+  </nav>
 
-    <!-- Overview Cards -->
+  <div class="container">
+    <h1>📊 流量统计</h1>
+    <p class="subtitle">QuickAPIs.top 访问数据（待接入统计服务）</p>
+
     <div class="stats-grid">
       <div class="stat-card">
-        <div class="stat-icon">&#128100;</div>
-        <div class="stat-number" id="stat-visitors"><span id="busuanzi_value_site_uv">--</span></div>
-        <div class="stat-label">累计访客</div>
+        <div class="stat-number">—</div>
+        <div class="stat-label">今日 PV</div>
       </div>
       <div class="stat-card">
-        <div class="stat-icon">&#128203;</div>
-        <div class="stat-number green" id="stat-pageviews"><span id="busuanzi_value_site_pv">--</span></div>
-        <div class="stat-label">页面浏览</div>
+        <div class="stat-number">—</div>
+        <div class="stat-label">今日 UV</div>
       </div>
       <div class="stat-card">
-        <div class="stat-icon">&#127757;</div>
-        <div class="stat-number purple" id="stat-countries">--</div>
-        <div class="stat-label">覆盖国家/地区</div>
+        <div class="stat-number">—</div>
+        <div class="stat-label">累计访问</div>
       </div>
       <div class="stat-card">
-        <div class="stat-icon">&#9889;</div>
-        <div class="stat-number pink" id="stat-tools">200+</div>
-        <div class="stat-label">收录AI工具</div>
+        <div class="stat-number">—</div>
+        <div class="stat-label">工具点击量</div>
       </div>
     </div>
 
-    <!-- Charts Row -->
-    <div class="section-title"><div class="dot"></div>数据可视化</div>
-    <div class="charts-grid">
-      <div class="chart-card">
-        <div class="chart-title">&#128200; 热门工具访问排行 TOP 10</div>
-        <div class="chart-subtitle">按页面浏览量排序，展示最受关注的AI工具</div>
-        <div class="chart-wrap tall">
-          <canvas id="barChart"></canvas>
-        </div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">&#128202; 分类访问占比</div>
-        <div class="chart-subtitle">各AI工具分类带来的流量分布</div>
-        <div class="chart-wrap">
-          <canvas id="pieChart"></canvas>
-        </div>
-      </div>
-    </div>
-
-    <!-- Traffic Sources -->
-    <div class="chart-card" style="margin-bottom:40px;">
-      <div class="chart-title">&#128279; 流量来源分布</div>
-      <div class="chart-subtitle">访客从哪些渠道来到 QuickAPIs</div>
-      <div class="source-list">
-        <div class="source-item">
-          <div class="source-icon">&#128269;</div>
-          <div class="source-info">
-            <div class="source-name">搜索引擎（Google / Bing / Baidu）</div>
-            <div class="source-bar-wrap">
-              <div class="source-bar-fill" style="width:58%; background: linear-gradient(90deg, #00d4ff, #0099cc);"></div>
-            </div>
-          </div>
-          <div class="source-pct">58%</div>
-        </div>
-        <div class="source-item">
-          <div class="source-icon">&#128279;</div>
-          <div class="source-info">
-            <div class="source-name">外部链接（Referral）</div>
-            <div class="source-bar-wrap">
-              <div class="source-bar-fill" style="width:25%; background: linear-gradient(90deg, #a855f7, #7c3aed);"></div>
-            </div>
-          </div>
-          <div class="source-pct">25%</div>
-        </div>
-        <div class="source-item">
-          <div class="source-icon">&#127760;</div>
-          <div class="source-info">
-            <div class="source-name">直接访问（Direct）</div>
-            <div class="source-bar-wrap">
-              <div class="source-bar-fill" style="width:12%; background: linear-gradient(90deg, #00ff88, #00cc66);"></div>
-            </div>
-          </div>
-          <div class="source-pct">12%</div>
-        </div>
-        <div class="source-item">
-          <div class="source-icon">&#128190;</div>
-          <div class="source-info">
-            <div class="source-name">社交媒体（Twitter / Zhihu 等）</div>
-            <div class="source-bar-wrap">
-              <div class="source-bar-fill" style="width:5%; background: linear-gradient(90deg, #ff00aa, #cc0088);"></div>
-            </div>
-          </div>
-          <div class="source-pct">5%</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Popular Tools Table -->
-    <div class="section-title"><div class="dot"></div>热门工具 TOP 15</div>
-    <div class="tools-table-wrap">
-      <table class="tools-table">
-        <thead>
-          <tr>
-            <th style="width:50px;">#</th>
-            <th>工具</th>
-            <th>分类</th>
-            <th style="width:180px;">热度</th>
-            <th style="width:80px;">浏览</th>
-          </tr>
-        </thead>
-        <tbody id="tools-table-body">
-          <!-- Populated by JS -->
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Geographic Section -->
-    <div class="section-title"><div class="dot"></div>访客地区分布</div>
-    <div class="geo-grid">
-      <div class="geo-card">
-        <h3>&#127757; 全球访客计数器</h3>
-        <div style="margin: 16px 0;">
-          <a href="https://info.flagcounter.com/YQ7g">
-            <img src="https://s11.flagcounter.com/count2/YQ7g/bg_0a0a0f/border_0a0a0f/cols_3/subgr_1/code_1/size_2/txt_00d4ff/visitors/arrow_1/bg_none/flags_1/" alt="Flag Counter" style="border:0;">
-          </a>
-        </div>
-        <p style="font-size:12px; color:var(--text-muted);">数据来源：Flag Counter 第三方统计</p>
-      </div>
-      <div class="geo-card">
-        <h3>&#127468;&#127463; TOP 访问国家/地区</h3>
-        <div id="country-list" style="text-align:left; margin-top:16px; display:flex; flex-direction:column; gap:10px;">
-          <!-- Populated by JS -->
-        </div>
-      </div>
-    </div>
-
-    <!-- GA Attribution -->
-    <div style="text-align:center; margin-top:30px; padding:20px; background:var(--bg-card); border:1px solid var(--border-color); border-radius:12px;">
-      <p style="font-size:13px; color:var(--text-muted);">
-        &#128202; 累计访客数据由 <strong style="color:var(--neon-blue);">不蒜子</strong> 提供，实时统计中...
-        <br>
-        <span style="font-size:12px;">详细流量分析请查看 Google Analytics 后台（G-EK2Q1VQM16）</span>
-        <br>
-        <span style="font-size:12px;">最近更新：<span id="update-time">加载中...</span></span>
-      </p>
-    </div>
-
-    <div class="footer">
-      <p>&copy; 2026 QuickAPIs &middot; AI工具导航 &middot; 让AI触手可及</p>
-      <p style="margin-top:8px;">
-        <a href="index.html">首页</a> &middot;
-        <a href="about.html">关于我们</a> &middot;
-        <a href="privacy.html">隐私政策</a>
-      </p>
+    <div class="placeholder">
+      <p>📊 统计服务接入中…</p>
+      <p style="margin-top:8px; font-size:13px;">接入 Google Analytics 后即可在此查看访问数据</p>
+      <p style="margin-top:16px; font-size:13px;">或访问 <a href="https://analytics.google.com" target="_blank">Google Analytics</a> 查看完整报告</p>
     </div>
   </div>
 
-  <!-- 不蒜子统计 -->
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-  
-  <script>
-    // =============================================
-    // 热门工具数据展示
-    // =============================================
-
-    const toolsData = [
-      { name: "ChatGPT", icon: "🤖", category: "聊天AI", views: 9842, url: "https://chat.openai.com" },
-      { name: "Claude", icon: "🧠", category: "聊天AI", views: 7432, url: "https://claude.ai" },
-      { name: "Midjourney", icon: "🎨", category: "图像生成", views: 6211, url: "https://www.midjourney.com" },
-      { name: "GitHub Copilot", icon: "💻", category: "代码助手", views: 5890, url: "https://github.com/features/copilot" },
-      { name: "Gemini", icon: "✨", category: "聊天AI", views: 5103, url: "https://gemini.google.com" },
-      { name: "Stable Diffusion", icon: "🖼️", category: "图像生成", views: 4827, url: "https://stability.ai" },
-      { name: "Notion AI", icon: "📝", category: "办公效率", views: 4102, url: "https://notion.so" },
-      { name: "Runway", icon: "🎬", category: "视频制作", views: 3921, url: "https://runwayml.com" },
-      { name: "Perplexity", icon: "🔍", category: "搜索研究", views: 3560, url: "https://perplexity.ai" },
-      { name: "Cursor", icon: "⌨️", category: "代码助手", views: 3288, url: "https://cursor.sh" },
-      { name: "Gamma", icon: "📊", category: "办公效率", views: 2890, url: "https://gamma.app" },
-      { name: "Leonardo AI", icon: "🎨", category: "图像生成", views: 2740, url: "https://leonardo.ai" },
-      { name: "Pika", icon: "🎥", category: "视频制作", views: 2310, url: "https://pika.art" },
-      { name: "Kimi", icon: "🌙", category: "聊天AI", views: 2156, url: "https://kimi.moonshot.cn" },
-      { name: "通义千问", icon: "🐴", category: "聊天AI", views: 1987, url: "https://tongyi.aliyun.com" },
-    ];
-
-    const categoryData = [
-      { label: "聊天AI", count: 32440, color: "#00d4ff" },
-      { label: "图像生成", count: 13778, color: "#a855f7" },
-      { label: "代码助手", count: 9178, color: "#00ff88" },
-      { label: "办公效率", count: 6992, color: "#ffdd00" },
-      { label: "视频制作", count: 6231, color: "#ff00aa" },
-      { label: "搜索研究", count: 3560, color: "#ff8800" },
-      { label: "其他", count: 4121, color: "#64748b" },
-    ];
-
-    const countryData = [
-      { flag: "🇨🇳", name: "中国", pct: 42 },
-      { flag: "🇺🇸", name: "美国", pct: 28 },
-      { flag: "🇭🇰", name: "香港", pct: 8 },
-      { flag: "🇸🇬", name: "新加坡", pct: 6 },
-      { flag: "🇹🇼", name: "台湾", pct: 5 },
-      { flag: "🇬🇧", name: "英国", pct: 3 },
-      { flag: "🇯🇵", name: "日本", pct: 2 },
-      { flag: "🇰🇷", name: "韩国", pct: 2 },
-      { flag: "🇦🇺", name: "澳大利亚", pct: 1 },
-      { flag: "🇨🇦", name: "加拿大", pct: 1 },
-      { flag: "其他", name: "其他地区", pct: 2 },
-    ];
-
-    // =============================================
-    // Bar Chart — TOP 10 Tools
-    // =============================================
-    const top10 = toolsData.slice(0, 10);
-    const barCtx = document.getElementById("barChart").getContext("2d");
-    new Chart(barCtx, {
-      type: "bar",
-      data: {
-        labels: top10.map(t => t.name),
-        datasets: [{
-          label: "页面浏览",
-          data: top10.map(t => t.views),
-          backgroundColor: top10.map((_, i) =>
-            `rgba(0, 212, 255, ${0.5 + i * 0.05})`
-          ),
-          borderColor: "#00d4ff",
-          borderWidth: 1,
-          borderRadius: 6,
-        }]
-      },
-      options: {
-        indexAxis: "y",
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            backgroundColor: "#1a1a2e",
-            borderColor: "#00d4ff",
-            borderWidth: 1,
-            titleColor: "#00d4ff",
-            bodyColor: "#fff",
-            callbacks: {
-              label: ctx => `${ctx.raw.toLocaleString()} 次浏览`
-            }
-          }
-        },
-        scales: {
-          x: {
-            grid: { color: "rgba(255,255,255,0.05)" },
-            ticks: { color: "#64748b", font: { size: 11 } }
-          },
-          y: {
-            grid: { display: false },
-            ticks: { color: "#94a3b8", font: { size: 12, weight: "500" } }
-          }
-        }
-      }
-    });
-
-    // =============================================
-    // Pie Chart — Categories
-    // =============================================
-    const pieCtx = document.getElementById("pieChart").getContext("2d");
-    new Chart(pieCtx, {
-      type: "doughnut",
-      data: {
-        labels: categoryData.map(c => c.label),
-        datasets: [{
-          data: categoryData.map(c => c.count),
-          backgroundColor: categoryData.map(c => c.color + "cc"),
-          borderColor: categoryData.map(c => c.color),
-          borderWidth: 1,
-          hoverOffset: 6,
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: "62%",
-        plugins: {
-          legend: {
-            position: "bottom",
-            labels: {
-              color: "#94a3b8",
-              font: { size: 12 },
-              padding: 12,
-              usePointStyle: true,
-              pointStyleWidth: 8,
-            }
-          },
-          tooltip: {
-            backgroundColor: "#1a1a2e",
-            borderColor: "#00d4ff",
-            borderWidth: 1,
-            titleColor: "#00d4ff",
-            bodyColor: "#fff",
-            callbacks: {
-              label: ctx => {
-                const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
-                const pct = ((ctx.raw / total) * 100).toFixed(1);
-                return ` ${ctx.raw.toLocaleString()} (${pct}%)`;
-              }
-            }
-          }
-        }
-      }
-    });
-
-    // =============================================
-    // Popular Tools Table
-    // =============================================
-    const tbody = document.getElementById("tools-table-body");
-    const maxViews = toolsData[0].views;
-    toolsData.forEach((tool, i) => {
-      const rank = i + 1;
-      const rankClass = rank === 1 ? "rank-1" : rank === 2 ? "rank-2" : rank === 3 ? "rank-3" : "rank-other";
-      const barPct = Math.round((tool.views / maxViews) * 100);
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td><span class="rank-badge ${rankClass}">${rank}</span></td>
-        <td>
-          <div class="tool-cell">
-            <span class="tool-cell-icon">${tool.icon}</span>
-            <div>
-              <div class="tool-cell-name"><a href="${tool.url}" target="_blank" style="color:inherit;text-decoration:none;">${tool.name}</a></div>
-            </div>
-          </div>
-        </td>
-        <td><span style="font-size:12px;color:var(--text-muted);">${tool.category}</span></td>
-        <td class="bar-cell">
-          <div class="mini-bar">
-            <div class="mini-bar-fill" style="width:${barPct}%;"></div>
-          </div>
-        </td>
-        <td><span class="views-text">${tool.views.toLocaleString()}</span></td>
-      `;
-      tbody.appendChild(row);
-    });
-
-    // =============================================
-    // Country List
-    // =============================================
-    const countryList = document.getElementById("country-list");
-    countryData.slice(0, 8).forEach(c => {
-      const item = document.createElement("div");
-      item.style.cssText = "display:flex;align-items:center;gap:10px;";
-      item.innerHTML = `
-        <span style="font-size:18px;">${c.flag}</span>
-        <span style="flex:1;font-size:13px;color:var(--text-secondary);">${c.name}</span>
-        <div style="flex:2;height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;">
-          <div style="height:100%;width:${c.pct * 3}%;background:linear-gradient(90deg,#00d4ff,#a855f7);border-radius:3px;"></div>
-        </div>
-        <span style="font-size:12px;color:var(--text-muted);min-width:35px;text-align:right;">${c.pct}%</span>
-      `;
-      countryList.appendChild(item);
-    });
-
-    // =============================================
-    // Update timestamp
-    // =============================================
-    const now = new Date();
-    const pad = n => String(n).padStart(2, "0");
-    document.getElementById("update-time").textContent =
-      `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}`;
-  </script>
+  <div class="footer">
+    © 2026 QuickAPIs.top · <a href="./index.html">返回首页</a>
+  </div>
 </body>
 </html>

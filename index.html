@@ -816,7 +816,7 @@
        HOT REVIEWS SECTION
     ============================================= */
     .reviews-section {
-      padding: 60px 0 50px;
+      padding: 50px 0 40px;
       background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
     }
 
@@ -837,39 +837,18 @@
       color: var(--text-muted);
     }
 
-    .reviews-scroll {
-      overflow-x: auto;
-      overflow-y: hidden;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: thin;
-      scrollbar-color: var(--neon-blue) transparent;
-      padding-bottom: 12px;
-      mask-image: linear-gradient(90deg, transparent, black 3%, black 97%, transparent);
-      -webkit-mask-image: linear-gradient(90deg, transparent, black 3%, black 97%, transparent);
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      padding: 0 5%;
     }
 
-    .reviews-scroll::-webkit-scrollbar { height: 6px; }
-    .reviews-scroll::-webkit-scrollbar-track { background: transparent; }
-    .reviews-scroll::-webkit-scrollbar-thumb { background: var(--neon-blue); border-radius: 3px; }
-
-    .reviews-track {
+    .reviews-col {
       display: flex;
+      flex-direction: column;
       gap: 16px;
-      width: max-content;
-      padding: 4px 0;
-      animation: scrollReviews 30s linear infinite;
     }
-
-    .reviews-scroll:hover .reviews-track {
-      animation-play-state: paused;
-    }
-
-    @keyframes scrollReviews {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    .review-card {
       flex: 0 0 300px;
       background: var(--bg-card);
       border: 1px solid var(--border-color);
@@ -1418,6 +1397,10 @@
           其他
           <span class="category-count" id="count-other">0</span>
         </button>
+        <a href="submit.html" class="category-tab" style="text-decoration:none;cursor:pointer;">
+          <span class="category-tab-icon">📝</span>
+          提交工具
+        </a>
       </div>
     </div>
   </section>
@@ -1429,8 +1412,9 @@
         <h2 class="reviews-title">📡 热门评测</h2>
         <p class="reviews-subtitle">来自知乎、CSDN、36氪等平台的最新AI工具测评</p>
       </div>
-      <div class="reviews-scroll" id="reviewsScroll">
-        <div class="reviews-track" id="reviewsTrack"></div>
+      <div class="reviews-grid">
+        <div class="reviews-col"></div>
+        <div class="reviews-col"></div>
       </div>
     </div>
   </section>
@@ -2213,9 +2197,10 @@
     ];
 
     var track = document.getElementById('reviewsTrack');
-    if (track) {
-      var allReviews = REVIEWS_DATA.concat(REVIEWS_DATA);
-      allReviews.forEach(function(r) {
+    var cols = document.querySelectorAll('.reviews-col');
+    if (cols.length >= 2) {
+      REVIEWS_DATA.forEach(function(r, idx) {
+        var col = cols[idx % 2];
         var card = document.createElement('div');
         card.className = 'review-card';
         card.innerHTML = '<span class="review-card-tag">' + r.toolIcon + ' ' + r.tool + '</span>' +
@@ -2225,7 +2210,7 @@
             '<span>' + r.time + '</span>' +
           '</div>';
         card.onclick = function() { window.open(r.url, '_blank'); };
-        track.appendChild(card);
+        col.appendChild(card);
       });
     }
   </script>
