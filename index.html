@@ -69,7 +69,7 @@
     }
 
     /* 移除星空Canvas */
-    #starfield { display: none !important; }
+    #starfield, canvas { display: none !important; }
 
     a {
       color: inherit;
@@ -92,18 +92,8 @@
     ============================================= */
     /* Canvas handles the full space scene - no CSS background needed */
 
-    /* Cinematic vignette — darkens edges, focuses the eye */
-    body::after {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(ellipse 70% 65% at 50% 45%, transparent 30%, rgba(0,0,0,0.45) 100%);
-      pointer-events: none;
-      z-index: 0;
-    }
+    /* DISABLED - white theme (was cinematic vignette darkening edges) */
+    /* body::after was dark radial-gradient vignette, now removed */
 
     /* =============================================
        LAYOUT CONTAINERS
@@ -764,6 +754,61 @@
     }
 
     /* =============================================
+       TOOL REVIEWS
+    ============================================= */
+    .tool-reviews {
+      padding: 10px 12px;
+      background: rgba(59, 130, 246, 0.05);
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(59, 130, 246, 0.15);
+      margin-top: 6px;
+    }
+
+    .tool-reviews .extra-label {
+      font-size: 11px;
+      color: var(--starlight);
+      opacity: 0.85;
+      margin-bottom: 6px;
+    }
+
+    .review-item {
+      margin-bottom: 5px;
+    }
+
+    .review-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .review-link {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      text-decoration: none;
+      padding: 4px 6px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+
+    .review-link:hover {
+      background: rgba(59, 130, 246, 0.1);
+    }
+
+    .review-title {
+      font-size: 12px;
+      color: var(--starlight);
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .review-meta {
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    /* =============================================
        EMPTY STATE
     ============================================= */
     .empty-state {
@@ -1089,7 +1134,7 @@
     <div class="container">
       <div class="navbar-inner">
         <a href="#" class="logo">
-          <span class="logo-icon">?</span>
+          <span class="logo-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 9H22L16 13.5L18 21L12 16.5L6 21L8 13.5L2 9H9.5L12 2Z" fill="url(%23starGrad)" stroke="%233b82f6" stroke-width="1"/><defs><linearGradient id="starGrad" x1="2" y1="2" x2="22" y2="22"><stop offset="0%25" stop-color="%233b82f6"/><stop offset="100%25" stop-color="%23ec4899"/></linearGradient></defs></svg></span>
           <div class="logo-text">
             <span class="logo-name">QuickAPIs</span>
             <span class="logo-tagline">AI工具导航</span>
@@ -1335,15 +1380,15 @@
        * The sin/cos drift creates an organic "floating through space" feel.
        */
 
-      const offscreen = document.createElement('canvas');
-      const display = document.createElement('canvas');
-      const dynamic = document.createElement('canvas');
-
-      [display, dynamic].forEach(c => {
-        c.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;';
-      });
-      document.body.prepend(dynamic);
-      document.body.prepend(display);
+      // DISABLED - white theme
+      // const offscreen = document.createElement('canvas');
+      // const display = document.createElement('canvas');
+      // const dynamic = document.createElement('canvas');
+      // [display, dynamic].forEach(c => {
+      //   c.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;';
+      // });
+      // document.body.prepend(dynamic);
+      // document.body.prepend(display);
 
       const oCtx = offscreen.getContext('2d');
       const dCtx = display.getContext('2d');
@@ -1754,11 +1799,11 @@
       function init() {
         vw = window.innerWidth;
         vh = window.innerHeight;
-        display.width = vw;
-        display.height = vh;
-        renderSpace();
-        initDynamic();
-        requestAnimationFrame(animate);
+        // display.width = vw; // DISABLED - white theme
+        // display.height = vh; // DISABLED - white theme
+        // renderSpace(); // DISABLED - white theme
+        // initDynamic(); // DISABLED - white theme
+        // requestAnimationFrame(animate); // DISABLED - white theme
       }
 
       let resizeTimer;
@@ -1767,10 +1812,10 @@
         resizeTimer = setTimeout(() => {
           vw = window.innerWidth;
           vh = window.innerHeight;
-          display.width = vw;
-          display.height = vh;
-          renderSpace();
-          initDynamic();
+          // display.width = vw; // DISABLED - white theme
+          // display.height = vh; // DISABLED - white theme
+          // renderSpace(); // DISABLED - white theme
+          // initDynamic(); // DISABLED - white theme
         }, 300);
       });
 
