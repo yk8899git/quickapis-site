@@ -1481,100 +1481,6 @@
         }
         oCtx.restore();
 
-        // ---- PILLARS OF CREATION ----
-        // Iconic Eagle Nebula structures - towering columns of gas and dust
-        oCtx.save();
-        const pillarX = ow * 0.75, pillarBaseY = oh * 0.65;
-
-        // Pillar base glow (underneath)
-        oCtx.globalCompositeOperation = 'screen';
-        const baseGlow = oCtx.createRadialGradient(pillarX, pillarBaseY + 50, 0, pillarX, pillarBaseY + 50, 350);
-        baseGlow.addColorStop(0, 'rgba(140, 80, 50, 0.12)');
-        baseGlow.addColorStop(0.5, 'rgba(100, 50, 40, 0.05)');
-        baseGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
-        oCtx.fillStyle = baseGlow;
-        oCtx.beginPath();
-        oCtx.ellipse(pillarX, pillarBaseY + 50, 350, 200, 0, 0, Math.PI * 2);
-        oCtx.fill();
-
-        // Pillar drawing function
-        const drawPillar = (x, baseY, height, width, hueShift) => {
-          // Main pillar body gradient
-          const pillarGrad = oCtx.createLinearGradient(x - width/2, baseY, x + width/2, baseY - height);
-          pillarGrad.addColorStop(0, `rgba(${180 + hueShift}, ${100 + hueShift/2}, 50, 0.25)`);
-          pillarGrad.addColorStop(0.3, `rgba(${160 + hueShift}, ${80 + hueShift/2}, 45, 0.22)`);
-          pillarGrad.addColorStop(0.6, `rgba(${140 + hueShift}, ${60 + hueShift/2}, 40, 0.18)`);
-          pillarGrad.addColorStop(0.85, `rgba(${100 + hueShift}, ${40 + hueShift/2}, 35, 0.12)`);
-          pillarGrad.addColorStop(1, 'rgba(80, 40, 40, 0.05)');
-
-          // Draw pillar shape
-          oCtx.fillStyle = pillarGrad;
-          oCtx.beginPath();
-          oCtx.moveTo(x - width * 0.7, baseY);
-          oCtx.bezierCurveTo(x - width * 0.5, baseY - height * 0.3, x - width * 0.3, baseY - height * 0.7, x - width * 0.15, baseY - height);
-          oCtx.bezierCurveTo(x + width * 0.1, baseY - height * 0.95, x + width * 0.2, baseY - height * 0.85, x + width * 0.25, baseY - height * 0.75);
-          oCtx.bezierCurveTo(x + width * 0.4, baseY - height * 0.5, x + width * 0.5, baseY - height * 0.2, x + width * 0.6, baseY);
-          oCtx.closePath();
-          oCtx.fill();
-
-          // Dark dust lanes within pillar
-          oCtx.fillStyle = 'rgba(20, 15, 25, 0.15)';
-          oCtx.beginPath();
-          oCtx.moveTo(x - width * 0.2, baseY - height * 0.1);
-          oCtx.bezierCurveTo(x - width * 0.15, baseY - height * 0.4, x - width * 0.1, baseY - height * 0.7, x - width * 0.05, baseY - height * 0.9);
-          oCtx.lineTo(x + width * 0.05, baseY - height * 0.85);
-          oCtx.bezierCurveTo(x, baseY - height * 0.6, x - width * 0.1, baseY - height * 0.3, x - width * 0.15, baseY);
-          oCtx.fill();
-
-          // Bright tip with blue-white young stars
-          const tipGlow = oCtx.createRadialGradient(x, baseY - height, 0, x, baseY - height, width * 2);
-          tipGlow.addColorStop(0, 'rgba(180, 200, 255, 0.25)');
-          tipGlow.addColorStop(0.3, 'rgba(150, 180, 240, 0.12)');
-          tipGlow.addColorStop(0.6, 'rgba(120, 150, 200, 0.05)');
-          tipGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
-          oCtx.fillStyle = tipGlow;
-          oCtx.beginPath();
-          oCtx.arc(x, baseY - height, width * 2, 0, Math.PI * 2);
-          oCtx.fill();
-
-          // Add tiny bright stars at the tip
-          for (let i = 0; i < 8; i++) {
-            const starX = x + (Math.random() - 0.5) * width * 1.5;
-            const starY = baseY - height + (Math.random() - 0.5) * height * 0.15;
-            const starR = Math.random() * 1.2 + 0.4;
-            oCtx.fillStyle = `rgba(200, 220, 255, ${Math.random() * 0.6 + 0.4})`;
-            oCtx.beginPath();
-            oCtx.arc(starX, starY, starR, 0, Math.PI * 2);
-            oCtx.fill();
-          }
-        };
-
-        // Draw 5 pillars with varying sizes
-        drawPillar(pillarX - 120, pillarBaseY, 280, 65, 0);
-        drawPillar(pillarX, pillarBaseY + 20, 320, 75, 15);
-        drawPillar(pillarX + 100, pillarBaseY + 10, 250, 55, -10);
-        drawPillar(pillarX - 60, pillarBaseY + 40, 200, 45, 5);
-        drawPillar(pillarX + 50, pillarBaseY + 50, 180, 40, -5);
-
-        // Add extra bright stars around pillars
-        for (let i = 0; i < 25; i++) {
-          const sx = pillarX + (Math.random() - 0.5) * 400;
-          const sy = pillarBaseY - 100 + (Math.random() - 0.5) * 300;
-          const sr = Math.random() * 1.5 + 0.3;
-          const sc = Math.random() > 0.7 ? [200, 180, 255] : [255, 240, 220];
-          oCtx.fillStyle = `rgba(${sc[0]}, ${sc[1]}, ${sc[2]}, ${Math.random() * 0.5 + 0.3})`;
-          oCtx.beginPath();
-          oCtx.arc(sx, sy, sr, 0, Math.PI * 2);
-          oCtx.fill();
-          if (sr > 1) {
-            oCtx.fillStyle = `rgba(${sc[0]}, ${sc[1]}, ${sc[2]}, 0.1)`;
-            oCtx.beginPath();
-            oCtx.arc(sx, sy, sr * 3, 0, Math.PI * 2);
-            oCtx.fill();
-          }
-        }
-        oCtx.restore();
-
         // ---- STARS — 5 layers from faint to brilliant ----// ---- STARS 鈥?5 layers from faint to brilliant ----
 
         // Layer 1: Ultra-faint background dust (thousands of pinpoints)
@@ -1765,18 +1671,9 @@
         // Slow, organic sin/cos movement + gentle rotation
         const driftX = Math.sin(t * 0.000013) * vw * 0.25 + Math.sin(t * 0.000007) * vw * 0.08;
         const driftY = Math.cos(t * 0.000010) * vh * 0.12 + Math.cos(t * 0.000005) * vh * 0.05;
-        
-        // Gentle rotation - one full rotation every ~10 minutes
-        const rotation = t * 0.00001;
 
-        // Clear display and draw the offscreen scene with drift + rotation
         dCtx.clearRect(0, 0, vw, vh);
-        dCtx.save();
-        dCtx.translate(vw / 2, vh / 2);
-        dCtx.rotate(rotation);
-        dCtx.translate(-vw / 2, -vh / 2);
         dCtx.drawImage(offscreen, -driftX, -driftY);
-        dCtx.restore();
 
         // ---- DYNAMIC: twinkle ----
         dyCtx.clearRect(0, 0, vw, vh);
