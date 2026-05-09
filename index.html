@@ -2102,6 +2102,13 @@
       });
 
       renderTools();
+      // 自动滚动到工具列表位置
+      setTimeout(function() {
+        var grid = document.getElementById('toolsGrid');
+        if (grid && grid.children.length > 0) {
+          grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 50);
     }
 
     categoryTabs.forEach(tab => {
