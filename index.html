@@ -2063,6 +2063,7 @@
             <p class="extra-label">标签</p>
             <p>${tool.tags.join(' · ')}</p>
           </div>
+          ${tool.reviews && tool.reviews.length > 0 ? `<div class="tool-reviews"><p class="extra-label">📡 最新评测</p>` + tool.reviews.slice(0,3).map(r => `<div class="review-item"><a href="${r.url}" target="_blank" class="review-link"><span class="review-title">${r.title}</span><span class="review-meta">${r.source} · ${r.time}</span></a></div>`).join('') + '</div>' : ''}
           <div class="tool-footer">
             <div class="tool-rating">
               <span class="tool-rating-icon">★</span>
