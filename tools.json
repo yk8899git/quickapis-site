@@ -43,7 +43,8 @@
       "icon": "✨",
       "featured": true,
       "reviews": [
-        {"title": "2026全球AI大模型API聚合平台深度评测", "url": "https://blog.csdn.net/lulu1216544078/article/details/160006751", "source": "CSDN", "time": "2026-05-03"}
+        {"title": "2026全球AI大模型API聚合平台深度评测", "url": "https://blog.csdn.net/lulu1216544078/article/details/160006751", "source": "CSDN", "time": "2026-05-03"},
+        {"title": "2026年AI大模型接口中转平台深度测评", "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_93269fed4d203952", "source": "企鹅号", "time": "2026-05-09"}
       ]
     },
     {
@@ -70,7 +71,8 @@
       "reviews": [
         {"title": "DeepSeek开放识图模式，跨入图文交互时代", "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_03069fe909637652", "source": "企鹅号", "time": "2026-05-09"},
         {"title": "DeepSeek V4预览版实测：4家API聚合平台延迟横评", "url": "https://blog.csdn.net/ofoxcoding/article/details/160562211", "source": "CSDN", "time": "2026-05-07"},
-        {"title": "DeepSeek V4「叫好不叫座」：Codex才是决赛圈", "url": "https://36kr.com/p/3797839722410758", "source": "36氪", "time": "2026-05-07"}
+        {"title": "DeepSeek V4「叫好不叫座」：Codex才是决赛圈", "url": "https://36kr.com/p/3797839722410758", "source": "36氪", "time": "2026-05-07"},
+        {"title": "2026年AI大模型API中转站推荐：多维度测评", "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_22869f6fdbf71052", "source": "企鹅号", "time": "2026-05-03"}
       ]
     },
     {
@@ -97,7 +99,8 @@
       "reviews": [
         {"title": "2026年AI大模型API加速平台深度测评", "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_08169fc2a6425952", "source": "企鹅号", "time": "2026-05-07"},
         {"title": "MyClaw初体验：从零配置到成功调用SiliconFlow", "url": "https://download.csdn.net/blog/column/11568299/158893860", "source": "CSDN", "time": "2026-05-05"},
-        {"title": "API中转站对比：不同平台各有主场", "url": "https://www.sohu.com/a/1018962535_122667257", "source": "搜狐", "time": "2026-05-06"}
+        {"title": "API中转站对比：不同平台各有主场", "url": "https://www.sohu.com/a/1018962535_122667257", "source": "搜狐", "time": "2026-05-06"},
+        {"title": "五大平台硬核数据全方位横评", "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_17469fada2669652", "source": "企鹅号", "time": "2026-05-06"}
       ]
     },
     {
@@ -121,6 +124,20 @@
       "tags": ["对话", "开源", "商用"],
       "icon": "🐉",
       "featured": false
+    },
+    {
+      "id": "qwen36",
+      "name": "Qwen3.6-Plus",
+      "nameCn": "通义千问3.6",
+      "category": "大模型API",
+      "description": "阿里最新旗舰模型，智能体Agent/编程Coding/工具调用能力强，多项编程评测超越竞品",
+      "url": "https://dashscope.console.aliyun.com",
+      "tags": ["API", "编程", "Agent"],
+      "icon": "🐉",
+      "featured": true,
+      "reviews": [
+        {"title": "2026年AI大模型API加速平台深度测评", "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_08169fc2a6425952", "source": "企鹅号", "time": "2026-05-07"}
+      ]
     },
     {
       "id": "wenxin",
