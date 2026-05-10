@@ -6,74 +6,76 @@
   <title>工具详情 - QuickAPIs | AI工具导航</title>
   <meta name="description" content="QuickAPIs AI工具详情与评测链接">
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin:0; padding:0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "Microsoft YaHei", sans-serif; background: #f8fafc; color: #0f172a; min-height: 100vh; }
+    body { font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #faf9f7; color: #1c1917; min-height: 100vh; -webkit-font-smoothing: antialiased; }
 
-    .navbar { background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(59,130,246,0.12); padding: 0 20px; height: 56px; position: sticky; top:0; z-index: 100; }
+    .navbar { background: rgba(250,249,247,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(168,162,158,0.15); padding: 0 20px; height: 56px; position: sticky; top:0; z-index: 100; }
     .navbar-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; height: 100%; gap: 20px; }
     .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: inherit; }
     .logo-text { display: flex; flex-direction: column; }
-    .logo-name { font-size: 16px; font-weight: 900; background: linear-gradient(135deg, #3b82f6, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .logo-tagline { font-size: 10px; color: #94a3b8; }
-    .back-link { font-size: 13px; color: #3b82f6; text-decoration: none; margin-left: auto; }
+    .logo-name { font-size: 16px; font-weight: 800; background: linear-gradient(135deg, #f97316, #f43f5e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .logo-tagline { font-size: 10px; color: #a8a29e; }
+    .back-link { font-size: 13px; color: #f97316; text-decoration: none; margin-left: auto; font-weight: 500; }
     .back-link:hover { text-decoration: underline; }
 
     .container { max-width: 900px; margin: 0 auto; padding: 28px 16px; }
 
     /* 工具头部 */
-    .tool-header { background: #fff; border-radius: 16px; border: 1px solid rgba(59,130,246,0.10); padding: 28px; margin-bottom: 20px; display: flex; gap: 20px; align-items: flex-start; }
-    .tool-header-icon { width: 64px; height: 64px; border-radius: 14px; background: rgba(59,130,246,0.08); display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
-    .tool-header-icon img { width: 40px; height: 40px; border-radius: 10px; }
+    .tool-header { background: #fff; border-radius: 18px; border: 1px solid rgba(168,162,158,0.15); padding: 28px; margin-bottom: 20px; display: flex; gap: 20px; align-items: flex-start; box-shadow: 0 1px 3px rgba(28,25,23,0.06), 0 1px 2px rgba(28,25,23,0.04); }
+    .tool-header-icon { width: 68px; height: 68px; border-radius: 16px; background: #fff7ed; border: 1px solid rgba(249,115,22,0.12); display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; overflow: hidden; }
+    .tool-header-icon img { width: 42px; height: 42px; border-radius: 11px; object-fit: contain; }
     .tool-header-body { flex: 1; min-width: 0; }
-    .tool-header-name { font-size: 24px; font-weight: 900; color: #1e293b; margin-bottom: 4px; }
-    .tool-header-desc { font-size: 14px; color: #64748b; line-height: 1.6; margin-bottom: 10px; }
-    .tool-header-domain { font-size: 13px; color: #3b82f6; word-break: break-all; }
+    .tool-header-name { font-size: 26px; font-weight: 800; color: #1c1917; margin-bottom: 4px; letter-spacing: -0.5px; }
+    .tool-header-desc { font-size: 14px; color: #57534e; line-height: 1.65; margin-bottom: 10px; }
+    .tool-header-domain { font-size: 13px; color: #f97316; word-break: break-all; font-weight: 500; }
     .tool-header-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-    .tool-header-tag { font-size: 11px; padding: 3px 10px; border-radius: 12px; background: rgba(59,130,246,0.08); color: #3b82f6; font-weight: 500; }
-    .tool-header-category { font-size: 11px; padding: 3px 10px; border-radius: 12px; background: linear-gradient(135deg, rgba(59,130,246,0.12), rgba(236,72,153,0.12)); color: #7c3aed; font-weight: 600; }
+    .tool-header-tag { font-size: 11px; padding: 3px 10px; border-radius: 12px; background: rgba(249,115,22,0.07); color: #ea580c; font-weight: 500; border: 1px solid rgba(249,115,22,0.12); }
+    .tool-header-category { font-size: 11px; padding: 3px 10px; border-radius: 12px; background: linear-gradient(135deg, rgba(249,115,22,0.10), rgba(244,63,94,0.10)); color: #e11d48; font-weight: 600; }
 
     /* 访问按钮 */
-    .visit-bar { background: linear-gradient(135deg, #eff6ff, #fdf2f8); border: 1px solid rgba(59,130,246,0.15); border-radius: 14px; padding: 16px 24px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; }
-    .visit-label { font-size: 14px; color: #64748b; }
-    .visit-btn { background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: white; border: none; border-radius: 10px; padding: 10px 28px; font-size: 14px; font-weight: 700; cursor: pointer; text-decoration: none; transition: opacity 0.2s; white-space: nowrap; }
-    .visit-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .visit-bar { background: linear-gradient(135deg, #fff7ed, #fef2f2); border: 1px solid rgba(249,115,22,0.12); border-radius: 16px; padding: 16px 24px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; }
+    .visit-label { font-size: 14px; color: #57534e; font-weight: 500; }
+    .visit-btn { background: linear-gradient(135deg, #f97316, #f43f5e); color: white; border: none; border-radius: 12px; padding: 11px 30px; font-size: 14px; font-weight: 700; cursor: pointer; text-decoration: none; transition: all 0.2s; white-space: nowrap; box-shadow: 0 2px 8px rgba(249,115,22,0.25); }
+    .visit-btn:hover { opacity: 0.92; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(249,115,22,0.35); }
 
     /* 区块标题 */
     .section { margin-bottom: 24px; }
-    .section-title { font-size: 16px; font-weight: 700; color: #1e293b; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-    .section-title::before { content: ''; display: inline-block; width: 4px; height: 18px; background: linear-gradient(135deg, #3b82f6, #ec4899); border-radius: 2px; }
+    .section-title { font-size: 17px; font-weight: 700; color: #1c1917; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; letter-spacing: -0.3px; }
+    .section-title::before { content: ''; display: inline-block; width: 4px; height: 18px; background: linear-gradient(180deg, #f97316, #f43f5e); border-radius: 2px; }
 
     /* 评测链接网格 */
-    .reviews-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .reviews-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
     .review-card {
       background: #fff;
-      border: 1px solid rgba(59,130,246,0.08);
-      border-radius: 12px;
-      padding: 16px;
-      transition: all 0.25s ease;
+      border: 1px solid rgba(168,162,158,0.15);
+      border-radius: 14px;
+      padding: 18px;
+      transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
       cursor: pointer;
       display: flex;
       flex-direction: column;
+      box-shadow: 0 1px 3px rgba(28,25,23,0.04);
     }
-    .review-card:hover { background: #eff6ff; border-color: rgba(59,130,246,0.30); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(59,130,246,0.10); }
-    .review-source { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 9px; border-radius: 12px; background: rgba(59,130,246,0.10); color: #3b82f6; margin-bottom: 8px; width: fit-content; }
-    .review-title { font-size: 14px; font-weight: 600; color: #1e293b; line-height: 1.5; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; flex: 1; }
-    .review-meta { font-size: 12px; color: #94a3b8; display: flex; justify-content: space-between; align-items: center; }
-    .review-arrow { color: #c0c8d4; font-size: 15px; }
+    .review-card:hover { background: #fffbf5; border-color: rgba(249,115,22,0.30); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(28,25,23,0.08); }
+    .review-source { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 12px; background: rgba(249,115,22,0.08); color: #ea580c; margin-bottom: 8px; width: fit-content; }
+    .review-title { font-size: 14px; font-weight: 600; color: #1c1917; line-height: 1.55; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; flex: 1; }
+    .review-meta { font-size: 12px; color: #a8a29e; display: flex; justify-content: space-between; align-items: center; }
+    .review-arrow { color: #d6d3d1; font-size: 15px; font-weight: 500; }
 
-    .empty-state { text-align: center; padding: 36px 16px; color: #94a3b8; font-size: 13px; background: #fff; border-radius: 12px; border: 1px dashed rgba(59,130,246,0.15); }
+    .empty-state { text-align: center; padding: 36px 16px; color: #a8a29e; font-size: 13px; background: #fff; border-radius: 14px; border: 1px dashed rgba(168,162,158,0.2); }
 
     /* 其他工具推荐 */
-    .related-tools { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-    .related-tool-card { background: #fff; border: 1px solid rgba(59,130,246,0.08); border-radius: 12px; padding: 14px; text-align: center; cursor: pointer; transition: all 0.2s; text-decoration: none; color: inherit; }
-    .related-tool-card:hover { border-color: rgba(59,130,246,0.35); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59,130,246,0.08); }
-    .related-tool-icon { font-size: 26px; margin-bottom: 6px; }
-    .related-tool-name { font-size: 13px; font-weight: 600; color: #1e293b; }
+    .related-tools { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .related-tool-card { background: #fff; border: 1px solid rgba(168,162,158,0.15); border-radius: 14px; padding: 16px 12px; text-align: center; cursor: pointer; transition: all 0.2s cubic-bezier(0.4,0,0.2,1); text-decoration: none; color: inherit; box-shadow: 0 1px 3px rgba(28,25,23,0.04); }
+    .related-tool-card:hover { border-color: rgba(249,115,22,0.35); transform: translateY(-3px); box-shadow: 0 6px 16px rgba(28,25,23,0.08); }
+    .related-tool-icon { width: 44px; height: 44px; margin: 0 auto 8px; border-radius: 12px; background: #faf9f7; border: 1px solid rgba(168,162,158,0.15); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .related-tool-icon img { width: 28px; height: 28px; border-radius: 8px; object-fit: contain; }
+    .related-tool-name { font-size: 13px; font-weight: 600; color: #1c1917; }
 
-    .footer { padding: 20px; text-align: center; font-size: 12px; color: #94a3b8; border-top: 1px solid rgba(59,130,246,0.06); margin-top: 40px; }
-    .footer a { color: #3b82f6; text-decoration: none; }
+    .footer { padding: 20px; text-align: center; font-size: 12px; color: #a8a29e; border-top: 1px solid rgba(168,162,158,0.12); margin-top: 40px; }
+    .footer a { color: #f97316; text-decoration: none; font-weight: 500; }
 
     @media (max-width: 700px) {
       .tool-header { flex-direction: column; align-items: center; text-align: center; }
@@ -88,13 +90,13 @@
   <nav class="navbar">
     <div class="navbar-inner">
       <a href="./index.html" class="logo">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 9H22L16 13.5L18 21L12 16.5L6 21L8 13.5L2 9H9.5L12 2Z" fill="url(#sgrad)" stroke="#3b82f6" stroke-width="1"/><defs><linearGradient id="sgrad" x1="2" y1="2" x2="22" y2="22"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#ec4899"/></linearGradient></defs></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 9H22L16 13.5L18 21L12 16.5L6 21L8 13.5L2 9H9.5L12 2Z" fill="url(#sgrad)" stroke="#f97316" stroke-width="1"/><defs><linearGradient id="sgrad" x1="2" y1="2" x2="22" y2="22"><stop offset="0%" stop-color="#f97316"/><stop offset="100%" stop-color="#f43f5e"/></linearGradient></defs></svg>
         <div class="logo-text">
           <span class="logo-name">QuickAPIs</span>
           <span class="logo-tagline">AI工具导航</span>
         </div>
       </a>
-      <a href="./index.html" class="back-link">← 返回首页</a>
+      <a href="./index.html" class="back-link">&larr; 返回首页</a>
     </div>
   </nav>
 
@@ -102,9 +104,9 @@
 
     <!-- 工具信息头部 -->
     <div class="tool-header" id="toolHeader">
-      <div class="tool-header-icon" id="toolIcon">🤖</div>
+      <div class="tool-header-icon" id="toolIcon">&#x1F916;</div>
       <div class="tool-header-body">
-        <div class="tool-header-name" id="toolName">加载中…</div>
+        <div class="tool-header-name" id="toolName">加载中&hellip;</div>
         <div class="tool-header-desc" id="toolDesc"></div>
         <div class="tool-header-domain" id="toolDomain"></div>
         <div class="tool-header-tags" id="toolTags"></div>
@@ -114,26 +116,26 @@
 
     <!-- 访问主站 -->
     <div class="visit-bar">
-      <span class="visit-label">🌐 访问官方主站获取最新信息</span>
-      <a href="#" class="visit-btn" id="visitBtn" target="_blank">立即访问 →</a>
+      <span class="visit-label">&#x1F310; 访问官方主站获取最新信息</span>
+      <a href="#" class="visit-btn" id="visitBtn" target="_blank">立即访问 &rarr;</a>
     </div>
 
     <!-- 相关评测 -->
     <div class="section" id="reviewsSection" style="display:none;">
-      <div class="section-title">📰 相关评测链接</div>
+      <div class="section-title">&#x1F4F0; 相关评测链接</div>
       <div class="reviews-grid" id="reviewsGrid"></div>
     </div>
 
     <!-- 更多工具 -->
     <div class="section" id="relatedSection" style="display:none;">
-      <div class="section-title">🔍 更多工具推荐</div>
+      <div class="section-title">&#x1F50D; 更多工具推荐</div>
       <div class="related-tools" id="relatedTools"></div>
     </div>
 
   </div>
 
   <div class="footer">
-    © 2026 QuickAPIs.top · <a href="./index.html">返回首页</a> · <a href="./stats.html">统计</a>
+    &copy; 2026 QuickAPIs.top &middot; <a href="./index.html">返回首页</a> &middot; <a href="./stats.html">统计</a>
   </div>
 
   <script>
@@ -143,18 +145,16 @@
 
     var toolId = getParam('id');
     if (!toolId) {
-      document.getElementById('toolName').textContent = '❌ 缺少参数';
+      document.getElementById('toolName').textContent = '\u274C 缺少参数';
       document.getElementById('toolDesc').textContent = '请从首页点击工具卡片进入此页面';
     }
 
-    // 加载 tools.json
     fetch('./tools.json')
       .then(function(r) { return r.json(); })
       .then(function(data) {
         var tools = data.tools || [];
         var tool = null;
 
-        // 按 id 或 name 查找
         for (var i = 0; i < tools.length; i++) {
           if (tools[i].id == toolId || tools[i].name === toolId) {
             tool = tools[i];
@@ -168,17 +168,15 @@
           return;
         }
 
-        // 填充头部
         document.title = tool.name + ' - QuickAPIs | AI工具导航';
         document.getElementById('toolName').textContent = tool.name;
         document.getElementById('toolDesc').textContent = tool.description || '';
         document.getElementById('toolDomain').innerHTML = '<span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:#22c55e;display:inline-block;"></span>' + (tool.domain || '') + '</span>';
 
-        // 图标
+        // 图标 - favicon.im 首选（国内可访问），Google Favicon API 备选
         var iconEl = document.getElementById('toolIcon');
-        iconEl.innerHTML = '<img src="https://www.google.com/s2/favicons?domain=' + tool.domain + '&sz=64" alt="' + tool.name + '" onerror="this.onerror=null;this.parentElement.textContent=\'◈\'">';
+        iconEl.innerHTML = '<img src="https://favicon.im/size/64@domain/' + encodeURIComponent(tool.domain) + '" alt="' + tool.name + '" onerror="this.onerror=null;this.src=\'https://www.google.com/s2/favicons?sz=64&domain=' + encodeURIComponent(tool.domain) + '\'">';
 
-        // 标签
         var tagsEl = document.getElementById('toolTags');
         if (tool.tags && tool.tags.length > 0) {
           tagsEl.innerHTML = tool.tags.map(function(t) {
@@ -186,15 +184,12 @@
           }).join('');
         }
 
-        // 分类
         if (tool.categoryLabel) {
           document.getElementById('toolCategory').innerHTML = '<span class="tool-header-category">' + tool.categoryLabel + '</span>';
         }
 
-        // 访问按钮
         document.getElementById('visitBtn').href = tool.url;
 
-        // 评测链接
         var reviews = tool.reviews || [];
         if (reviews.length > 0) {
           var section = document.getElementById('reviewsSection');
@@ -207,13 +202,13 @@
               '<div class="review-title">' + r.title + '</div>' +
               '<div class="review-meta">' +
                 '<span>' + (r.time || '') + '</span>' +
-                '<span class="review-arrow">点击阅读 →</span>' +
+                '<span class="review-arrow">点击阅读 &rarr;</span>' +
               '</div>' +
             '</div>';
           }).join('');
         }
 
-        // 相关工具推荐（同分类的其他工具）
+        // 相关工具推荐 - 每个都显示真实 favicon
         var sameCategory = tools.filter(function(t) {
           return t.category === tool.category && t.id !== tool.id;
         });
@@ -223,8 +218,9 @@
           relSection.style.display = 'block';
 
           relGrid.innerHTML = sameCategory.slice(0, 8).map(function(t) {
+            var rIcon = t.domain ? ('<img src="https://favicon.im/size/32@domain/' + encodeURIComponent(t.domain) + '" alt="' + t.name + '" onerror="this.onerror=null;this.src=\'https://www.google.com/s2/favicons?sz=32&domain=' + encodeURIComponent(t.domain) + '\'">') : '';
             return '<a href="tool-detail.html?id=' + t.id + '" class="related-tool-card">' +
-              '<div class="related-tool-icon">🔧</div>' +
+              '<div class="related-tool-icon">' + rIcon + '</div>' +
               '<div class="related-tool-name">' + t.name + '</div>' +
             '</a>';
           }).join('');
