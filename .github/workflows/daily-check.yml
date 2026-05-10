@@ -1,0 +1,32 @@
+name: QuickAPIs Daily Check
+
+on:
+  schedule:
+    # 09:00 Beijing time = 01:00 UTC
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run Daily Check
+        env:
+          SMTP_HOST: smtp-mail.outlook.com
+          SMTP_PORT: 587
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          TO_EMAIL: zb6578bb@outlook.com
+        run: |
+          pip install -q requests
+          python .github/workflows/daily_check.py
