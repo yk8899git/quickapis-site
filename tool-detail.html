@@ -173,9 +173,9 @@
         document.getElementById('toolDesc').textContent = tool.description || '';
         document.getElementById('toolDomain').innerHTML = '<span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:#22c55e;display:inline-block;"></span>' + (tool.domain || '') + '</span>';
 
-        // 图标 - favicon.im 首选（国内可访问），Google Favicon API 备选
+        // 图标 - DuckDuckGo 图标服务（国内可访问）
         var iconEl = document.getElementById('toolIcon');
-        iconEl.innerHTML = '<img src="https://favicon.im/size/64@domain/' + encodeURIComponent(tool.domain) + '" alt="' + tool.name + '" onerror="this.onerror=null;this.src=\'https://www.google.com/s2/favicons?sz=64&domain=' + encodeURIComponent(tool.domain) + '\'">';
+        iconEl.innerHTML = '<img src="https://icons.duckduckgo.com/ip3/' + tool.domain + '.ico" alt="' + tool.name + '" onerror="this.onerror=null;this.src=\'data:image/svg+xml,<svg xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 100 100\\"><text y=\\".9em\\" font-size=\\"90\\">🔗</text></svg>'">';
 
         var tagsEl = document.getElementById('toolTags');
         if (tool.tags && tool.tags.length > 0) {
@@ -218,7 +218,7 @@
           relSection.style.display = 'block';
 
           relGrid.innerHTML = sameCategory.slice(0, 8).map(function(t) {
-            var rIcon = t.domain ? ('<img src="https://favicon.im/size/32@domain/' + encodeURIComponent(t.domain) + '" alt="' + t.name + '" onerror="this.onerror=null;this.src=\'https://www.google.com/s2/favicons?sz=32&domain=' + encodeURIComponent(t.domain) + '\'">') : '';
+            var rIcon = t.domain ? ('<img src="https://icons.duckduckgo.com/ip3/' + t.domain + '.ico" alt="' + t.name + '" onerror="this.onerror=null;this.src=\'data:image/svg+xml,<svg xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 100 100\\"><text y=\\".9em\\" font-size=\\"90\\">🔗</text></svg>'">') : '';
             return '<a href="tool-detail.html?id=' + t.id + '" class="related-tool-card">' +
               '<div class="related-tool-icon">' + rIcon + '</div>' +
               '<div class="related-tool-name">' + t.name + '</div>' +
