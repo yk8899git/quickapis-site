@@ -179,6 +179,17 @@
       return new URLSearchParams(window.location.search).get(name);
     }
 
+    // 从 URL 提取域名
+    function extractDomain(url) {
+      if (!url) return '';
+      try {
+        var u = new URL(url);
+        return u.hostname.replace(/^www\./, '');
+      } catch(e) {
+        return url.replace(/^https?:\/\//, '').replace(/^www\./, '').split('/')[0];
+      }
+    }
+
     var toolId = getParam('id');
     if (!toolId) {
       document.getElementById('toolName').textContent = '\u274C 缺少参数';
@@ -204,14 +215,16 @@
           return;
         }
 
+        var domain = extractDomain(tool.url);
+
         document.title = tool.name + ' - QuickAPIs | AI工具导航';
-        document.getElementById('toolName').textContent = tool.name;
+        document.getElementById('toolName').textContent = tool.nameCn || tool.name;
         document.getElementById('toolDesc').textContent = tool.description || '';
-        document.getElementById('toolDomain').innerHTML = '<span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:#22c55e;display:inline-block;"></span>' + (tool.domain || '') + '</span>';
+        document.getElementById('toolDomain').innerHTML = '<span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:#22c55e;display:inline-block;"></span>' + (domain || '') + '</span>';
 
         // 图标 - DuckDuckGo 图标服务（国内可访问）
         var iconEl = document.getElementById('toolIcon');
-        iconEl.innerHTML = '<img src="https://icons.duckduckgo.com/ip3/' + tool.domain + '.ico" alt="' + tool.name + '" onerror="this.onerror=null;this.src=\'data:image/svg+xml,<svg xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 100 100\\"><text y=\\".9em\\" font-size=\\"90\\">🔗</text></svg>'">';
+        iconEl.innerHTML = '<img src="https://icons.duckduckgo.com/ip3/' + domain + '.ico" alt="' + tool.name + '" onerror="this.onerror=null;this.src=\'data:image/svg+xml,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 100 100\\'><text y=\\'.9em\\' font-size=\\'90\\'>\\u1F517</text></svg>\'">';
 
         var tagsEl = document.getElementById('toolTags');
         if (tool.tags && tool.tags.length > 0) {
@@ -220,12 +233,13 @@
           }).join('');
         }
 
-        if (tool.categoryLabel) {
-          document.getElementById('toolCategory').innerHTML = '<span class="tool-header-category">' + tool.categoryLabel + '</span>';
+        if (tool.category) {
+          document.getElementById('toolCategory').innerHTML = '<span class="tool-header-category">' + tool.category + '</span>';
         }
 
         document.getElementById('visitBtn').href = tool.url;
 
+        // 相关评测链接 - 重要！
         var reviews = tool.reviews || [];
         if (reviews.length > 0) {
           var section = document.getElementById('reviewsSection');
@@ -234,17 +248,17 @@
 
           grid.innerHTML = reviews.map(function(r) {
             return '<div class="review-card" onclick="window.open(\'' + r.url + '\', \'_blank\')">' +
-              '<span class="review-source">' + (r.source || '评测') + '</span>' +
+              '<span class="review-source">' + (r.source || '\u8BC4\u6D4B') + '</span>' +
               '<div class="review-title">' + r.title + '</div>' +
               '<div class="review-meta">' +
                 '<span>' + (r.time || '') + '</span>' +
-                '<span class="review-arrow">点击阅读 &rarr;</span>' +
+                '<span class="review-arrow">\u70B9\u51FB\u9605\u8BFB &rarr;</span>' +
               '</div>' +
             '</div>';
           }).join('');
         }
 
-        // 相关工具推荐 - 每个都显示真实 favicon
+        // 相关工具推荐
         var sameCategory = tools.filter(function(t) {
           return t.category === tool.category && t.id !== tool.id;
         });
@@ -254,18 +268,19 @@
           relSection.style.display = 'block';
 
           relGrid.innerHTML = sameCategory.slice(0, 8).map(function(t) {
-            var rIcon = t.domain ? ('<img src="https://icons.duckduckgo.com/ip3/' + t.domain + '.ico" alt="' + t.name + '" onerror="this.onerror=null;this.src=\'data:image/svg+xml,<svg xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 100 100\\"><text y=\\".9em\\" font-size=\\"90\\">🔗</text></svg>'">') : '';
+            var rDomain = extractDomain(t.url);
+            var rIcon = rDomain ? ('<img src="https://icons.duckduckgo.com/ip3/' + rDomain + '.ico" alt="' + t.name + '" onerror="this.onerror=null;this.src=\'data:image/svg+xml,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 100 100\\'><text y=\\'.9em\\' font-size=\\'90\\'>\\u1F517</text></svg>\'">') : '';
             return '<a href="tool-detail.html?id=' + t.id + '" class="related-tool-card">' +
               '<div class="related-tool-icon">' + rIcon + '</div>' +
-              '<div class="related-tool-name">' + t.name + '</div>' +
+              '<div class="related-tool-name">' + (t.nameCn || t.name) + '</div>' +
             '</a>';
           }).join('');
         }
       })
       .catch(function(err) {
-        console.error('加载失败:', err);
-        document.getElementById('toolDesc').textContent = '数据加载失败，请检查网络连接';
+        console.error('\u52A0\u8F7D\u5931\u8D25:', err);
+        document.getElementById('toolDesc').textContent = '\u6570\u636E\u52A0\u8F7D\u5931\u8D25\uFF0C\u8BF7\u68C0\u67E5\u7F51\u7EDC\u8FDE\u63A5';
       });
-  </script>
+    </script>
 </body>
 </html>
