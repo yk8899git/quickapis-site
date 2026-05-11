@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
@@ -66,6 +66,20 @@
 
     .empty-state { text-align: center; padding: 36px 16px; color: #a8a29e; font-size: 13px; background: #fff; border-radius: 14px; border: 1px dashed rgba(168,162,158,0.2); }
 
+    /* 广告区块 */
+    .ad-section { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 18px; padding: 24px; margin-bottom: 24px; position: relative; overflow: hidden; cursor: pointer; box-shadow: 0 8px 32px rgba(102,126,234,0.3); }
+    .ad-section::before { content: '🔥 赞助推荐'; display: inline-block; background: rgba(255,215,0,0.2); color: #ffd700; border: 1px solid rgba(255,215,0,0.4); padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 16px; letter-spacing: 1px; }
+    .ad-content { background: rgba(255,255,255,0.95); border-radius: 16px; padding: 24px; }
+    .ad-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+    .ad-icon { width: 56px; height: 56px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; box-shadow: 0 4px 15px rgba(102,126,234,0.4); }
+    .ad-title { margin: 0; font-size: 20px; font-weight: 800; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.2; }
+    .ad-subtitle { margin: 4px 0 0; font-size: 13px; color: #888; }
+    .ad-features { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+    .ad-feature { background: rgba(102,126,234,0.08); padding: 8px 14px; border-radius: 20px; font-size: 12px; color: #667eea; font-weight: 500; }
+    .ad-btn { display: inline-block; background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; padding: 12px 32px; border-radius: 25px; text-decoration: none; font-weight: 700; font-size: 14px; box-shadow: 0 4px 20px rgba(102,126,234,0.4); transition: all 0.3s; }
+    .ad-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(102,126,234,0.5); }
+    .ad-footer { text-align: center; margin-top: 12px; font-size: 11px; color: rgba(255,255,255,0.6); }
+
     /* 其他工具推荐 */
     .related-tools { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
     .related-tool-card { background: #fff; border: 1px solid rgba(168,162,158,0.15); border-radius: 14px; padding: 16px 12px; text-align: center; cursor: pointer; transition: all 0.2s cubic-bezier(0.4,0,0.2,1); text-decoration: none; color: inherit; box-shadow: 0 1px 3px rgba(28,25,23,0.04); }
@@ -118,6 +132,28 @@
     <div class="visit-bar">
       <span class="visit-label">&#x1F310; 访问官方主站获取最新信息</span>
       <a href="#" class="visit-btn" id="visitBtn" target="_blank">立即访问 &rarr;</a>
+    </div>
+
+    <!-- 2233.ai 广告位 -->
+    <div class="ad-section" onclick="window.open('https://2233.ai/i/F9VX375O','_blank')">
+      <div class="ad-content">
+        <div class="ad-header">
+          <div class="ad-icon">&#x1F916;</div>
+          <div>
+            <h3 class="ad-title">2233.ai — 半价用上 GPT-4 & Claude</h3>
+            <p class="ad-subtitle">API中转平台 · ChatGPT Plus / Claude Pro 低至五折</p>
+          </div>
+        </div>
+        <div class="ad-features">
+          <span class="ad-feature">&#x2728; GPT-4 半价</span>
+          <span class="ad-feature">&#x1F525; Claude Pro 五折</span>
+          <span class="ad-feature">&#x1F4B0; 邀请奖励 $2/人</span>
+        </div>
+        <div style="text-align: center;">
+          <a href="https://2233.ai/i/F9VX375O" target="_blank" class="ad-btn" onclick="event.stopPropagation();">&#x1F680; 立即注册领取优惠 &rarr;</a>
+        </div>
+      </div>
+      <p class="ad-footer">广告位 · 联系 submit@quickapis.top 投放</p>
     </div>
 
     <!-- 相关评测 -->
