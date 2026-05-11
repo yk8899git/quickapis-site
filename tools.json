@@ -163,6 +163,24 @@
                                           "url":  "https://so.html5.qq.com/page/real/search_news?docid=70000021_22869f6fdbf71052",
                                           "source":  "企鹅号",
                                           "time":  "2026-05-03"
+                                      },
+                                      {
+                                          "time":  "2026-04",
+                                          "title":  "是夯爆了还是拉完了？DeepSeek V4第一波测评来了（附CSA+HCA架构解读）",
+                                          "url":  "https://www.36kr.com/p/3780730845060097",
+                                          "source":  "36氪"
+                                      },
+                                      {
+                                          "time":  "2026-04",
+                                          "title":  "DeepSeek V4 发布：Pro 1.6T总参49B激活 + Flash 284B，均开源支持1M上下文",
+                                          "url":  "https://news.qq.com/rain/a/20260424A04XFV00",
+                                          "source":  "腾讯新闻"
+                                      },
+                                      {
+                                          "time":  "2026-04",
+                                          "title":  "DeepSeek V4 搭载R1深度推理+Agent能力强化，1M超长上下文窗口实测",
+                                          "url":  "https://www.qbitai.com/",
+                                          "source":  "量子位"
                                       }
                                   ]
                   },
