@@ -225,6 +225,18 @@
       justify-content: center;
     }
 
+    .nav-section-sep {
+      width: 1px;
+      height: 20px;
+      background: var(--border-color);
+      margin: 0 4px;
+      flex-shrink: 0;
+    }
+
+    .nav-section-label {
+      flex-shrink: 0;
+    }
+
     .nav-link {
       padding: 8px 16px;
       border-radius: var(--radius-sm);
@@ -1292,6 +1304,8 @@
         </a>
 
         <div class="nav-links" id="navLinks">
+          <!-- 左：AI软体智能体工具 -->
+          <span class="nav-section-label" style="margin-right:8px;padding:6px 12px;background:linear-gradient(135deg,rgba(59,130,246,0.15),rgba(139,92,246,0.1));border:1px solid rgba(59,130,246,0.25);border-radius:8px;font-size:13px;font-weight:700;color:#93c5fd;white-space:nowrap;flex-shrink:0;">AI软体智能体工具</span>
           <button class="nav-link active" data-category="all">全部</button>
           <button class="nav-link" data-category="chat">聊天AI</button>
           <button class="nav-link" data-category="image">图像生成</button>
@@ -1306,11 +1320,11 @@
           <button class="nav-link" data-category="api">大模型API</button>
           <button class="nav-link" data-category="dev">开发者工具</button>
           <button class="nav-link" data-category="education">教育学习</button>
-          <button class="nav-link" data-category="aiiot">AI物联网硬件</button>
           <button class="nav-link" data-category="other">其他</button>
-          <span class="footer-sep">|</span>
-          <a href="stats.html" class="nav-link" style="text-decoration:none;cursor:pointer;">流量统计</a>
-          <a href="iot.html" class="nav-link" style="text-decoration:none;cursor:pointer;color:#10b981;">物联网分销 →</a>
+          <!-- 右：AI万物物联 -->
+          <span class="nav-section-sep"></span>
+          <span class="nav-section-label" style="margin-right:8px;padding:6px 12px;background:linear-gradient(135deg,rgba(16,185,129,0.15),rgba(6,182,212,0.1));border:1px solid rgba(16,185,129,0.25);border-radius:8px;font-size:13px;font-weight:700;color:#34d399;white-space:nowrap;flex-shrink:0;">AI万物物联</span>
+          <a href="iot.html" class="nav-link" style="text-decoration:none;cursor:pointer;color:#10b981;font-weight:600;">物联网分销 →</a>
         </div>
 
         <div class="nav-search">
@@ -1377,98 +1391,6 @@
     </div>
   </section>
 
-  <!-- ==================== CATEGORY TABS ==================== -->
-  <section class="category-section">
-    <div class="container">
-      <div class="category-tabs" id="categoryTabs">
-        <button class="category-tab active" data-category="all">
-          <span class="category-tab-icon">◈</span>
-          全部
-          <span class="category-count" id="count-all">0</span>
-        </button>
-        <button class="category-tab" data-category="chat">
-          <span class="category-tab-icon">◈</span>
-          聊天AI
-          <span class="category-count" id="count-chat">0</span>
-        </button>
-        <button class="category-tab" data-category="image">
-          <span class="category-tab-icon">◈</span>
-          图像生成
-          <span class="category-count" id="count-image">0</span>
-        </button>
-        <button class="category-tab" data-category="code">
-          <span class="category-tab-icon">◈</span>
-          代码助手
-          <span class="category-count" id="count-code">0</span>
-        </button>
-        <button class="category-tab" data-category="video">
-          <span class="category-tab-icon">◈</span>
-          视频制作
-          <span class="category-count" id="count-video">0</span>
-        </button>
-        <button class="category-tab" data-category="audio">
-          <span class="category-tab-icon">◈</span>
-          音频工具
-          <span class="category-count" id="count-audio">0</span>
-        </button>
-        <button class="category-tab" data-category="office">
-          <span class="category-tab-icon">◈</span>
-          办公效率
-          <span class="category-count" id="count-office">0</span>
-        </button>
-        <button class="category-tab" data-category="search">
-          <span class="category-tab-icon">◈</span>
-          搜索研究
-          <span class="category-count" id="count-search">0</span>
-        </button>
-        <button class="category-tab" data-category="3d">
-          <span class="category-tab-icon">◈</span>
-          3D建模
-          <span class="category-count" id="count-3d">0</span>
-        </button>
-        <button class="category-tab" data-category="design">
-          <span class="category-tab-icon">◈</span>
-          设计工具
-          <span class="category-count" id="count-design">0</span>
-        </button>
-        <button class="category-tab" data-category="writing">
-          <span class="category-tab-icon">◈</span>
-          写作助手
-          <span class="category-count" id="count-writing">0</span>
-        </button>
-        <button class="category-tab" data-category="api">
-          <span class="category-tab-icon">◈</span>
-          大模型API
-          <span class="category-count" id="count-api">0</span>
-        </button>
-        <button class="category-tab" data-category="dev">
-          <span class="category-tab-icon">◈</span>
-          开发者工具
-          <span class="category-count" id="count-dev">0</span>
-        </button>
-        <button class="category-tab" data-category="education">
-          <span class="category-tab-icon">◈</span>
-          教育学习
-          <span class="category-count" id="count-education">0</span>
-        </button>
-        <button class="category-tab" data-category="other">
-          <span class="category-tab-icon">◈</span>
-          其他
-          <span class="category-count" id="count-other">0</span>
-        </button>
-        <button class="category-tab" data-category="iot">
-          <span class="category-tab-icon">🔌</span>
-          AI物联网硬件
-          <span class="category-count" id="count-iot">0</span>
-        </button>
-        <a href="submit.html" class="category-tab" style="text-decoration:none;cursor:pointer;">
-          <span class="category-tab-icon">📝</span>
-          提交工具
-        </a>
-      </div>
-    </div>
-  </section>
-
   <!-- ==================== HOT REVIEWS ==================== -->
   <section class="reviews-section">
     <div class="container">
@@ -1499,41 +1421,6 @@
     </div>
   </section>
 
-  <!-- ==================== SPONSORED RECOMMENDATION ==================== -->
-  <section class="sponsored-section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 48px 0; margin-top: 0;">
-    <div class="container">
-      <div class="sponsored-badge" style="display:inline-block;background:rgba(255,215,0,0.2);color:#ffd700;border:1px solid rgba(255,215,0,0.4);padding:4px 14px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:16px;letter-spacing:1px;">🔥 赞助推荐</div>
-      <div class="sponsored-card" style="background:rgba(255,255,255,0.95);border-radius:20px;padding:36px;max-width:720px;margin:0 auto;box-shadow:0 20px 60px rgba(0,0,0,0.3);position:relative;overflow:hidden;cursor:pointer;" onclick="window.open('https://2233.ai/i/F9VX375O','_blank')">
-        <div class="sponsored-card-glow" style="position:absolute;top:-50%;right:-50%;width:200px;height:200px;background:radial-gradient(circle,rgba(255,215,0,0.15) 0%,transparent 70%);border-radius:50%;pointer-events:none;"></div>
-        <div style="display:flex;align-items:center;gap:16px;margin-bottom:18px;">
-          <div style="width:56px;height:56px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;box-shadow:0 4px 15px rgba(102,126,234,0.4);">🤖</div>
-          <div>
-            <h2 style="margin:0;font-size:24px;font-weight:800;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2;">2233.ai — 半价用上 GPT-4 & Claude</h2>
-            <p style="margin:4px 0 0;font-size:13px;color:#888;">API中转平台 · ChatGPT Plus / Claude Pro 低至五折</p>
-          </div>
-        </div>
-        <p style="font-size:15px;color:#444;line-height:1.7;margin:0 0 18px;">官方 <strong>$20/月</strong> 的 ChatGPT Plus，这里只要 <strong style="color:#667eea;font-size:18px;">$9.9/月</strong>！支持 GPT-4o、Claude 3.5 Sonnet、Gemini Pro 等主流模型，OpenAI 兼容 API 即插即用，国内直连无需翻墙。</p>
-        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px;">
-          <span style="background:#eef2ff;color:#667eea;padding:5px 12px;border-radius:8px;font-size:12px;font-weight:600;">✅ 半价 GPT-4o</span>
-          <span style="background:#eef2ff;color:#667eea;padding:5px 12px;border-radius:8px;font-size:12px;font-weight:600;">✅ Claude 3.5 五折</span>
-          <span style="background:#eef2ff;color:#667eea;padding:5px 12px;border-radius:8px;font-size:12px;font-weight:600;">✅ 国内直连</span>
-          <span style="background:#eef2ff;color:#667eea;padding:5px 12px;border-radius:8px;font-size:12px;font-weight:600;">✅ 兼容 OpenAI API</span>
-        </div>
-        <div style="background:linear-gradient(135deg,#fff7ed,#fef3c7);border:2px dashed #f59e0b;border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:14px;">
-          <div style="font-size:32px;flex-shrink:0;">💰</div>
-          <div>
-            <div style="font-size:18px;font-weight:800;color:#b45309;">🎉 邀请好友，每人奖励 <span style="color:#dc2626;font-size:22px;">$2 美金</span>！</div>
-            <div style="font-size:13px;color:#92400e;margin-top:4px;">通过下方链接注册，你和我都能获得 $2 奖励 · 无上限 · 提现便捷</div>
-          </div>
-        </div>
-        <div style="text-align:center;margin-top:20px;">
-          <a href="https://2233.ai/i/F9VX375O" target="_blank" rel="noopener" onclick="event.stopPropagation();" style="display:inline-block;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:14px 42px;border-radius:30px;text-decoration:none;font-weight:700;font-size:16px;box-shadow:0 6px 25px rgba(102,126,234,0.4);transition:all 0.3s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 10px 35px rgba(102,126,234,0.5)'" onmouseout="this.style.transform='none';this.style.boxShadow='0 6px 25px rgba(102,126,234,0.4)'">🚀 立即注册领取优惠 →</a>
-        </div>
-      </div>
-      <p style="text-align:center;margin-top:16px;font-size:12px;color:rgba(255,255,255,0.5);">广告位 · 联系 submit@quickapis.top 投放</p>
-    </div>
-  </section>
-
   <!-- ==================== FOOTER ==================== -->
   <footer class="footer">
     <div class="container">
@@ -1546,9 +1433,19 @@
         </div>
         <div class="footer-right">
           <div class="footer-links">
-            <a href="mailto:submit@quickapis.top" class="footer-link">
-              <span class="footer-link-icon">✉</span>
+            <a href="iot.html" class="footer-link">
+              <span class="footer-link-icon">🔌</span>
+              物联网分销
+            </a>
+            <div class="footer-divider"></div>
+            <a href="submit.html" class="footer-link">
+              <span class="footer-link-icon">📝</span>
               提交工具
+            </a>
+            <div class="footer-divider"></div>
+            <a href="stats.html" class="footer-link">
+              <span class="footer-link-icon">📊</span>
+              流量统计
             </a>
             <div class="footer-divider"></div>
             <a href="https://github.com/quickapis" class="footer-link" target="_blank" rel="noopener">
