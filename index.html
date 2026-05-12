@@ -694,6 +694,9 @@
     .tool-tag-api { background: rgba(249, 115, 22, 0.08); color: #ea580c; border: 1px solid rgba(249, 115, 22, 0.18); }
     .tool-tag-dev { background: rgba(34, 197, 94, 0.08); color: #16a34a; border: 1px solid rgba(34, 197, 94, 0.18); }
     .tool-tag-education { background: rgba(99, 102, 241, 0.08); color: #4f46e5; border: 1px solid rgba(99, 102, 241, 0.18); }
+    .tool-tag-iot { background: rgba(16, 185, 129, 0.08); color: #059669; border: 1px solid rgba(16, 185, 129, 0.18); }
+    .sub-tag-consumer { background: rgba(34, 197, 94, 0.12); color: #16a34a; border: 1px solid rgba(34, 197, 94, 0.25); font-size: 11px; padding: 2px 8px; border-radius: 12px; }
+    .sub-tag-industrial { background: rgba(59, 130, 246, 0.12); color: #2563eb; border: 1px solid rgba(59, 130, 246, 0.25); font-size: 11px; padding: 2px 8px; border-radius: 12px; }
 
     .tool-info {
       flex: 1;
@@ -1451,6 +1454,11 @@
           其他
           <span class="category-count" id="count-other">0</span>
         </button>
+        <button class="category-tab" data-category="iot">
+          <span class="category-tab-icon">🔌</span>
+          AI物联网硬件
+          <span class="category-count" id="count-iot">0</span>
+        </button>
         <a href="submit.html" class="category-tab" style="text-decoration:none;cursor:pointer;">
           <span class="category-tab-icon">📝</span>
           提交工具
@@ -2046,6 +2054,7 @@
       '开发者工具': { key: 'dev', label: '开发者工具' },
       '教育学习': { key: 'education', label: '教育学习' },
       '其他': { key: 'other', label: '其他' },
+      'AI物联网硬件': { key: 'iot', label: 'AI物联网硬件' },
     };
     
     async function loadToolsData() {
@@ -2064,6 +2073,7 @@
             icon: t.icon,
             category: catInfo.key,
             categoryLabel: catInfo.label,
+            subCategory: t.subCategory || null,
             description: t.description,
             domain: domain,
             url: t.url,
@@ -2140,6 +2150,7 @@
           <div class="tool-card-top">
             <div class="tool-icon"><img class="tool-favicon" src="favicons/${tool.domain}.ico" alt="${tool.name}" onerror="this.onerror=null;this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>◈</text></svg>'"></div>
             <span class="tool-tag tool-tag-${tool.category}">${tool.categoryLabel}</span>
+            ${tool.subCategory ? `<span class="tool-tag sub-tag-${tool.subCategory === '消费级' ? 'consumer' : 'industrial'}">${tool.subCategory}</span>` : ''}
           </div>
           <div class="tool-info">
             <h3 class="tool-name">${tool.name}</h3>
