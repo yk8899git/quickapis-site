@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI物联网硬件 - 智能产品分销</title>
+  <title>AI物联网硬件设备/产品</title>
   <link rel="stylesheet" href="styles.css">
   <style>
     /* ===== 全局 & 变量 ===== */
@@ -469,7 +469,7 @@
     </div>
     <div class="nav-links">
       <a href="index.html">AI工具导航</a>
-      <a href="iot.html" class="active">物联网硬件</a>
+      <a href="iot.html" class="active">AI物联网硬件设备/产品</a>
     </div>
     <a href="index.html" class="back-btn">← 返回工具导航</a>
   </div>
@@ -478,7 +478,7 @@
 <!-- Hero -->
 <section class="hero">
   <div class="hero-badge"><span class="dot"></span>精选硬件 · 源头直供</div>
-  <h1>AI 物联网硬件分销平台</h1>
+  <h1>AI物联网硬件设备/产品</h1>
   <p>汇集全球顶级智能硬件品牌，消费级机器人、工业机械臂、协作机器人……<br>官方正品保障，专属分销政策，助力合作伙伴抢占万亿市场</p>
   <div class="hero-stats">
     <div class="hero-stat"><div class="num">50+</div><div class="label">精选品牌</div></div>
@@ -1318,12 +1318,23 @@
       var cat = this.dataset.cat;
       document.querySelectorAll('.cat-btn').forEach(function(b) { b.classList.remove('active'); });
       this.classList.add('active');
+      var allSections = document.querySelectorAll('.brand-section');
       if (cat === 'all') {
-        document.querySelectorAll('.brand-section').forEach(function(s) { s.classList.remove('hidden'); });
+        allSections.forEach(function(s) { s.style.display = ''; });
+        document.querySelectorAll('.section-header').forEach(function(h) { h.style.display = ''; });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        document.querySelectorAll('.brand-section').forEach(function(s) {
-          s.classList.toggle('hidden', s.dataset.cat !== cat);
+        allSections.forEach(function(s) {
+          s.style.display = s.dataset.cat === cat ? '' : 'none';
         });
+        document.querySelectorAll('.section-header').forEach(function(h) {
+          var next = h.nextElementSibling;
+          h.style.display = (next && next.dataset && next.dataset.cat === cat) ? '' : 'none';
+        });
+        var target = document.querySelector('.brand-section[data-cat="' + cat + '"]');
+        if (target) {
+          target.previousElementSibling.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       }
     });
   });
