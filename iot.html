@@ -395,27 +395,212 @@
     }
 
     /* ===== 分类标题 ===== */
-    .section-header {
+    /* ===== 分类大图横幅 ===== */
+    .section-hero {
       max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 24px 20px;
+      margin: 0 auto 32px;
+      padding: 0 24px;
       position: relative;
       z-index: 1;
     }
-    .section-title {
-      font-size: 20px;
+    .section-hero-inner {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      height: 260px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+    }
+    .section-hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .section-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.5) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 36px 40px;
+    }
+    .section-hero-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 20px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 12px;
+      width: fit-content;
+    }
+    .section-hero-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: #fff;
+      margin: 0 0 8px;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+      letter-spacing: -0.5px;
+    }
+    .section-hero-sub {
+      font-size: 14px;
+      color: rgba(255,255,255,0.75);
+      margin: 0;
+    }
+
+    /* ===== 品牌卡片双列布局 ===== */
+    .brand-section > div {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    /* ===== 品牌卡片横向布局 ===== */
+    .brand-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s, transform 0.5s, border-color 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .brand-card.visible { opacity: 1; transform: translateY(0); }
+    .brand-card:hover {
+      border-color: rgba(16,185,129,0.35);
+      box-shadow: 0 4px 24px rgba(16,185,129,0.08);
+    }
+    .brand-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      flex: 1;
+    }
+    .brand-logo {
+      width: 56px;
+      height: 56px;
+      min-width: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+    .brand-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .brand-name-wrap {
+      flex: 1;
+    }
+    .brand-name {
+      font-size: 17px;
       font-weight: 700;
       color: var(--text-primary);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
-    .section-sub {
+    .brand-desc {
       font-size: 13px;
       color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 8px;
     }
-    .section-divider {
-      height: 1px;
-      background: var(--border);
-      margin-top: 16px;
+    .brand-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .brand-tag {
+      padding: 3px 10px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    .brand-visit-btn {
+      white-space: nowrap;
+      padding: 8px 16px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .brand-visit-btn:hover { background: linear-gradient(135deg, #059669, #047857); transform: translateY(-1px); }
+
+    /* ===== 爆品区域 ===== */
+    .hot-products-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .hot-products-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .hot-product-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .hot-product-card:hover {
+      border-color: rgba(16,185,129,0.3);
+      background: rgba(16,185,129,0.04);
+      transform: translateY(-2px);
+    }
+    .hot-product-img {
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+    }
+    .product-bg { background: linear-gradient(135deg, #1a2332 0%, #0f172a 100%); }
+    .hot-product-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-primary);
+      padding: 10px 12px 4px;
+    }
+    .hot-product-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      padding: 0 12px 10px;
+      line-height: 1.5;
+    }
+    .hot-product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px 12px;
+    }
+    .hot-product-price {
+      font-size: 14px;
+      font-weight: 800;
+      color: #f59e0b;
+    }
+    .hot-product-link {
+      font-size: 11px;
+      color: #10b981;
+      font-weight: 600;
     }
 
     /* ===== 隐藏分类 ===== */
@@ -444,6 +629,10 @@
       .brand-header { flex-direction: column; align-items: flex-start; }
       .brand-visit-btn { align-self: flex-start; }
       .top-nav .nav-links { display: none; }
+      .brand-section > div { grid-template-columns: 1fr; }
+      .section-hero-inner { height: 180px; }
+      .section-hero-overlay { padding: 24px 24px; }
+      .section-hero-title { font-size: 22px; }
     }
 
     /* ===== 爆品图片占位背景 ===== */
@@ -451,9 +640,6 @@
       background: linear-gradient(135deg, #1a2332 0%, #0f172a 100%);
     }
 
-    /* ===== 滚动动画 ===== */
-    .brand-card { opacity: 0; transform: translateY(20px); transition: opacity 0.5s, transform 0.5s; }
-    .brand-card.visible { opacity: 1; transform: translateY(0); }
   </style>
 </head>
 <body>
@@ -501,12 +687,18 @@
 </div>
 
 <!-- 消费级机器人 -->
-<div class="section-header">
-  <div class="section-title">🛍️ 消费级机器人</div>
-  <div class="section-sub">智能扫地机 / 无人机 / 智能音箱 / 学习机 / 摄像机</div>
-  <div class="section-divider"></div>
+<div class="section-hero">
+  <div class="section-hero-inner">
+    <img class="section-hero-img" src="generated-images/A_sleek_consumer_robot_scene_f_2026-05-12T23-38-49.png" alt="消费级机器人">
+    <div class="section-hero-overlay">
+      <div class="section-hero-badge">精选品牌</div>
+      <h2 class="section-hero-title">🛍️ 消费级机器人</h2>
+      <p class="section-hero-sub">智能扫地机 / 无人机 / 智能音箱 / 学习机 / 摄像机</p>
+    </div>
+  </div>
 </div>
 <div class="brand-section" data-cat="consumer">
+<div>
 
   <!-- 科沃斯地宝 -->
   <div class="brand-card" data-id="ecovacs-deebot">
@@ -719,14 +911,21 @@
   </div>
 
 </div>
+</div>
 
 <!-- 服务机器人 -->
-<div class="section-header">
-  <div class="section-title">🤖 服务机器人</div>
-  <div class="section-sub">送餐机器人 / 迎宾导览 / 商用清洁 / 智能摄像</div>
-  <div class="section-divider"></div>
+<div class="section-hero">
+  <div class="section-hero-inner">
+    <img class="section-hero-img" src="generated-images/A_service_robot_in_a_modern_ho_2026-05-12T23-38-51.png" alt="服务机器人">
+    <div class="section-hero-overlay">
+      <div class="section-hero-badge">精选品牌</div>
+      <h2 class="section-hero-title">🤖 服务机器人</h2>
+      <p class="section-hero-sub">送餐机器人 / 迎宾导览 / 商用清洁 / 智能摄像</p>
+    </div>
+  </div>
 </div>
 <div class="brand-section" data-cat="service">
+<div>
 
   <!-- 普渡送餐机器人 -->
   <div class="brand-card" data-id="pudu-bot">
@@ -855,14 +1054,21 @@
   </div>
 
 </div>
+</div>
 
 <!-- 人形机器人 -->
-<div class="section-header">
-  <div class="section-title">🧍 人形机器人</div>
-  <div class="section-sub">优必选Walker / 宇树H1 / 小鹏PX5 / 达闼云端</div>
-  <div class="section-divider"></div>
+<div class="section-hero">
+  <div class="section-hero-inner">
+    <img class="section-hero-img" src="generated-images/Full_body_humanoid_robot_stand_2026-05-12T23-38-48.png" alt="人形机器人">
+    <div class="section-hero-overlay">
+      <div class="section-hero-badge">精选品牌</div>
+      <h2 class="section-hero-title">🧍 人形机器人</h2>
+      <p class="section-hero-sub">优必选Walker / 宇树H1 / 小鹏PX5 / 达闼云端</p>
+    </div>
+  </div>
 </div>
 <div class="brand-section" data-cat="humanoid">
+<div>
 
   <!-- 优必选Walker -->
   <div class="brand-card" data-id="ubtech-walker">
@@ -991,14 +1197,21 @@
   </div>
 
 </div>
+</div>
 
 <!-- 工业机械臂 -->
-<div class="section-header">
-  <div class="section-title">🦾 工业机械臂</div>
-  <div class="section-sub">ABB / 库卡 / 发那科 / 汇川 / 安川 / 爱普生</div>
-  <div class="section-divider"></div>
+<div class="section-hero">
+  <div class="section-hero-inner">
+    <img class="section-hero-img" src="generated-images/Industrial_robotic_arm_in_a_mo_2026-05-12T23-38-54.png" alt="工业机械臂">
+    <div class="section-hero-overlay">
+      <div class="section-hero-badge">精选品牌</div>
+      <h2 class="section-hero-title">🦾 工业机械臂</h2>
+      <p class="section-hero-sub">ABB / 库卡 / 发那科 / 汇川 / 安川 / 爱普生</p>
+    </div>
+  </div>
 </div>
 <div class="brand-section" data-cat="industrial">
+<div>
 
   <!-- ABB -->
   <div class="brand-card" data-id="abb-industrial-arm">
@@ -1169,14 +1382,21 @@
   </div>
 
 </div>
+</div>
 
 <!-- 协作机器人 -->
-<div class="section-header">
-  <div class="section-title">🤝 协作机器人 (Cobot)</div>
-  <div class="section-sub">UR / 节卡 / 达明 / 艾利特 / 国产协作臂</div>
-  <div class="section-divider"></div>
+<div class="section-hero">
+  <div class="section-hero-inner">
+    <img class="section-hero-img" src="generated-images/Collaborative_robot__cobot__wo_2026-05-12T23-38-57.png" alt="协作机器人">
+    <div class="section-hero-overlay">
+      <div class="section-hero-badge">精选品牌</div>
+      <h2 class="section-hero-title">🤝 协作机器人 (Cobot)</h2>
+      <p class="section-hero-sub">UR / 节卡 / 达明 / 艾利特 / 国产协作臂</p>
+    </div>
+  </div>
 </div>
 <div class="brand-section" data-cat="cobot">
+<div>
 
   <!-- UR协作机器人 -->
   <div class="brand-card" data-id="universal-robots">
@@ -1305,6 +1525,7 @@
   </div>
 
 </div>
+</div>
 
 <!-- 底部 -->
 <footer class="footer">
@@ -1321,13 +1542,13 @@
       var allSections = document.querySelectorAll('.brand-section');
       if (cat === 'all') {
         allSections.forEach(function(s) { s.style.display = ''; });
-        document.querySelectorAll('.section-header').forEach(function(h) { h.style.display = ''; });
+        document.querySelectorAll('.section-hero').forEach(function(h) { h.style.display = ''; });
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         allSections.forEach(function(s) {
           s.style.display = s.dataset.cat === cat ? '' : 'none';
         });
-        document.querySelectorAll('.section-header').forEach(function(h) {
+        document.querySelectorAll('.section-hero').forEach(function(h) {
           var next = h.nextElementSibling;
           h.style.display = (next && next.dataset && next.dataset.cat === cat) ? '' : 'none';
         });
