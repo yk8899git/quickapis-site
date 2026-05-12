@@ -2150,24 +2150,7 @@
       toolsGrid.innerHTML = filtered.map((tool, index) => `
         <div class="tool-card card-enter" style="animation-delay: ${index * 40}ms;cursor:pointer" data-id="${tool.id}" onclick="location.href='tool-detail.html?id=${tool.id}'">
           <div class="tool-card-top">
-            <div class="tool-icon"><img class="tool-favicon" src="icons/${tool.id}.png" alt="${tool.name}" onerror="
-              var img = this;
-              var fallbacks = [
-                'favicons/' + img.alt.replace(/\s+/g, '') + '.ico',
-                'https://www.google.com/s2/favicons?domain=${tool.domain}&sz=64',
-                'https://favicon.im/${tool.domain}?size=64'
-              ];
-              (function next(i) {
-                if (i < fallbacks.length) {
-                  img.src = fallbacks[i];
-                  img.onerror = function() { next(i + 1); };
-                  img.onerror();
-                } else {
-                  img.onerror = null;
-                  img.parentElement.innerHTML = '<span style=font-size:28px>${tool.icon || '◈'}</span>';
-                }
-              })(0);
-            "></div>
+            <div class="tool-icon"><img class="tool-favicon" src="icons/${tool.url ? new URL(tool.url).hostname.replace('www.','').split('.')[0] : tool.id}.png" alt="${tool.name}" onerror="this.onerror=null;this.parentElement.innerHTML='<span style=font-size:28px>${tool.icon || '◈'}</span>'"></div>
             <span class="tool-tag tool-tag-${tool.category}">${tool.categoryLabel}</span>
             ${tool.subCategory ? `<span class="tool-tag sub-tag-${tool.subCategory === '消费级' ? 'consumer' : 'industrial'}">${tool.subCategory}</span>` : ''}
           </div>
