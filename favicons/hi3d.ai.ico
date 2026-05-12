@@ -1,0 +1,298 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Hi3D - AI 3D Model Generator &amp; Workspace</title>
+    <meta charset="UTF-8" />
+    <link rel="canonical" href="https://www.hitem3d.ai/home" />
+    <link rel="icon" href="https://hitem3dstatic.zaohaowu.net/website/favicon.svg?timer=1" type="image/x-icon" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0"
+    />
+
+    <!-- 添加referrer策略以改善流量来源识别 -->
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <!-- <meta http-equiv="Content-Security-Policy" content="frame-ancestors 'none';" /> -->
+
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180" />
+    <meta
+      name="keywords"
+      content="Hi3D, 3D modeling, AI 3D model,image-to-3D, AI 3D generation, AI 3D Model, AI 3D Generate"
+    />
+    <meta
+      name="description"
+      content="Hi3D: the most controllable AI 3D model generator. Enjoy powerful 3D generation and editing on our all-in-one platform."
+    />
+
+    <!-- 预加载关键图片 -->
+    <link rel="preload" as="image" href="/src/views/home/images/third.webp" type="image/webp" />
+
+    <!-- 预加载字体文件 -->
+    <link
+      rel="preload"
+      as="font"
+      href="https://hitem3dstatic.zaohaowu.net/website/assets/JockeyOne-Regular-DXTFeehX.ttf"
+      type="font/ttf"
+      crossorigin
+    />
+
+    <!-- DNS 预解析 -->
+    <link rel="dns-prefetch" href="//hitem3dstatic.zaohaowu.net" />
+
+    <!-- 预连接到关键域名 -->
+    <link rel="preconnect" href="https://hitem3dstatic.zaohaowu.net" />
+
+    <!-- Reddit Pixel -->
+    <script>
+      !(function (w, d) {
+        if (!w.rdt) {
+          var p = (w.rdt = function () {
+            p.sendEvent ? p.sendEvent.apply(p, arguments) : p.callQueue.push(arguments)
+          })
+          p.callQueue = []
+          var t = d.createElement('script')
+          ;((t.src = 'https://www.redditstatic.com/ads/pixel.js?pixel_id=a2_ibg3nxwlx4rt'),
+            (t.async = !0))
+          var s = d.getElementsByTagName('script')[0]
+          s.parentNode.insertBefore(t, s)
+        }
+      })(window, document)
+      rdt('init', 'a2_ibg3nxwlx4rt')
+      rdt('track', 'PageVisit')
+    </script>
+    <!-- DO NOT MODIFY UNLESS TO REPLACE A USER IDENTIFIER -->
+    <!-- End Reddit Pixel -->
+
+    <!-- Google Tag Manager - 延迟加载 -->
+    <script>
+      // 延迟加载GTM，避免阻塞FCP
+      window.addEventListener('load', function () {
+        ;(function (w, d, s, l, i) {
+          w[l] = w[l] || []
+          w[l].push({ 'gtm.start': new Date().getTime(), 'event': 'gtm.js' })
+          var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s),
+            dl = l != 'dataLayer' ? '&l=' + l : ''
+          j.async = true
+          j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl
+          f.parentNode.insertBefore(j, f)
+        })(window, document, 'script', 'dataLayer', 'GTM-KFVLM8FJ')
+      })
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XPK6QTD3KX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+
+      gtag('config', 'G-XPK6QTD3KX', {
+        // 添加referrer参数以改善流量来源识别
+        referrer: document.referrer,
+        // 设置页面标题
+        page_title: document.title,
+        // 设置页面位置
+        page_location: window.location.href,
+        // 启用增强型电子商务
+        allow_enhanced_conversions: true,
+        // 设置自定义维度来跟踪来源
+        custom_map: {
+          dimension1: 'traffic_source',
+          dimension2: 'user_region'
+        },
+        // 关键参数：改善流量来源识别
+        page_referrer: document.referrer,
+        // 设置会话超时时间（秒）
+        session_timeout: 1800,
+        // 启用跨域链接器
+        linker: {
+          domains: ['hitem3d.ai', 'hitem3dstatic.zaohaowu.net']
+        },
+        // 启用调试模式（开发时使用）
+        debug_mode: false,
+        // 设置用户属性
+        user_properties: {
+          user_region: navigator.language || 'unknown',
+          traffic_source: document.referrer || 'direct'
+        }
+      })
+
+      // 手动发送页面浏览事件以确保数据收集
+      gtag('event', 'page_view', {
+        page_title: document.title,
+        page_location: window.location.href,
+        page_referrer: document.referrer,
+        traffic_source: document.referrer || 'direct',
+        user_region: navigator.language || 'unknown'
+      })
+    </script>
+
+    <!-- 火山引擎埋点 -->
+    <script>
+      ;(function (win, export_obj) {
+        win['LogAnalyticsObject'] = export_obj
+        if (!win[export_obj]) {
+          var _collect = function () {
+            _collect.q.push(arguments)
+          }
+          _collect.q = _collect.q || []
+          win[export_obj] = _collect
+        }
+        win[export_obj].l = +new Date()
+      })(window, 'collectEvent')
+    </script>
+    <script
+      async
+      src="https://lf3-data.volccdn.com/obj/data-static/log-sdk/collect/5.0/collect-rangers-v5.2.6.js"
+    ></script>
+    <!-- 火山引擎埋点 -->
+
+    <!-- Meta Pixel Code -->
+    <script>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return
+        n = f.fbq = function () {
+          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+        }
+        if (!f._fbq) f._fbq = n
+        n.push = n
+        n.loaded = !0
+        n.version = '2.0'
+        n.queue = []
+        t = b.createElement(e)
+        t.async = !0
+        t.src = v
+        s = b.getElementsByTagName(e)[0]
+        s.parentNode.insertBefore(t, s)
+      })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js')
+      fbq('init', '859616653056312')
+      fbq('track', 'PageView')
+    </script>
+    <!-- End Meta Pixel Code -->
+
+    <!-- TikTok Pixel Code Start -->
+    <script>
+      !(function (w, d, t) {
+        w.TiktokAnalyticsObject = t
+        var ttq = (w[t] = w[t] || [])
+        ;((ttq.methods = [
+          'page',
+          'track',
+          'identify',
+          'instances',
+          'debug',
+          'on',
+          'off',
+          'once',
+          'ready',
+          'alias',
+          'group',
+          'enableCookie',
+          'disableCookie',
+          'holdConsent',
+          'revokeConsent',
+          'grantConsent'
+        ]),
+          (ttq.setAndDefer = function (t, e) {
+            t[e] = function () {
+              t.push([e].concat(Array.prototype.slice.call(arguments, 0)))
+            }
+          }))
+        for (var i = 0; i < ttq.methods.length; i++) ttq.setAndDefer(ttq, ttq.methods[i])
+        ;((ttq.instance = function (t) {
+          for (var e = ttq._i[t] || [], n = 0; n < ttq.methods.length; n++)
+            ttq.setAndDefer(e, ttq.methods[n])
+          return e
+        }),
+          (ttq.load = function (e, n) {
+            var r = 'https://analytics.tiktok.com/i18n/pixel/events.js',
+              o = n && n.partner
+            ;((ttq._i = ttq._i || {}),
+              (ttq._i[e] = []),
+              (ttq._i[e]._u = r),
+              (ttq._t = ttq._t || {}),
+              (ttq._t[e] = +new Date()),
+              (ttq._o = ttq._o || {}),
+              (ttq._o[e] = n || {}))
+            n = document.createElement('script')
+            ;((n.type = 'text/javascript'),
+              (n.async = !0),
+              (n.src = r + '?sdkid=' + e + '&lib=' + t))
+            e = document.getElementsByTagName('script')[0]
+            e.parentNode.insertBefore(n, e)
+          }))
+
+        ttq.load('D4MNFGJC77U3F3CUC6DG')
+        ttq.page()
+      })(window, document, 'ttq')
+    </script>
+    <!-- TikTok Pixel Code End -->
+
+    <!-- 与 src/constants/legalDocsUrls.ts 同步：无 JS 首屏政策链接（Google 审核/爬虫） -->
+    <style>
+      .spa-compliance-policy-anchors__link {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+    </style>
+    <script type="module" crossorigin src="https://hitem3dstatic.zaohaowu.net/website/assets/index-nDjmL3qC.js"></script>
+    <link rel="modulepreload" crossorigin href="https://hitem3dstatic.zaohaowu.net/website/assets/vue-vendor-POX2mWzW.js">
+    <link rel="modulepreload" crossorigin href="https://hitem3dstatic.zaohaowu.net/website/assets/three-vendor-BiT2E4lP.js">
+    <link rel="modulepreload" crossorigin href="https://hitem3dstatic.zaohaowu.net/website/assets/3d-editor-5PkLcb2V.js">
+    <link rel="modulepreload" crossorigin href="https://hitem3dstatic.zaohaowu.net/website/assets/utils-vendor-CQUaI8MW.js">
+    <link rel="stylesheet" crossorigin href="https://hitem3dstatic.zaohaowu.net/website/assets/index-DjVsPSKK.css">
+  </head>
+
+  <body>
+    <!-- Meta Pixel Code (noscript) -->
+    <noscript
+      ><img
+        height="1"
+        width="1"
+        style="display: none"
+        src="https://www.facebook.com/tr?id=859616653056312&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code (noscript) -->
+
+    <nav class="spa-compliance-policy-anchors" aria-label="Legal documents">
+      <a
+        class="spa-compliance-policy-anchors__link"
+        tabindex="-1"
+        href="https://www.hitem3d.ai/docs/Privacy-Policy"
+        >Privacy Policy</a
+      >
+      <a
+        class="spa-compliance-policy-anchors__link"
+        tabindex="-1"
+        href="https://www.hitem3d.ai/docs/Terms-of-Use"
+        >Terms of Use</a
+      >
+    </nav>
+
+    <div id="app"></div>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-KFVLM8FJ"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+  </body>
+</html>
