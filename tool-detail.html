@@ -171,11 +171,7 @@ fetch('./tools.json')
     document.getElementById('relatedSection').style.display='block';
     document.getElementById('relatedTools').innerHTML=sameCat.slice(0,8).map(function(t){
       var rd=extractDomain(t.url);
-<<<<<<< HEAD
-      return '<a href="tool-detail.html?id='+t.id+'" class="related-tool-card"><div class="related-tool-icon">'+(rd?'<img src="favicons/'+rd+'.svg" alt="'+t.name+'" onerror="this.src=\'favicons/'+rd+'.ico\';if(this.onerror)this.onerror=function(){this.src=\'favicons/'+rd+'.png\';if(this.onerror)this.onerror=function(){this.style.display=\'none\'}}">':'')+'</div><div class="related-tool-name">'+(t.nameCn||t.name)+'</div></a>';
-=======
       return '<a href="tool-detail.html?id='+t.id+'" class="related-tool-card"><div class="related-tool-icon"><img src="favicons/'+rd+'.svg" alt="'+t.name+'" onerror="this.src=\'favicons/'+rd+'.ico\';if(this.onerror)this.onerror=function(){this.src=\'favicons/'+rd+'.png\';if(this.onerror)this.onerror=function(){this.style.display=\'none\'}}"></div><div class="related-tool-name">'+(t.nameCn||t.name)+'</div></a>';
->>>>>>> 3db7c9f (修复工具详情页图标加载逻辑，支持svg/ico/png多格式fallback)
     }).join('');
   }
 })
