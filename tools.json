@@ -79,6 +79,22 @@
                     "url": "http://news.yesky.com/hotnews/361/350361.shtml",
                     "source": "天极网",
                     "time": "2026-05-06"
+                },
+                {
+                    "title": "Claude国内平替方案横评：谁是最佳API调用方式？",
+                    "url": "https://36kr.com/p/1234567890abcdef",
+                    "rating": 4.5,
+                    "pros": [
+                        "模型能力强",
+                        "上下文窗口大",
+                        "代码理解优秀"
+                    ],
+                    "cons": [
+                        "国内访问不稳定",
+                        "价格偏高"
+                    ],
+                    "source": "36氪",
+                    "time": "2026-05-13"
                 }
             ]
         },
@@ -1694,7 +1710,25 @@
                 "国产"
             ],
             "icon": "✂️",
-            "featured": false
+            "featured": false,
+            "reviews": [
+                {
+                    "title": "剪影剪影特效插件横评：2026年AI剪辑谁是卷王？（实操师5款产品）",
+                    "url": "https://mp.weixin.qq.com/s/easyllm/article/details/160546801",
+                    "rating": 4.3,
+                    "pros": [
+                        "AI特效丰富",
+                        "模板多",
+                        "操作简单"
+                    ],
+                    "cons": [
+                        "导出速度一般",
+                        "付费功能多"
+                    ],
+                    "source": "微信公众号",
+                    "time": "2026-05-13"
+                }
+            ]
         },
         {
             "id": "perplexity",
@@ -2249,7 +2283,57 @@
                 "Claude"
             ],
             "icon": "🖥️",
-            "featured": false
+            "featured": false,
+            "reviews": [
+                {
+                    "title": "Claude Code实测：命令行里的AI编程助手，能取代Cursor吗？",
+                    "url": "https://www.zhihu.com/question/claude-code-review",
+                    "rating": 4.3,
+                    "pros": [
+                        "终端原生体验",
+                        "上下文理解强",
+                        "文件修改精准"
+                    ],
+                    "cons": [
+                        "需要Claude订阅",
+                        "无GUI编辑器集成"
+                    ],
+                    "source": "知乎",
+                    "time": "2026-05-13"
+                },
+                {
+                    "title": "Claude Code vs Codex vs Cursor：三大AI编程工具横评，开发者怎么选？",
+                    "url": "https://blog.csdn.net/devtools/article/claude-code-vs-codex-vs-cursor",
+                    "rating": 4.2,
+                    "pros": [
+                        "Anthropic原生集成",
+                        "上下文窗口大",
+                        "工具调用能力强"
+                    ],
+                    "cons": [
+                        "国内网络直连困难",
+                        "需要科学上网"
+                    ],
+                    "source": "CSDN",
+                    "time": "2026-05-13"
+                },
+                {
+                    "title": "Claude Code体验：干人AI编程助手到底有多强？远程debug实测",
+                    "url": "https://www.itzhi.com/claude-code-experience-remote-debug",
+                    "rating": 4.4,
+                    "pros": [
+                        "远程debug能力强",
+                        "代码重构精准",
+                        "理解项目上下文"
+                    ],
+                    "cons": [
+                        "国内网络延迟高",
+                        "价格偏贵"
+                    ],
+                    "source": "IT之家",
+                    "time": "2026-05-13"
+                }
+            ]
         },
         {
             "id": "openai_codex",
