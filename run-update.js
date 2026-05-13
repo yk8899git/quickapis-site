@@ -23,7 +23,7 @@ try {
   
   // Git 操作
   console.log('📤 执行 git 操作...');
-  execSync('git add index.html', { cwd: __dirname, stdio: 'inherit' });
+  execSync('git add index.html tools.json', { cwd: __dirname, stdio: 'inherit' });
   execSync('git commit -m "Auto: update reviews data"', { cwd: __dirname, stdio: 'inherit' });
   
   console.log('🚀 推送到 GitHub...');
