@@ -129,7 +129,8 @@ if(!tid){
   document.getElementById('toolDesc').textContent='请从首页点击工具卡片进入此页面';
 }
 
-fetch('./tools.json')
+var _tdCtrl=new AbortController(),_tdTimer=setTimeout(function(){_tdCtrl.abort()},15000);
+fetch('./tools.json',{signal:_tdCtrl.signal})
 .then(function(r){return r.json()})
 .then(function(data){
   var tools=data.tools||[],tool=null;
@@ -177,7 +178,9 @@ fetch('./tools.json')
 })
 .catch(function(err){
   console.error('\u52A0\u8F7D\u5931\u8D25:',err);
-  document.getElementById('toolDesc').textContent='\u6570\u636E\u52A0\u8F7D\u5931\u8D25';
+  document.getElementById('toolName').textContent='\u274C \u52A0\u8F7D\u5931\u8D25';
+  document.getElementById('toolDesc').textContent='\u7F51\u7EDC\u8FDE\u63A5\u5F02\u5E38\uFF0C\u8BF7\u5237\u65B0\u91CD\u8BD5';
+  clearTimeout(_tdTimer);
 });
 </script>
 </body>
