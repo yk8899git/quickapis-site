@@ -1,127 +1,99 @@
-// update-reviews.js
-// 自动搜索最新AI评测文章，更新 index.html 中的 REVIEWS_DATA
-
-const https = require('https');
+// update-reviews.js v3 - 使用元宝搜索，带超时控制
+const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-// 搜索关键词（按工具）
 const QUERIES = [
-  'ChatGPT 评测 OR 测评 2026',
-  'DeepSeek 评测 OR 测评 2026',
-  'Claude 评测 OR 测评 2026',
-  'Gemini 评测 OR 测评 2026',
-  '大模型API 评测 OR 测评 2026',
-  'SiliconFlow 评测 2026',
-  'OpenRouter 评测 2026',
+  { keyword: 'ChatGPT 评测', tool: 'ChatGPT', icon: '🤖' },
+  { keyword: 'DeepSeek 评测', tool: 'DeepSeek', icon: '🔍' },
+  { keyword: 'Claude 评测', tool: 'Claude', icon: '🧠' },
+  { keyword: 'Gemini 评测', tool: 'Gemini', icon: '✨' },
+  { keyword: 'SiliconFlow 评测', tool: 'SiliconFlow', icon: '💧' },
+  { keyword: 'OpenRouter 评测', tool: 'OpenRouter', icon: '🛤️' },
 ];
 
-// 工具 icon 映射
-const TOOL_ICON = {
-  'chatgpt': '🤖', 'deepseek': '🔍', 'claude': '🧠',
-  'gemini': '✨', 'siliconflow': '💧', 'openrouter': '🛤️',
-  'groq': '⚡', 'zhipuai': '🧩', 'tongyi': '☁',
-};
+const PROSEARCH = 'C:\\Program Files\\QClaw\\resources\\openclaw\\config\\skills\\online-search\\scripts\\prosearch.cjs';
 
-function fetchURL(url) {
-  return new Promise((resolve, reject) => {
-    https.get(url, { headers: { 'User-Agent': 'Mozilla/5.0' } }, (res) => {
-      let data = '';
-      res.on('data', chunk => data += chunk);
-      res.on('end', () => resolve({ status: res.statusCode, data }));
-    }).on('error', reject);
-  });
-}
-
-// 使用 DuckDuckGo Instant Answer API（无需密钥）
-async function searchNews(query) {
+function searchOne(keyword) {
   try {
-    const url = `https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json&no_html=1`;
-    const res = await fetchURL(url);
-    const json = JSON.parse(res.data);
-    const results = [];
-    if (json.RelatedTopics) {
-      json.RelatedTopics.slice(0, 2).forEach(t => {
-        const m = t.Text.match(/^([^<]+)/);
-        if (m) results.push({ title: m[1].trim(), url: t.FirstURL || '' });
-      });
-    }
-    return results;
+    const cmd = `node "${PROSEARCH}" --keyword="${keyword}" --freshness=7d`;
+    const output = execSync(cmd, { encoding: 'utf8', timeout: 20000, maxBuffer: 1024 * 1024 });
+    const json = JSON.parse(output);
+    if (!json.success || !json.data || !json.data.docs) return [];
+    return json.data.docs.slice(0, 2).map(d => ({
+      title: (d.title || '').slice(0, 80),
+      url: d.url,
+      source: d.site || '互联网',
+      time: d.date ? d.date.split(' ')[0] : new Date().toISOString().slice(0, 10)
+    }));
   } catch (e) {
+    console.log(`  ⚠️ "${keyword}" 失败: ${e.message.slice(0, 80)}`);
     return [];
   }
 }
 
-async function main() {
-  console.log('🔍 开始搜索最新AI评测文章...');
+function main() {
+  console.log('🔍 开始搜索最新AI评测...');
   const newReviews = [];
-  const today = new Date().toISOString().slice(0, 10);
 
   for (const q of QUERIES) {
-    const results = await searchNews(q);
+    console.log(`搜索: ${q.keyword}`);
+    const results = searchOne(q.keyword);
+    console.log(`  → 找到 ${results.length} 条`);
     for (const r of results) {
-      // 识别工具 id
-      let toolId = 'chatgpt';
-      let toolIcon = '🤖';
-      for (const [id, icon] of Object.entries(TOOL_ICON)) {
-        if (q.toLowerCase().includes(id)) { toolId = id; toolIcon = icon; break; }
-      }
-      newReviews.push({
-        tool: toolId.charAt(0).toUpperCase() + toolId.slice(1),
-        toolIcon,
-        title: r.title.slice(0, 60),
-        url: r.url,
-        source: 'DuckDuckGo',
-        time: today,
-      });
+      newReviews.push({ ...r, tool: q.tool, toolIcon: q.icon });
     }
   }
 
   if (newReviews.length === 0) {
-    console.log('⚠️ 没有找到新文章，保持原数据不变');
+    console.log('⚠️ 没找到任何文章');
     return;
   }
 
-  // 读取当前 REVIEWS_DATA
+  // 去重
+  const seen = new Set();
+  const unique = newReviews.filter(r => {
+    if (seen.has(r.title)) return false;
+    seen.add(r.title);
+    return true;
+  });
+  console.log(`\n✅ 共 ${unique.length} 条（去重后）`);
+
+  // 1. 更新 tools.json
+  const toolsPath = path.join(__dirname, 'tools.json');
+  const toolsData = JSON.parse(fs.readFileSync(toolsPath, 'utf8'));
+  const toolReviews = {};
+  for (const r of unique) {
+    if (!toolReviews[r.tool]) toolReviews[r.tool] = [];
+    toolReviews[r.tool].push({ title: r.title, url: r.url, source: r.source, time: r.time });
+  }
+  for (const tool of toolsData.tools || []) {
+    if (toolReviews[tool.name]) {
+      const existing = new Set((tool.reviews || []).map(r => r.title));
+      const newItems = toolReviews[tool.name].filter(r => !existing.has(r.title));
+      tool.reviews = [...newItems, ...(tool.reviews || [])].slice(0, 20);
+    }
+  }
+  fs.writeFileSync(toolsPath, JSON.stringify(toolsData, null, 2), 'utf8');
+  console.log('✅ 已更新 tools.json');
+
+  // 2. 更新 index.html 的 REVIEWS_DATA
   const htmlPath = path.join(__dirname, 'index.html');
   let html = fs.readFileSync(htmlPath, 'utf8');
-
-  // 找到 REVIEWS_DATA 数组并替换
   const startTag = 'var REVIEWS_DATA = [';
   const endTag = '];';
   const sIdx = html.indexOf(startTag);
-  if (sIdx === -1) { console.log('❌ 找不到 REVIEWS_DATA'); return; }
-  const eIdx = html.indexOf(endTag, sIdx + startTag.length);
-  if (eIdx === -1) { console.log('❌ 找不到 REVIEWS_DATA 结束'); return; }
+  const eIdx = html.indexOf(endTag, sIdx);
+  if (sIdx === -1 || eIdx === -1) { console.log('❌ 找不到 REVIEWS_DATA'); return; }
 
-  // 保留原有数据，追加新数据（去重）
-  const existingData = html.substring(sIdx + startTag.length, eIdx);
-  let merged = [...newReviews];
-  // 简单去重：不加入 title 相同的
-  const existingTitles = new Set();
-  const block = html.substring(sIdx + startTag.length, eIdx).trim();
-  const titleRe = /title:\s*['"]([^'"]+)['"]/g;
-  let m;
-  while ((m = titleRe.exec(block)) !== null) existingTitles.add(m[1]);
+  const dataLines = unique.slice(0, 25).map(r =>
+    `      { tool: "${r.tool}", toolIcon: "${r.toolIcon}", title: "${r.title.replace(/"/g, '\\"')}", url: "${r.url}", source: "${r.source.replace(/"/g, '\\"')}", time: "${r.time}" },`
+  ).join('\n');
 
-  // 解析原有数据行
-  const lines = block.split('\n').filter(l => l.trim().startsWith('{'));
-  for (const line of lines) {
-    const tMatch = line.match(/title:\s*['"]([^'"]+)['"]/);
-    if (tMatch && !existingTitles.has(tMatch[1])) {
-      existingTitles.add(tMatch[1]);
-    }
-  }
-
-  const mergedLines = newReviews.filter(r => !existingTitles.has(r.title)).map(r =>
-    `    { tool: "${r.tool}", toolIcon: "${r.toolIcon}", title: "${r.title.replace(/"/g, '\\"')}", url: "${r.url}", source: "${r.source}", time: "${r.time}" },`
-  );
-
-  const newBlock = '\n' + mergedLines.join('\n') + '\n    ' + existingData.trimEnd();
-  const newHtml = html.substring(0, sIdx + startTag.length) + newBlock + html.substring(eIdx);
-
-  fs.writeFileSync(htmlPath, newHtml, 'utf8');
-  console.log(`✅ 更新了 ${mergedLines.length} 条新评测`);
+  html = html.substring(0, sIdx + startTag.length) + '\n' + dataLines + html.substring(eIdx);
+  fs.writeFileSync(htmlPath, html, 'utf8');
+  console.log('✅ 已更新 index.html');
+  console.log('\n🎉 更新完成！');
 }
 
-main().catch(console.error);
+main();
