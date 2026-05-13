@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>工具详情 - QuickAPIs | AI工具导航</title>
 <link rel="icon" type="image/svg+xml" href="./favicon.svg">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<!-- Google Fonts (fallback to system fonts if blocked) -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter','Noto Sans SC',sans-serif;background:#faf9f7;color:#1c1917}
@@ -129,7 +130,7 @@ if(!tid){
   document.getElementById('toolDesc').textContent='请从首页点击工具卡片进入此页面';
 }
 
-var _tdCtrl=new AbortController(),_tdTimer=setTimeout(function(){_tdCtrl.abort()},15000);
+var _tdCtrl=new AbortController(),_tdTimer=setTimeout(function(){_tdCtrl.abort();document.getElementById('toolName').textContent='⏳ 加载超时，请刷新重试';document.getElementById('toolDesc').textContent='网络较慢或文件较大，请稍后重试'},30000);
 fetch('./tools.json',{signal:_tdCtrl.signal})
 .then(function(r){return r.json()})
 .then(function(data){
