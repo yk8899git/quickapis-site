@@ -145,7 +145,8 @@ fetch('./tools.json')
   document.getElementById('toolDesc').textContent=tool.description||'';
   document.getElementById('toolDomain').innerHTML='<span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:#22c55e;"></span>'+(domain||'')+'</span>';
   var iconEl=document.getElementById('toolIcon');
-  iconEl.innerHTML='<img src="favicons/'+domain+'.ico" alt="'+tool.name+'" onerror="this.parentNode.innerHTML=\'&#x1F916;\'">';
+  // 按优先级尝试 svg/ico/png 三种格式
+  iconEl.innerHTML='<img src="favicons/'+domain+'.svg" alt="'+tool.name+'" onerror="var i=new Image();i.src=\'favicons/'+domain+'.ico\';i.onerror=function(){var j=new Image();j.src=\'favicons/'+domain+'.png\';j.onerror=function(){this.parentNode.innerHTML=\'&#x1F916;\'};this.parentNode.replaceChild(j,this)};this.parentNode.replaceChild(i,this)">';
   var tagsEl=document.getElementById('toolTags');
   if(tool.tags&&tool.tags.length>0){tagsEl.innerHTML=tool.tags.map(function(t){return '<span class="tool-header-tag">'+t+'</span>'}).join('')}
   if(tool.category){document.getElementById('toolCategory').innerHTML='<span class="tool-header-category">'+tool.category+'</span>'}
@@ -169,7 +170,7 @@ fetch('./tools.json')
     document.getElementById('relatedSection').style.display='block';
     document.getElementById('relatedTools').innerHTML=sameCat.slice(0,8).map(function(t){
       var rd=extractDomain(t.url);
-      return '<a href="tool-detail.html?id='+t.id+'" class="related-tool-card"><div class="related-tool-icon">'+(rd?'<img src="favicons/'+rd+'.ico" alt="'+t.name+'">':'')+'</div><div class="related-tool-name">'+(t.nameCn||t.name)+'</div></a>';
+      return '<a href="tool-detail.html?id='+t.id+'" class="related-tool-card"><div class="related-tool-icon">'+(rd?'<img src="favicons/'+rd+'.svg" alt="'+t.name+'" onerror="this.src=\'favicons/'+rd+'.ico\';if(this.onerror)this.onerror=function(){this.src=\'favicons/'+rd+'.png\';if(this.onerror)this.onerror=function(){this.style.display=\'none\'}}">':'')+'</div><div class="related-tool-name">'+(t.nameCn||t.name)+'</div></a>';
     }).join('');
   }
 })

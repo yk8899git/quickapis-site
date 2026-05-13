@@ -733,17 +733,14 @@
         metaDesc.setAttribute('content', tool.description + ' - QuickAPIs AI工具导航');
       }
 
-      // Tool Icon
+      // Tool Icon - try svg/ico/png fallback
       const toolIconEl = document.getElementById('toolIcon');
-      const iconImg = document.createElement('img');
-      iconImg.src = 'icons/' + tool.id + '.png';
-      iconImg.alt = tool.name;
-      iconImg.onerror = function() {
-        // If image fails to load, show emoji icon
+      const domain = tool.domain || '';
+      if (domain) {
+        toolIconEl.innerHTML='<img src="favicons/'+domain+'.svg" alt="'+tool.name+'" onerror="var i=new Image();i.src=\'favicons/'+domain+'.ico\';i.onerror=function(){var j=new Image();j.src=\'favicons/'+domain+'.png\';j.onerror=function(){this.parentNode.innerHTML=\''+(tool.icon||'&#x1F916;')+'\'};this.parentNode.replaceChild(j,this)};this.parentNode.replaceChild(i,this)">';
+      } else {
         toolIconEl.innerHTML = tool.icon || '🔧';
-      };
-      toolIconEl.innerHTML = '';
-      toolIconEl.appendChild(iconImg);
+      }
 
       // Tool Name
       document.getElementById('toolName').textContent = tool.name;
