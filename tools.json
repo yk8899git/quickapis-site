@@ -1,4 +1,4 @@
-﻿{
+{
   "categories": [
     "全部",
     "聊天AI",
@@ -15,7 +15,9 @@
     "开发者工具",
     "教育学习",
     "其他",
-    "AI物联网硬件"
+    "AI物联网硬件",
+    "AI平台",
+    "AI医疗"
   ],
   "tools": [
     {
@@ -23230,6 +23232,164 @@
         "海外市场有限",
         "软件更新频率低"
       ]
+    },
+    {
+      "id": "miaoda",
+      "name": "Miaoda",
+      "nameCn": "百度秒哒",
+      "category": "代码助手",
+      "description": "百度Create 2026大会发布，国内首款专业级AI应用开发APP，一句话生成原生APP（iOS/Android），推出企业级无代码AI开发平台，支持多人协作与SLA保障",
+      "url": "https://miaoda.baidu.com/",
+      "tags": [
+        "无代码",
+        "APP开发",
+        "AI应用",
+        "百度"
+      ],
+      "icon": "default.svg",
+      "featured": false,
+      "reviews": [],
+      "specs": {
+        "平台": "iOS/Android/Web",
+        "价格模式": "免费+企业版"
+      },
+      "pricing": "免费使用，企业版价格待公布",
+      "screenshots": [],
+      "features": [
+        "一句话生成原生APP",
+        "iOS/Android双端支持",
+        "多人协作开发",
+        "企业级SLA保障"
+      ],
+      "pros": [
+        "国内首款专业级AI应用开发平台",
+        "支持全平台原生应用生成",
+        "百度生态深度整合"
+      ],
+      "cons": [
+        "2026年新发布，生态尚不成熟"
+      ],
+      "bannerImage": ""
+    },
+    {
+      "id": "dumate",
+      "name": "DuMate",
+      "nameCn": "百度搭子",
+      "category": "聊天AI",
+      "description": "百度通用智能体App，集成搜索、秒哒、伐谋等能力，PC与移动端无缝互通，可协同完成搜索、编码、研究、数据分析等任务",
+      "url": "https://dumate.baidu.com/",
+      "tags": [
+        "智能体",
+        "对话",
+        "搜索",
+        "百度",
+        "多模态"
+      ],
+      "icon": "default.svg",
+      "featured": false,
+      "reviews": [],
+      "specs": {
+        "平台": "PC/Mobile",
+        "价格模式": "免费"
+      },
+      "pricing": "免费使用",
+      "screenshots": [],
+      "features": [
+        "集成百度搜索能力",
+        "PC与移动端互通",
+        "多智能体协同",
+        "编码/研究/数据分析"
+      ],
+      "pros": [
+        "百度全能力集成入口",
+        "PC+移动无缝互通",
+        "多智能体协同工作"
+      ],
+      "cons": [
+        "依赖百度生态",
+        "新发布功能待验证"
+      ],
+      "bannerImage": ""
+    },
+    {
+      "id": "redhat-ai",
+      "name": "Red Hat AI",
+      "nameCn": "红帽AI",
+      "category": "AI平台",
+      "description": "企业AI平台重大升级3.4版本，新增AgentOps（智能体全程管理）、模型即服务(MaaS)、提示词管理，构建从硬件到智能体的统一平台",
+      "url": "https://www.redhat.com/zh/technologies/ai",
+      "tags": [
+        "企业级",
+        "开源",
+        "AI平台",
+        "AgentOps",
+        "MaaS"
+      ],
+      "icon": "default.svg",
+      "featured": false,
+      "reviews": [],
+      "specs": {
+        "平台": "Linux/云",
+        "价格模式": "订阅制",
+        "最新版本": "3.4"
+      },
+      "pricing": "订阅制，价格按部署规模",
+      "screenshots": [],
+      "features": [
+        "AgentOps智能体管理",
+        "模型即服务MaaS",
+        "提示词管理",
+        "从硬件到智能体统一平台"
+      ],
+      "pros": [
+        "企业级AI运维能力",
+        "开源生态优势",
+        "AgentOps填补智能体运维空白"
+      ],
+      "cons": [
+        "需要企业级部署经验",
+        "对个人用户门槛高"
+      ],
+      "bannerImage": ""
+    },
+    {
+      "id": "qinglizi",
+      "name": "QingLiZi",
+      "nameCn": "阿里健康氢离子",
+      "category": "AI医疗",
+      "description": "医学AI助手，与英国BMJ集团达成期刊内容独家合作，直连国内外顶刊医学证据源，定位循证医学AI助手",
+      "url": "https://www.alihealth.cn/",
+      "tags": [
+        "医疗AI",
+        "循证医学",
+        "阿里健康",
+        "BMJ"
+      ],
+      "icon": "default.svg",
+      "featured": false,
+      "reviews": [],
+      "specs": {
+        "平台": "Web/App",
+        "价格模式": "免费"
+      },
+      "pricing": "免费使用",
+      "screenshots": [],
+      "features": [
+        "BMJ期刊独家合作",
+        "循证医学AI助手",
+        "直连国内外顶刊数据",
+        "医学证据检索"
+      ],
+      "pros": [
+        "顶刊数据独家合作壁垒",
+        "循证医学方向精准",
+        "阿里健康生态支持"
+      ],
+      "cons": [
+        "垂直医疗场景",
+        "面向专业医疗用户"
+      ],
+      "bannerImage": ""
     }
   ]
 }
