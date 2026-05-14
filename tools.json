@@ -1,4 +1,4 @@
-{
+﻿{
   "categories": [
     "全部",
     "聊天AI",
@@ -234,6 +234,20 @@
           ],
           "source": "36氪",
           "time": "2026-05-13"
+        },
+        {
+          "title": "Claude降智,是自杀还是装死?",
+          "url": "https://m.36kr.com/p/3765157386191617",
+          "source": "36氪",
+          "time": "2026-05-13",
+          "summary": "Claude Opus 4.6全球排名从第2跌落至第10,准确率83.3%→68.3%,幻觉率增加98%"
+        },
+        {
+          "title": "从落后到领跑:Anthropic如何逆袭OpenAI成AI热潮新赢家?",
+          "url": "https://www.sohu.com/a/1022321285_114984",
+          "source": "搜狐",
+          "time": "2026-05-14",
+          "summary": "2026年3-4月Anthropic旗下Claude工具使用率上升3.8%,OpenAI下降2.9%;Anthropic年化营收ARR达440亿美元"
         }
       ],
       "specs": [
@@ -3920,6 +3934,15 @@
         "部分模型需额外API费用",
         "对大型项目上下文消耗大",
         "偶有补全建议不准确"
+      ],
+      "reviews": [
+        {
+          "title": "AI智能体能力狂飙时代,九科信息bit-Agent始终把安全放在第一位",
+          "url": "https://www.sohu.com/a/1021898382_104421",
+          "source": "搜狐",
+          "time": "2026-05-13",
+          "summary": "Cursor的AI Agent在测试环境执行任务时误删数据库,暴露AI Agent安全隔离机制的重要性"
+        }
       ]
     },
     {
@@ -4851,6 +4874,15 @@
         "生成速度较慢（分钟级）",
         "仅限Plus及以上用户",
         "无法精确控制每一帧"
+      ],
+      "reviews": [
+        {
+          "title": "真人短剧开机量骤减 大厂打响AI视频竞速战",
+          "url": "https://www.toutiao.com/article/7639420535906058794/",
+          "source": "今日头条",
+          "time": "2026-05-14",
+          "summary": "OpenAI关停Sora,日均运行成本高达1500万美元/年烧钱约54亿美元;Sora关停后可灵全球周活环比增长4%"
+        }
       ]
     },
     {
@@ -5199,6 +5231,22 @@
         "复杂动态偶有瑕疵",
         "免费积分消耗快",
         "与Runway比创意性偏弱"
+      ],
+      "reviews": [
+        {
+          "title": "可灵AI登顶42国App Store总榜,一键生成棒球现场特效火爆全球",
+          "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_2516a05257120152",
+          "source": "企鹅号",
+          "time": "2026-05-14",
+          "summary": "可灵AI 3.0棒球现场特效视频在全球社交平台爆火,5月12日登顶42个国家和地区App Store总榜"
+        },
+        {
+          "title": "快手拆掉可灵,可灵吞噬快手",
+          "url": "https://www.toutiao.com/article/7639317516740788787/",
+          "source": "今日头条",
+          "time": "2026-05-13",
+          "summary": "可灵AI年化收入ARR达5亿美元,比春节前翻一倍;技术领先但用户留存率待提升"
+        }
       ]
     },
     {
@@ -6636,6 +6684,13 @@
           ],
           "source": "微信公众号",
           "time": "2026-05-13"
+        },
+        {
+          "title": "批量出片效率专项评测——谁是2026最快AI剪辑工具?",
+          "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_4556a042d9423452",
+          "source": "企鹅号",
+          "time": "2026-05-13",
+          "summary": "实测对比5款AI剪辑工具,剪映V11.5.0在智能去重和素材处理方面表现优秀"
         }
       ],
       "specs": [
@@ -10430,6 +10485,27 @@
           ],
           "source": "IT之家",
           "time": "2026-05-13"
+        },
+        {
+          "title": "Claude Code终于长出调度台:一个屏幕盯住所有AI会话,无需多开",
+          "url": "https://hub.baai.ac.cn/view/54634",
+          "source": "智源社区",
+          "time": "2026-05-13",
+          "summary": "Claude Code正式上线Agent View功能,提供调度中心界面管理所有AI会话,支持并行处理多项任务"
+        },
+        {
+          "title": "Claude Code、Codex、Cursor各跑了3个任务,结果出乎意料",
+          "url": "https://blog.csdn.net/u013889218/article/details/161037411",
+          "source": "CSDN",
+          "time": "2026-05-13",
+          "summary": "实测对比Claude Code(带Agent View)、Codex云端Agent和Cursor Agent,三个编程任务中Claude Code效率最高"
+        },
+        {
+          "title": "2026年5月权威实测:Claude Code必装的7个MCP,效率翻倍",
+          "url": "https://blog.csdn.net/m0_37988015/article/details/161041818",
+          "source": "CSDN",
+          "time": "2026-05-14",
+          "summary": "实测推荐Claude Code必装的7个MCP服务器,包括GitHub MCP等,帮助开发者将AI代理从代码提示者推向自主开发者"
         }
       ],
       "specs": [
