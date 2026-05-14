@@ -233,10 +233,13 @@ function renderSlides(){
   const track=document.getElementById('sTrack'), dots=document.getElementById('sDots');
   SLIDES.forEach((s,i)=>{
     const d=document.createElement('div'); d.className='slide';
-    // 渲染图片，加载失败则显示渐变背景
-    const bgHtml = s.img 
-      ? `<img src="${s.img}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="slide-bg" style="display:none;background:${s.bg}"></div>`
-      : `<div class="slide-bg" style="background:${s.bg}"></div>`;
+    // 渲染图片，加载失败则显示渐变背景（使用字符串拼接避免Node.js模板字符串冲突）
+    let bgHtml = '';
+    if(s.img){
+      bgHtml = '<img src="' + s.img + '" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'"><div class="slide-bg" style="display:none;background:' + s.bg + '"></div>';
+    } else {
+      bgHtml = '<div class="slide-bg" style="background:' + s.bg + '"></div>';
+    }
     d.innerHTML=bgHtml+'<div class="slide-overlay"></div><div class="slide-content"><div class="slide-tag">'+s.tag+'</div><div class="slide-title">'+s.title+'</div><div class="slide-meta"><span>📰 '+s.source+'</span><span class="slide-dot"></span><span>'+s.time+'</span></div><button class="slide-link-btn" onclick="location.href=\\'tool-detail.html?id='+s.tool+'\\'">查看详情 →</button></div>';
     track.appendChild(d);
     const dot=document.createElement('div'); dot.className='s-dot'+(i===0?' active':'');

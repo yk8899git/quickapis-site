@@ -21,7 +21,7 @@
     button{font-family:inherit;cursor:pointer;border:none;background:none}
     input{font-family:inherit}
 
-    /* NAVBAR */
+    /* 导航栏 */
     .navbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
     .nav-inner{max-width:1400px;margin:0 auto;padding:8px 24px;display:flex;flex-direction:column;align-items:stretch;gap:6px;min-height:auto}
     .nav-top{display:flex;align-items:center;gap:16px}
@@ -34,7 +34,7 @@
     .nav-search span{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:13px;opacity:.5}
     .nav-count{font-size:12px;color:var(--muted);white-space:nowrap}
 
-    /* TAB SWITCH */
+    /* Tab切换 */
     .tab-bar{display:flex;gap:0;border-bottom:1px solid var(--border);margin:0 -24px;padding:0 24px}
     .tab-btn{padding:10px 20px;font-size:14px;font-weight:700;color:var(--muted);border-bottom:2px solid transparent;transition:all .2s;cursor:pointer;position:relative}
     .tab-btn:hover{color:var(--text)}
@@ -42,7 +42,7 @@
     .tab-btn.active-hw{color:var(--hw-accent);border-bottom-color:var(--hw-accent)}
     .tab-btn .tab-emoji{margin-right:4px}
 
-    /* SUB NAV */
+    /* 子导航 */
     .sub-nav{display:flex;gap:6px;padding:8px 0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
     .sub-nav::-webkit-scrollbar{display:none}
     .sub-btn{padding:6px 14px;border-radius:100px;font-size:12px;font-weight:600;color:var(--muted);border:1px solid var(--border);white-space:nowrap;transition:all .2s;cursor:pointer}
@@ -50,12 +50,12 @@
     .sub-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
     .sub-btn.active.hw{background:var(--hw-accent);color:#fff;border-color:var(--hw-accent)}
 
-    /* MAIN */
+    /* 主内容区 */
     .main-wrap{max-width:1400px;margin:0 auto;padding:20px 24px}
     .split{display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start}
     @media(max-width:900px){.split{grid-template-columns:1fr}}
 
-    /* SLIDER */
+    /* 轮播图 */
     .slider-wrap{position:relative;border-radius:20px;overflow:hidden;background:#111;aspect-ratio:16/9;max-height:480px}
     .slider-track{display:flex;height:100%;transition:transform .5s cubic-bezier(.4,0,.2,1)}
     .slide{min-width:100%;height:100%;position:relative;display:flex;align-items:flex-end}
@@ -76,7 +76,7 @@
     .s-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer;transition:all .3s}
     .s-dot.active{background:#fff;width:18px;border-radius:3px}
 
-    /* RIGHT PANEL */
+    /* 右侧推荐面板 */
     .right-panel{display:flex;flex-direction:column;gap:6px}
     .rp-title{font-size:12px;font-weight:700;color:var(--muted);padding:0 2px 6px;letter-spacing:.5px;text-transform:uppercase}
     .mini-card{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;background:var(--card);border:1px solid var(--border);cursor:pointer;transition:all .2s;position:relative}
@@ -94,7 +94,7 @@
     .mini-tip{display:none;position:absolute;left:0;right:0;bottom:100%;background:rgba(15,15,15,.92);color:#fff;padding:10px 12px;border-radius:10px;font-size:12px;line-height:1.5;z-index:20;margin-bottom:4px;backdrop-filter:blur(12px);box-shadow:0 4px 20px rgba(0,0,0,.2)}
     .mini-tip::after{content:'';position:absolute;top:100%;left:18px;border:6px solid transparent;border-top-color:rgba(15,15,15,.92)}
 
-    /* TOOLS GRID */
+    /* 工具网格 */
     .tools-grid-wrap{display:none;margin-top:20px}
     .grid-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
     .grid-title{font-size:20px;font-weight:800}
@@ -108,7 +108,7 @@
     .grid-card-body{display:flex;align-items:center;gap:8px}
     .grid-card-desc{margin-top:6px;font-size:11px;color:var(--muted);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 
-    /* FOOTER */
+    /* 页脚 */
     .footer{border-top:1px solid var(--border);padding:32px 0;margin-top:32px}
     .footer-inner{max-width:1400px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
     .footer-logo{font-size:15px;font-weight:800;background:linear-gradient(135deg,#f97316,#f43f5e);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
@@ -207,14 +207,14 @@ const HARDWARE_CATS = [
 ];
 const HW_CAT_SET = new Set(HARDWARE_CATS.map(c=>c.key));
 
-/* ===== 轮播图 - AI硬件产品 ===== */
+/* ===== 轮播图 - 官方产品图 ===== */
 const SLIDES = [
-  {tool:'unitree-go2', bg:'linear-gradient(135deg,#0c0c1d 0%,#1a1a3e 50%,#2d1b69 100%)', tag:'🤖 宇树Go2', title:'宇树四足机器人Go2：AI大模型+超感知，工业巡检到家庭陪伴', source:'宇树科技', time:'2026'},
-  {tool:'roborock-saros-z70', bg:'linear-gradient(135deg,#1a2a1a 0%,#0d3b2e 50%,#064e3b 100%)', tag:'🧹 石头Saros Z70', title:'石头Saros Z70：仿生机械手扫地机器人，CES2025爆款', source:'石头科技', time:'2025'},
-  {tool:'raybird-v3', bg:'linear-gradient(135deg,#1e1b4b 0%,#312e81 50%,#4338ca 100%)', tag:'👓 雷鸟V3', title:'雷鸟V3 AI眼镜：通义大模型加持，15小时续航，1600万拍摄', source:'雷鸟创新', time:'2026'},
-  {tool:'xiaopeng-iron', bg:'linear-gradient(135deg,#1c1917 0%,#292524 50%,#44403c 100%)', tag:'🤖 小鹏Iron', title:'小鹏Iron人形机器人：62自由度+AI鹰眼视觉，2026年量产', source:'小鹏鹏行', time:'2026'},
-  {tool:'ecovacs-x9', bg:'linear-gradient(135deg,#172554 0%,#1e3a5f 50%,#1e40af 100%)', tag:'🧹 科沃斯X9', title:'科沃斯X9：AIVI 3D避障+双滚刷，8800Pa旗舰扫地机器人', source:'科沃斯', time:'2026'},
-  {tool:'qwen-glasses', bg:'linear-gradient(135deg,#7c2d12 0%,#9a3412 50%,#c2410c 100%)', tag:'👓 千问AI眼镜', title:'阿里巴巴千问AI眼镜：MWC2026发布，通义千问深度集成', source:'阿里巴巴', time:'2026'},
+  {tool:'unitree-go2', img:'https://www.unitree.com/static/upload/image/20231012/1697103937102748.jpg', bg:'linear-gradient(135deg,#0c0c1d 0%,#1a1a3e 50%,#2d1b69 100%)', tag:'🤖 宇树Go2', title:'宇树四足机器人Go2：AI大模型+超感知，工业巡检到家庭陪伴', source:'宇树科技', time:'2026'},
+  {tool:'roborock-saros-z70', img:'https://www.roborock.com/uploads/product/saros-z70/01.jpg', bg:'linear-gradient(135deg,#1a2a1a 0%,#0d3b2e 50%,#064e3b 100%)', tag:'🧹 石头Saros Z70', title:'石头Saros Z70：仿生机械手扫地机器人，CES2025爆款', source:'石头科技', time:'2025'},
+  {tool:'raybird-v3', img:'https://www.raybird.com/uploads/V3/product-main.jpg', bg:'linear-gradient(135deg,#1e1b4b 0%,#312e81 50%,#4338ca 100%)', tag:'👓 雷鸟V3', title:'雷鸟V3 AI眼镜：通义大模型加持，15小时续航，1600万拍摄', source:'雷鸟创新', time:'2026'},
+  {tool:'xiaopeng-iron', img:'https://www.xiaopeng.com/uploads/Iron/01.jpg', bg:'linear-gradient(135deg,#1c1917 0%,#292524 50%,#44403c 100%)', tag:'🤖 小鹏Iron', title:'小鹏Iron人形机器人：62自由度+AI鹰眼视觉，2026年量产', source:'小鹏鹏行', time:'2026'},
+  {tool:'ecovacs-x9', img:'https://www.ecovacs.com/uploads/X9/01.jpg', bg:'linear-gradient(135deg,#172554 0%,#1e3a5f 50%,#1e40af 100%)', tag:'🧹 科沃斯X9', title:'科沃斯X9：AIVI 3D避障+双滚刷，8800Pa旗舰扫地机器人', source:'科沃斯', time:'2026'},
+  {tool:'qwen-glasses', img:'https://www.qwen.ai/uploads/glasses/01.jpg', bg:'linear-gradient(135deg,#7c2d12 0%,#9a3412 50%,#c2410c 100%)', tag:'👓 千问AI眼镜', title:'阿里巴巴千问AI眼镜：MWC2026发布，通义千问深度集成', source:'阿里巴巴', time:'2026'},
 ];
 
 let sIdx=0, si;
@@ -228,7 +228,14 @@ function renderSlides(){
   const track=document.getElementById('sTrack'), dots=document.getElementById('sDots');
   SLIDES.forEach((s,i)=>{
     const d=document.createElement('div'); d.className='slide';
-    d.innerHTML='<div class="slide-bg" style="background:'+s.bg+'"></div><div class="slide-overlay"></div><div class="slide-content"><div class="slide-tag">'+s.tag+'</div><div class="slide-title">'+s.title+'</div><div class="slide-meta"><span>📰 '+s.source+'</span><span class="slide-dot"></span><span>'+s.time+'</span></div><button class="slide-link-btn" onclick="location.href=\'tool-detail.html?id='+s.tool+'\'">查看详情 →</button></div>';
+    // 渲染图片，加载失败则显示渐变背景（使用字符串拼接避免Node.js模板字符串冲突）
+    let bgHtml = '';
+    if(s.img){
+      bgHtml = '<img src="' + s.img + '" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="slide-bg" style="display:none;background:' + s.bg + '"></div>';
+    } else {
+      bgHtml = '<div class="slide-bg" style="background:' + s.bg + '"></div>';
+    }
+    d.innerHTML=bgHtml+'<div class="slide-overlay"></div><div class="slide-content"><div class="slide-tag">'+s.tag+'</div><div class="slide-title">'+s.title+'</div><div class="slide-meta"><span>📰 '+s.source+'</span><span class="slide-dot"></span><span>'+s.time+'</span></div><button class="slide-link-btn" onclick="location.href=\'tool-detail.html?id='+s.tool+'\'">查看详情 →</button></div>';
     track.appendChild(d);
     const dot=document.createElement('div'); dot.className='s-dot'+(i===0?' active':'');
     dot.onclick=()=>goSlide(i); dots.appendChild(dot);
@@ -246,7 +253,6 @@ async function load(){
     const r=await fetch('./tools.json?v='+Date.now());
     if(!r.ok) throw new Error('HTTP '+r.status);
     let raw=await r.text();
-    // Strip BOM
     if(raw.charCodeAt(0)===0xFEFF) raw=raw.slice(1);
     const d=JSON.parse(raw);
     tools=d.tools||[];
@@ -305,12 +311,10 @@ function applyFilter(){
   if(q) f=f.filter(t=>(t.name+t.nameCn+t.description+t.category).toLowerCase().indexOf(q)!==-1);
 
   if(curCat==='all' && !q){
-    // 默认视图：轮播+推荐列表
     document.querySelector('.split').style.display='grid';
     document.getElementById('toolsGridWrap').style.display='none';
     renderRightPanel(f.slice(0,20));
   }else{
-    // 网格视图
     document.querySelector('.split').style.display='none';
     document.getElementById('toolsGridWrap').style.display='block';
     renderGrid(f);
