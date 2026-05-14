@@ -26,13 +26,13 @@
 
     /* NAVBAR */
     .navbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
-    .nav-inner{max-width:1400px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:12px;min-height:64px}
+    .nav-inner{max-width:1400px;margin:0 auto;padding:8px 24px;display:flex;flex-direction:column;align-items:stretch;gap:6px;min-height:auto}
     .nav-logo{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:800;
       background:linear-gradient(135deg,#f97316,#f43f5e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;white-space:nowrap;flex-shrink:0}
     .nav-logo svg{width:24px;height:24px;flex-shrink:0}
-    .nav-cats{display:flex;align-items:center;gap:4px;flex:1;overflow-x:auto;scrollbar-width:none;padding:4px 0}
+    .nav-cats{display:flex;flex-wrap:wrap;align-items:center;gap:3px;flex:1;max-height:none;padding:6px 0}
     .nav-cats::-webkit-scrollbar{display:none}
-    .nav-cat{padding:6px 14px;border-radius:100px;font-size:13px;font-weight:500;color:var(--muted);white-space:nowrap;flex-shrink:0;transition:all .15s;border:1px solid transparent}
+    .nav-cat{padding:4px 10px;border-radius:100px;font-size:12px;font-weight:500;color:var(--muted);white-space:nowrap;flex-shrink:0;transition:all .15s;border:1px solid transparent}
     .nav-cat:hover{color:var(--text);background:#f5f3f0}
     .nav-cat.active{color:#fff;background:linear-gradient(135deg,#f97316,#f43f5e);box-shadow:0 2px 10px rgba(249,115,22,.3)}
     .nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
@@ -56,6 +56,7 @@
     .slider-track{display:flex;height:100%;transition:transform .5s cubic-bezier(.4,0,.2,1)}
     .slide{min-width:100%;height:100%;position:relative;display:flex;align-items:flex-end}
     .slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .slide-bg{position:absolute;inset:0;width:100%;height:100%;background-size:cover;background-position:center}
     .slide-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.3) 50%,rgba(0,0,0,.05) 100%)}
     .slide-content{position:relative;z-index:2;padding:36px 32px;color:#fff;width:100%}
     .slide-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(249,115,22,.85);padding:5px 14px;border-radius:100px;font-size:12px;font-weight:700;margin-bottom:14px;backdrop-filter:blur(8px)}
@@ -163,11 +164,11 @@
 
 <script>
 const SLIDES=[
-  {tool:"ChatGPT",img:"https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=80",tag:"🤖 ChatGPT",title:"ChatGPT全面测评：GPT-4o能力边界实测，编程写作双杀Claude",source:"CSDN",time:"2026-05-11"},
-  {tool:"Claude",img:"https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1200&q=80",tag:"🧠 Claude",title:"Claude Opus 4.7深度评测：代码工程能力跃升64%，与GPT-5全面对标",source:"CSDN",time:"2026-05-11"},
-  {tool:"Gemini",img:"https://images.unsplash.com/photo-1676277791608-ac54585e6876?w=1200&q=80",tag:"✨ Gemini",title:"被忽视的Gemini：2026最被低估的全能AI神器，多模态能力实测",source:"CSDN",time:"2026-05-12"},
-  {tool:"DeepSeek",img:"https://images.unsplash.com/photo-1676928002140-4c6b0e47bb18?w=1200&q=80",tag:"🔍 DeepSeek",title:"DeepSeek-V4深度评测：参数解析与实战边界，国产大模型黑马",source:"CSDN",time:"2026-05-09"},
-  {tool:"Kimi",img:"https://images.unsplash.com/photo-1655720828018-edd2daec9349?w=1200&q=80",tag:"🌙 Kimi",title:"Kimi K2.6长上下文实测：200万字文档一次性吃透，RAG该退休了",source:"知乎",time:"2026-05-10"},
+  {tool:"ChatGPT",img:"",bg:"linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%)",tag:"🤖 ChatGPT",title:"ChatGPT全面测评：GPT-4o能力边界实测，编程写作双杀Claude",source:"CSDN",time:"2026-05-11"},
+  {tool:"Claude",img:"",bg:"linear-gradient(135deg,#2d1b69 0%,#11998e 100%)",tag:"🧠 Claude",title:"Claude Opus 4.7深度评测：代码工程能力跃升64%，与GPT-5全面对标",source:"CSDN",time:"2026-05-11"},
+  {tool:"Gemini",img:"",bg:"linear-gradient(135deg,#134e5e 0%,#71b280 100%)",tag:"✨ Gemini",title:"被忽视的Gemini：2026最被低估的全能AI神器，多模态能力实测",source:"CSDN",time:"2026-05-12"},
+  {tool:"DeepSeek",img:"",bg:"linear-gradient(135deg,#200122 0%,#6f0000 100%)",tag:"🔍 DeepSeek",title:"DeepSeek-V4深度评测：参数解析与实战边界，国产大模型黑马",source:"CSDN",time:"2026-05-09"},
+  {tool:"Kimi",img:"",bg:"linear-gradient(135deg,#0c0032 0%,#500072 50%,#8e2de2 100%)",tag:"🌙 Kimi",title:"Kimi K2.6长上下文实测：200万字文档一次性吃透，RAG该退休了",source:"知乎",time:"2026-05-10"},
 ];
 let sIdx=0,si;
 function goSlide(n){
@@ -180,7 +181,7 @@ function renderSlides(){
   const track=document.getElementById('sTrack'),dots=document.getElementById('sDots');
   SLIDES.forEach((s,i)=>{
     const d=document.createElement('div');d.className='slide';
-    d.innerHTML='<img src="'+s.img+'" alt="'+s.tool+'" onerror="this.src='https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=80'"><div class="slide-overlay"></div><div class="slide-content"><div class="slide-tag">'+s.tag+'</div><div class="slide-title">'+s.title+'</div><div class="slide-meta"><span>📰 '+s.source+'</span><span class="slide-dot"></span><span>'+s.time+'</span></div><button class="slide-link-btn">阅读评测 →</button></div>';
+    d.innerHTML='<div class="slide-bg" style="background:'+s.bg+'"></div><div class="slide-overlay"></div><div class="slide-content"><div class="slide-tag">'+s.tag+'</div><div class="slide-title">'+s.title+'</div><div class="slide-meta"><span>📰 '+s.source+'</span><span class="slide-dot"></span><span>'+s.time+'</span></div><button class="slide-link-btn">阅读评测 →</button></div>';
     track.appendChild(d);
     const dot=document.createElement('div');dot.className='s-dot'+(i===0?' active':'');
     dot.onclick=()=>goSlide(i);dots.appendChild(dot);
@@ -192,39 +193,106 @@ renderSlides();si=setInterval(()=>goSlide(sIdx+1),3000);
 
 let tools=[],curCat='all',q='';
 const CM={'全部':'all','聊天AI':'chat','图像生成':'image','代码助手':'code','视频制作':'video','音频工具':'audio','办公效率':'office','搜索研究':'search','3D建模':'3d','设计工具':'design','写作助手':'writing','大模型API':'api','开发者工具':'dev','教育学习':'education','AI物联网硬件':'aiiot','其他':'other'};
+
 async function load(){
   try{
-    const r=await fetch('tools.json');
+    const r=await fetch('./tools.json?v='+Date.now());
+    if(!r.ok) throw new Error('HTTP '+r.status);
     const d=await r.json();
-    tools=d.tools.map(t=>{const m=CM[t.category]||{key:'other'};return{id:t.id,name:t.name,nameCn:t.nameCn||t.name,icon:t.icon||'◈',cat:m.key||'other',catLabel:t.category||'其他',desc:t.description||'',url:t.url||'#'}});
+    tools=(d.tools||[]).map(t=>{
+      const m=CM[t.category]||{key:'other'};
+      return{id:t.id,name:t.name,nameCn:t.nameCn||t.name,icon:t.icon||'◈',cat:m.key||'other',catLabel:t.category||'其他',desc:t.description||'',url:t.url||'#',bannerImage:t.bannerImage||''}
+    });
     document.getElementById('toolNum').textContent=tools.length;
     renderCards(tools.slice(0,20));
-  }catch(e){console.error(e)}
+    console.log('Loaded '+tools.length+' tools');
+  }catch(e){
+    console.error('Load failed:',e);
+    var rp=document.getElementById('rPanel');
+    if(rp) rp.innerHTML='<div class="rp-title">🔥 推荐工具</div><div style="padding:24px;text-align:center;color:#999;font-size:13px">⚠ 工具数据加载失败<br><small style="color:#bbb">请检查网络或刷新页面重试</small></div>';
+  }
 }
+
 function renderCards(ts){
-  const panel=document.getElementById('rPanel');
+  var panel=document.getElementById('rPanel');
+  if(!panel) return;
   panel.innerHTML='<div class="rp-title">🔥 推荐工具</div>';
   ts.forEach(t=>{
-    const c=document.createElement('div');c.className='mini-card';
-    c.onclick=()=>location.href='tool-detail.html?id='+t.id;
-    c.innerHTML='<div class="mini-icon"><img src="icons/'+t.id+'.png" onerror="this.style.display='none';this.parentElement.innerHTML=''+t.icon+''"></div><div class="mini-info"><div class="mini-name">'+t.nameCn+'</div><div class="mini-cat">'+t.catLabel+'</div></div><div class="mini-arrow">→</div><div class="mini-tip">'+t.desc.substring(0,80)+(t.desc.length>80?'...':'')+'</div>';
+    var c=document.createElement('div');c.className='mini-card';
+    c.onclick=function(){location.href='tool-detail.html?id='+t.id};
+    var iconHtml='<img src="icons/'+t.id+'.png" onerror="this.style.display=\'none\';this.parentElement.innerHTML=\''+t.icon+'\'" style="width:24px;height:24px;object-fit:contain">';
+    c.innerHTML='<div class="mini-icon">'+iconHtml+'</div><div class="mini-info"><div class="mini-name">'+t.nameCn+'</div><div class="mini-cat">'+t.catLabel+'</div></div><div class="mini-arrow">→</div><div class="mini-tip">'+escHtml(t.desc).substring(0,80)+(t.desc.length>80?'...':'')+'</div>';
     panel.appendChild(c);
   });
 }
-document.getElementById('navCats').onclick=e=>{
-  if(!e.target.classList.contains('nav-cat'))return;
+
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+document.getElementById('navCats').addEventListener('click',function(e){
+  if(!e.target.classList.contains('nav-cat')) return;
   curCat=e.target.dataset.cat;
-  document.querySelectorAll('.nav-cat').forEach(b=>b.classList.toggle('active',b===e.target));
+  document.querySelectorAll('.nav-cat').forEach(function(b){b.classList.toggle('active',b===e.target)});
   applyF();
-};
-document.getElementById('navSearch').oninput=e=>{q=e.target.value.trim().toLowerCase();applyF()};
+});
+document.getElementById('navSearch').addEventListener('input',function(e){q=e.target.value.trim().toLowerCase();applyF()});
+
 function applyF(){
-  let f=tools;
-  if(q){f=tools.filter(t=>t.name.toLowerCase().includes(q)||t.nameCn.toLowerCase().includes(q)||t.desc.toLowerCase().includes(q)||t.catLabel.toLowerCase().includes(q))}
-  else if(curCat!=='all'){f=tools.filter(t=>t.cat===curCat)}
-  renderCards(f.slice(0,20));
+  var f=tools;
+  if(q){
+    f=tools.filter(function(t){return t.name.toLowerCase().indexOf(q)!==-1||t.nameCn.toLowerCase().indexOf(q)!==-1||t.desc.toLowerCase().indexOf(q)!==-1||t.catLabel.toLowerCase().indexOf(q)!==-1});
+  }else if(curCat!=='all'){
+    f=tools.filter(function(t){return t.cat===curCat});
+  }else{
+    f=tools;
+  }
+  if(q || curCat!=='all'){
+    showToolsGrid(f, curCat==='all'?'搜索结果':getCatName(curCat));
+  }else{
+    var gw=document.getElementById('toolsGridWrap');
+    if(gw) gw.style.display='none';
+    var sp=document.querySelector('.split');
+    if(sp) sp.style.display='grid';
+    renderCards(f.slice(0,20));
+  }
 }
+
+function getCatName(key){
+  for(var k in CM){if(CM[k]===key) return k}
+  return key;
+}
+
+function showToolsGrid(ts, title){
+  var sp=document.querySelector('.split');
+  if(sp) sp.style.display='none';
+  var wrap=document.getElementById('toolsGridWrap');
+  var grid=document.getElementById('toolsGrid');
+  if(!wrap || !grid) return;
+  var gt=document.getElementById('gridTitle');
+  if(gt) gt.textContent=title+' ('+ts.length+')';
+  var gc=document.getElementById('gridCount');
+  if(gc) gc.textContent='共 '+ts.length+' 个工具';
+  grid.innerHTML='';
+  ts.forEach(function(t){
+    var card=document.createElement('div');
+    card.className='mini-card';
+    card.style.cursor='pointer';
+    card.onclick=function(){location.href='tool-detail.html?id='+t.id};
+    var bannerHtml='';
+    if(t.bannerImage){
+      bannerHtml='<div style="width:100%;height:80px;border-radius:8px;margin-bottom:8px;overflow:hidden;background:#f0eeed"><img src="'+t.bannerImage+'" style="width:100%;height:100%;object-fit:cover" onerror="this.parentElement.style.display=\'none\'"></div>';
+    }
+    var iconImg='<img src="icons/'+t.id+'.png" onerror="this.style.display=\'none\';this.parentElement.innerHTML=\''+t.icon+'\'" style="width:20px;height:20px;object-fit:contain">';
+    card.innerHTML=bannerHtml+
+      '<div style="display:flex;align-items:center;gap:8px">'+
+      '<div class="mini-icon">'+iconImg+'</div>'+
+      '<div class="mini-info"><div class="mini-name">'+t.nameCn+'</div><div class="mini-cat">'+t.catLabel+'</div></div>'+
+      '</div>'+
+      '<div style="margin-top:6px;font-size:11px;color:var(--muted);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">'+
+      escHtml(t.desc).substring(0,60)+(t.desc.length>60?'...':'')+'</div>';
+    grid.appendChild(card);
+  });
+  wrap.style.display='block';
+}
+
 load();
 </script>
-</body>
-</html>
