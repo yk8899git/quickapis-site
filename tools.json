@@ -1,4 +1,4 @@
-{
+﻿{
   "categories": [
     "全部",
     "聊天AI",
@@ -250,6 +250,20 @@
           "source": "搜狐",
           "time": "2026-05-14",
           "summary": "2026年3-4月Anthropic旗下Claude工具使用率上升3.8%,OpenAI下降2.9%;Anthropic年化营收ARR达440亿美元"
+        },
+        {
+          "title": "大模型的下一场竞争：谁能真正替人干活",
+          "url": "https://www.sohu.com/a/1021953759_122036485",
+          "source": "搜狐",
+          "time": "2026-05-13",
+          "summary": "Claude Code占据AI编程工具52%市场份额，Anthropic API调用量过去一年同比增长17倍，Claude Code成为最重要增长引擎"
+        },
+        {
+          "title": "Claude突然放量背后，AI真正的战争已经不是模型了",
+          "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_4716a051ae466552",
+          "source": "企鹅号",
+          "time": "2026-05-14",
+          "summary": "Anthropic突然上调Claude Code使用额度，Max 20x从900条提到1800条，Max 5x从225条提到450条，并取消高峰时段降额，背后是GPU算力的成本革命"
         }
       ],
       "specs": [
@@ -5278,6 +5292,20 @@
           "source": "今日头条",
           "time": "2026-05-13",
           "summary": "可灵AI年化收入ARR达5亿美元,比春节前翻一倍;技术领先但用户留存率待提升"
+        },
+        {
+          "title": "快手可灵，赚钱好快",
+          "url": "https://36kr.com/p/3805984177970688",
+          "source": "36氪",
+          "time": "2026-05-13",
+          "summary": "可灵AI会员分黄金/铂金/钻石三档，月费66/266/666元，从上线到收费不到两个月；企业客户占比超40%，2025年ARR突破3亿美元"
+        },
+        {
+          "title": "快手断臂求生，可灵出去找钱？",
+          "url": "https://36kr.com/p/3806192508674049",
+          "source": "36氪",
+          "time": "2026-05-14",
+          "summary": "快手计划将可灵AI分拆独立融资并计划上市，最快明年冲刺IPO；可新一轮融资目标估值200亿美元，相当于快手市值的2/3"
         }
       ],
       "bannerImage": "https://klingai.com/favicon.ico"
@@ -10573,6 +10601,13 @@
           "source": "CSDN",
           "time": "2026-05-14",
           "summary": "实测推荐Claude Code必装的7个MCP服务器,包括GitHub MCP等,帮助开发者将AI代理从代码提示者推向自主开发者"
+        },
+        {
+          "title": "OpenClaw、Hermes拼命创新，它却在成为AI时代的\"微信\"",
+          "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_4436a04fcc398952",
+          "source": "企鹅号/王煜全",
+          "time": "2026-05-14",
+          "summary": "王煜全分析：Claude Code正成为AI编程工具领域的超级入口级产品，拥有最多用户和最活跃生态，有望成为AI时代的\"微信\""
         }
       ],
       "specs": [
