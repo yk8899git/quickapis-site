@@ -45,10 +45,10 @@
   </script>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="shortcut icon" href="favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com"> media="print" onload="this.media='all'"
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <!-- preconnect removed for CN access -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"> media="print" onload="this.media='all'"
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet"> media="print" onload="this.media='all'"
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
   <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   <style>
     /* =============================================
@@ -611,21 +611,60 @@
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-lg);
-      padding: 16px;
+      padding: 0;
       transition: var(--transition-med);
       position: relative;
       overflow: hidden;
       cursor: pointer;
       display: flex;
       flex-direction: column;
-      gap: 14px;
       box-shadow: var(--shadow-card);
     }
 
+    .tool-card-cover {
+      position: relative;
+      height: 140px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+
+    .tool-card-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+      transition: transform 0.4s ease, opacity 0.4s ease;
+    }
+
+    .tool-card:hover .tool-card-cover img {
+      transform: scale(1.08);
+      opacity: 1;
+    }
+
+    .tool-card-cover-gradient {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: linear-gradient(transparent, var(--bg-card));
+      z-index: 1;
+    }
+
+    .tool-card-body {
+      padding: 14px 16px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
     .tool-card:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(249, 115, 22, 0.25);
       transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(28, 25, 23, 0.1);
-      border-color: rgba(249, 115, 22, 0.3);
+      box-shadow: 0 12px 40px rgba(28, 25, 23, 0.1), 0 0 20px rgba(249, 115, 22, 0.06);
     }
 
     .tool-card::before {
@@ -638,14 +677,11 @@
       background: linear-gradient(90deg, var(--accent-orange), var(--accent-coral));
       opacity: 0;
       transition: var(--transition-fast);
-      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      z-index: 2;
     }
 
-    .tool-card:hover {
-      background: var(--bg-card-hover);
-      border-color: rgba(249, 115, 22, 0.25);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(28, 25, 23, 0.1), 0 0 20px rgba(249, 115, 22, 0.06);
+    .tool-card:hover::before {
+      opacity: 1;
     }
 
     .tool-card:hover::before {
@@ -1972,7 +2008,9 @@
             url: t.url,
             rating: 4.5,
             tags: t.tags,
-            featured: t.featured || false
+            featured: t.featured || false,
+            bannerImage: t.bannerImage || '',
+            reviews: t.reviews || []
           };
         });
         
@@ -2040,33 +2078,39 @@
 
       toolsGrid.innerHTML = filtered.map((tool, index) => `
         <div class="tool-card card-enter" style="animation-delay: ${index * 40}ms;cursor:pointer" data-id="${tool.id}" onclick="location.href='tool-detail.html?id=${tool.id}'">
-          <div class="tool-card-top">
-            <div class="tool-icon"><img class="tool-favicon" src="icons/${tool.id}.png" alt="${tool.name}" onerror="this.onerror=null;this.parentElement.innerHTML='<span style=font-size:28px>${tool.icon || '◈'}</span>'"></div>
-            <span class="tool-tag tool-tag-${tool.category}">${tool.categoryLabel}</span>
-            ${tool.subCategory ? `<span class="tool-tag sub-tag-${tool.subCategory === '消费级' ? 'consumer' : 'industrial'}">${tool.subCategory}</span>` : ''}
+          <div class="tool-card-cover">
+            <img src="${tool.bannerImage || ''}" alt="${tool.name}" onerror="this.style.display='none'">
+            <div class="tool-card-cover-gradient"></div>
           </div>
-          <div class="tool-info">
-            <h3 class="tool-name">${tool.name}</h3>
-            <p class="tool-desc">${tool.description}</p>
-            <div class="tool-domain">
-              <span class="tool-domain-dot"></span>
-              ${tool.domain}
+          <div class="tool-card-body">
+            <div class="tool-card-top">
+              <div class="tool-icon"><img class="tool-favicon" src="icons/${tool.id}.png" alt="${tool.name}" onerror="this.onerror=null;this.parentElement.innerHTML='<span style=font-size:28px>${tool.icon || '◈'}</span>'"></div>
+              <span class="tool-tag tool-tag-${tool.category}">${tool.categoryLabel}</span>
+              ${tool.subCategory ? `<span class="tool-tag sub-tag-${tool.subCategory === '消费级' ? 'consumer' : 'industrial'}">${tool.subCategory}</span>` : ''}
             </div>
-          </div>
-          <div class="tool-card-extra">
-            <p class="extra-label">标签</p>
-            <p>${tool.tags.join(' · ')}</p>
-          </div>
-          ${tool.reviews && tool.reviews.length > 0 ? `<div class="tool-reviews"><p class="extra-label">📡 最新评测</p>` + tool.reviews.slice(0,3).map(r => `<div class="review-item"><a href="${r.url}" target="_blank" class="review-link"><span class="review-title">${r.title}</span><span class="review-meta">${r.source} · ${r.time}</span></a></div>`).join('') + '</div>' : ''}
-          <div class="tool-footer">
-            <div class="tool-rating">
-              <span class="tool-rating-icon">★</span>
-              <span>${tool.rating}</span>
-              <span style="margin-left: 4px; opacity: 0.6;">(${Math.floor(Math.random() * 500 + 50)} 条评价)</span>
+            <div class="tool-info">
+              <h3 class="tool-name">${tool.name}</h3>
+              <p class="tool-desc">${tool.description}</p>
+              <div class="tool-domain">
+                <span class="tool-domain-dot"></span>
+                ${tool.domain}
+              </div>
             </div>
-            <a href="${tool.url}" target="_blank" rel="noopener" class="tool-visit-btn" onclick="event.stopPropagation()">
-              访问 <span>→</span>
-            </a>
+            <div class="tool-card-extra">
+              <p class="extra-label">标签</p>
+              <p>${tool.tags.join(' · ')}</p>
+            </div>
+            ${tool.reviews && tool.reviews.length > 0 ? `<div class="tool-reviews"><p class="extra-label">📡 最新评测</p>` + tool.reviews.slice(0,3).map(r => `<div class="review-item"><a href="${r.url}" target="_blank" class="review-link"><span class="review-title">${r.title}</span><span class="review-meta">${r.source} · ${r.time}</span></a></div>`).join('') + '</div>' : ''}
+            <div class="tool-footer">
+              <div class="tool-rating">
+                <span class="tool-rating-icon">★</span>
+                <span>${tool.rating}</span>
+                <span style="margin-left: 4px; opacity: 0.6;">(${Math.floor(Math.random() * 500 + 50)} 条评价)</span>
+              </div>
+              <a href="${tool.url}" target="_blank" rel="noopener" class="tool-visit-btn" onclick="event.stopPropagation()">
+                访问 <span>→</span>
+              </a>
+            </div>
           </div>
         </div>
       `).join('');
