@@ -366,7 +366,7 @@
         "价格偏高（与GPT-5.5持平）",
         "实时联网能力不如Gemini"
       ],
-      "bannerImage": "https://images.anthropic.com/claude-banner-2026.jpg"
+      "bannerImage": "https://cdn.prod.website-files.com/6889473510b50328dbb70ae6/68c469d23594abeb9ab6ee48_70ed020ecf8fa028b9bc95fa819720b6_og_claude-generic.jpg"
     },
     {
       "id": "gemini",
@@ -933,7 +933,7 @@
         "中文长文本偶现重复生成",
         "工具调用稳定性待提升"
       ],
-      "bannerImage": "https://images.deepseek.com/deepseek-banner-2026.jpg"
+      "bannerImage": "https://cdn.deepseek.com/images/deepseek-chat-open-graph-image.jpeg"
     },
     {
       "id": "doubao",
@@ -1083,7 +1083,8 @@
         "高级功能需付费",
         "知识更新有延迟",
         "创意写作质量一般"
-      ]
+      ],
+      "bannerImage": "https://lf-flow-web-cdn.doubao.com/obj/flow-doubao/doubao-web/favicon.ico"
     },
     {
       "id": "siliconflow",
@@ -1223,7 +1224,8 @@
         "客服响应慢",
         "国际模型需授权",
         "免费模型质量有限"
-      ]
+      ],
+      "bannerImage": "https://cloud.siliconflow.cn/favicon.ico"
     },
     {
       "id": "zhipuai",
@@ -1374,7 +1376,8 @@
         "API稳定性偶有问题",
         "国际知名度不如OpenAI",
         "部分功能文档不够清晰"
-      ]
+      ],
+      "bannerImage": "https://open.bigmodel.cn/favicon.ico"
     },
     {
       "id": "tongyi",
@@ -1527,7 +1530,8 @@
         "界面不如ChatGPT流畅",
         "部分高级功能需阿里云账号",
         "国际知名度较低"
-      ]
+      ],
+      "bannerImage": "https://img.alicdn.com/imgextra/i3/O1CN01k8nC9v1NYbgbBe3VM_!!6000000001582-2-tps-100-100.png"
     },
     {
       "id": "qwen36",
@@ -1630,7 +1634,8 @@
         "高级模型价格不低",
         "API文档偶有更新滞后",
         "部分功能需阿里云账号"
-      ]
+      ],
+      "bannerImage": "https://img.alicdn.com/tfs/TB1Ly5oS3HqK1RjSZFPXXcwapXa-238-54.png"
     },
     {
       "id": "wenxin",
@@ -1781,7 +1786,8 @@
         "英文能力不如国际竞品",
         "界面体验一般",
         "创新功能迭代较慢"
-      ]
+      ],
+      "bannerImage": "https://yiyan.baidu.com/favicon.ico"
     },
     {
       "id": "spark",
@@ -1933,7 +1939,8 @@
         "通用对话能力不如GPT-4",
         "生态开放度有限",
         "国际市场覆盖弱"
-      ]
+      ],
+      "bannerImage": "https://xinghuo.xfyun.cn/favicon.ico"
     },
     {
       "id": "hunyuan",
@@ -2085,7 +2092,8 @@
         "通用能力不如Qwen/GLM第一梯队",
         "API文档不够友好",
         "开源模型较少"
-      ]
+      ],
+      "bannerImage": "https://hunyuan.tencent.com/favicon.ico"
     },
     {
       "id": "minimax",
@@ -2238,7 +2246,8 @@
         "通用文本能力不如Qwen/GLM",
         "国际知名度低",
         "部分API文档不完善"
-      ]
+      ],
+      "bannerImage": "https://filecdn.minimax.chat/public/58eca777-e31f-448a-9823-e2220e49b426.png"
     },
     {
       "id": "midjourney",
@@ -2418,7 +2427,8 @@
         "无官方API",
         "学习曲线较陡",
         "排队等待时间随套餐等级变化"
-      ]
+      ],
+      "bannerImage": "https://www.midjourney.com/favicon.ico"
     },
     {
       "id": "stablediffusion",
@@ -2587,7 +2597,8 @@
         "本地部署需高性能GPU",
         "出图质量依赖prompt技巧",
         "官方云服务价格不低"
-      ]
+      ],
+      "bannerImage": "http://static1.squarespace.com/static/6213c340453c3f502425776e/t/69dc368ec5c83b60b25c6a07/1775660945221/Homepage+Meta+Image.png?format=1500w"
     },
     {
       "id": "dalle",
@@ -2751,7 +2762,8 @@
         "风格偏保守(审核严格)",
         "不能精确控制构图",
         "API按张计费不便宜"
-      ]
+      ],
+      "bannerImage": "https://openai.com/favicon.ico"
     },
     {
       "id": "ideogram",
@@ -2859,7 +2871,8 @@
         "免费额度偏少",
         "社区生态不如SD",
         "偶有文字渲染错误"
-      ]
+      ],
+      "bannerImage": "https://ideogram.ai/favicon.ico"
     },
     {
       "id": "flux",
@@ -3006,7 +3019,8 @@
         "本地部署需高显存",
         "社区生态还在发展中",
         "学习资源不如SD丰富"
-      ]
+      ],
+      "bannerImage": "https://bfl.ai/opengraph-image-j8qpfc.png?47e2121a0eb4d5b0"
     },
     {
       "id": "leonardo",
@@ -3111,7 +3125,8 @@
         "高端模型消耗多倍token",
         "视频功能有限",
         "中文支持一般"
-      ]
+      ],
+      "bannerImage": "https://leonardo.ai/favicon.ico"
     },
     {
       "id": "chuanshou",
@@ -3303,7 +3318,8 @@
         "通用创意不如Midjourney",
         "模型更新速度一般",
         "非电商场景优势不明显"
-      ]
+      ],
+      "bannerImage": "https://img.alicdn.com/imgextra/i1/O1CN01WlNesT1EWvfm8mzKw_!!6000000000360-2-tps-600-315.png"
     },
     {
       "id": "jimeng",
@@ -3400,7 +3416,8 @@
         "高级功能需付费",
         "国际模型对比偏弱",
         "免费积分消耗快"
-      ]
+      ],
+      "bannerImage": "https://lf3-static.bytednsdoc.com/obj/eden-cn/bvfllz_vlkpc_nb/ljhwZthlaukjlkulzlp/dreamina/og-image.webp"
     },
     {
       "id": "liblib",
@@ -3600,7 +3617,8 @@
         "复杂矢量图有时不准",
         "品牌功能需Pro版",
         "国内访问速度一般"
-      ]
+      ],
+      "bannerImage": "https://framerusercontent.com/assets/HvQ4bEfLTmu6moXTB0tfExFJ1l0.png"
     },
     {
       "id": "imagen3",
@@ -3822,7 +3840,8 @@
         "Agent模式尚在发展中",
         "企业版价格较高",
         "代码隐私争议(免费/Pro版)"
-      ]
+      ],
+      "bannerImage": "https://github.githubassets.com/favicons/favicon-dark.svg"
     },
     {
       "id": "cursor",
@@ -3945,7 +3964,8 @@
           "time": "2026-05-13",
           "summary": "Cursor的AI Agent在测试环境执行任务时误删数据库,暴露AI Agent安全隔离机制的重要性"
         }
-      ]
+      ],
+      "bannerImage": "https://cursor.com/public/opengraph-image.png"
     },
     {
       "id": "codeium",
@@ -4055,7 +4075,8 @@
         "Chat能力一般",
         "无Agent模式",
         "企业版价格不低"
-      ]
+      ],
+      "bannerImage": "https://exafunction.github.io/public/images/website_thumbnails/home.jpg"
     },
     {
       "id": "windsurf",
@@ -4164,7 +4185,8 @@
         "社区和插件生态较小",
         "部分功能仍在迭代",
         "性能偶有卡顿"
-      ]
+      ],
+      "bannerImage": "https://codeium.com/favicon.ico"
     },
     {
       "id": "replit",
@@ -4273,7 +4295,8 @@
         "AI能力不如Cursor",
         "网络依赖强(离线不可用)",
         "国内访问速度一般"
-      ]
+      ],
+      "bannerImage": "https://replit.com/public/images/opengraph_rebrand.jpg"
     },
     {
       "id": "cody",
@@ -4381,7 +4404,8 @@
         "AI补全质量不如Cursor",
         "界面不如Cursor现代化",
         "国内访问需翻墙"
-      ]
+      ],
+      "bannerImage": "https://sourcegraph.com/favicon.ico"
     },
     {
       "id": "tabnine",
@@ -4489,7 +4513,8 @@
         "Chat功能较弱",
         "免费版功能有限",
         "无Agent模式"
-      ]
+      ],
+      "bannerImage": "https://tabnine.com/favicon.ico"
     },
     {
       "id": "amazonq",
@@ -4682,7 +4707,8 @@
         "无Agent模式",
         "模型不如GPT-4强",
         "插件生态小"
-      ]
+      ],
+      "bannerImage": "https://supermaven.com/desc-image.png"
     },
     {
       "id": "bolt",
@@ -4779,7 +4805,8 @@
         "复杂后端逻辑支持弱",
         "AI生成代码质量参差不齐",
         "Token消耗较快"
-      ]
+      ],
+      "bannerImage": "https://bolt.new/static/social_preview_index.jpg"
     },
     {
       "id": "sora",
@@ -4885,7 +4912,8 @@
           "time": "2026-05-14",
           "summary": "OpenAI关停Sora,日均运行成本高达1500万美元/年烧钱约54亿美元;Sora关停后可灵全球周活环比增长4%"
         }
-      ]
+      ],
+      "bannerImage": "https://openai.com/favicon.ico"
     },
     {
       "id": "runway",
@@ -5006,7 +5034,8 @@
         "免费credits消耗快",
         "10秒时长限制",
         "复杂场景偶有变形"
-      ]
+      ],
+      "bannerImage": "https://runwayml.com/opengraph-image.png?opengraph-image.0bt75ga2._tb4.png"
     },
     {
       "id": "pika",
@@ -5124,7 +5153,8 @@
         "质量不如Runway Gen-3",
         "免费积分消耗快",
         "无API"
-      ]
+      ],
+      "bannerImage": "https://pika.art/favicon.ico"
     },
     {
       "id": "kling",
@@ -5249,7 +5279,8 @@
           "time": "2026-05-13",
           "summary": "可灵AI年化收入ARR达5亿美元,比春节前翻一倍;技术领先但用户留存率待提升"
         }
-      ]
+      ],
+      "bannerImage": "https://klingai.com/favicon.ico"
     },
     {
       "id": "veo",
@@ -5431,7 +5462,8 @@
         "视频时长较短",
         "免费积分有限",
         "功能迭代中"
-      ]
+      ],
+      "bannerImage": "https://cdn.pixverse.ai/media/pixverse/favicon.png"
     },
     {
       "id": "haikei",
@@ -5620,7 +5652,8 @@
         "视频时长较短",
         "运动复杂度有限",
         "免费额度少"
-      ]
+      ],
+      "bannerImage": "https://lumalabs.ai/favicon.ico"
     },
     {
       "id": "vidu",
@@ -5838,7 +5871,8 @@
         "克隆声音需付费版",
         "长音频消耗字符快",
         "价格按字符计费不便宜"
-      ]
+      ],
+      "bannerImage": "https://elevenlabs.io/favicon.ico"
     },
     {
       "id": "suno",
@@ -5946,7 +5980,8 @@
         "对复杂编曲结构控制力有限",
         "版权归属仍有争议",
         "偶有旋律雷同问题"
-      ]
+      ],
+      "bannerImage": "https://suno.ai/favicon.ico"
     },
     {
       "id": "udio",
@@ -6047,7 +6082,8 @@
         "与Suno比功能略少",
         "复杂编曲控制力有限",
         "版权问题待明确"
-      ]
+      ],
+      "bannerImage": "https://imagedelivery.net/C9yUr1FL21Q6JwfYYh2ozQ/1647e9a2-47d6-4d95-5ae0-02bae7a44000/public"
     },
     {
       "id": "stableaudio",
@@ -6140,7 +6176,8 @@
         "3分钟时长限制",
         "风格多样性有限",
         "社区不如Suno活跃"
-      ]
+      ],
+      "bannerImage": "https://stability.ai/favicon.ico"
     },
     {
       "id": "aiva",
@@ -6355,7 +6392,8 @@
         "免费试用仅10分钟",
         "自然度不如ElevenLabs",
         "中文声音较少"
-      ]
+      ],
+      "bannerImage": "https://cdn.prod.website-files.com/66b3765153a8a0c399c70981/670584e2dab709883eed3793_Home.webp"
     },
     {
       "id": "resembleai",
@@ -6773,7 +6811,8 @@
         "导出质量偶有压缩",
         "专业剪辑不如Premiere",
         "国际版CapCut功能差异"
-      ]
+      ],
+      "bannerImage": "https://www.capcut.cn/favicon.ico"
     },
     {
       "id": "perplexity",
@@ -6885,7 +6924,8 @@
         "中文搜索质量不如英文",
         "偶尔引用来源不准确",
         "深度研究耗时较长"
-      ]
+      ],
+      "bannerImage": "https://www.perplexity.ai/favicon.ico"
     },
     {
       "id": "consensus",
@@ -6978,7 +7018,8 @@
         "免费版AI总结有限",
         "论文覆盖以英文为主",
         "深度分析需Premium"
-      ]
+      ],
+      "bannerImage": "https://consensus.app/favicon.ico"
     },
     {
       "id": "metaso",
@@ -7071,7 +7112,8 @@
         "深度研究偶有不准",
         "免费版限制逐渐增多",
         "社区生态较小"
-      ]
+      ],
+      "bannerImage": "https://metaso.cn/favicon.ico"
     },
     {
       "id": "tiangong",
@@ -7161,7 +7203,8 @@
         "AI对话不如ChatGPT/Claude",
         "功能多但都不精",
         "国际信息覆盖弱"
-      ]
+      ],
+      "bannerImage": "https://static.tiangong.cn/fe/skywork-site-assets/images/share/logo-skywork-china.png"
     },
     {
       "id": "phind",
@@ -7553,7 +7596,8 @@
         "复杂排版需求仍需手动微调",
         "AI生成内容需人工审核校准",
         "企业级功能需付费"
-      ]
+      ],
+      "bannerImage": "https://gamma.app/favicon.ico"
     },
     {
       "id": "canva",
@@ -7662,7 +7706,8 @@
         "AI生成质量一般",
         "免费版模板有限",
         "Pro版价格不低"
-      ]
+      ],
+      "bannerImage": "https://static.canva.com/static/images/favicon-1.ico"
     },
     {
       "id": "beautifulai",
@@ -7771,7 +7816,8 @@
         "AI创意性不如Gamma",
         "免费版水印",
         "协作功能不如Google Slides"
-      ]
+      ],
+      "bannerImage": "https://cdn.prod.website-files.com/59deb588800ae30001ec19c9/679345319c7f2f3d2301228b_Open%20Graph_final.jpg"
     },
     {
       "id": "tome",
@@ -7964,7 +8010,8 @@
         "模板数量有限",
         "免费版水印",
         "偶有排版不准"
-      ]
+      ],
+      "bannerImage": "https://chatppt.cn/favicon.png"
     },
     {
       "id": "meshy",
@@ -8071,7 +8118,8 @@
         "免费额度有限",
         "动画质量有限",
         "与专业3D软件比精细度不足"
-      ]
+      ],
+      "bannerImage": "https://cdn.meshy.ai/landing-assets/og-images/website_og.webp"
     },
     {
       "id": "tripo",
@@ -8180,7 +8228,8 @@
         "动画质量一般",
         "免费次数少",
         "高端需求不如专业3D软件"
-      ]
+      ],
+      "bannerImage": "https://www.tripo3d.ai/favicon.ico"
     },
     {
       "id": "rodin",
@@ -8276,7 +8325,8 @@
         "通用物体生成不如Meshy",
         "免费次数有限",
         "动画功能有限"
-      ]
+      ],
+      "bannerImage": "https://hyper3d.ai/assets/og-banner.png"
     },
     {
       "id": "luma3d",
@@ -8364,7 +8414,8 @@
         "处理时间较长",
         "精细模型需手动优化",
         "格式支持有限"
-      ]
+      ],
+      "bannerImage": "https://lumalabs.ai/favicon.ico"
     },
     {
       "id": "hi3d",
@@ -8647,7 +8698,8 @@
         "AI回答质量依赖上下文，长文档效果有限",
         "不支持图像生成",
         "离线功能受限"
-      ]
+      ],
+      "bannerImage": "https://www.notion.com/front-static/meta/custom-agents-og.png"
     },
     {
       "id": "feishu",
@@ -8765,7 +8817,8 @@
         "海外用户访问速度一般",
         "与钉钉/企业微信生态不互通",
         "部分高级AI功能需企业版"
-      ]
+      ],
+      "bannerImage": "https://p1-hera.feishucdn.com/tos-cn-i-jbbdkfciu3/84a9f036fe2b44f99b899fff4beeb963~tplv-jbbdkfciu3-image:100:100.image"
     },
     {
       "id": "dingtalk",
@@ -8882,7 +8935,8 @@
         "界面功能多但略显臃肿",
         "部分AI功能需专业版以上",
         "海外用户支持较弱"
-      ]
+      ],
+      "bannerImage": "https://img.alicdn.com/imgextra/i3/O1CN017PqYP51OX3bSJGxQY_!!6000000001714-2-tps-200-200.png"
     },
     {
       "id": "quillbot",
@@ -9086,7 +9140,8 @@
         "免费试用仅7天",
         "非营销场景不如ChatGPT",
         "中文质量不如英文"
-      ]
+      ],
+      "bannerImage": "https://www.jasper.ai/favicon.ico"
     },
     {
       "id": "copyai",
@@ -9194,7 +9249,8 @@
         "中文质量不如英文",
         "创意性不如Jasper",
         "免费额度较少"
-      ]
+      ],
+      "bannerImage": "https://www.copy.ai/favicon.ico"
     },
     {
       "id": "writesonic",
@@ -9299,7 +9355,8 @@
         "AI图片不如专用工具",
         "SEO功能不如Surfer SEO",
         "免费词数消耗快"
-      ]
+      ],
+      "bannerImage": "https://writesonic.com/favicon.ico"
     },
     {
       "id": "xiezuocat",
@@ -9392,7 +9449,8 @@
         "免费版AI写作次数有限",
         "高级模板需付费",
         "创意写作辅助一般"
-      ]
+      ],
+      "bannerImage": "https://xiezuocat.com/favicon.ico"
     },
     {
       "id": "sudowrite",
@@ -9496,7 +9554,8 @@
         "价格按词数计费",
         "中文小说支持弱",
         "AI续写偶有跑偏"
-      ]
+      ],
+      "bannerImage": "https://framerusercontent.com/assets/1k2TYC2YpFUOb9cH9JmDo6QyUp8.png"
     },
     {
       "id": "rytr",
@@ -9706,7 +9765,8 @@
         "免费500词/次太少",
         "中文支持弱",
         "学习曲线较陡"
-      ]
+      ],
+      "bannerImage": "https://assets.prowritingaid.com/f/145420/1200x627/cdd4c29a9e/open-graph-prowritingaid.png"
     },
     {
       "id": "tingwu",
@@ -9811,7 +9871,8 @@
         "仅支持Web端，无原生桌面客户端",
         "专业版功能提升有限",
         "API调用需企业版"
-      ]
+      ],
+      "bannerImage": "https://img.alicdn.com/imgextra/i3/O1CN01eAuHNG205zmNf0mh4_!!6000000006799-2-tps-600-600.png"
     },
     {
       "id": "otter",
@@ -9928,7 +9989,8 @@
         "免费版限制严格（300分钟/月）",
         "价格相对较高",
         "国内访问速度一般"
-      ]
+      ],
+      "bannerImage": "https://cdn.prod.website-files.com/618e9316785b3582a5178502/67dd5a945aeed07e329d4e10_og-image-otter-optim.jpg"
     },
     {
       "id": "firefly",
@@ -10036,7 +10098,8 @@
         "质量不如Midjourney/SD",
         "免费额度极少",
         "需订阅Adobe全家桶"
-      ]
+      ],
+      "bannerImage": "https://firefly.adobe.com/favicon.ico"
     },
     {
       "id": "bingimage",
@@ -10230,7 +10293,8 @@
         "免费次数有限",
         "复杂场景偶尔出错",
         "社区生态较小"
-      ]
+      ],
+      "bannerImage": "https://www.krea.ai/favicon.ico"
     },
     {
       "id": "playground",
@@ -10423,7 +10487,8 @@
         "插件生态不如VS Code",
         "AI功能不如Cursor成熟",
         "社区规模较小"
-      ]
+      ],
+      "bannerImage": "https://zed.dev/img/home/og.webp"
     },
     {
       "id": "claudecode",
@@ -10580,7 +10645,8 @@
         "API费用较高",
         "需Anthropic API Key",
         "不支持Windows原生"
-      ]
+      ],
+      "bannerImage": "https://cdn.prod.website-files.com/6889473510b50328dbb70ae6/68c469d23594abeb9ab6ee48_70ed020ecf8fa028b9bc95fa819720b6_og_claude-generic.jpg"
     },
     {
       "id": "openai_codex",
@@ -10677,7 +10743,8 @@
         "Pro价格高($200/月)",
         "执行速度偶有延迟",
         "复杂项目理解有限"
-      ]
+      ],
+      "bannerImage": "https://openai.com/favicon.ico"
     },
     {
       "id": "groq",
@@ -10781,7 +10848,8 @@
         "免费版速率限制严",
         "不支持图像生成",
         "模型种类有限"
-      ]
+      ],
+      "bannerImage": "https://cdn.sanity.io/images/chol0sk5/production/ce0b2266373b3c9722b0bccb9a98441c26c89696-1200x630.png"
     },
     {
       "id": "fireworks",
@@ -10867,7 +10935,8 @@
         "国内访问需翻墙",
         "部分模型偶有不稳定",
         "无闭源大模型"
-      ]
+      ],
+      "bannerImage": "https://cdn.sanity.io/images/pv37i0yn/production/c33db052f8afd1af58bc0342cf8ce06cbeb84467-600x314.png"
     },
     {
       "id": "together",
@@ -10953,7 +11022,8 @@
         "国内访问速度一般",
         "高级功能需付费",
         "偶有排队"
-      ]
+      ],
+      "bannerImage": "https://together.ai/favicon.ico"
     },
     {
       "id": "cerebras",
@@ -11048,7 +11118,8 @@
         "模型种类很少",
         "免费版速率限制",
         "不适用于复杂推理任务"
-      ]
+      ],
+      "bannerImage": "https://cdn.sanity.io/images/e4qjo92p/production/21fa43f6d541115e57887beb1155bddc7541ae71-2400x1260.jpg?w=1200&amp;h=630&amp;fit=max&amp;auto=format"
     },
     {
       "id": "titanlabs",
@@ -11120,7 +11191,8 @@
         "模型种类有限",
         "文档不够完善",
         "社区活跃度低"
-      ]
+      ],
+      "bannerImage": "http://static1.squarespace.com/static/64655bbabfb82c4d7e635a2a/t/693a51901da9ea648dfd6b1c/1765429648252/signature-02.png?format=1500w"
     },
     {
       "id": "khanacademyai",
@@ -11325,7 +11397,8 @@
         "AI功能仅Max版",
         "中文教学课程有限",
         "口语练习不如真人"
-      ]
+      ],
+      "bannerImage": "https://www.duolingo.com/images/facebook/duo-08523a2.jpg"
     },
     {
       "id": "quizletai",
@@ -11419,7 +11492,8 @@
         "AI功能需Plus",
         "部分学科闪卡质量参差",
         "中文内容较少"
-      ]
+      ],
+      "bannerImage": "https://quizlet.com/favicon.ico"
     },
     {
       "id": "coursehero",
@@ -11512,7 +11586,8 @@
         "部分解答质量参差",
         "上传内容版权争议",
         "中文课程覆盖弱"
-      ]
+      ],
+      "bannerImage": "https://www.coursehero.com/favicon.ico"
     },
     {
       "id": "heygen",
@@ -11632,7 +11707,8 @@
         "按分钟计费不便宜",
         "免费试用仅1分钟",
         "数字人偶有微表情不自然"
-      ]
+      ],
+      "bannerImage": "https://www.heygen.com/favicon.ico"
     },
     {
       "id": "d_id",
@@ -11750,7 +11826,8 @@
         "口型同步偶有不精确",
         "免费试用短(14天)",
         "数字人表情有限"
-      ]
+      ],
+      "bannerImage": "https://www.d-id.com/wp-content/uploads/2024/01/website-preview-image-3.png"
     },
     {
       "id": "synthesia",
@@ -11860,7 +11937,8 @@
         "偏企业培训(创意性弱)",
         "免费试用极短",
         "个人创作者不适用"
-      ]
+      ],
+      "bannerImage": "https://www.synthesia.io/favicon.ico"
     },
     {
       "id": "descript",
@@ -11965,7 +12043,8 @@
         "免费版水印",
         "大型项目可能卡顿",
         "Overdub克隆需付费"
-      ]
+      ],
+      "bannerImage": "https://descript.com/favicon.ico"
     },
     {
       "id": "opencat",
@@ -12160,7 +12239,8 @@
         "高级模型积分消耗大",
         "Bot质量参差不齐",
         "延迟比直接API高"
-      ]
+      ],
+      "bannerImage": "https://poe.com/favicon.ico"
     },
     {
       "id": "characterai",
@@ -12258,7 +12338,8 @@
         "知识准确性不如GPT-4",
         "不适合严肃信息查询",
         "有内容审核限制"
-      ]
+      ],
+      "bannerImage": "https://character.ai/favicon.ico"
     },
     {
       "id": "coze",
@@ -12354,7 +12435,8 @@
         "免费版调用有限制",
         "国内版/国际版功能差异",
         "偶有工作流不稳定"
-      ]
+      ],
+      "bannerImage": "https://www.coze.cn/favicon.ico"
     },
     {
       "id": "dify",
@@ -12452,7 +12534,8 @@
         "Cloud版价格不低",
         "复杂工作流调试较难",
         "文档更新偶有滞后"
-      ]
+      ],
+      "bannerImage": "https://framerusercontent.com/assets/wuOqS9XwiT7WjyMd0HAinp7aWo.png"
     },
     {
       "id": "langchain",
@@ -12549,7 +12632,8 @@
         "学习曲线陡",
         "版本迭代快(偶有Breaking Change)",
         "简单任务可能过度设计"
-      ]
+      ],
+      "bannerImage": "https://www.langchain.com/favicon.ico"
     },
     {
       "id": "flowise",
@@ -12646,7 +12730,8 @@
         "性能不如原生LangChain",
         "社区规模不如LangChain",
         "高级自定义需写代码"
-      ]
+      ],
+      "bannerImage": "https://remarkable-smakager-ddb2b7.netlify.app/opengraph-image.png?9ccfc0cd89ea0cda"
     },
     {
       "id": "gptengineer",
@@ -12742,7 +12827,8 @@
         "复杂业务逻辑支持弱",
         "依赖GPT-4 API(有成本)",
         "文档不够完善"
-      ]
+      ],
+      "bannerImage": "https://lovable.dev/img/opengraph-image.png"
     },
     {
       "id": "v0",
@@ -12839,7 +12925,8 @@
         "技术栈固定(React/Tailwind)",
         "免费次数有限",
         "复杂交互生成有限"
-      ]
+      ],
+      "bannerImage": "https://v0.app/chat/api/og"
     },
     {
       "id": "replicate",
@@ -12925,7 +13012,8 @@
         "国内访问需翻墙",
         "大模型推理速度一般",
         "偶有排队"
-      ]
+      ],
+      "bannerImage": "https://replicate.com/favicon.ico"
     },
     {
       "id": "huggingface",
@@ -13033,7 +13121,8 @@
         "热门模型排队严重",
         "企业级功能需付费",
         "文档搜索偶有困难"
-      ]
+      ],
+      "bannerImage": "https://huggingface.co/favicon.ico"
     },
     {
       "id": "openrouter",
@@ -13145,7 +13234,8 @@
         "免费模型质量有限",
         "速率限制较严",
         "国内访问需翻墙"
-      ]
+      ],
+      "bannerImage": "https://openrouter.ai/dynamic-og?pathname=default&amp;title=OpenRouter&amp;description=The+unified+interface+for+LLMs.+Find+the+best+models+%26+prices+for+your+prompts"
     },
     {
       "id": "midjourney_chinese",
@@ -13300,7 +13390,8 @@
         "模型多样性有限",
         "免费额度偏少",
         "功能迭代较慢"
-      ]
+      ],
+      "bannerImage": "https://yuanqi.tencent.com/favicon.ico"
     },
     {
       "id": "cogview",
@@ -13500,7 +13591,8 @@
         "按张计费成本高",
         "复杂毛发/透明物体偶有瑕疵",
         "视频去背景需高级版"
-      ]
+      ],
+      "bannerImage": "https://sb.kaleidousercontent.com/67418/600x315/48eb30a742/emilia-og-image.jpg"
     },
     {
       "id": "upscale",
@@ -13587,7 +13679,8 @@
         "处理速度依赖硬件",
         "偶有伪影",
         "界面较简单"
-      ]
+      ],
+      "bannerImage": "https://upscayl.org/og-image.webp"
     },
     {
       "id": "clipdrop",
@@ -13681,7 +13774,8 @@
         "高级功能需Pro",
         "部分工具不如专业软件",
         "移动端体验一般"
-      ]
+      ],
+      "bannerImage": "https://clipdrop.co/favicon.ico"
     },
     {
       "id": "palette",
@@ -13778,7 +13872,8 @@
         "复杂场景颜色偶有不准",
         "免费版有水印",
         "不能精确控制局部颜色"
-      ]
+      ],
+      "bannerImage": "https://palette.fm/preview.png"
     },
     {
       "id": "photoroom",
@@ -13888,7 +13983,8 @@
         "免费版水印明显",
         "高级模板需Pro",
         "人像修图功能弱"
-      ]
+      ],
+      "bannerImage": "https://www.photoroom.com/favicon.ico"
     },
     {
       "id": "lookscanned",
@@ -14145,7 +14241,8 @@
         "批量处理需Premium",
         "OCR精度一般",
         "桌面端偶有卡顿"
-      ]
+      ],
+      "bannerImage": "https://www.ilovepdf.com/img/ilovepdf/social/en-US/ilovepdf.png"
     },
     {
       "id": "tldraw",
@@ -14227,7 +14324,8 @@
         "协作功能基础",
         "无模板系统",
         "导出格式有限"
-      ]
+      ],
+      "bannerImage": "https://www.tldraw.com/social-og.png"
     },
     {
       "id": "excalidraw",
@@ -14321,7 +14419,8 @@
         "手绘风格可能不适合正式场景",
         "高级功能需Excalidraw+",
         "无模板系统"
-      ]
+      ],
+      "bannerImage": "https://excalidraw.com/og-image-3.png"
     },
     {
       "id": "whimsical",
@@ -14426,7 +14525,8 @@
         "无离线模式",
         "API不支持",
         "大型图表性能一般"
-      ]
+      ],
+      "bannerImage": "https://whimsical.com/_next_public/cards/default.png"
     },
     {
       "id": "eraser",
@@ -14644,7 +14744,8 @@
         "Pro版$15/月不便宜",
         "重度使用需高配置",
         "AI创意性不如专用工具"
-      ]
+      ],
+      "bannerImage": "https://static.figma.com/app/icon/1/favicon.png"
     },
     {
       "id": "uizard",
@@ -14854,7 +14955,8 @@
         "中文完全不支持",
         "Premium $12/月不便宜",
         "偶有误报"
-      ]
+      ],
+      "bannerImage": "https://static.grammarly.com/assets/files/efe57d016d9efff36da7884c193b646b/favicon-32x32.png"
     },
     {
       "id": "wordtune",
@@ -14953,7 +15055,8 @@
         "免费次数有限",
         "全文改写需Unlimited($24.99)",
         "中文不支持"
-      ]
+      ],
+      "bannerImage": "https://www.wordtune.com/favicon.ico"
     },
     {
       "id": "hemingway",
@@ -15045,7 +15148,8 @@
         "无语法检查",
         "AI功能需桌面版",
         "界面较简单"
-      ]
+      ],
+      "bannerImage": "https://hemingwayapp.com/favicon.ico"
     },
     {
       "id": "novelai",
@@ -15164,7 +15268,8 @@
         "动漫风格为主(非通用)",
         "免费版图片极少",
         "中文小说支持弱"
-      ]
+      ],
+      "bannerImage": "https://novelai.net/favicon.ico"
     },
     {
       "id": "deepl",
@@ -15269,7 +15374,8 @@
         "Pro $9.49/月起",
         "中文→英不如英→中",
         "小语种支持不如Google多"
-      ]
+      ],
+      "bannerImage": "https://www.deepl.com/favicon.ico"
     },
     {
       "id": "immersive",
@@ -15463,7 +15569,8 @@
         "复杂表格/图表理解弱",
         "OCR需Premium",
         "大文件处理慢"
-      ]
+      ],
+      "bannerImage": "https://www.chatpdf.com/favicon.ico"
     },
     {
       "id": "humata",
@@ -15563,7 +15670,8 @@
         "Pro $14.99/月",
         "不支持手写/扫描件",
         "大文件处理慢"
-      ]
+      ],
+      "bannerImage": "https://www.humata.ai/images/og-logo.png"
     },
     {
       "id": "krisp",
@@ -15671,7 +15779,8 @@
         "转录准确率不如专用工具",
         "仅桌面端",
         "高级功能需Pro"
-      ]
+      ],
+      "bannerImage": "https://krisp.ai/wp-content/uploads/2025/08/thumb1.jpg"
     },
     {
       "id": "mubert",
@@ -15780,7 +15889,8 @@
         "古典/交响风格弱",
         "免费版非商用",
         "自定义程度有限"
-      ]
+      ],
+      "bannerImage": "https://mubert.com/thumbnail.png"
     },
     {
       "id": "soundraw",
@@ -15879,7 +15989,8 @@
         "音乐创意性有限",
         "风格偏现代/电子",
         "Pro版价格较高"
-      ]
+      ],
+      "bannerImage": "https://cdn.soundraw.io/soundraw_ogp_EN.png"
     },
     {
       "id": "boomy",
@@ -16083,7 +16194,8 @@
         "自然度不如ElevenLabs",
         "中文支持一般",
         "免费版功能有限"
-      ]
+      ],
+      "bannerImage": "https://website.cdn.speechify.com/speechify-og-image.jpg?quality=95"
     },
     {
       "id": "descript_podcast",
@@ -16266,7 +16378,8 @@
         "复杂3D不如Blender",
         "渲染质量一般",
         "大场景性能受限"
-      ]
+      ],
+      "bannerImage": "https://spline.design/_next/static/media/spline_image_banner.77c2eb63.png"
     },
     {
       "id": "blockadelabs",
@@ -16370,7 +16483,8 @@
         "免费仅6次",
         "非通用3D工具",
         "复杂场景可能变形"
-      ]
+      ],
+      "bannerImage": "https://skybox.blockadelabs.com/favicon.ico"
     },
     {
       "id": "kaedim",
@@ -16452,7 +16566,8 @@
         "价格需定制",
         "非消费级",
         "通用3D不如Meshy"
-      ]
+      ],
+      "bannerImage": "https://kaedim3d.com/opengraph-image.png?1d7674bc16ebb20a"
     },
     {
       "id": "point_e",
@@ -16616,7 +16731,8 @@
         "界面不如Consensus现代化",
         "无写作辅助",
         "中文论文覆盖弱"
-      ]
+      ],
+      "bannerImage": "https://www.semanticscholar.org/img/semantic_scholar_og.png"
     },
     {
       "id": "connected_papers",
@@ -16709,7 +16825,8 @@
         "仅关系图谱(无AI对话)",
         "数据依赖Semantic Scholar",
         "中文论文覆盖弱"
-      ]
+      ],
+      "bannerImage": "https://www.connectedpapers.com/share-preview-img.png"
     },
     {
       "id": "research_rabbit",
@@ -16969,7 +17086,8 @@
         "$20/月不便宜",
         "仅学术场景",
         "中文引用格式支持弱"
-      ]
+      ],
+      "bannerImage": "https://framerusercontent.com/images/z4JrDRfRywzEnZ5jahSZEkA9dI.png"
     },
     {
       "id": "webpilot",
@@ -17046,7 +17164,8 @@
         "长网页偶有截断",
         "复杂网页理解有限",
         "无API(自部署需技术)"
-      ]
+      ],
+      "bannerImage": "https://www.webpilot.ai/Frame.svg"
     },
     {
       "id": "monica",
@@ -17151,7 +17270,8 @@
         "Pro $9.9/月",
         "功能多但单项不如专用工具",
         "偶有Chrome性能影响"
-      ]
+      ],
+      "bannerImage": "https://monica.im/favicon.ico"
     },
     {
       "id": "merlin",
@@ -17244,7 +17364,8 @@
         "Pro $19/月较贵",
         "单功能不如专用工具",
         "偶有浏览器卡顿"
-      ]
+      ],
+      "bannerImage": "https://www.getmerlin.in/favicon.ico"
     },
     {
       "id": "harpa",
@@ -17349,7 +17470,8 @@
         "免费版功能有限",
         "自动化偶有失败",
         "与Zapier比集成少"
-      ]
+      ],
+      "bannerImage": "https://harpa.ai/img/og-branding.jpg"
     },
     {
       "id": "namelix",
@@ -17537,7 +17659,8 @@
         "修改需要重新购买",
         "AI创意性有限",
         "不适合复杂品牌需求"
-      ]
+      ],
+      "bannerImage": "https://looka.com/favicon.ico"
     },
     {
       "id": "designs_ai",
@@ -17795,7 +17918,8 @@
         "功能单一(仅配色)",
         "无协作功能",
         "偶有推荐不准"
-      ]
+      ],
+      "bannerImage": "../assets/images/social.png"
     },
     {
       "id": "tabler",
@@ -17864,7 +17988,8 @@
         "自定义需前端能力",
         "非纯AI工具",
         "组件多样性有限"
-      ]
+      ],
+      "bannerImage": "https://tabler.io/icons/opengraph-image-1v9qf3.png?opengraph-image.03x9ubf_06axu.png"
     },
     {
       "id": "carbon",
@@ -17938,7 +18063,8 @@
         "无批量处理",
         "偶有渲染差异",
         "不支持交互式代码"
-      ]
+      ],
+      "bannerImage": "/static/brand/banner.png"
     },
     {
       "id": "raycast",
@@ -18048,7 +18174,8 @@
         "AI需Pro($8/月)",
         "扩展质量参差不齐",
         "学习曲线略陡"
-      ]
+      ],
+      "bannerImage": "https://www.raycast.com/opengraph-image-pwu6ef.png?7385e23163a01717"
     },
     {
       "id": "mem_ai",
@@ -18137,7 +18264,8 @@
         "Mem X $14.99/月贵",
         "仅Web/iOS",
         "导出功能弱"
-      ]
+      ],
+      "bannerImage": "https://storage.googleapis.com/mem-public-assets/sq-f.jpg"
     },
     {
       "id": "reflect",
@@ -18228,7 +18356,8 @@
         "$10/月起",
         "社区不如Notion大",
         "模板不如Notion丰富"
-      ]
+      ],
+      "bannerImage": "https://site.reflect.app/home/build/q-11289093.jpeg"
     },
     {
       "id": "taskade",
@@ -18329,7 +18458,8 @@
         "高级AI功能需付费",
         "专业项目管理不如Asana",
         "大型项目性能一般"
-      ]
+      ],
+      "bannerImage": "https://www.taskade.com/static_images/taskade-genesis-mascot-2026.png"
     },
     {
       "id": "reclaim",
@@ -18434,7 +18564,8 @@
         "免费版1个日历",
         "Pro版$8/月",
         "偶有调度冲突"
-      ]
+      ],
+      "bannerImage": "https://cdn.prod.website-files.com/5ec848ec2b50b6cfae06f6cc/65e2563b7c0658aed71828ac_open_graph_final.png"
     },
     {
       "id": "motion",
@@ -18529,7 +18660,8 @@
         "Individual $19/月较贵",
         "学习曲线陡",
         "偶有排程不合预期"
-      ]
+      ],
+      "bannerImage": "https://www-cdn.usemotion.com/default-og-image-1764610536.png"
     },
     {
       "id": "tika",
@@ -18696,7 +18828,8 @@
         "实时辅助道德争议",
         "AI反馈偶有不准",
         "仅英文优化"
-      ]
+      ],
+      "bannerImage": "https://d12araoe7z5xxk.cloudfront.net/og-images/home-page.jpg"
     },
     {
       "id": "kickresume",
@@ -18789,7 +18922,8 @@
         "AI内容需审核修改",
         "模板同质化",
         "中文模板少"
-      ]
+      ],
+      "bannerImage": "https://www.kickresume.com/favicon.ico"
     },
     {
       "id": "teal",
@@ -18878,7 +19012,8 @@
         "AI优化需仔细审核",
         "中文岗位匹配弱",
         "模板不如专业简历网站"
-      ]
+      ],
+      "bannerImage": "https://www.tealhq.com/favicon.ico"
     },
     {
       "id": "chatgpt_mobile",
@@ -18928,7 +19063,8 @@
       "cons": [
         "需翻墙使用",
         "App体积较大"
-      ]
+      ],
+      "bannerImage": "https://openai.com/favicon.ico"
     },
     {
       "id": "poe_mobile",
@@ -19136,7 +19272,8 @@
         "通用能力不如Qwen/GLM",
         "对外开放有限",
         "需移动云账号"
-      ]
+      ],
+      "bannerImage": "https://img.alicdn.com/imgextra/i4/O1CN01wB5AQ11QnfNGVnmnj_!!6000000002021-0-tps-300-300.jpg"
     },
     {
       "url": "https://platform.openai.com/",
@@ -19223,7 +19360,8 @@
         "声音仅6种",
         "中文TTS不如ElevenLabs",
         "Whisper长音频需分段"
-      ]
+      ],
+      "bannerImage": "https://openai.com/favicon.ico"
     },
     {
       "url": "https://www.taobao.com/",
@@ -19494,7 +19632,8 @@
         "基站体积较大占空间",
         "部分噪音偏大",
         "APP功能多但界面略复杂"
-      ]
+      ],
+      "bannerImage": "https://www.ecovacs.com/favicon.ico"
     },
     {
       "id": "roborock-s7",
@@ -19607,7 +19746,8 @@
         "基站耗材成本不低",
         "拖布清洗偶有残留",
         "部分用户反馈边刷磨损快"
-      ]
+      ],
+      "bannerImage": "https://www.roborock.com/favicon.ico"
     },
     {
       "id": "narwal-t10",
@@ -19720,7 +19860,8 @@
         "APP功能相对简单",
         "避障精度一般",
         "地图编辑功能有限"
-      ]
+      ],
+      "bannerImage": "https://image-www.narwal.com/image/share/narwal.jpg"
     },
     {
       "id": "xiaodu-speaker",
@@ -20172,7 +20313,8 @@
         "续航34分钟实际约25分钟",
         "配件价格较高",
         "避障在弱光下效果下降"
-      ]
+      ],
+      "bannerImage": "https://www-cdn.djiits.com/dps/de46652dd99c67d4f8d17607e3bf0dce.jpg"
     },
     {
       "id": "dji-robomaster",
@@ -20270,7 +20412,8 @@
         "需要一定编程基础",
         "室内使用为主",
         "维护成本不低"
-      ]
+      ],
+      "bannerImage": "https://www.dji.com/favicon.ico"
     },
     {
       "id": "ezviz-camera",
@@ -20379,7 +20522,8 @@
         "部分功能需会员",
         "偶有App卡顿",
         "隐私争议"
-      ]
+      ],
+      "bannerImage": "https://www.ezvizlife.com/favicon.ico"
     },
     {
       "id": "ubtech-alpha",
@@ -20477,7 +20621,8 @@
         "续航仅2小时",
         "复杂场景能力有限",
         "维护成本不低"
-      ]
+      ],
+      "bannerImage": "https://www.ubtech.com/favicon.ico"
     },
     {
       "id": "unitree-go2",
@@ -20586,7 +20731,8 @@
         "续航2-4小时有限",
         "噪音较大",
         "户外复杂地形有限"
-      ]
+      ],
+      "bannerImage": "https://www.unitree.com/images/c43089cbfb2a454cb2fac2f747f8aff1_256x170.jpg"
     },
     {
       "id": "iFLYREC-recorder",
@@ -20695,7 +20841,8 @@
         "云端需订阅",
         "部分功能需联网",
         "高级型号价格贵"
-      ]
+      ],
+      "bannerImage": "https://www.iflyrec.com/favicon.ico"
     },
     {
       "id": "iFLYTEK-translator",
@@ -20793,7 +20940,8 @@
         "离线语言有限(16种)",
         "需充电携带",
         "手机App可替代部分功能"
-      ]
+      ],
+      "bannerImage": "https://www.iflytek.com/favicon.ico"
     },
     {
       "id": "ring-doorbell",
@@ -20902,7 +21050,8 @@
         "国内使用需Amazon账号",
         "隐私争议(Amazon)",
         "偶有延迟"
-      ]
+      ],
+      "bannerImage": "//images.ctfassets.net/a3peezndovsu/3TUoWGMiGW9pClSDbHmQJy/a1386246cc52a86e413ab00237a38999/ring_whole_home_protection_mobile_375x240_2x.jpg"
     },
     {
       "id": "xiaovv-camera",
@@ -21000,7 +21149,8 @@
         "云存储需订阅",
         "偶有连接不稳定",
         "画质不如萤石高端款"
-      ]
+      ],
+      "bannerImage": "https://www.xiaovv.com/favicon.ico"
     },
     {
       "id": "pudu-bot",
@@ -21098,7 +21248,8 @@
         "需场地适配",
         "维护需专业人员",
         "狭小空间受限"
-      ]
+      ],
+      "bannerImage": "https://storage.googleapis.com/unstoppable-client-assets/images/unstoppable-logos/unstoppable-logo-1200x630.png"
     },
     {
       "id": "keenon-robot",
@@ -21185,7 +21336,8 @@
         "部署周期较长",
         "需专业运维",
         "外观设计一般"
-      ]
+      ],
+      "bannerImage": "https://www.keenon.com/favicon.ico"
     },
     {
       "id": "orion-star-bot",
@@ -21283,7 +21435,8 @@
         "场景适配需定制",
         "维护成本不低",
         "与竞品差异不大"
-      ]
+      ],
+      "bannerImage": "https://www.orionstar.com/favicon.ico"
     },
     {
       "id": "ubtech-walker",
@@ -21370,7 +21523,8 @@
         "续航仅2小时",
         "商业化仍在早期",
         "维护成本极高"
-      ]
+      ],
+      "bannerImage": "https://www.ubtech.com/favicon.ico"
     },
     {
       "id": "unitree-h1",
@@ -21457,7 +21611,8 @@
         "商业化早期",
         "续航有限",
         "安全认证进行中"
-      ]
+      ],
+      "bannerImage": "https://www.unitree.com/images/c43089cbfb2a454cb2fac2f747f8aff1_256x170.jpg"
     },
     {
       "id": "xiaopeng-px5",
@@ -21544,7 +21699,8 @@
         "价格未公开",
         "应用场景验证中",
         "社区较小"
-      ]
+      ],
+      "bannerImage": "https://www.xiaopeng.com/favicon.ico"
     },
     {
       "id": "abb-industrial-arm",
@@ -21642,7 +21798,8 @@
         "RAPID语言学习曲线陡",
         "维护需专业人员",
         "AI功能需额外购买"
-      ]
+      ],
+      "bannerImage": "https://new.abb.com/favicon.ico"
     },
     {
       "id": "kuka-robot",
@@ -21740,7 +21897,8 @@
         "KRL语言不如RAPID流行",
         "服务响应偶有慢",
         "AI功能不如ABB丰富"
-      ]
+      ],
+      "bannerImage": "https://www.kuka.cn/-/media/kuka-corporate/images/future-production/industrie-40/kuka-industrie-4-0.jpg?rev=d924b850d1394ccb91f225f639892e9a&amp;w=1900&amp;hash=452B26CDF846AEF0E0D427E99CB2FA55"
     },
     {
       "id": "fanuc-robot",
@@ -21838,7 +21996,8 @@
         "编程界面较传统",
         "服务成本不低",
         "AI视觉需额外购买"
-      ]
+      ],
+      "bannerImage": "https://www.fanuc.com/favicon.ico"
     },
     {
       "id": "inovance-automation",
@@ -21925,7 +22084,8 @@
         "精度略低于进口",
         "软件生态不如国际品牌",
         "AI功能仍在发展"
-      ]
+      ],
+      "bannerImage": "https://www.inovance.com/favicon.ico"
     },
     {
       "id": "siemens-cobots",
@@ -22012,7 +22172,8 @@
         "需西门子生态",
         "学习西门子系统成本高",
         "灵活性不如独立协作品牌"
-      ]
+      ],
+      "bannerImage": "https://new.siemens.com/favicon.ico"
     },
     {
       "id": "dataa-robot",
@@ -22099,7 +22260,8 @@
         "延迟问题(云端)",
         "商业化仍在早期",
         "价格未公开"
-      ]
+      ],
+      "bannerImage": "https://www.dataa.com/favicon.ico"
     },
     {
       "id": "cloudminds-robot",
@@ -22186,7 +22348,8 @@
         "商业化进展慢",
         "5G覆盖要求高",
         "价格极高"
-      ]
+      ],
+      "bannerImage": "https://www.cloudminds.com/favicon.ico"
     },
     {
       "id": "softbank-pepper",
@@ -22273,7 +22436,8 @@
         "性能落后",
         "二手市场不稳定",
         "功能已落后新一代"
-      ]
+      ],
+      "bannerImage": "https://www.softbankrobotics.com/favicon.ico"
     },
     {
       "id": "irobot-create",
@@ -22360,7 +22524,8 @@
         "续航有限",
         "主要面向教育",
         "非商业机器人"
-      ]
+      ],
+      "bannerImage": "https://www.irobot.com/favicon.ico"
     },
     {
       "id": "clearpath-robot",
@@ -22469,7 +22634,8 @@
         "偏向研究/非消费级",
         "维护需ROS知识",
         "国内渠道有限"
-      ]
+      ],
+      "bannerImage": "https://clearpathrobotics.com/wp-content/uploads/2015/05/homestatic.jpg"
     },
     {
       "id": "kawasaki-robot",
@@ -22556,7 +22722,8 @@
         "AS语言不如KRL流行",
         "中国市场份额有限",
         "AI功能不如ABB/FANUC"
-      ]
+      ],
+      "bannerImage": "https://global.kawasaki.com/common/img/ogpimage.jpg"
     },
     {
       "id": "yaskawa-robot",
@@ -22654,7 +22821,8 @@
         "INFORM语言小众",
         "AI视觉需额外购买",
         "软件生态不如ABB"
-      ]
+      ],
+      "bannerImage": "https://www.yaskawa.com/favicon.ico"
     },
     {
       "id": "epson-robot",
@@ -22752,7 +22920,8 @@
         "负载范围小",
         "编程环境较传统",
         "AI功能有限"
-      ]
+      ],
+      "bannerImage": "https://global.epson.com/favicon.ico"
     },
     {
       "id": "staubli-robot",
@@ -22839,7 +23008,8 @@
         "VAL3语言小众",
         "中国市场份额小",
         "AI视觉需额外购买"
-      ]
+      ],
+      "bannerImage": "https://www.staubli.com/favicon.ico"
     },
     {
       "id": "universal-robots",
@@ -22937,7 +23107,8 @@
         "价格不如国产便宜",
         "精度不如传统工业机器人",
         "速度不如传统工业机器人"
-      ]
+      ],
+      "bannerImage": "https://www.universal-robots.com/favicon.ico"
     },
     {
       "id": "techman-robot",
@@ -23035,7 +23206,8 @@
         "配件生态不如UR+",
         "高级功能需学习",
         "精度略低于UR"
-      ]
+      ],
+      "bannerImage": "https://www.tm-robot.com/favicon.ico"
     },
     {
       "id": "JAKA-robot",
@@ -23133,7 +23305,8 @@
         "配件生态不如UR",
         "出口市场有限",
         "偶有稳定性问题"
-      ]
+      ],
+      "bannerImage": "https://www.jaka.com/favicon.ico"
     },
     {
       "id": " elite-robot",
