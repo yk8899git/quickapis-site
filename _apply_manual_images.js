@@ -1,0 +1,130 @@
+// Step 2: For tools missing bannerImage, try alternative URLs and sources
+const fs = require('fs');
+const data = JSON.parse(fs.readFileSync('tools.json', 'utf8'));
+const images = JSON.parse(fs.readFileSync('tool-images.json', 'utf8'));
+
+// Tools missing OG image
+const missing = data.tools.filter(t => !t.bannerImage);
+console.log(`Missing bannerImage: ${missing.length}`);
+
+// Manual mapping of known product images / alternative URLs
+// Many AI products have predictable image CDN URLs
+const manualImages = {
+  'chatgpt': 'https://cdn.oaistatic.com/assets/favicon-o20kmmos.svg',
+  'gemini': 'https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690b6.svg',
+  'kimi': 'https://assets.moonshot.cn/kimi-web/favicon.ico',
+  'doubao': 'https://lf-flow-web-cdn.doubao.com/obj/flow-doubao/doubao-web/favicon.ico',
+  'midjourney': 'https://www.midjourney.com/favicon.ico',
+  'sora': 'https://openai.com/favicon.ico',
+  'pika': 'https://pika.art/favicon.ico',
+  'kling': 'https://klingai.com/favicon.ico',
+  'dalle': 'https://openai.com/favicon.ico',
+  'copilot': 'https://github.githubassets.com/favicons/favicon-dark.svg',
+  'siliconflow': 'https://cloud.siliconflow.cn/favicon.ico',
+  'zhipuai': 'https://open.bigmodel.cn/favicon.ico',
+  'wenxin': 'https://yiyan.baidu.com/favicon.ico',
+  'spark': 'https://xinghuo.xfyun.cn/favicon.ico',
+  'hunyuan': 'https://hunyuan.tencent.com/favicon.ico',
+  'elevenlabs': 'https://elevenlabs.io/favicon.ico',
+  'suno': 'https://suno.ai/favicon.ico',
+  'perplexity': 'https://www.perplexity.ai/favicon.ico',
+  'canva': 'https://static.canva.com/static/images/favicon-1.ico',
+  'gamma': 'https://gamma.app/favicon.ico',
+  'heygen': 'https://www.heygen.com/favicon.ico',
+  'poe': 'https://poe.com/favicon.ico',
+  'characterai': 'https://character.ai/favicon.ico',
+  'deepl': 'https://www.deepl.com/favicon.ico',
+  'grammarly': 'https://static.grammarly.com/assets/files/efe57d016d9efff36da7884c193b646b/favicon-32x32.png',
+  'jasper': 'https://www.jasper.ai/favicon.ico',
+  'coze': 'https://www.coze.cn/favicon.ico',
+  'leonardo': 'https://leonardo.ai/favicon.ico',
+  'replicate': 'https://replicate.com/favicon.ico',
+  'huggingface': 'https://huggingface.co/favicon.ico',
+  'figma_ai': 'https://static.figma.com/app/icon/1/favicon.png',
+  'monica': 'https://monica.im/favicon.ico',
+  'chatpdf': 'https://www.chatpdf.com/favicon.ico',
+  'novelai': 'https://novelai.net/favicon.ico',
+  'firefly': 'https://firefly.adobe.com/favicon.ico',
+  'descript': 'https://descript.com/favicon.ico',
+  'synthesia': 'https://www.synthesia.io/favicon.ico',
+  'luma': 'https://lumalabs.ai/favicon.ico',
+  'luma3d': 'https://lumalabs.ai/favicon.ico',
+  'tripo': 'https://www.tripo3d.ai/favicon.ico',
+  'ideogram': 'https://ideogram.ai/favicon.ico',
+  'krea': 'https://www.krea.ai/favicon.ico',
+  'clipdrop': 'https://clipdrop.co/favicon.ico',
+  'photoroom': 'https://www.photoroom.com/favicon.ico',
+  'windsurf': 'https://codeium.com/favicon.ico',
+  'cody': 'https://sourcegraph.com/favicon.ico',
+  'tabnine': 'https://tabnine.com/favicon.ico',
+  'langchain': 'https://www.langchain.com/favicon.ico',
+  'together': 'https://together.ai/favicon.ico',
+  'copyai': 'https://www.copy.ai/favicon.ico',
+  'writesonic': 'https://writesonic.com/favicon.ico',
+  'consensus': 'https://consensus.app/favicon.ico',
+  'quizletai': 'https://quizlet.com/favicon.ico',
+  'coursehero': 'https://www.coursehero.com/favicon.ico',
+  'wordtune': 'https://www.wordtune.com/favicon.ico',
+  'hemingway': 'https://hemingwayapp.com/favicon.ico',
+  'immersivetranslate': 'https://immersivetranslate.com/favicon.ico',
+  'merlin': 'https://www.getmerlin.in/favicon.ico',
+  'openai_codex': 'https://openai.com/favicon.ico',
+  'openai-voice-models': 'https://openai.com/favicon.ico',
+  'chatgpt_mobile': 'https://openai.com/favicon.ico',
+  'stableaudio': 'https://stability.ai/favicon.ico',
+  'blockadelabs': 'https://skybox.blockadelabs.com/favicon.ico',
+  'looka': 'https://looka.com/favicon.ico',
+  'kickresume': 'https://www.kickresume.com/favicon.ico',
+  'teal': 'https://www.tealhq.com/favicon.ico',
+  'jianying': 'https://www.capcut.cn/favicon.ico',
+  'metaso': 'https://metaso.cn/favicon.ico',
+  'xiezuocat': 'https://xiezuocat.com/favicon.ico',
+  'chuanwanxiang': 'https://tongyi.aliyun.com/favicon.ico',
+  'yuanqi': 'https://yuanqi.tencent.com/favicon.ico',
+  'roborock-s7': 'https://www.roborock.com/favicon.ico',
+  'ecovacs-deebot': 'https://www.ecovacs.com/favicon.ico',
+  'dji-robomaster': 'https://www.dji.com/favicon.ico',
+  'ubtech-alpha': 'https://www.ubtech.com/favicon.ico',
+  'ubtech-walker': 'https://www.ubtech.com/favicon.ico',
+  'iFLYREC-recorder': 'https://www.iflyrec.com/favicon.ico',
+  'iFLYTEK-translator': 'https://www.iflytek.com/favicon.ico',
+  'unitree-go2': 'https://www.unitree.com/favicon.ico',
+  'unitree-h1': 'https://www.unitree.com/favicon.ico',
+  'abb-industrial-arm': 'https://new.abb.com/favicon.ico',
+  'fanuc-robot': 'https://www.fanuc.com/favicon.ico',
+  'kuka-robot': 'https://www.kuka.com/favicon.ico',
+  'yaskawa-robot': 'https://www.yaskawa.com/favicon.ico',
+  'universal-robots': 'https://www.universal-robots.com/favicon.ico',
+  'siemens-cobots': 'https://new.siemens.com/favicon.ico',
+  'softbank-pepper': 'https://www.softbankrobotics.com/favicon.ico',
+  'ezviz-camera': 'https://www.ezvizlife.com/favicon.ico',
+  'keenon-robot': 'https://www.keenon.com/favicon.ico',
+  'orion-star-bot': 'https://www.orionstar.com/favicon.ico',
+  'inovance-automation': 'https://www.inovance.com/favicon.ico',
+  'epson-robot': 'https://global.epson.com/favicon.ico',
+  'staubli-robot': 'https://www.staubli.com/favicon.ico',
+  'irobot-create': 'https://www.irobot.com/favicon.ico',
+  'clearpath-robot': 'https://clearpathrobotics.com/favicon.ico',
+  'kawasaki-robot': 'https://global.kawasaki.com/favicon.ico',
+  'techman-robot': 'https://www.tm-robot.com/favicon.ico',
+  'JAKA-robot': 'https://www.jaka.com/favicon.ico',
+  'elite-robot': 'https://www.eliterobotics.com/favicon.ico',
+  'dataa-robot': 'https://www.dataa.com/favicon.ico',
+  'cloudminds-robot': 'https://www.cloudminds.com/favicon.ico',
+  'xiaopeng-px5': 'https://www.xiaopeng.com/favicon.ico',
+  'xiaovv-camera': 'https://www.xiaovv.com/favicon.ico',
+  'pudu-bot': 'https://www.pudurobotics.com/favicon.ico',
+  'ring-doorbell': 'https://ring.com/favicon.ico',
+};
+
+let count = 0;
+data.tools.forEach(t => {
+  if (!t.bannerImage && manualImages[t.id]) {
+    t.bannerImage = manualImages[t.id];
+    count++;
+  }
+});
+
+fs.writeFileSync('tools.json', JSON.stringify(data, null, 2), 'utf8');
+console.log(`Added ${count} manual bannerImage URLs`);
+console.log(`Still missing: ${data.tools.filter(t => !t.bannerImage).length}`);

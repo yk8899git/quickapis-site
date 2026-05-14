@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+/**
+ * 重建 index.html - 双Tab导航 + 新分类 + AI硬件轮播
+ */
+const fs = require('fs');
+
+const html = `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
@@ -228,7 +233,7 @@ function renderSlides(){
   const track=document.getElementById('sTrack'), dots=document.getElementById('sDots');
   SLIDES.forEach((s,i)=>{
     const d=document.createElement('div'); d.className='slide';
-    d.innerHTML='<div class="slide-bg" style="background:'+s.bg+'"></div><div class="slide-overlay"></div><div class="slide-content"><div class="slide-tag">'+s.tag+'</div><div class="slide-title">'+s.title+'</div><div class="slide-meta"><span>📰 '+s.source+'</span><span class="slide-dot"></span><span>'+s.time+'</span></div><button class="slide-link-btn" onclick="location.href=\'tool-detail.html?id='+s.tool+'\'">查看详情 →</button></div>';
+    d.innerHTML='<div class="slide-bg" style="background:'+s.bg+'"></div><div class="slide-overlay"></div><div class="slide-content"><div class="slide-tag">'+s.tag+'</div><div class="slide-title">'+s.title+'</div><div class="slide-meta"><span>📰 '+s.source+'</span><span class="slide-dot"></span><span>'+s.time+'</span></div><button class="slide-link-btn" onclick="location.href=\\'tool-detail.html?id='+s.tool+'\\'">查看详情 →</button></div>';
     track.appendChild(d);
     const dot=document.createElement('div'); dot.className='s-dot'+(i===0?' active':'');
     dot.onclick=()=>goSlide(i); dots.appendChild(dot);
@@ -342,7 +347,7 @@ function renderGrid(ts){
     var card=document.createElement('div');
     card.className='grid-card'+(isHW?' hw-card':'');
     card.onclick=function(){location.href='tool-detail.html?id='+t.id};
-    var bannerHtml=t.bannerImage?'<div class="grid-card-img"><img src="'+t.bannerImage+'" onerror="this.parentElement.style.display=\'none\'"></div>':'';
+    var bannerHtml=t.bannerImage?'<div class="grid-card-img"><img src="'+t.bannerImage+'" onerror="this.parentElement.style.display=\\'none\\'"></div>':'';
     card.innerHTML=bannerHtml+
       '<div class="grid-card-body"><div class="mini-icon'+(isHW?' hw':'')+'" style="width:32px;height:32px;border-radius:7px;font-size:14px">'+(t.icon||'◈')+'</div><div class="mini-info"><div class="mini-name">'+(t.nameCn||t.name)+'</div><div class="mini-cat">'+t.category+'</div></div></div>'+
       '<div class="grid-card-desc">'+escHtml((t.description||'').substring(0,80))+'</div>';
@@ -355,4 +360,7 @@ function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt
 load();
 </script>
 </body>
-</html>
+</html>`;
+
+fs.writeFileSync('index.html', html, 'utf8');
+console.log('✅ index.html 已重写 (' + html.length + ' bytes)');
