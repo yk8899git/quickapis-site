@@ -231,7 +231,7 @@ function renderSlides(){
     // 渲染图片，加载失败则显示渐变背景（使用字符串拼接避免Node.js模板字符串冲突）
     let bgHtml = '';
     if(s.img){
-      bgHtml = '<img src="' + s.img + '" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="slide-bg" style="display:none;background:' + s.bg + '"></div>';
+      bgHtml = "<img src='" + s.img + "' style='position:absolute;inset:0;width:100%;height:100%;object-fit:cover' onerror=&quot;this.style.display='none';this.nextElementSibling.style.display='block'&quot;><div class='slide-bg' style='display:none;background:" + s.bg + "'></div>";
     } else {
       bgHtml = '<div class="slide-bg" style="background:' + s.bg + '"></div>';
     }
