@@ -1,188 +1,290 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>工具详情 - QuickAPIs | AI工具导航</title>
-<link rel="icon" type="image/svg+xml" href="./favicon.svg">
-<!-- Google Fonts (fallback to system fonts if blocked) -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>产品详情 - QuickAPIs</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter','Noto Sans SC',sans-serif;background:#faf9f7;color:#1c1917}
-.navbar{background:rgba(250,249,247,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(168,162,158,.15);padding:0 20px;height:56px;position:sticky;top:0;z-index:100}
-.navbar-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;height:100%;gap:20px}
-.logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit}
-.logo-text{display:flex;flex-direction:column}
-.logo-name{font-size:16px;font-weight:800;background:linear-gradient(135deg,#f97316,#f43f5e);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.logo-tagline{font-size:10px;color:#a8a29e}
-.back-link{font-size:13px;color:#f97316;text-decoration:none;margin-left:auto;font-weight:500}
-.container{max-width:900px;margin:0 auto;padding:28px 16px}
-.tool-header{background:#fff;border-radius:18px;border:1px solid rgba(168,162,158,.15);padding:28px;margin-bottom:20px;display:flex;gap:20px;box-shadow:0 1px 3px rgba(28,25,23,.06)}
-.tool-header-icon{width:68px;height:68px;border-radius:16px;background:#fff7ed;display:flex;align-items:center;justify-content:center;font-size:32px;flex-shrink:0;overflow:hidden}
-.tool-header-icon img{width:42px;height:42px;border-radius:11px;object-fit:contain}
-.tool-header-body{flex:1;min-width:0}
-.tool-header-name{font-size:26px;font-weight:800;color:#1c1917;margin-bottom:4px}
-.tool-header-desc{font-size:14px;color:#57534e;line-height:1.65;margin-bottom:10px}
-.tool-header-domain{font-size:13px;color:#f97316;font-weight:500}
-.tool-header-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.tool-header-tag{font-size:11px;padding:3px 10px;border-radius:12px;background:rgba(249,115,22,.07);color:#ea580c;font-weight:500}
-.tool-header-category{font-size:11px;padding:3px 10px;border-radius:12px;background:linear-gradient(135deg,rgba(249,115,22,.1),rgba(244,63,94,.1));color:#e11d48;font-weight:600}
-.visit-bar{background:linear-gradient(135deg,#fff7ed,#fef2f2);border:1px solid rgba(249,115,22,.12);border-radius:16px;padding:16px 24px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between}
-.visit-btn{background:linear-gradient(135deg,#f97316,#f43f5e);color:white;border:none;border-radius:12px;padding:11px 30px;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(249,115,22,.25)}
-.section{margin-bottom:24px}
-.section-title{font-size:17px;font-weight:700;color:#1c1917;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.section-title::before{content:'';display:inline-block;width:4px;height:18px;background:linear-gradient(180deg,#f97316,#f43f5e);border-radius:2px}
-.reviews-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.review-card{background:#fff;border:1px solid rgba(168,162,158,.15);border-radius:14px;padding:18px;cursor:pointer;display:flex;flex-direction:column;box-shadow:0 1px 3px rgba(28,25,23,.04)}
-.review-card:hover{background:#fffbf5;border-color:rgba(249,115,22,.3);transform:translateY(-3px)}
-.review-source{display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:12px;background:rgba(249,115,22,.08);color:#ea580c;margin-bottom:8px}
-.review-title{font-size:14px;font-weight:600;color:#1c1917;line-height:1.55;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.review-meta{font-size:12px;color:#a8a29e;display:flex;justify-content:space-between}
-.ad-section{background:linear-gradient(135deg,#667eea,#764ba2);border-radius:18px;padding:24px;margin-bottom:24px;cursor:pointer;box-shadow:0 8px 32px rgba(102,126,234,.3)}
-.ad-content{background:rgba(255,255,255,.95);border-radius:16px;padding:24px}
-.ad-header{display:flex;align-items:center;gap:16px;margin-bottom:16px}
-.ad-icon{width:56px;height:56px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0}
-.ad-title{margin:0;font-size:20px;font-weight:800;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.ad-subtitle{margin:4px 0 0;font-size:13px;color:#888}
-.ad-features{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:16px}
-.ad-feature{background:rgba(102,126,234,.08);padding:8px 14px;border-radius:20px;font-size:12px;color:#667eea;font-weight:500}
-.ad-btn{display:inline-block;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:12px 32px;border-radius:25px;text-decoration:none;font-weight:700;box-shadow:0 4px 20px rgba(102,126,234,.4)}
-.ad-footer{text-align:center;margin-top:12px;font-size:11px;color:rgba(255,255,255,.6)}
-.related-tools{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.related-tool-card{background:#fff;border:1px solid rgba(168,162,158,.15);border-radius:14px;padding:16px 12px;text-align:center;cursor:pointer;text-decoration:none;color:inherit;box-shadow:0 1px 3px rgba(28,25,23,.04)}
-.related-tool-card:hover{border-color:rgba(249,115,22,.35);transform:translateY(-3px)}
-.related-tool-icon{width:44px;height:44px;margin:0 auto 8px;border-radius:12px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.related-tool-icon img{width:28px;height:28px;border-radius:8px;object-fit:contain}
-.related-tool-name{font-size:13px;font-weight:600;color:#1c1917}
-.footer{padding:20px;text-align:center;font-size:12px;color:#a8a29e;border-top:1px solid rgba(168,162,158,.12);margin-top:40px}
-.footer a{color:#f97316;text-decoration:none;font-weight:500}
-@media(max-width:700px){.tool-header{flex-direction:column;align-items:center;text-align:center}.reviews-grid{grid-template-columns:1fr}.related-tools{grid-template-columns:repeat(2,1fr)}}
+:root{
+  --sw-accent:#f97316;--sw-accent2:#f43f5e;
+  --hw-accent:#10b981;--hw-accent2:#06b6d4;
+  --bg:#faf9f7;--card:#fff;--border:rgba(0,0,0,.07);--text:#1c1917;--muted:#78716c;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text)}
+a{color:var(--sw-accent);text-decoration:none}
+
+/* Nav */
+.nav{background:#fff;border-bottom:1px solid var(--border);padding:0 24px}
+.nav-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;height:52px}
+.nav-back{font-size:14px;color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:4px;text-decoration:none}
+.nav-back:hover{color:var(--text)}
+
+/* Banner */
+.banner{position:relative;background:linear-gradient(135deg,#1e293b,#334155);min-height:260px;overflow:hidden}
+.banner img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.banner-fallback{position:absolute;inset:0;background:linear-gradient(135deg,var(--sw-accent),var(--sw-accent2))}
+.banner-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6) 0%,transparent 60%);z-index:1}
+.banner-content{position:relative;z-index:2;padding:40px 24px 24px;max-width:900px;margin:0 auto;color:#fff}
+.banner-tag{display:inline-block;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:700;margin-bottom:10px}
+.sw-tag{background:var(--sw-accent)}.hw-tag{background:var(--hw-accent)}
+.banner-title{font-size:28px;font-weight:800;margin-bottom:6px}
+.banner-sub{font-size:15px;opacity:.85}
+
+/* Content */
+.content{max-width:900px;margin:0 auto;padding:24px;display:grid;grid-template-columns:1fr 300px;gap:24px}
+
+.main-col{}
+.side-col{}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:16px}
+.card-title{font-size:16px;font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.desc-text{font-size:14px;line-height:1.75;color:var(--text)}
+
+.spec-row{display:flex;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px}
+.spec-row:last-child{border:none}
+.spec-key{color:var(--muted);width:100px;flex-shrink:0}
+.spec-val{font-weight:600}
+
+.pros-list,.cons-list{list:none;padding:0}
+.pros-list li,.cons-list li{padding:8px 0;font-size:13px;line-height:1.5;border-bottom:1px solid var(--border)}
+.pros-list li:last-child,.cons-list li:last-child{border:none}
+.pros-list li::before{content:'✅ ';margin-right:4px}
+.cons-list li::before{content:'⚠️ ';margin-right:4px}
+
+.visit-btn{display:block;width:100%;padding:12px;border-radius:11px;text-align:center;font-weight:700;font-size:15px;cursor:pointer;text-decoration:none;transition:.2s;margin-top:8px}
+.visit-btn.sw{background:linear-gradient(135deg,var(--sw-accent),var(--sw-accent2));color:#fff}
+.visit-btn.hw{background:linear-gradient(135deg,var(--hw-accent),var(--hw-accent2));color:#fff}
+.visit-btn:hover{opacity:.9;transform:translateY(-1px);box-shadow:0 4px 20px rgba(0,0,0,.15)}
+
+.tag-chip{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:600;margin:2px 4px 2px 0;background:#f0ede8;color:var(--muted)}
+
+.related-card{display:flex;gap:12px;padding:12px;border-radius:10px;cursor:pointer;transition:.15s;border:1px solid transparent}
+.related-card:hover{background:#fef9f0;border-color:var(--sw-accent)}
+.related-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;background:linear-gradient(135deg,var(--sw-accent),var(--sw-accent2));color:#fff}
+.related-name{font-size:13px;font-weight:700;margin-bottom:2px}
+.related-cat{font-size:11px;color:var(--muted)}
+
+.not-found{text-align:center;padding:80px 24px}
+.not-found h2{margin-bottom:10px}
+.not-found p{color:var(--muted)}
+
+@media(max-width:720px){
+  .content{grid-template-columns:1fr}
+  .banner-title{font-size:22px}
+}
 </style>
 </head>
 <body>
-<nav class="navbar"><div class="navbar-inner">
-<a href="./index.html" class="logo"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 9H22L16 13.5L18 21L12 16.5L6 21L8 13.5L2 9H9.5L12 2Z" fill="url(#sg)" stroke="#f97316"/><defs><linearGradient id="sg" x1="2" y1="2" x2="22" y2="22"><stop offset="0%" stop-color="#f97316"/><stop offset="100%" stop-color="#f43f5e"/></linearGradient></defs></svg><div class="logo-text"><span class="logo-name">QuickAPIs</span><span class="logo-tagline">AI工具导航</span></div></a>
-<a href="./index.html" class="back-link">&larr; 返回首页</a>
-</div></nav>
 
-<div class="container">
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-back" href="/">← 返回首页</a>
+  </div>
+</nav>
 
-<div class="tool-header" id="toolHeader">
-<div class="tool-header-icon" id="toolIcon">&#x1F916;</div>
-<div class="tool-header-body">
-<div class="tool-header-name" id="toolName">加载中...</div>
-<div class="tool-header-desc" id="toolDesc"></div>
-<div class="tool-header-domain" id="toolDomain"></div>
-<div class="tool-header-tags" id="toolTags"></div>
-<div style="margin-top:10px;" id="toolCategory"></div>
-</div></div>
-
-<div class="visit-bar">
-<span class="visit-label">&#x1F310; 访问官方主站获取最新信息</span>
-<a href="#" class="visit-btn" id="visitBtn" target="_blank">立即访问 &rarr;</a>
+<div class="banner" id="banner">
+  <div class="banner-overlay"></div>
+  <div class="banner-content" id="bannerContent"></div>
 </div>
 
-<!-- 2233.ai 广告位 -->
-<div class="ad-section" onclick="window.open('https://2233.ai/i/F9VX375O','_blank')">
-<div class="ad-content">
-<div class="ad-header"><div class="ad-icon">&#x1F916;</div><div>
-<h3 class="ad-title">2233.ai — 半价用上 GPT-4 &amp; Claude</h3>
-<p class="ad-subtitle">API中转平台 · ChatGPT Plus / Claude Pro 低至五折</p>
-</div></div>
-<div class="ad-features">
-<span class="ad-feature">&#x2728; GPT-4 半价</span><span class="ad-feature">&#x1F525; Claude Pro 五折</span><span class="ad-feature">&#x1F4B0; 邀请奖励 /人</span>
-</div>
-<div style="text-align:center;">
-<a href="https://2233.ai/i/F9VX375O" target="_blank" class="ad-btn" onclick="event.stopPropagation();">&#x1F680; 立即注册领取优惠 &rarr;</a>
-</div></div>
-<p class="ad-footer">广告位 · 联系 submit@quickapis.top 投放</p>
-</div>
+<div class="content" id="contentArea">
+  <div class="not-found" id="notFound" style="display:none">
+    <h2>😕 产品未找到</h2>
+    <p>该产品不存在或已被移除</p>
+    <br><a href="/" style="font-size:15px">← 返回首页</a>
+  </div>
 
-<!-- 相关评测（重要！） -->
-<div class="section" id="reviewsSection" style="display:none;">
-<div class="section-title">&#x1F4F0; 相关评测链接</div>
-<div class="reviews-grid" id="reviewsGrid"></div>
-</div>
+  <div class="main-col" id="mainCol" style="display:none">
+    <div class="card">
+      <div class="card-title">📋 产品介绍</div>
+      <div class="desc-text" id="descText"></div>
+    </div>
+    <div class="card" id="specsCard" style="display:none">
+      <div class="card-title">⚙️ 规格参数</div>
+      <div id="specsBody"></div>
+    </div>
+    <div class="card" id="featuresCard" style="display:none">
+      <div class="card-title">✨ 核心特点</div>
+      <div id="featuresBody"></div>
+    </div>
+    <div class="card" id="prosCard" style="display:none">
+      <div class="card-title">👍 优势</div>
+      <ul class="pros-list" id="prosList"></ul>
+    </div>
+    <div class="card" id="consCard" style="display:none">
+      <div class="card-title">⚠️ 注意事项</div>
+      <ul class="cons-list" id="consList"></ul>
+    </div>
+  </div>
 
-<!-- 更多工具推荐 -->
-<div class="section" id="relatedSection" style="display:none;">
-<div class="section-title">&#x1F50D; 更多工具推荐</div>
-<div class="related-tools" id="relatedTools"></div>
+  <div class="side-col" id="sideCol" style="display:none">
+    <div class="card">
+      <div class="card-title">🔗 访问官网</div>
+      <a class="visit-btn sw" id="visitBtn" target="_blank" rel="noopener">访问官网 →</a>
+    </div>
+    <div class="card" id="pricingCard" style="display:none">
+      <div class="card-title">💰 价格信息</div>
+      <div id="pricingBody" class="desc-text"></div>
+    </div>
+    <div class="card" id="tagsCard" style="display:none">
+      <div class="card-title">🏷️ 标签</div>
+      <div id="tagsBody"></div>
+    </div>
+    <div class="card" id="relatedCard" style="display:none">
+      <div class="card-title">🔗 相关推荐</div>
+      <div id="relatedBody"></div>
+    </div>
+  </div>
 </div>
-
-</div>
-
-<div class="footer">&copy; 2026 QuickAPIs.top &middot; <a href="./index.html">返回首页</a> &middot; <a href="./stats.html">统计</a></div>
 
 <script>
-function getParam(n){return new URLSearchParams(window.location.search).get(n)}
+async function loadDetail() {
+  const params = new URLSearchParams(location.search);
+  const id = params.get('id');
 
-function extractDomain(url){
-  if(!url)return '';
-  try{return new URL(url).hostname.replace(/^www\./,'')}
-  catch(e){return url.replace(/^https?:\/\//,'').replace(/^www\./,'').split('/')[0]}
+  try {
+    const r = await fetch('./tools.json?v=' + Date.now());
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    let raw = await r.text();
+    if (raw.charCodeAt(0) === 0xFEFF) raw = raw.slice(1);
+    const d = JSON.parse(raw);
+    const tools = d.tools || [];
+    const tool = tools.find(function(t) { return t.id === id; });
+
+    if (!tool) {
+      document.getElementById('notFound').style.display = 'block';
+      document.getElementById('mainCol').style.display = 'none';
+      document.getElementById('sideCol').style.display = 'none';
+      document.title = '未找到 - QuickAPIs';
+      return;
+    }
+
+    renderDetail(tool, tools);
+
+  } catch(e) {
+    console.error('Load failed:', e);
+    document.getElementById('notFound').style.display = 'block';
+  }
 }
 
-var tid=getParam('id');
-if(!tid){
-  document.getElementById('toolName').textContent='\u274C 缺少参数';
-  document.getElementById('toolDesc').textContent='请从首页点击工具卡片进入此页面';
+function renderDetail(tool, allTools) {
+  const isHW = ['智能家居','人形机器人','扫地机器人','AI眼镜','智能音箱','AI学习机','无人机','翻译录音','智能摄像','服务机器人','工业机器人','AI健康穿戴'].indexOf(tool.category) !== -1;
+
+  // Title
+  document.title = (tool.nameCn || tool.name) + ' - QuickAPIs';
+
+  // Banner
+  const bannerEl = document.getElementById('banner');
+  const bannerContent = document.getElementById('bannerContent');
+  const tagClass = isHW ? 'hw-tag' : 'sw-tag';
+  const tagLabel = isHW ? 'AI硬件' : 'AI工具';
+
+  let bannerHtml = '';
+  if (tool.bannerImage) {
+    bannerHtml = '<img src="'+esc(tool.bannerImage)+'" alt="'+esc(tool.nameCn||tool.name)+'" onerror="this.style.display=\'none\'">';
+  }
+  bannerHtml += '<div class="banner-fallback"></div>';
+
+  bannerContent.innerHTML =
+    '<span class="banner-tag '+tagClass+'">'+tagLabel+'</span>' +
+    '<div class="banner-title">'+esc(tool.nameCn||tool.name)+'</div>' +
+    '<div class="banner-sub">'+esc(tool.category) + (tool.description ? ' · ' + esc(tool.description.substring(0,80)) : '') + '</div>';
+
+  // Show columns
+  document.getElementById('mainCol').style.display = 'block';
+  document.getElementById('sideCol').style.display = 'block';
+
+  // Description
+  var desc = tool.description || '';
+  if (!desc && tool.features && tool.features.length) {
+    desc = tool.features.join('；');
+  }
+  document.getElementById('descText').textContent = desc || '暂无详细介绍。';
+
+  // Specs
+  if (tool.specs && Object.keys(tool.specs).length > 0) {
+    var specsHtml = '';
+    for (var k in tool.specs) {
+      specsHtml += '<div class="spec-row"><span class="spec-key">'+esc(k)+'</span><span class="spec-val">'+esc(String(tool.specs[k]))+'</span></div>';
+    }
+    document.getElementById('specsBody').innerHTML = specsHtml;
+    document.getElementById('specsCard').style.display = 'block';
+  }
+
+  // Features
+  if (tool.features && tool.features.length > 0) {
+    document.getElementById('featuresBody').innerHTML = '<ul style="padding-left:18px"><li>' + tool.features.map(esc).join('</li><li>') + '</li></ul>';
+    document.getElementById('featuresCard').style.display = 'block';
+  }
+
+  // Pros
+  if (tool.pros && tool.pros.length > 0) {
+    document.getElementById('prosList').innerHTML = tool.pros.map(function(p){return'<li>'+esc(p)+'</li>';}).join('');
+    document.getElementById('prosCard').style.display = 'block';
+  }
+
+  // Cons
+  if (tool.cons && tool.cons.length > 0) {
+    document.getElementById('consList').innerHTML = tool.cons.map(function(c){return'<li>'+esc(c)+'</li>';}).join('');
+    document.getElementById('consCard').style.display = 'block';
+  }
+
+  // Visit button
+  const link = tool.url || tool.website || tool.link || '#';
+  const visitBtn = document.getElementById('visitBtn');
+  visitBtn.href = link;
+  visitBtn.textContent = '访问 ' + (extractDomain(link)) + ' →';
+  visitBtn.className = 'visit-btn ' + (isHW ? 'hw' : 'sw');
+
+  // Pricing
+  if (tool.pricing && Object.keys(tool.pricing).length > 0) {
+    var pricingHtml = '';
+    for (var pk in tool.pricing) {
+      pricingHtml += '<div class="spec-row"><span class="spec-key">'+esc(pk)+'</span><span class="spec-val">'+esc(String(tool.pricing[pk]))+'</span></div>';
+    }
+    document.getElementById('pricingBody').innerHTML = pricingHtml;
+    document.getElementById('pricingCard').style.display = 'block';
+  }
+
+  // Tags
+  if (tool.tags && tool.tags.length > 0) {
+    document.getElementById('tagsBody').innerHTML = tool.tags.map(function(t){return'<span class="tag-chip">'+esc(t)+'</span>';}).join('');
+    document.getElementById('tagsCard').style.display = 'block';
+  }
+
+  // Related: same category, max 5
+  var related = allTools.filter(function(t){ return t.category === tool.category && t.id !== tool.id; }).slice(0, 5);
+  if (related.length > 0) {
+    var relatedHtml = '';
+    related.forEach(function(r) {
+      var rLink = r.url || r.website || r.link || '#';
+      relatedHtml += '<a class="related-card" href="tool-detail.html?id='+esc(r.id)+'">';
+      relatedHtml +=   '<div class="related-icon">'+esc(r.icon||'◈')+'</div>';
+      relatedHtml +=   '<div><div class="related-name">'+esc(r.nameCn||r.name)+'</div>';
+      relatedHtml +=   '<div class="related-cat">'+esc(r.category)+'</div></div></a>';
+    });
+    document.getElementById('relatedBody').innerHTML = relatedHtml;
+    document.getElementById('relatedCard').style.display = 'block';
+  }
 }
 
-var _tdCtrl=new AbortController(),_tdTimer=setTimeout(function(){_tdCtrl.abort();document.getElementById('toolName').textContent='⏳ 加载超时，请刷新重试';document.getElementById('toolDesc').textContent='网络较慢或文件较大，请稍后重试'},30000);
-fetch('./tools.json',{signal:_tdCtrl.signal})
-.then(function(r){return r.json()})
-.then(function(data){
-  var tools=data.tools||[],tool=null;
-  for(var i=0;i<tools.length;i++){if(tools[i].id==tid||tools[i].name===tid){tool=tools[i];break}}
-  if(!tool){
-    document.getElementById('toolName').textContent='未找到该工具';
-    document.getElementById('toolDesc').textContent='工具可能已被移除或ID不正确';
-    return;
-  }
-  var domain=extractDomain(tool.url||tool.website||tool.link||'');
-  document.title=tool.name+' - QuickAPIs | AI工具导航';
-  document.getElementById('toolName').textContent=tool.nameCn||tool.name;
-  document.getElementById('toolDesc').textContent=tool.description||'';
-  document.getElementById('toolDomain').innerHTML='<span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:#22c55e;"></span>'+(domain||'')+'</span>';
-  var iconEl=document.getElementById('toolIcon');
-  // 按优先级尝试 svg/ico/png 三种格式
-  iconEl.innerHTML='<img src="favicons/'+domain+'.svg" alt="'+tool.name+'" onerror="var i=new Image();i.src=\'favicons/'+domain+'.ico\';i.onerror=function(){var j=new Image();j.src=\'favicons/'+domain+'.png\';j.onerror=function(){this.parentNode.innerHTML=\''+(tool.icon||'&#x1F916;')+'\'};this.parentNode.replaceChild(j,this)};this.parentNode.replaceChild(i,this)">';
+function extractDomain(url) {
+  if (!url || url === '#') return '官网';
+  try {
+    var u = new URL(url);
+    return u.hostname.replace(/^www\./,'');
+  } catch(e) { return url; }
+}
 
-  var tagsEl=document.getElementById('toolTags');
-  if(tool.tags&&tool.tags.length>0){tagsEl.innerHTML=tool.tags.map(function(t){return '<span class="tool-header-tag">'+t+'</span>'}).join('')}
-  if(tool.category){document.getElementById('toolCategory').innerHTML='<span class="tool-header-category">'+tool.category+'</span>'}
-  document.getElementById('visitBtn').href=tool.url||tool.website||tool.link||'#';
+function esc(s) {
+  var d = document.createElement('div');
+  d.textContent = s || '';
+  return d.innerHTML;
+}
 
-  // 相关评测链接
-  var reviews=tool.reviews||[];
-  if(reviews.length>0){
-    document.getElementById('reviewsSection').style.display='block';
-    document.getElementById('reviewsGrid').innerHTML=reviews.map(function(r){
-      return '<div class="review-card" onclick="window.open(\''+r.url+'\',\'_blank\')">'+
-        '<span class="review-source">'+(r.source||'\u8BC4\u6D4B')+'</span>'+
-        '<div class="review-title">'+r.title+'</div>'+
-        '<div class="review-meta"><span>'+(r.time||'')+'</span><span>\u70B9\u51FB\u9605\u8BFB &rarr;</span></div>'+
-      '</div>';
-    }).join('');
-  }
-
-  var sameCat=tools.filter(function(t){return t.category===tool.category&&t.id!==tool.id});
-  if(sameCat.length>0){
-    document.getElementById('relatedSection').style.display='block';
-    document.getElementById('relatedTools').innerHTML=sameCat.slice(0,8).map(function(t){
-      var rd=extractDomain(t.url||t.website||t.link||'');
-      return '<a href="tool-detail.html?id='+t.id+'" class="related-tool-card"><div class="related-tool-icon"><img src="favicons/'+rd+'.svg" alt="'+t.name+'" onerror="this.src=\'favicons/'+rd+'.ico\';if(this.onerror)this.onerror=function(){this.src=\'favicons/'+rd+'.png\';if(this.onerror)this.onerror=function(){this.style.display=\'none\'}}"></div><div class="related-tool-name">'+(t.nameCn||t.name)+'</div></a>';
-    }).join('');
-  }
-})
-.catch(function(err){
-  console.error('\u52A0\u8F7D\u5931\u8D25:',err);
-  document.getElementById('toolName').textContent='\u274C \u52A0\u8F7D\u5931\u8D25';
-  document.getElementById('toolDesc').textContent='\u7F51\u7EDC\u8FDE\u63A5\u5F02\u5E38\uFF0C\u8BF7\u5237\u65B0\u91CD\u8BD5';
-  clearTimeout(_tdTimer);
-});
+loadDetail();
 </script>
 </body>
 </html>
