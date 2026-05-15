@@ -61,12 +61,12 @@ const html = `<!DOCTYPE html>
     @media(max-width:900px){.split{grid-template-columns:1fr}}
 
     /* 轮播图 */
-    .slider-wrap{position:relative;border-radius:20px;overflow:hidden;background:#111;aspect-ratio:16/9;max-height:480px}
+    .slider-wrap{position:relative;border-radius:20px;overflow:hidden;background:#1a1a2e;aspect-ratio:16/9;max-height:480px}
     .slider-track{display:flex;height:100%;transition:transform .5s cubic-bezier(.4,0,.2,1)}
     .slide{min-width:100%;height:100%;position:relative;display:flex;align-items:flex-end}
     .slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
     .slide-bg{position:absolute;inset:0;width:100%;height:100%;background-size:cover;background-position:center}
-    .slide-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.3) 50%,rgba(0,0,0,.05) 100%)}
+    .slide-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.15) 40%,rgba(0,0,0,0) 70%)}
     .slide-content{position:relative;z-index:2;padding:36px 32px;color:#fff;width:100%}
     .slide-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(16,185,129,.85);padding:5px 14px;border-radius:100px;font-size:12px;font-weight:700;margin-bottom:14px;backdrop-filter:blur(8px)}
     .slide-title{font-size:clamp(18px,2.5vw,26px);font-weight:800;line-height:1.3;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
