@@ -289,8 +289,11 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
 
 /* ===== 子导航 ===== */
 function renderSubNav(){
+  console.log('renderSubNav called: curTab='+curTab+', curCat='+curCat);
   const nav=document.getElementById('subNav');
+  if(!nav){ console.error('subNav element NOT FOUND'); return; }
   const cats=curTab==='software'?SOFTWARE_CATS:HARDWARE_CATS;
+  console.log('Rendering '+cats.length+' categories');
   nav.innerHTML='<button class="sub-btn '+(curCat==='all'?(curTab==='software'?'active':'active hw'):'')+'" data-cat="all">全部</button>'+
     cats.map(c=>'<button class="sub-btn '+(curCat===c.key?(curTab==='software'?'active':'active hw'):'')+'" data-cat="'+c.key+'">'+c.emoji+' '+c.label+'</button>').join('');
   nav.querySelectorAll('.sub-btn').forEach(btn=>{
@@ -346,7 +349,9 @@ function renderRightPanel(ts){
 }
 
 function renderGrid(ts){
+  console.log('renderGrid called with '+ts.length+' tools');
   var grid=document.getElementById('toolsGrid');
+  if(!grid){ console.error('toolsGrid element NOT FOUND'); return; }
   var isHW=curTab==='hardware';
   var catName=curCat==='all'?(isHW?'全部硬件':'全部工具'):curCat;
   document.getElementById('gridTitle').textContent=catName;
