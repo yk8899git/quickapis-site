@@ -273,6 +273,7 @@ function pickCat(cat, btnEl) {
   });
   btnEl.classList.add(cls + '-on');
   applyFilter();
+  document.getElementById('toolsGrid').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 // ========== FILTER + RENDER ==========
@@ -342,21 +343,13 @@ function renderSlides() {
     var d = document.createElement('div');
     d.className = 'slide';
 
-    var imgHtml = '';
-    if (s.img) {
-      imgHtml = '<img src="'+s.img+'" alt="'+esc(s.title)+'" onerror="this.style.opacity=0"><div style="position:absolute;inset:0;background:'+s.bg+'"></div>';
-    } else {
-      imgHtml = '<div style="position:absolute;inset:0;background:'+s.bg+'"></div>';
-    }
-
-    d.innerHTML = imgHtml
-      + '<div class="slide-overlay"></div>'
-      + '<div class="slide-content">'
-      +   '<div class="slide-tag">'+esc(s.tag)+'</div>'
-      +   '<div class="slide-title">'+esc(s.title)+'</div>'
-      +   '<div class="slide-meta"><span>📰 '+esc(s.source)+'</span><span class="slide-dot"></span><span>2026</span></div>'
-      +   '<a class="slide-link" href="tool-detail.html?id='+esc(s.id)+'">查看详情 →</a>'
-      + '</div>';
+    var imgEl = document.createElement('img');
+    imgEl.src = s.img;
+    imgEl.alt = s.title;
+    imgEl.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover';
+    d.style.background = s.bg;
+    d.appendChild(imgEl);
+    d.innerHTML += '<div class="slide-overlay"></div><div class="slide-content"><div class="slide-tag">'+esc(s.tag)+'</div><div class="slide-title">'+esc(s.title)+'</div><div class="slide-meta"><span>📰 '+esc(s.source)+'</span><span class="slide-dot"></span><span>2026</span></div><a class="slide-link" href="tool-detail.html?id='+esc(s.id)+'">查看详情 →</a></div>';
 
     track.appendChild(d);
 
