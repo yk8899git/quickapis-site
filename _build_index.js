@@ -311,11 +311,13 @@ document.getElementById('navSearch').addEventListener('input', function(e){ q=e.
 
 /* ===== 过滤+渲染 ===== */
 function applyFilter(){
+  console.log('applyFilter called: curTab='+curTab+', curCat='+curCat+', tools='+tools.length);
   let f=tools.filter(t=>{
     const isHW=HW_CAT_SET.has(t.category);
     return curTab==='software'?!isHW:isHW;
   });
   if(curCat!=='all') f=f.filter(t=>t.category===curCat);
+  console.log('After category filter: '+f.length+' tools');
   if(q) f=f.filter(t=>(t.name+t.nameCn+t.description+t.category).toLowerCase().indexOf(q)!==-1);
 
   if(curCat==='all' && !q){
