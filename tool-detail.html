@@ -141,7 +141,7 @@ fetch('./tools.json',{signal:_tdCtrl.signal})
     document.getElementById('toolDesc').textContent='工具可能已被移除或ID不正确';
     return;
   }
-  var domain=extractDomain(tool.url);
+  var domain=extractDomain(tool.url||tool.website||tool.link||'');
   document.title=tool.name+' - QuickAPIs | AI工具导航';
   document.getElementById('toolName').textContent=tool.nameCn||tool.name;
   document.getElementById('toolDesc').textContent=tool.description||'';
@@ -153,7 +153,7 @@ fetch('./tools.json',{signal:_tdCtrl.signal})
   var tagsEl=document.getElementById('toolTags');
   if(tool.tags&&tool.tags.length>0){tagsEl.innerHTML=tool.tags.map(function(t){return '<span class="tool-header-tag">'+t+'</span>'}).join('')}
   if(tool.category){document.getElementById('toolCategory').innerHTML='<span class="tool-header-category">'+tool.category+'</span>'}
-  document.getElementById('visitBtn').href=tool.url;
+  document.getElementById('visitBtn').href=tool.url||tool.website||tool.link||'#';
 
   // 相关评测链接
   var reviews=tool.reviews||[];
@@ -172,7 +172,7 @@ fetch('./tools.json',{signal:_tdCtrl.signal})
   if(sameCat.length>0){
     document.getElementById('relatedSection').style.display='block';
     document.getElementById('relatedTools').innerHTML=sameCat.slice(0,8).map(function(t){
-      var rd=extractDomain(t.url);
+      var rd=extractDomain(t.url||t.website||t.link||'');
       return '<a href="tool-detail.html?id='+t.id+'" class="related-tool-card"><div class="related-tool-icon"><img src="favicons/'+rd+'.svg" alt="'+t.name+'" onerror="this.src=\'favicons/'+rd+'.ico\';if(this.onerror)this.onerror=function(){this.src=\'favicons/'+rd+'.png\';if(this.onerror)this.onerror=function(){this.style.display=\'none\'}}"></div><div class="related-tool-name">'+(t.nameCn||t.name)+'</div></a>';
     }).join('');
   }
