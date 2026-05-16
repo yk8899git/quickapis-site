@@ -63,7 +63,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .s-dot{width:8px;height:8px;border-radius:4px;background:rgba(255,255,255,.35);cursor:pointer;transition:.2s}
 .s-dot.on{background:#fff;width:22px;border-radius:4px}
 
-/* Grid */
+.nav-links{display:flex;align-items:center;gap:4px;flex-shrink:0}
+.nav-link{display:inline-block;padding:6px 12px;border-radius:8px;font-size:13px;color:var(--sw-text);text-decoration:none;transition:.2s}
+.nav-link:hover{background:var(--sw-border);color:var(--sw-accent)}
+.nav-link.active{background:linear-gradient(135deg,var(--sw-accent),var(--sw-accent2));color:#fff;font-weight:700}
 .grid-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;margin-top:20px}
 .grid-title{font-size:17px;font-weight:800}
 .grid-count{font-size:13px;color:var(--sw-muted)}
@@ -103,7 +106,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="nav-search">
       <input id="searchInput" placeholder="搜索AI工具/硬件..." autocomplete="off">
     </div>
-    <div class="nav-count">收录 <span id="toolNum">-</span> 款产品</div>
+    <div class="nav-count">收录 <span id="toolNum">-</span> 款</div>
+    <div class="nav-links">
+      <a class="nav-link" href="/" onclick="renderAll();return false;">🏠 首页</a>
+      <a class="nav-link active" href="#" id="navAIZhibo">🎙️ AI直播</a>
+    </div>
   </div>
 </nav>
 
@@ -379,6 +386,36 @@ function goSlide(n) {
 
 function startAutoPlay() {
   slideTimer = setInterval(function() { goSlide(slideIdx + 1); }, 4500);
+}
+
+// ========== AI直播 导航 ==========
+document.getElementById('navAIZhibo').addEventListener('click', function(e){
+  e.preventDefault();
+  showLivePage();
+});
+
+function showLivePage(){
+  document.getElementById('sliderWrap').style.display='none';
+  document.getElementById('gridHeader').style.display='none';
+  document.getElementById('subNav').style.display='none';
+  var main=document.querySelector('.main-wrap');
+  // 移除旧的iframe
+  var old=document.getElementById('liveIframeWrap');
+  if(old) old.remove();
+  // 创建iframe
+  var wrap=document.createElement('div');
+  wrap.id='liveIframeWrap';
+  wrap.style.cssText='width:100%;height:calc(100vh - 130px);border-radius:16px;overflow:hidden;background:#000;margin-top:16px;box-shadow:0 8px 32px rgba(0,0,0,.5)';
+  var iframe=document.createElement('iframe');
+  iframe.src='livestream/index.html';
+  iframe.style.cssText='width:100%;height:100%;border:none';
+  iframe.allow='camera; microphone';
+  wrap.appendChild(iframe);
+  main.innerHTML='';
+  main.appendChild(wrap);
+  // 标记当前nav
+  document.querySelectorAll('.nav-link').forEach(function(l){l.classList.remove('active');});
+  document.getElementById('navAIZhibo').classList.add('active');
 }
 
 // ========== START ==========

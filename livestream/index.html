@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>云水散人直播间</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a2e;font-family:'Microsoft YaHei',sans-serif;color:#fff;overflow:auto;height:100vh;display:flex;flex-direction:column}
+/* 顶部栏 - 浮在视频上方 */
+.top-bar{position:absolute;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:4px 12px;background:linear-gradient(180deg,rgba(0,0,0,.6) 0%,transparent 100%);z-index:15;pointer-events:none}
+.top-bar .live-badge{pointer-events:auto}
+.live-badge{display:flex;align-items:center;gap:6px}
+.live-dot{width:10px;height:10px;background:#ff4757;border-radius:50%;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.live-title{font-size:15px;font-weight:bold}
+.viewer-count{font-size:12px;color:#aaa;background:#222;padding:2px 8px;border-radius:10px}
+.room-id{font-size:11px;color:#666;margin-left:8px}
+/* 主区域 */
+.main-area{display:flex;flex:1;overflow:hidden;min-height:0}
+/* 视频区 */
+.video-section{flex:1;display:flex;flex-direction:column;position:relative;min-width:0;min-height:0}
+.video-container{flex:1;display:flex;align-items:center;justify-content:center;background:#000;position:relative;overflow:hidden;min-height:0}
+#remoteVideo{width:100%;height:100%;max-height:80vh;object-fit:contain}
+#localVideo{position:absolute;width:160px;height:120px;bottom:10px;right:10px;border-radius:8px;border:2px solid rgba(255,255,255,.25);z-index:10;object-fit:cover}
+.waiting-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#888}
+.waiting-screen .icon{font-size:48px}
+.waiting-screen .text{font-size:14px}
+/* 礼物特效层 */
+.gift-overlay{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:20;overflow:hidden}
+/* 左下角字幕（抖音风格） */
+.subtitle-layer{position:absolute;left:16px;bottom:70px;max-width:55%;pointer-events:none;z-index:18;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.subtitle-item{color:#fff;font-size:14px;line-height:1.5;padding:4px 10px;border-radius:4px;background:rgba(0,0,0,.45);text-shadow:1px 1px 2px rgba(0,0,0,.9);animation:subtitle-in .35s ease forwards;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;backdrop-filter:blur(2px)}
+@keyframes subtitle-in{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:translateY(0)}}
+
+/* 底部控制栏 */
+.bottom-bar{display:flex;align-items:center;padding:4px 10px;background:#16213e;border-top:1px solid #333;gap:6px;flex-shrink:0;flex-wrap:wrap}
+.danmaku-input{flex:1;min-width:150px;padding:6px 12px;border:1px solid #444;border-radius:20px;background:#0f3460;color:#fff;font-size:13px;outline:none}
+.danmaku-input:focus{border-color:#e94560}
+.btn-send{padding:6px 16px;border:none;border-radius:20px;background:#e94560;color:#fff;font-size:13px;cursor:pointer;white-space:nowrap}
+.btn-send:hover{background:#c0392b}
+.btn-gifts{padding:6px 16px;border:none;border-radius:20px;background:#f39c12;color:#fff;font-size:13px;cursor:pointer;white-space:nowrap}
+.btn-gifts:hover{background:e67e22}
+/* 右侧面板 */
+.side-panel{width:220px;background:#16213e;border-left:1px solid #333;display:flex;flex-direction:column;flex-shrink:0;overflow:hidden}
+.panel-tabs{display:flex;border-bottom:1px solid #333;flex-shrink:0}
+.panel-tab{flex:1;padding:8px;text-align:center;font-size:13px;cursor:pointer;color:#888;border-bottom:2px solid transparent;transition:all .2s}
+.panel-tab.active{color:#e94560;border-bottom-color:#e94560;background:#1a1a2e}
+.panel-content{flex:1;overflow-y:auto;padding:8px;min-height:0;max-height:100%}
+.chat-msg{margin-bottom:8px;font-size:13px;line-height:1.4;word-break:break-all}
+.chat-msg .name{color:#e94560;margin-right:4px}
+.chat-msg .sys{color:#888;font-style:italic}
+/* 礼物面板 */
+.gift-panel{display:none}
+.gift-panel.show{display:block}
+.gift-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.gift-item{display:flex;flex-direction:column;align-items:center;padding:8px 4px;border-radius:8px;background:#1a1a2e;border:1px solid transparent;cursor:pointer;transition:all .2s}
+.gift-item:hover{border-color:#e94560;background:#0f3460}
+.gift-icon{font-size:28px;margin-bottom:2px}
+.gift-name{font-size:11px;color:#ccc}
+.gift-price{font-size:10px;color:#f39c12}
+/* 收款码弹窗 */
+.qr-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:100;align-items:center;justify-content:center}
+.qr-modal.show{display:flex}
+.qr-box{background:#fff;border-radius:16px;padding:24px;text-align:center;max-width:360px;width:90%;color:#333}
+.qr-box h3{margin-bottom:12px;color:#333;font-size:18px}
+.qr-img{width:200px;height:200px;border-radius:8px;margin-bottom:12px}
+.qr-amount{font-size:22px;color:#e94560;font-weight:bold;margin-bottom:8px}
+.qr-gift-name{font-size:14px;color:#666;margin-bottom:16px}
+.qr-tabs{display:flex;gap:8px;justify-content:center;margin-bottom:12px}
+.qr-tab{padding:6px 20px;border-radius:20px;cursor:pointer;font-size:14px;border:2px solid #ddd}
+.qr-tab.active-wx{border-color:#07c160;background:#07c160;color:#fff}
+.qr-tab.active-alipay{border-color:#1677ff;background:#1677ff;color:#fff}
+.qr-close-hint{font-size:12px;color:#999}
+.btn-confirm-pay{margin-top:12px;padding:8px 32px;border:none;border-radius:20px;background:#e94560;color:#fff;font-size:15px;cursor:pointer}
+.btn-confirm-pay:hover{background:#c0392b}
+/* 主播确认弹窗 */
+.confirm-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:90;align-items:center;justify-content:center}
+.confirm-modal.show{display:flex}
+.confirm-box{background:#16213e;border-radius:12px;padding:20px;text-align:center;max-width:320px;color:#fff}
+.confirm-box .gift-info{font-size:20px;margin-bottom:8px}
+.confirm-box .user-name{font-size:14px;color:#aaa;margin-bottom:16px}
+.confirm-btns{display:flex;gap:8px;justify-content:center}
+.confirm-btns button{padding:8px 24px;border:none;border-radius:20px;font-size:14px;cursor:pointer}
+.btn-accept{background:#27ae60;color:#fff}
+.btn-reject{background:#e74c3c;color:#fff}
+/* 开播/进入房间 */
+.start-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);display:flex;align-items:center;justify-content:center;z-index:200;flex-direction:column;gap:16px}
+.start-screen h1{font-size:28px;background:linear-gradient(90deg,#e94560,#f39c12);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.start-screen p{color:#888;font-size:14px}
+.start-btn{padding:14px 48px;font-size:18px;border:none;border-radius:30px;background:linear-gradient(90deg,#e94560,#f39c12);color:#fff;cursor:pointer;font-weight:bold;transition:transform .2s}
+.start-btn:hover{transform:scale(1.05)}
+.input-room{padding:10px 20px;font-size:16px;border:2px solid #333;border-radius:30px;background:#0f3460;color:#fff;width:260px;text-align:center;outline:none}
+.input-room:focus{border-color:#e94560}
+/* 特效动画 */
+.gift-float{position:absolute;font-size:40px;animation:floatUp 2s ease-out forwards;pointer-events:none;z-index:25}
+@keyframes floatUp{0%{opacity:1;transform:translateY(0) scale(1)}50%{opacity:1;transform:translateY(-80px) scale(1.3)}100%{opacity:0;transform:translateY(-180px) scale(.5)}}
+/* 全屏大特效 */
+.fullscreen-effect{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:30;display:flex;align-items:center;justify-content:center}
+/* 烟花 */
+.firework-particle{position:absolute;width:6px;height:6px;border-radius:50%;animation:fw-explode 1.2s ease-out forwards}
+@keyframes fw-explode{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(0)}}
+/* 撒钱 */
+.money-rain{position:absolute;font-size:24px;animation:money-fall 2.5s linear forwards}
+@keyframes money-fall{0%{opacity:1;transform:translateY(-50px) rotate(0deg)}100%{opacity:0;transform:translateY(100vh) rotate(720deg)}}
+/* 金光 */
+.golden-light{position:absolute;width:100%;height:100%;background:radial-gradient(circle,rgba(255,215,0,.4) 0%,transparent 70%);animation:glow-pulse 2s ease-out forwards}
+@keyframes glow-pulse{0%{opacity:0}30%{opacity:1}100%{opacity:0}}
+/* 宇宙特效 */
+.cosmic-bg{position:absolute;width:100%;height:100%;background:#000;animation:cosmic-in 3s ease-out forwards}
+@keyframes cosmic-in{0%{opacity:0}20%{opacity:1}100%{opacity:0}}
+/* 横穿屏幕特效 */
+.screen-cross{position:absolute;animation:cross-screen 2.5s ease-in-out forwards;font-size:60px}
+@keyframes cross-screen{0%{transform:translateX(-100px);opacity:0}20%{opacity:1}80%{opacity:1}100%{transform:translateX(calc(100vw + 100px));opacity:0}}
+/* 从天而降 */
+.sky-drop{position:absolute;animation:drop-down 2s ease-out forwards;font-size:56px}
+@keyframes drop-down{0%{transform:translateY(-100px) scale(2);opacity:0}40%{opacity:1;transform:translateY(0) scale(1.2)}70%{opacity:1;transform:translateY(20px) scale(1)}100%{opacity:0;transform:translateY(60px) scale(.6)}}
+/* 跑车横穿 */
+.car-cross{position:absolute;font-size:48px;animation:car-drive 2s ease-in-out forwards;bottom:80px}
+@keyframes car-drive{0%{transform:translateX(-120px)}100%{transform:translateX(calc(100vw + 120px))}}
+/* 飞机横幅 */
+.plane-fly{position:absolute;font-size:42px;animation:plane-across 3s ease-in-out forwards;top:15%}
+@keyframes plane-across{0%{transform:translateX(-150px) translateY(0)}50%{transform:translateX(50vw) translateY(-20px)}100%{transform:translateX(calc(100vw + 150px)) translateY(0)}}
+/* 飞船UFO */
+.ufo-hover{position:absolute;font-size:52px;animation:ufo-appear 3s ease-in-out forwards;top:25%}
+@keyframes ufo-appear{0%{transform:translateY(-100px) scale(0);opacity:0}30%{transform:translateY(0) scale(1);opacity:1}70%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(-80px) scale(1.5);opacity:0}}
+/* 星球升起 */
+.planet-rise{position:absolute;font-size:64px;animation:planet-up 3.5s ease-out forwards;bottom:-20px;left:50%;transform:translateX(-50%)}
+@keyframes planet-up{0%{transform:translateX(-50%) translateY(100px) scale(.3);opacity:0}30%{opacity:1;transform:translateX(-50%) translateY(30px) scale(.8)}60%{opacity:1;transform:translateX(-50%) translateY(-20px) scale(1.1)}100%{opacity:0;transform:translateX(-50%) translateY(-120px) scale(1.5)}}
+/* 旋转闪耀 */
+.spin-shine{position:absolute;font-size:46px;animation:spin-glow 2.2s ease-out forwards}
+@keyframes spin-glow{0%{transform:rotate(0deg) scale(.5);opacity:0}30%{transform:rotate(180deg) scale(1.3);opacity:1}70%{transform:rotate(540deg) scale(1.1);opacity:1}100%{transform:rotate(720deg) scale(.5);opacity:0}}
+/* 别墅展示 */
+.villa-show{position:absolute;display:flex;flex-direction:column;align-items:center;animation:villa-pop 2.5s ease-out forwards}
+@keyframes villa-pop{0%{transform:scale(0);opacity:0}25%{transform:scale(1.1);opacity:1}75%{transform:scale(1);opacity:1}100%{transform:scale(1.2);opacity:0}}
+.villa-show .v-icon{font-size:72px}
+.villa-show .v-text{font-size:18px;color:#ffd700;margin-top:4px;text-shadow:0 0 10px rgba(255,215,0,.8)}
+/* 城堡展示 */
+.castle-show{position:absolute;display:flex;flex-direction:column;align-items:center;animation:castle-pop 3s ease-out forwards}
+@keyframes castle-pop{0%{transform:scale(0);opacity:0}20%{transform:scale(1.05);opacity:1}80%{transform:scale(1);opacity:1}100%{transform:scale(1.3);opacity:0}}
+.castle-show .c-icon{font-size:80px}
+.castle-show .c-text{font-size:20px;color:#ffd700;margin-top:6px;text-shadow:0 0 15px rgba(255,215,0,1)}
+/* 直升机撒钱 */
+.heli-rain{position:absolute;font-size:38px;animation:heli-drop 3s ease-out forwards;top:10%}
+@keyframes heli-drop{0%{transform:translateX(-80px) translateY(0);opacity:0}15%{opacity:1;transform:translateX(30vw) translateY(-10px)}85%{opacity:1;transform:translateX(70vw) translateY(20px)}100%{opacity:0;transform:translateX(calc(100vw + 80px))}}
+/* 游艇航行 */
+.yacht-sail{position:absolute;font-size:44px;animation:yacht-move 2.8s ease-in-out forwards;bottom:60px}
+@keyframes yacht-move{0%{transform:translateX(-130px) rotate(-3deg)}50%{transform:translateX(50vw) rotate(2deg)}100%{transform:translateX(calc(100vw + 130px)) rotate(-3deg)}}
+/* 响应式 */
+@media(max-width:700px){
+  .side-panel{display:none}
+  .video-section{width:100%}
+  .local-video{width:100px!important;height:75px!important}
+}
+</style>
+</head>
+<body>
+
+<!-- 开播/进入房间 -->
+<div class="start-screen" id="startScreen">
+  <h1>🎙️ 云水散人直播间</h1>
+  <p>主播点「开播」· 观众点「进房间」</p>
+  <input class="input-room" id="roomInput" placeholder="输入房间号（默认：yunshui）" value="yunshui">
+  <button class="start-btn" id="btnStart">🎬 开播</button>
+  <button class="start-btn" id="btnJoin" style="background:linear-gradient(90deg,#0984e3,#6c5ce7)">📺 进房间看直播</button>
+</div>
+
+<!-- 主界面 -->
+<div id="mainUI" style="display:none">
+  <!-- 顶部 -->
+  <!-- 主区域 -->
+  <div class="main-area">
+    <!-- 视频 -->
+    <div class="video-section">
+      <div class="video-container" id="videoContainer">
+        <!-- 浮动标题栏（叠加在视频上） -->
+        <div class="top-bar">
+          <div class="live-badge">
+            <span class="live-dot"></span>
+            <span class="live-title" id="pageTitle">云水散人直播间</span>
+            <span class="viewer-count">👁 <span id="viewerCount">1</span></span>
+            <span class="room-id" id="roomIdDisplay"></span>
+          </div>
+        </div>
+        <video id="remoteVideo" autoplay playsinline></video>
+        <video id="localVideo" autoplay playsinline muted></video>
+        <div class="waiting-screen" id="waitingScreen" style="display:none">
+          <div class="icon">📡</div>
+          <div class="text">等待主播开播...</div>
+        </div>
+        <!-- 礼物特效层 -->
+        <div class="gift-overlay" id="giftOverlay"></div>
+        <!-- 左下角滚动字幕 -->
+        <div class="subtitle-layer" id="subtitleLayer"></div>
+      </div>
+      <!-- 底部 -->
+      <div class="bottom-bar">
+        <input class="danmaku-input" id="danmakuInput" placeholder="发个弹幕~" maxlength="50" onkeydown="if(event.key==='Enter')sendDanmaku()">
+        <button class="btn-send" onclick="sendDanmaku()">发送</button>
+        <button class="btn-gifts" onclick="toggleGiftPanel()">🎁 礼物</button>
+      </div>
+    </div>
+
+    <!-- 右侧面板 -->
+    <div class="side-panel">
+      <div class="panel-tabs">
+        <div class="panel-tab active" onclick="switchTab('chat',this)">💬 聊天</div>
+        <div class="panel-tab" onclick="switchTab('gifts',this)">🎁 礼物</div>
+      </div>
+      <div class="panel-content" id="chatPanel"></div>
+      <div class="panel-content gift-panel" id="giftPanelContent">
+        <div class="gift-grid" id="giftGrid"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 收款码弹窗 -->
+<div class="qr-modal" id="qrModal">
+  <div class="qr-box">
+    <h3>🧧 扫码打赏</h3>
+    <div class="qr-tabs">
+      <div class="qr-tab active-wx" onclick="switchQR('wx',this)">微信支付</div>
+      <div class="qr-tab" onclick="switchQR('alipay',this)">支付宝</div>
+    </div>
+    <img class="qr-img" id="qrImg" src="" alt="收款码">
+    <div class="qr-amount" id="qrAmount"></div>
+    <div class="qr-gift-name" id="qrGiftName"></div>
+    <button class="btn-confirm-pay" onclick="confirmPayment()">✅ 我已付款</button>
+    <div class="qr-close-hint">付完款后点击上方按钮通知主播</div>
+  </div>
+</div>
+
+<!-- 主播确认弹窗 -->
+<div class="confirm-modal" id="confirmModal">
+  <div class="confirm-box">
+    <div class="gift-info" id="confirmGiftInfo"></div>
+    <div class="user-name" id="confirmUserName"></div>
+    <div class="confirm-btns">
+      <button class="btn-accept" onclick="handleConfirm(true)">✅ 确认到账</button>
+      <button class="btn-reject" onclick="handleConfirm(false)">❌ 未收到</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lottie-web@5.12.2/build/player/lottie.min.js"></script>
+<script>
+// ============ 配置 ============
+const GIFTS = [
+  {id:'star',name:'⭐小星星',price:0.01,icon:'⭐'},
+  {id:'heart',name:'💖小爱心',price:0.1,icon:'💖'},
+  {id:'beer',name:'🍺啤酒',price:1,icon:'🍺'},
+  {id:'rocket',name:'🚀火箭',price:5,icon:'🚀'},
+  {id:'crown',name:'👑皇冠',price:10,icon:'👑'},
+  {id:'gamepad',name:'🎮手柄',price:20,icon:'🎮'},
+  {id:'firework',name:'🎆烟花',price:50,icon:'🎆'},
+  {id:'ring',name:'💍钻戒',price:66,icon:'💍'},
+  {id:'car',name:'🏎️跑车',price:100,icon:'🏎️'},
+  {id:'yacht',name:'🛥️游艇',price:200,icon:'🛥️'},
+  {id:'plane',name:'✈️飞机',price:300,icon:'✈️'},
+  {id:'villa',name:'🏠别墅',price:500,icon:'🏠'},
+  {id:'castle',name:'🏰城堡',price:1000,icon:'🏰'},
+  {id:'heli',name:'🚁直升机',price:3000,icon:'🚁'},
+  {id:'ufo',name:'🛸飞船',price:5000,icon:'🛸'},
+  {id:'planet',name:'🌟星球',price:10000,icon:'🌟'}
+];
+
+const WX_QR = 'wxpay.jpg';
+const ALIPAY_QR = 'alipay.jpg';
+
+// ============ 状态 ============
+let peer = null;
+let conn = null;
+let localStream = null;
+let isBroadcaster = false;
+let myName = '观众' + Math.floor(Math.random()*9999);
+let currentGift = null;
+let currentQR = 'wx';
+let viewerCount = 1;
+
+// ============ 初始化 ============
+function init(){
+  renderGiftGrid();
+  document.getElementById('btnStart').onclick=startBroadcast;
+  document.getElementById('btnJoin').onclick=joinRoom;
+}
+
+function renderGiftGrid(){
+  const grid=document.getElementById('giftGrid');
+  grid.innerHTML=GIFTS.map(g=>`
+    <div class="gift-item" onclick="selectGift('${g.id}')">
+      <div class="gift-icon">${g.icon}</div>
+      <div class="gift-name">${g.name}</div>
+      <div class="gift-price">¥${g.price}</div>
+    </div>`).join('');
+}
+
+// ============ 开播 / 进房 ============
+async function startBroadcast(){
+  const room=document.getElementById('roomInput').value.trim()||'yunshui';
+  isBroadcaster=true;
+  myName='云水散人';
+  
+  try{
+    localStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});
+    document.getElementById('localVideo').srcObject=localStream;
+    
+    peer=new Peer(room,{debug:0});
+    // 响应观众的视频请求（必须在peer.on('open')之前注册，避免竞态）
+    peer.on('call',(call)=>{
+      console.log('主播收到观众的call请求，正在answer...');
+      call.answer(localStream);
+      // 主播也可以看观众画面（可选）
+      call.on('stream',(viewerStream)=>{
+        console.log('主播收到观众的视频流');
+        // document.getElementById('localVideo').srcObject = viewerStream;
+      });
+      call.on('error',(err)=>{
+        console.error('主播端call错误:',err);
+      });
+      call.on('close',()=>{
+        console.log('主播端call关闭');
+      });
+    });
+    peer.on('open',(id)=>{
+      showMain(room);
+      document.getElementById('pageTitle').textContent='🎬 云水散人(*坤) · 正在直播';
+      addChatMsg('system','🎉 直播间已开启！房间号：'+room);
+      // 主播端：大屏显示自己的画面
+      document.getElementById('remoteVideo').srcObject=localStream;
+      document.getElementById('waitingScreen').style.display='none';
+    });
+    peer.on('connection',(c)=>{
+      conn=c;
+      setupConn();
+    });
+    peer.on('error',(err)=>{
+      if(err.type==='unavailable'){
+        alert('房间号已被占用，请换一个');
+        peer.destroy();
+      }else{
+        console.error('Peer error:',err);
+      }
+    });
+  }catch(err){
+    alert('无法获取摄像头/麦克风：'+err.message);
+  }
+}
+
+async function joinRoom(){
+  const room=document.getElementById('roomInput').value.trim()||'yunshui';
+  myName=prompt('请输入你的昵称','观众'+Math.floor(Math.random()*9999))||myName;
+  
+  // 观众不需要摄像头！创建一个黑屏canvas流满足PeerJS API要求
+  const canvas=document.createElement('canvas');
+  canvas.width=1; canvas.height=1;
+  const ctx=canvas.getContext('2d');
+  ctx.fillStyle='#000';
+  ctx.fillRect(0,0,1,1);
+  const viewerStream=canvas.captureStream(1);
+  
+  peer=new Peer({debug:2});
+  peer.on('open',()=>{
+    console.log('观众Peer已创建，ID:',peer.id,'准备连接房间:',room);
+    conn=peer.connect(room);
+    setupConn();
+    showMain(room);
+    document.getElementById('pageTitle').textContent='📺 云水散人直播间 · 观看中';
+    addChatMsg('system','📡 已连接直播间...');
+    
+    // 用自己的流去call主播，换取主播的流
+    console.log('正在call主播，房间号:',room,'流状态:',viewerStream?'有':'无');
+    const call=peer.call(room,viewerStream);
+    console.log('call对象已创建:',call);
+    call.on('stream',(remoteStream)=>{
+      console.log('✅ 收到主播视频流！tracks:',remoteStream?remoteStream.getTracks().length:'null');
+      document.getElementById('remoteVideo').srcObject=remoteStream;
+      document.getElementById('waitingScreen').style.display='none';
+    });
+    call.on('close',()=>{
+      console.log('视频连接关闭');
+      document.getElementById('remoteVideo').srcObject=null;
+      document.getElementById('waitingScreen').style.display='flex';
+    });
+    call.on('error',(err)=>{
+      console.error('❌ 视频通话错误：',err);
+    });
+  });
+  peer.on('error',(err)=>{
+    if(err.type==='connection-failed'){
+      alert('连接失败，请确认主播已开播且房间号正确');
+    }else if(err.type==='browser-incompatible'){
+      alert('浏览器不支持WebRTC，请用Chrome/Edge/Firefox最新版');
+    }else{
+      alert('连接错误：'+err.type);
+    }
+  });
+}
+
+function showMain(room){
+  document.getElementById('startScreen').style.display='none';
+  document.getElementById('mainUI').style.display='flex';
+  document.getElementById('roomIdDisplay').textContent='房间：'+room;
+}
+
+// ============ 连接处理 ============
+function setupConn(){
+  conn.on('open',()=>{
+    conn.send({type:'join',name:myName});
+  });
+  conn.on('data',(data)=>{
+    if(data.type==='join'&&data.name!==myName){
+      // 别人的join事件由handleData统一处理，这里不再重复
+    }
+    handleData(data);
+  });
+  conn.on('close',()=>{
+    viewerCount=Math.max(1,viewerCount-1);
+    updateViewerCount();
+    addChatMsg('system','一位观众离开了');
+    showSubtitle('系统','🚪 一位观众离开了');
+  });
+}
+
+function handleData(data){
+  switch(data.type){
+    case 'danmaku':
+      addChatMsg(data.name,data.text);
+      showSubtitle(data.name,data.text);
+      sendToAll(data);
+      break;
+    case 'join':
+      addChatMsg('system','👋 '+data.name+' 进入了直播间');
+      showSubtitle('系统','👋 '+data.name+' 进入了直播间');
+      viewerCount++;
+      updateViewerCount();
+      sendToAll(data);
+      break;
+    case 'leave':
+      addChatMsg('system','🚪 '+data.name+' 离开了直播间');
+      showSubtitle('系统','🚪 '+data.name+' 离开了直播间');
+      viewerCount=Math.max(1,viewerCount-1);
+      updateViewerCount();
+      break;
+    case 'gift-request':
+      if(isBroadcaster){
+        showConfirmModal(data);
+      }
+      sendToAll(data);
+      break;
+    case 'gift-confirmed':
+      playGiftEffect(data.giftId);
+      showGiftSubtitle(data.userName, data.giftIcon||'🎁', data.giftName||getGiftName(data.giftId));
+      addChatMsg('system','🎁 '+data.userName+' 送出了 '+(data.giftIcon||'🎁')+' '+(data.giftName||getGiftName(data.giftId))+'！');
+      sendToAll(data);
+      break;
+    case 'gift-rejected':
+      addChatMsg('system','⏳ '+data.userName+' 的礼物待确认中...');
+      break;
+  }
+}
+
+function sendToAll(data){
+  // PeerJS P2P: broadcaster转发给所有观众（简化版）
+  // 完整实现需要维护connections列表
+}
+
+// ============ 字幕（抖音风格）============
+function showSubtitle(name,text){
+  const layer=document.getElementById('subtitleLayer');
+  const el=document.createElement('div');
+  el.className='subtitle-item';
+  el.textContent=name+': '+text;
+  layer.appendChild(el);
+  // 最多保留5条，超出移除最旧（不自动消失）
+  while(layer.children.length>5) layer.firstChild.remove();
+}
+
+// 送礼字幕（抖音风格：xxx 送出了 🎁礼物名）
+function showGiftSubtitle(userName, giftIcon, giftName){
+  const layer=document.getElementById('subtitleLayer');
+  const el=document.createElement('div');
+  el.className='subtitle-item';
+  el.style.background='linear-gradient(90deg,rgba(233,69,96,.7) 0%,rgba(243,156,18,.5) 100%)';
+  el.style.borderLeft='3px solid #f39c12';
+  el.innerHTML='🎉 <b>'+escapeHtml(userName)+'</b> 送出了 <b style="color:#f39c12">'+giftIcon+' '+escapeHtml(giftName)+'</b>';
+  layer.appendChild(el);
+  setTimeout(()=>el.remove(),5000);
+  while(layer.children.length>5) layer.firstChild.remove();
+}
+
+function sendDanmaku(){
+  const input=document.getElementById('danmakuInput');
+  const text=input.value.trim();
+  if(!text)return;
+  
+  addChatMsg(myName,text);
+  showSubtitle(myName,text);
+  
+  if(conn&&conn.open){
+    conn.send({type:'danmaku',name:myName,text:text});
+  }
+  input.value='';
+}
+
+// 旧 addDanmaku 已废弃，弹幕不再飘屏
+
+// ============ 聊天 ============
+function addChatMsg(name,text){
+  const panel=document.getElementById('chatPanel');
+  const div=document.createElement('div');
+  div.className='chat-msg';
+  if(name==='system'){
+    div.innerHTML='<span class="sys">'+escapeHtml(text)+'</span>';
+  }else{
+    div.innerHTML='<span class="name">'+escapeHtml(name)+':</span>'+escapeHtml(text);
+  }
+  panel.appendChild(div);
+  // 最多保留18条，多的移除
+  while(panel.children.length>18){
+    panel.removeChild(panel.firstChild);
+  }
+  panel.scrollTop=panel.scrollHeight;
+}
+
+function escapeHtml(s){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ============ 礼物系统 ============
+function toggleGiftPanel(){
+  const gp=document.getElementById('giftPanelContent');
+  gp.classList.toggle('show');
+  if(gp.classList.contains('show')){
+    document.querySelectorAll('.panel-tab')[1].click();
+  }
+}
+
+function switchTab(tab,el){
+  document.querySelectorAll('.panel-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('chatPanel').style.display=tab==='chat'?'block':'none';
+  document.getElementById('giftPanelContent').style.display=tab==='gifts'?'block':'none';
+}
+// 初始状态
+document.getElementById('giftPanelContent').style.display='none';
+
+function selectGiftId(giftId){selectGift(giftId);}
+function selectGift(giftId){
+  currentGift=GIFTS.find(g=>g.id===giftId);
+  if(!currentGift)return;
+  // 主播模式下直接播放特效，无需扫码
+  if(isBroadcaster){
+    playGiftEffect(currentGift.id);
+    addChatMsg('system','🎁 主播触发特效：'+currentGift.name);
+    return;
+  }
+  showQRModal();
+}
+
+function showQRModal(){
+  document.getElementById('qrAmount').textContent='¥'+currentGift.price;
+  document.getElementById('qrGiftName').textContent=currentGift.name;
+  switchQR(currentQR,null);
+  document.getElementById('qrModal').classList.add('show');
+}
+
+function switchQR(type,el){
+  currentQR=type;
+  document.querySelectorAll('.qr-tab').forEach(t=>{
+    t.classList.remove('active-wx','active-alipay');
+  });
+  if(el){
+    el.classList.add(type==='wx'?'active-wx':'active-alipay');
+  }else{
+    document.querySelectorAll('.qr-tab')[0].classList.add('active-wx');
+  }
+  document.getElementById('qrImg').src=type==='wx'?WX_QR:ALIPAY_QR;
+}
+
+function confirmPayment(){
+  document.getElementById('qrModal').classList.remove('show');
+  if(conn&&conn.open){
+    conn.send({type:'gift-request',giftId:currentGift.id,giftName:currentGift.name,price:currentGift.price,userName:myName});
+  }
+  addChatMsg('system','🧧 已发送礼物请求，等待主播确认...');
+}
+
+// 主播确认
+function showConfirmModal(data){
+  const gift=GIFTS.find(g=>g.id===data.giftId);
+  document.getElementById('confirmGiftInfo').textContent=gift?gift.icon+' '+gift.name+' ¥'+data.price:'未知礼物';
+  document.getElementById('confirmUserName').textContent='来自：'+data.userName;
+  window._pendingGift=gift||{id:data.giftId,name:data.giftName,icon:'',price:data.price};
+  window._pendingUserName=data.userName;
+  document.getElementById('confirmModal').classList.add('show');
+}
+
+function handleConfirm(accepted){
+  document.getElementById('confirmModal').classList.remove('show');
+  if(!currentGift&&!window._pendingGift)return;
+  const gift=currentGift||window._pendingGift;
+  const pendingUserName=window._pendingUserName||myName;
+  if(conn&&conn.open){
+    conn.send({
+      type:accepted?'gift-confirmed':'gift-rejected',
+      giftId:gift.id,
+      giftName:gift.name,
+      giftIcon:gift.icon,
+      price:gift.price,
+      userName:pendingUserName
+    });
+  }
+  if(accepted){
+    playGiftEffect(gift.id);
+    showGiftSubtitle(pendingUserName, gift.icon, gift.name);
+    addChatMsg('system','🎁 '+pendingUserName+' 送出了 '+gift.icon+' '+gift.name+'！');
+  }
+  currentGift=null;
+  window._pendingGift=null;
+  window._pendingUserName=null;
+}
+
+// ============ 礼物特效 ============
+function getGiftName(id){const g=GIFTS.find(x=>x.id===id);return g?g.name:id;}
+
+function playGiftEffect(giftId){
+  const overlay=document.getElementById('giftOverlay');
+  switch(giftId){
+    case 'star': createStarRain(overlay);break;
+    case 'heart': createHeartRain(overlay);break;
+    case 'beer': createBeerEffect(overlay);break;
+    case 'rocket': createRocketLottie(overlay);break;
+    case 'crown': createCrownEffect(overlay);break;
+    case 'gamepad': createGamepadEffect(overlay);break;
+    case 'firework': createFireworkConfetti();break;
+    case 'ring': createRingEffect(overlay);break;
+    case 'car': createCarEffect(overlay);break;
+    case 'yacht': createYachtEffect(overlay);break;
+    case 'plane': createPlaneEffect(overlay);break;
+    case 'villa': createVillaEffect(overlay);break;
+    case 'castle': createCastleEffect(overlay);break;
+    case 'heli': createHeliEffect(overlay);break;
+    case 'ufo': createUFOEffect(overlay);break;
+    case 'planet': createPlanetEffect(overlay);break;
+    default: createFloatEffect(overlay,'🎁');
+  }
+}
+
+// ⭐星星雨（canvas-confetti）
+function createStarRain(container){
+  confetti({
+    particleCount:50,spread:70,origin:{y:0.6},
+    shapes:['star'],colors:['#ffd700','#fff700','#ffec8b'],
+    scalar:1.5,gravity:0.8,drift:0,ticks:200
+  });
+  // 补充emoji星星飘浮
+  for(let i=0;i<12;i++){
+    setTimeout(()=>{
+      const el=document.createElement('div');
+      el.className='gift-float';
+      el.textContent='⭐';
+      el.style.left=(10+Math.random()*80)+'%';
+      el.style.bottom='10%';
+      el.style.fontSize=(30+Math.random()*20)+'px';
+      container.appendChild(el);
+      setTimeout(()=>el.remove(),2500);
+    },i*120);
+  }
+}
+
+// 💖爱心雨（canvas-confetti）
+function createHeartRain(container){
+  confetti({
+    particleCount:60,spread:80,origin:{y:0.5},
+    shapes:['circle'],colors:['#ff69b4','#ff1493','#ff6eb4','#ffb6c1'],
+    scalar:1.2,gravity:0.7,drift:0,ticks:250
+  });
+  // 爱心emoji飘浮
+  for(let i=0;i<15;i++){
+    setTimeout(()=>{
+      const el=document.createElement('div');
+      el.className='gift-float';
+      el.textContent='💖';
+      el.style.left=(5+Math.random()*90)+'%';
+      el.style.bottom='5%';
+      el.style.fontSize=(35+Math.random()*25)+'px';
+      el.style.animationDuration=(1.8+Math.random()*0.8)+'s';
+      container.appendChild(el);
+      setTimeout(()=>el.remove(),2800);
+    },i*100);
+  }
+}
+
+// 🍺啤酒碰杯
+function createBeerEffect(container){
+  const el=document.createElement('div');
+  el.style.cssText='position:absolute;font-size:80px;left:50%;top:50%;transform:translate(-50%,-50%);animation:beer-cheers 1.5s ease-out forwards;z-index:30';
+  el.textContent='🍻';
+  container.appendChild(el);
+  // 溅出的酒花
+  for(let i=0;i<8;i++){
+    setTimeout(()=>{
+      const s=document.createElement('div');
+      s.textContent='🍺';
+      s.className='gift-float';
+      s.style.left=(40+Math.random()*20)+'%';
+      s.style.bottom='40%';
+      s.style.fontSize='30px';
+      container.appendChild(s);
+      setTimeout(()=>s.remove(),1500);
+    },i*80);
+  }
+  setTimeout(()=>el.remove(),1800);
+  // 补充动画
+  if(!document.getElementById('beer-style')){
+    const style=document.createElement('style');
+    style.id='beer-style';
+    style.textContent='@keyframes beer-cheers{0%{transform:translate(-50%,-50%) scale(0) rotate(-30deg)}50%{transform:translate(-50%,-50%) scale(1.3) rotate(15deg)}100%{transform:translate(-50%,-50%) scale(1) rotate(0deg)}}';
+    document.head.appendChild(style);
+  }
+}
+
+// 🚀火箭Lottie动画（用内置JSON模拟）
+function createRocketLottie(container){
+  // 火箭主体
+  const rocket=document.createElement('div');
+  rocket.style.cssText='position:absolute;font-size:100px;left:50%;bottom:10%;transform:translateX(-50%);z-index:30';
+  rocket.innerHTML='<div style="animation:rocket-fly 2s ease-out forwards">🚀</div>';
+  container.appendChild(rocket);
+  // 火焰尾迹粒子
+  for(let i=0;i<20;i++){
+    setTimeout(()=>{
+      const f=document.createElement('div');
+      f.textContent=['🔥','💨','✨','⭐'][i%4];
+      f.style.cssText='position:absolute;font-size:'+(15+Math.random()*15)+'px;left:'+(48+Math.random()*4)+'%;bottom:'+(8+Math.random()*5)+'%;animation:flame-up 0.8s ease-out forwards;opacity:0.9';
+      container.appendChild(f);
+      setTimeout(()=>f.remove(),1000);
+    },i*100);
+  }
+  // 屏幕震动
+  container.style.animation='screen-shake 0.5s ease-out';
+  setTimeout(()=>{rocket.remove();container.style.animation='';},2200);
+  // 补充动画
+  if(!document.getElementById('rocket-style')){
+    const style=document.createElement('style');
+    style.id='rocket-style';
+    style.textContent='@keyframes rocket-fly{0%{transform:translateY(0) scale(1)}50%{transform:translateY(-200px) scale(1.2)}100%{transform:translateY(-500px) scale(0.5);opacity:0}}@keyframes flame-up{0%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(-50px) scale(0.5);opacity:0}}@keyframes screen-shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}';
+    document.head.appendChild(style);
+  }
+}
+
+// 👑皇冠降临
+function createCrownEffect(container){
+  const el=document.createElement('div');
+  el.className='sky-drop';
+  el.textContent='👑';
+  el.style.cssText='font-size:80px;left:45%;animation:crown-drop 2s ease-out forwards';
+  container.appendChild(el);
+  // 金光四射
+  const glow=document.createElement('div');
+  glow.className='golden-light';
+  glow.style.background='radial-gradient(circle,rgba(255,215,0,.6) 0%,transparent 50%)';
+  container.appendChild(glow);
+  // 撒金币
+  for(let i=0;i<12;i++){
+    setTimeout(()=>{
+      const coin=document.createElement('div');
+      coin.textContent='🪙';
+      coin.className='gift-float';
+      coin.style.left=(30+Math.random()*40)+'%';
+      coin.style.bottom='30%';
+      coin.style.fontSize='25px';
+      container.appendChild(coin);
+      setTimeout(()=>coin.remove(),2000);
+    },i*100);
+  }
+  setTimeout(()=>{el.remove();glow.remove();},2200);
+  if(!document.getElementById('crown-style')){
+    const style=document.createElement('style');
+    style.id='crown-style';
+    style.textContent='@keyframes crown-drop{0%{transform:translateY(-100px) scale(2) rotate(0deg);opacity:0}40%{transform:translateY(0) scale(1.2) rotate(10deg);opacity:1}60%{transform:translateY(10px) scale(1) rotate(-5deg)}100%{transform:translateY(30px) scale(0.8);opacity:0}}';
+    document.head.appendChild(style);
+  }
+}
+
+// 🎮手柄
+function createGamepadEffect(container){
+  const el=document.createElement('div');
+  el.style.cssText='position:absolute;font-size:70px;left:50%;top:50%;transform:translate(-50%,-50%);animation:gamepad-pop 1.5s ease-out forwards;z-index:30';
+  el.textContent='🎮';
+  container.appendChild(el);
+  // 按键特效
+  for(let i=0;i<6;i++){
+    setTimeout(()=>{
+      const btn=document.createElement('div');
+      btn.textContent=['⬆️','⬇️','⬅️','➡️','🔴','🔵'][i];
+      btn.className='gift-float';
+      btn.style.left=(40+Math.random()*20)+'%';
+      btn.style.bottom='40%';
+      btn.style.fontSize='20px';
+      container.appendChild(btn);
+      setTimeout(()=>btn.remove(),1500);
+    },i*150);
+  }
+  setTimeout(()=>el.remove(),1800);
+  if(!document.getElementById('gamepad-style')){
+    const style=document.createElement('style');
+    style.id='gamepad-style';
+    style.textContent='@keyframes gamepad-pop{0%{transform:translate(-50%,-50%) scale(0) rotate(-180deg)}60%{transform:translate(-50%,-50%) scale(1.2) rotate(10deg)}100%{transform:translate(-50%,-50%) scale(1) rotate(0deg)}}';
+    document.head.appendChild(style);
+  }
+}
+
+// 🎆烟花（canvas-confetti全屏爆炸）
+function createFireworkConfetti(){
+  const duration=3*1000;
+  const animationEnd=Date.now()+duration;
+  const defaults={startVelocity:30,spread:360,ticks:60,zIndex:30};
+  function randomInRange(min,max){return Math.random()*(max-min)+min;}
+  const interval=setInterval(()=>{
+    const timeLeft=animationEnd-Date.now();
+    if(timeLeft<=0)return clearInterval(interval);
+    const particleCount=50*(timeLeft/duration);
+    confetti({...defaults,particleCount,origin:{x:randomInRange(0.1,0.9),y:Math.random()-0.2}});
+    confetti({...defaults,particleCount,origin:{x:randomInRange(0.1,0.9),y:Math.random()-0.2}});
+  },250);
+}
+
+// 💍钻戒
+function createRingEffect(container){
+  const el=document.createElement('div');
+  el.className='spin-shine';
+  el.textContent='💍';
+  el.style.cssText='font-size:80px;left:45%;top:35%';
+  container.appendChild(el);
+  // 闪光粒子
+  for(let i=0;i<20;i++){
+    setTimeout(()=>{
+      const spark=document.createElement('div');
+      spark.textContent='✨';
+      spark.style.cssText='position:absolute;font-size:15px;left:'+(40+Math.random()*20)+'%;top:'+(30+Math.random()*20)+'%;animation:sparkle 0.6s ease-out forwards';
+      container.appendChild(spark);
+      setTimeout(()=>spark.remove(),700);
+    },i*80);
+  }
+  const glow=document.createElement('div');
+  glow.className='golden-light';
+  container.appendChild(glow);
+  setTimeout(()=>{el.remove();glow.remove();},2400);
+  if(!document.getElementById('ring-style')){
+    const style=document.createElement('style');
+    style.id='ring-style';
+    style.textContent='@keyframes sparkle{0%{transform:scale(0);opacity:1}100%{transform:scale(1.5);opacity:0}}';
+    document.head.appendChild(style);
+  }
+}
+
+// 🏎️跑车
+function createCarEffect(container){
+  const el=document.createElement('div');
+  el.className='car-cross';
+  el.textContent='🏎️💨';
+  el.style.cssText='font-size:60px';
+  container.appendChild(el);
+  // 轮胎印
+  for(let i=0;i<5;i++){
+    setTimeout(()=>{
+      const mark=document.createElement('div');
+      mark.textContent='💨';
+      mark.style.cssText='position:absolute;font-size:30px;left:'+(10+i*20)+'%;bottom:80px;opacity:0.5';
+      container.appendChild(mark);
+      setTimeout(()=>mark.remove(),1500);
+    },i*200);
+  }
+  setTimeout(()=>el.remove(),2200);
+}
+
+// 🛥️游艇
+function createYachtEffect(container){
+  const el=document.createElement('div');
+  el.className='yacht-sail';
+  el.innerHTML='<span style="font-size:60px">🛥️</span><span style="font-size:30px">🌊🌊🌊</span>';
+  container.appendChild(el);
+  // 水花飞溅
+  for(let i=0;i<10;i++){
+    setTimeout(()=>{
+      const splash=document.createElement('div');
+      splash.textContent='💧';
+      splash.style.cssText='position:absolute;font-size:20px;left:'+(20+i*8)+'%;bottom:70px;animation:splash-up 0.8s ease-out forwards';
+      container.appendChild(splash);
+      setTimeout(()=>splash.remove(),900);
+    },i*150);
+  }
+  setTimeout(()=>el.remove(),3000);
+  if(!document.getElementById('yacht-style')){
+    const style=document.createElement('style');
+    style.id='yacht-style';
+    style.textContent='@keyframes splash-up{0%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(-40px) scale(0.5);opacity:0}}';
+    document.head.appendChild(style);
+  }
+}
+
+// ✈️飞机拉横幅
+function createPlaneEffect(container){
+  const el=document.createElement('div');
+  el.style.cssText='position:absolute;font-size:50px;animation:plane-banner 3s ease-in-out forwards;top:20%';
+  el.innerHTML='<div style="display:flex;align-items:center;gap:10px"><span>✈️</span><div style="background:linear-gradient(90deg,#ff6b6b,#feca57);padding:8px 20px;border-radius:8px;font-size:18px;white-space:nowrap">🎉 感谢大佬支持！🎉</div></div>';
+  container.appendChild(el);
+  // 云朵
+  for(let i=0;i<6;i++){
+    setTimeout(()=>{
+      const cloud=document.createElement('div');
+      cloud.textContent='☁️';
+      cloud.style.cssText='position:absolute;font-size:'+(20+Math.random()*20)+'px;left:'+(Math.random()*100)+'%;top:'+(10+Math.random()*30)+'%;opacity:0.6';
+      container.appendChild(cloud);
+      setTimeout(()=>cloud.remove(),2500);
+    },i*300);
+  }
+  setTimeout(()=>el.remove(),3200);
+  if(!document.getElementById('plane-style')){
+    const style=document.createElement('style');
+    style.id='plane-style';
+    style.textContent='@keyframes plane-banner{0%{transform:translateX(-300px)}100%{transform:translateX(calc(100vw + 300px))}}';
+    document.head.appendChild(style);
+  }
+}
+
+// 🏠别墅
+function createVillaEffect(container){
+  const wrap=document.createElement('div');
+  wrap.className='villa-show';
+  wrap.style.cssText='left:50%;top:35%;transform:translateX(-50%)';
+  wrap.innerHTML='<div style="font-size:100px;animation:villa-bounce 2s ease-out forwards">🏠</div><div style="font-size:24px;color:#ffd700;margin-top:10px;text-shadow:0 0 20px rgba(255,215,0,1);font-weight:bold">感谢大佬！别墅一套！</div>';
+  const glow=document.createElement('div');
+  glow.className='golden-light';
+  glow.style.background='radial-gradient(circle,rgba(255,215,0,.7) 0%,transparent 60%)';
+  container.appendChild(wrap);
+  container.appendChild(glow);
+  // 撒花
+  confetti({particleCount:80,spread:100,origin:{y:0.6},colors:['#ffd700','#ff6b6b','#4ecdc4'],scalar:1.3});
+  setTimeout(()=>{wrap.remove();glow.remove();},2700);
+  if(!document.getElementById('villa-style')){
+    const style=document.createElement('style');
+    style.id='villa-style';
+    style.textContent='@keyframes villa-bounce{0%{transform:scale(0)}50%{transform:scale(1.2)}100%{transform:scale(1)}}';
+    document.head.appendChild(style);
+  }
+}
+
+// 🏰城堡
+function createCastleEffect(container){
+  const wrap=document.createElement('div');
+  wrap.className='castle-show';
+  wrap.style.cssText='left:50%;top:30%;transform:translateX(-50%)';
+  wrap.innerHTML='<div style="font-size:120px;animation:castle-glow 2.5s ease-out forwards">🏰</div><div style="font-size:28px;color:#ffd700;margin-top:15px;text-shadow:0 0 30px rgba(255,215,0,1);font-weight:bold">👑 感谢城堡大佬！👑</div>';
+  const glow=document.createElement('div');
+  glow.className='golden-light';
+  glow.style.background='radial-gradient(circle,rgba(255,215,0,.8) 0%,transparent 50%)';
+  container.appendChild(wrap);
+  container.appendChild(glow);
+  // 金币雨
+  for(let i=0;i<30;i++){
+    setTimeout(()=>{
+      const coin=document.createElement('div');
+      coin.textContent=['🪙','💰','💎'][i%3];
+      coin.className='money-rain';
+      coin.style.left=(5+Math.random()*90)+'%';
+      coin.style.animationDuration=(2+Math.random())+'s';
+      container.appendChild(coin);
+      setTimeout(()=>coin.remove(),3500);
+    },i*80);
+  }
+  setTimeout(()=>{wrap.remove();glow.remove();},3200);
+  if(!document.getElementById('castle-style')){
+    const style=document.createElement('style');
+    style.id='castle-style';
+    style.textContent='@keyframes castle-glow{0%{transform:scale(0);filter:brightness(1)}50%{transform:scale(1.1);filter:brightness(1.5)}100%{transform:scale(1);filter:brightness(1)}}';
+    document.head.appendChild(style);
+  }
+}
+
+// 🚁直升机撒钱
+function createHeliEffect(container){
+  const el=document.createElement('div');
+  el.className='heli-rain';
+  el.textContent='🚁';
+  container.appendChild(el);
+  // 大撒钱
+  for(let i=0;i<40;i++){
+    setTimeout(()=>{
+      const m=document.createElement('div');
+      m.className='money-rain';
+      m.textContent=['💵','💴','💶','💷','💰','🪙'][i%6];
+      m.style.left=(5+Math.random()*90)+'%';
+      m.style.fontSize=(25+Math.random()*15)+'px';
+      m.style.animationDuration=(1.5+Math.random()*2)+'s';
+      container.appendChild(m);
+      setTimeout(()=>m.remove(),4000);
+    },i*70);
+  }
+  setTimeout(()=>el.remove(),3500);
+}
+
+// 🛸UFO飞船
+function createUFOEffect(container){
+  const el=document.createElement('div');
+  el.className='ufo-hover';
+  el.textContent='🛸';
+  el.style.cssText='font-size:80px;left:40%';
+  container.appendChild(el);
+  // 光柱
+  const beam=document.createElement('div');
+  beam.style.cssText='position:absolute;width:120px;height:300px;background:linear-gradient(to bottom,rgba(0,255,255,.6),rgba(138,43,226,.3),transparent);left:calc(40% + 20px);top:55%;border-radius:0 0 60px 60px;animation:beam-pulse 2s ease-out forwards';
+  container.appendChild(beam);
+  // 吸入的星星
+  for(let i=0;i<15;i++){
+    setTimeout(()=>{
+      const star=document.createElement('div');
+      star.textContent='⭐';
+      star.style.cssText='position:absolute;font-size:20px;left:'+(35+Math.random()*20)+'%;bottom:'+(20+Math.random()*30)+'%;animation:suck-up 1.5s ease-in forwards';
+      container.appendChild(star);
+      setTimeout(()=>star.remove(),1600);
+    },i*100);
+  }
+  setTimeout(()=>{el.remove();beam.remove();},3200);
+  if(!document.getElementById('ufo-style')){
+    const style=document.createElement('style');
+    style.id='ufo-style';
+    style.textContent='@keyframes beam-pulse{0%{opacity:0}30%{opacity:1}100%{opacity:0}}@keyframes suck-up{0%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(-200px) scale(0);opacity:0}}';
+    document.head.appendChild(style);
+  }
+}
+
+// 🌟星球宇宙
+function createPlanetEffect(container){
+  // 宇宙背景
+  const cosmic=document.createElement('div');
+  cosmic.className='cosmic-bg';
+  cosmic.style.cssText='background:radial-gradient(ellipse at center,#0a0a2e 0%,#000 100%)';
+  container.appendChild(cosmic);
+  // 星星闪烁
+  for(let i=0;i<50;i++){
+    const star=document.createElement('div');
+    star.style.cssText=`position:absolute;width:${2+Math.random()*3}px;height:${2+Math.random()*3}px;background:#fff;border-radius:50%;left:${Math.random()*100}%;top:${Math.random()*100}%;animation:twinkle ${0.5+Math.random()}s infinite alternate;box-shadow:0 0 ${5+Math.random()*10}px #fff`;
+    container.appendChild(star);
+    setTimeout(()=>star.remove(),4000);
+  }
+  // 星球升起
+  const el=document.createElement('div');
+  el.className='planet-rise';
+  el.textContent='🌟';
+  el.style.cssText='font-size:150px';
+  container.appendChild(el);
+  // 光环
+  const ring=document.createElement('div');
+  ring.style.cssText='position:absolute;width:200px;height:200px;border:3px solid rgba(255,215,0,.5);border-radius:50%;left:50%;bottom:50px;transform:translateX(-50%);animation:ring-expand 3s ease-out forwards';
+  container.appendChild(ring);
+  setTimeout(()=>{cosmic.remove();el.remove();ring.remove();},4000);
+  if(!document.getElementById('planet-style')){
+    const style=document.createElement('style');
+    style.id='planet-style';
+    style.textContent='@keyframes twinkle{from{opacity:.3}to{opacity:1}}@keyframes ring-expand{0%{transform:translateX(-50%) scale(0);opacity:1}100%{transform:translateX(-50%) scale(3);opacity:0}}';
+    document.head.appendChild(style);
+  }
+}
+
+// 通用小飘浮
+function createFloatEffect(container,emoji){
+  for(let i=0;i<8;i++){
+    setTimeout(()=>{
+      const el=document.createElement('div');
+      el.className='gift-float';
+      el.textContent=emoji;
+      el.style.left=(10+Math.random()*80)+'%';
+      el.style.bottom='10%';
+      el.style.fontSize=(30+Math.random()*20)+'px';
+      container.appendChild(el);
+      setTimeout(()=>el.remove(),2000);
+    },i*120);
+  }
+}
+
+// ============ 工具函数 ============
+function updateViewerCount(){
+  document.getElementById('viewerCount').textContent=viewerCount;
+}
+
+// ============ 启动 ============
+init();
+</script>
+</body>
+</html>
