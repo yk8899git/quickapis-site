@@ -383,8 +383,11 @@ let mirrored=true;
 function toggleMirror(){
   mirrored=!mirrored;
   document.getElementById('localVideo').style.transform=mirrored?'scaleX(-1)':'scaleX(1)';
+  // 同时镜像主画面（remoteVideo）
+  const rv=document.getElementById('remoteVideo');
+  if(rv)rv.style.transform=mirrored?'scaleX(-1)':'scaleX(1)';
   document.getElementById('btnMirror').classList.toggle('active',mirrored);
-  addChatMsg('system','🪞 预览镜像已'+(mirrored?'开启':'关闭'));
+  addChatMsg('system','🪞 画面镜像已'+(mirrored?'开启':'关闭'));
 }
 
 async function joinRoom(){
