@@ -349,11 +349,14 @@ async function startBroadcast(){
       // 多观众连接：每个新连接都加入数组
       connections.push(c);
       setupConn(c);
-      // 连接关闭时从数组移除
+      // 连接关闭时从数组移除，并通知其他人
       c.on('close',()=>{
+        const leaverName = c._name || '一位观众';
         connections = connections.filter(conn => conn !== c);
         viewerCount = Math.max(1, viewerCount - 1);
         updateViewerCount();
+        addChatMsg('system','🚪 '+leaverName+' 离开了直播间');
+        sendToAll({type:'leave-sync', name:leaverName});
       });
     });
     peer.on('error',(err)=>{
@@ -456,12 +459,14 @@ function showMain(room){
 
 // ============ 连接处理 ============
 function setupConn(c){
-  const conn = c || window.conn || connections[connections.length-1]; // 兼容观众端(全局conn)和主播端(connections数组)
+  const conn = c || window.conn || connections[connections.length-1];
   if(!conn) return;
   conn.on('open',()=>{
     conn.send({type:'join',name:myName,viewerId:peer.id});
   });
   conn.on('data',(data)=>{
+    // 收到join时把名字存到连接对象上，方便close时使用
+    if(data.type==='join') conn._name = data.name;
     handleData(data, conn);
   });
 }
@@ -469,18 +474,40 @@ function setupConn(c){
 function handleData(data, senderConn){
   switch(data.type){
     case 'danmaku':
+      // 观众发danmaku → 主播收到后用danmaku-sync广播给所有人（含发送者）
+      if(isBroadcaster){
+        addChatMsg(data.name,data.text);
+        showSubtitle(data.name,data.text);
+        sendToAll({type:'danmaku-sync', name:data.name, text:data.text, viewerId:data.viewerId});
+      }
+      break;
+    case 'danmaku-sync':
+      // 主播广播的同步弹幕，所有人都收到并显示
       addChatMsg(data.name,data.text);
       showSubtitle(data.name,data.text);
-      if(isBroadcaster) sendToAll(data);
       break;
     case 'join':
-      addChatMsg('system','👋 '+data.name+' 进入了直播间');
-      showSubtitle('系统','👋 '+data.name+' 进入了直播间');
+      // 观众加入 → 主播收到后：1)回一条welcome给该观众 2)广播join-sync给所有观众
       if(isBroadcaster){
+        addChatMsg('system','👋 '+data.name+' 进入了直播间');
+        showSubtitle('系统','👋 '+data.name+' 进入了直播间');
         viewerCount++;
         updateViewerCount();
-        sendToAll(data);
+        // 1) 告诉新加入的人：欢迎你，其他人看不到
+        if(senderConn && senderConn.open) senderConn.send({type:'welcome', name:data.name, room:room});
+        // 2) 告诉房间里其他人：有新人进来了
+        sendToAll({type:'join-sync', name:data.name, viewerId:data.viewerId});
       }
+      break;
+    case 'welcome':
+      // 新加入的观众收到主播的欢迎消息
+      addChatMsg('system','✅ 已进入 '+data.room+' 直播间');
+      showSubtitle('系统','✅ 欢迎来到直播间');
+      break;
+    case 'join-sync':
+      // 老观众收到新人加入通知
+      addChatMsg('system','👋 '+data.name+' 进入了直播间');
+      showSubtitle('系统','👋 '+data.name+' 进入了直播间');
       break;
     case 'leave':
       addChatMsg('system','🚪 '+data.name+' 离开了直播间');
@@ -488,7 +515,12 @@ function handleData(data, senderConn){
       if(isBroadcaster){
         viewerCount=Math.max(1,viewerCount-1);
         updateViewerCount();
+        sendToAll({type:'leave-sync', name:data.name});
       }
+      break;
+    case 'leave-sync':
+      addChatMsg('system','🚪 '+data.name+' 离开了直播间');
+      showSubtitle('系统','🚪 '+data.name+' 离开了直播间');
       break;
     case 'gift-request':
       if(isBroadcaster){
@@ -497,17 +529,13 @@ function handleData(data, senderConn){
       }
       break;
     case 'gift-confirmed':
-      // 主播确认到账：自己先播特效，再广播给所有观众
+      // 主播确认到账：自己先播特效，再广播gift-play给所有观众
       playGiftEffect(data.giftId);
       showGiftSubtitle(data.userName, data.giftIcon||'🎁', data.giftName||getGiftName(data.giftId));
       addChatMsg('system','🎁 '+data.userName+' 送出了 '+(data.giftIcon||'🎁')+' '+(data.giftName||getGiftName(data.giftId))+'！');
-      if(isBroadcaster){
-        // 广播给所有观众播放特效
-        sendToAll({type:'gift-play', giftId:data.giftId, giftIcon:data.giftIcon, giftName:data.giftName, userName:data.userName});
-      }
+      if(isBroadcaster) sendToAll({type:'gift-play', giftId:data.giftId, giftIcon:data.giftIcon, giftName:data.giftName, userName:data.userName});
       break;
     case 'gift-play':
-      // 观众端收到主播的特效同步指令
       playGiftEffect(data.giftId);
       showGiftSubtitle(data.userName, data.giftIcon||'🎁', data.giftName||getGiftName(data.giftId));
       addChatMsg('system','🎁 '+data.userName+' 送出了 '+(data.giftIcon||'🎁')+' '+(data.giftName||getGiftName(data.giftId))+'！');
@@ -557,8 +585,11 @@ function sendDanmaku(){
   addChatMsg(myName,text);
   showSubtitle(myName,text);
   
-  if(conn&&conn.open){
-    conn.send({type:'danmaku',name:myName,text:text});
+  // 主播端直接广播，观众端发给主播再由主播广播
+  if(isBroadcaster){
+    sendToAll({type:'danmaku-sync',name:myName,text:text});
+  }else if(conn&&conn.open){
+    conn.send({type:'danmaku',name:myName,text:text,viewerId:peer.id});
   }
   input.value='';
 }
