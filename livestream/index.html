@@ -474,68 +474,66 @@ function setupConn(c){
 function handleData(data, senderConn){
   switch(data.type){
     case 'danmaku':
-      // 观众发danmaku → 主播收到后用danmaku-sync广播给所有人（含发送者）
+      // 观众发danmaku → 主播收到后显示+广播给所有观众（不含发送者，发送者已本地显示了）
       if(isBroadcaster){
         addChatMsg(data.name,data.text);
         showSubtitle(data.name,data.text);
-        sendToAll({type:'danmaku-sync', name:data.name, text:data.text, viewerId:data.viewerId});
+        connections.forEach(c=>{
+          if(c.open && c.peer !== data.viewerId) c.send({type:'danmaku-sync',name:data.name,text:data.text});
+        });
       }
       break;
     case 'danmaku-sync':
-      // 主播广播的同步弹幕，所有人都收到并显示
+      // 观众收到主播转发的其他人弹幕
       addChatMsg(data.name,data.text);
       showSubtitle(data.name,data.text);
       break;
     case 'join':
-      // 观众加入 → 主播收到后：1)回一条welcome给该观众 2)广播join-sync给所有观众
+      // 观众加入 → 主播收到
       if(isBroadcaster){
         addChatMsg('system','👋 '+data.name+' 进入了直播间');
         showSubtitle('系统','👋 '+data.name+' 进入了直播间');
         viewerCount++;
         updateViewerCount();
-        // 1) 告诉新加入的人：欢迎你，其他人看不到
+        // 回给新人：欢迎
         if(senderConn && senderConn.open) senderConn.send({type:'welcome', name:data.name, room:room});
-        // 2) 告诉房间里其他人：有新人进来了
-        sendToAll({type:'join-sync', name:data.name, viewerId:data.viewerId});
+        // 广播给其他老观众
+        connections.forEach(c=>{
+          if(c.open && c.peer !== data.viewerId) c.send({type:'join-sync', name:data.name});
+        });
       }
       break;
     case 'welcome':
-      // 新加入的观众收到主播的欢迎消息
       addChatMsg('system','✅ 已进入 '+data.room+' 直播间');
       showSubtitle('系统','✅ 欢迎来到直播间');
       break;
     case 'join-sync':
-      // 老观众收到新人加入通知
       addChatMsg('system','👋 '+data.name+' 进入了直播间');
       showSubtitle('系统','👋 '+data.name+' 进入了直播间');
       break;
     case 'leave':
-      addChatMsg('system','🚪 '+data.name+' 离开了直播间');
-      showSubtitle('系统','🚪 '+data.name+' 离开了直播间');
       if(isBroadcaster){
-        viewerCount=Math.max(1,viewerCount-1);
-        updateViewerCount();
-        sendToAll({type:'leave-sync', name:data.name});
+        const leaverName=data.name||'一位观众';
+        addChatMsg('system','🚪 '+leaverName+' 离开了直播间');
+        sendToAll({type:'leave-sync', name:leaverName});
       }
       break;
     case 'leave-sync':
       addChatMsg('system','🚪 '+data.name+' 离开了直播间');
-      showSubtitle('系统','🚪 '+data.name+' 离开了直播间');
       break;
     case 'gift-request':
       if(isBroadcaster){
-        showConfirmModal(data);
-        sendToAll(data);
+        showConfirmModal(data, senderConn);
       }
       break;
     case 'gift-confirmed':
-      // 主播确认到账：自己先播特效，再广播gift-play给所有观众
+      // 送礼观众收到主播确认 → 播特效
       playGiftEffect(data.giftId);
       showGiftSubtitle(data.userName, data.giftIcon||'🎁', data.giftName||getGiftName(data.giftId));
       addChatMsg('system','🎁 '+data.userName+' 送出了 '+(data.giftIcon||'🎁')+' '+(data.giftName||getGiftName(data.giftId))+'！');
-      if(isBroadcaster) sendToAll({type:'gift-play', giftId:data.giftId, giftIcon:data.giftIcon, giftName:data.giftName, userName:data.userName});
       break;
     case 'gift-play':
+      // 其他观众收到主播广播的特效
       playGiftEffect(data.giftId);
       showGiftSubtitle(data.userName, data.giftIcon||'🎁', data.giftName||getGiftName(data.giftId));
       addChatMsg('system','🎁 '+data.userName+' 送出了 '+(data.giftIcon||'🎁')+' '+(data.giftName||getGiftName(data.giftId))+'！');
@@ -640,10 +638,13 @@ function selectGiftId(giftId){selectGift(giftId);}
 function selectGift(giftId){
   currentGift=GIFTS.find(g=>g.id===giftId);
   if(!currentGift)return;
-  // 主播模式下直接播放特效，无需扫码
+  // 主播模式下直接播放特效，无需扫码，同时广播给所有观众
   if(isBroadcaster){
     playGiftEffect(currentGift.id);
-    addChatMsg('system','🎁 主播触发特效：'+currentGift.name);
+    showGiftSubtitle(myName, currentGift.icon, currentGift.name);
+    addChatMsg('system','🎁 '+myName+' 送出了 '+currentGift.icon+' '+currentGift.name+'！');
+    sendToAll({type:'gift-play',giftId:currentGift.id,giftName:currentGift.name,giftIcon:currentGift.icon,price:currentGift.price,userName:myName});
+    currentGift=null;
     return;
   }
   showQRModal();
@@ -678,12 +679,13 @@ function confirmPayment(){
 }
 
 // 主播确认
-function showConfirmModal(data){
+function showConfirmModal(data, senderConn){
   const gift=GIFTS.find(g=>g.id===data.giftId);
   document.getElementById('confirmGiftInfo').textContent=gift?gift.icon+' '+gift.name+' ¥'+data.price:'未知礼物';
   document.getElementById('confirmUserName').textContent='来自：'+data.userName;
   window._pendingGift=gift||{id:data.giftId,name:data.giftName,icon:'',price:data.price};
   window._pendingUserName=data.userName;
+  window._pendingSenderConn=senderConn; // 记住是哪个观众送的，确认后精准回传
   document.getElementById('confirmModal').classList.add('show');
 }
 
@@ -692,24 +694,33 @@ function handleConfirm(accepted){
   if(!currentGift&&!window._pendingGift)return;
   const gift=currentGift||window._pendingGift;
   const pendingUserName=window._pendingUserName||myName;
-  if(conn&&conn.open){
-    conn.send({
-      type:accepted?'gift-confirmed':'gift-rejected',
-      giftId:gift.id,
-      giftName:gift.name,
-      giftIcon:gift.icon,
-      price:gift.price,
-      userName:pendingUserName
-    });
-  }
+  const senderConn=window._pendingSenderConn;
+
   if(accepted){
+    // 主播端播放特效
     playGiftEffect(gift.id);
     showGiftSubtitle(pendingUserName, gift.icon, gift.name);
     addChatMsg('system','🎁 '+pendingUserName+' 送出了 '+gift.icon+' '+gift.name+'！');
+    // 1) 精准回传给送礼观众：gift-confirmed
+    if(senderConn && senderConn.open){
+      senderConn.send({type:'gift-confirmed',giftId:gift.id,giftName:gift.name,giftIcon:gift.icon,price:gift.price,userName:pendingUserName});
+    }
+    // 2) 广播给其他观众：gift-play
+    connections.forEach(c=>{
+      if(c.open && c !== senderConn){
+        c.send({type:'gift-play',giftId:gift.id,giftName:gift.name,giftIcon:gift.icon,price:gift.price,userName:pendingUserName});
+      }
+    });
+  }else{
+    // 拒绝：只通知送礼观众
+    if(senderConn && senderConn.open){
+      senderConn.send({type:'gift-rejected',userName:pendingUserName});
+    }
   }
   currentGift=null;
   window._pendingGift=null;
   window._pendingUserName=null;
+  window._pendingSenderConn=null;
 }
 
 // ============ 礼物特效 ============
