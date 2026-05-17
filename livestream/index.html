@@ -497,10 +497,20 @@ function handleData(data, senderConn){
       }
       break;
     case 'gift-confirmed':
+      // 主播确认到账：自己先播特效，再广播给所有观众
       playGiftEffect(data.giftId);
       showGiftSubtitle(data.userName, data.giftIcon||'🎁', data.giftName||getGiftName(data.giftId));
       addChatMsg('system','🎁 '+data.userName+' 送出了 '+(data.giftIcon||'🎁')+' '+(data.giftName||getGiftName(data.giftId))+'！');
-      if(isBroadcaster) sendToAll(data);
+      if(isBroadcaster){
+        // 广播给所有观众播放特效
+        sendToAll({type:'gift-play', giftId:data.giftId, giftIcon:data.giftIcon, giftName:data.giftName, userName:data.userName});
+      }
+      break;
+    case 'gift-play':
+      // 观众端收到主播的特效同步指令
+      playGiftEffect(data.giftId);
+      showGiftSubtitle(data.userName, data.giftIcon||'🎁', data.giftName||getGiftName(data.giftId));
+      addChatMsg('system','🎁 '+data.userName+' 送出了 '+(data.giftIcon||'🎁')+' '+(data.giftName||getGiftName(data.giftId))+'！');
       break;
     case 'gift-rejected':
       addChatMsg('system','⏳ '+data.userName+' 的礼物待确认中...');
