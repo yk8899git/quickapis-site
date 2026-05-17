@@ -40,7 +40,9 @@ body{background:#1a1a2e;font-family:'Microsoft YaHei',sans-serif;color:#fff;over
 .btn-send{padding:6px 16px;border:none;border-radius:20px;background:#e94560;color:#fff;font-size:13px;cursor:pointer;white-space:nowrap}
 .btn-send:hover{background:#c0392b}
 .btn-gifts{padding:6px 16px;border:none;border-radius:20px;background:#f39c12;color:#fff;font-size:13px;cursor:pointer;white-space:nowrap}
-.btn-gifts:hover{background:e67e22}
+.btn-gifts:hover{background:#e67e22}
+.btn-cam{padding:6px 16px;border:none;border-radius:20px;background:#0984e3;color:#fff;font-size:13px;cursor:pointer;white-space:nowrap;display:none}
+.btn-cam:hover{background:#074e8c}
 /* 右侧面板 */
 .side-panel{width:220px;background:#16213e;border-left:1px solid #333;display:flex;flex-direction:column;flex-shrink:0;overflow:hidden}
 .panel-tabs{display:flex;border-bottom:1px solid #333;flex-shrink:0}
@@ -197,6 +199,7 @@ body{background:#1a1a2e;font-family:'Microsoft YaHei',sans-serif;color:#fff;over
       <div class="bottom-bar">
         <input class="danmaku-input" id="danmakuInput" placeholder="发个弹幕~" maxlength="50" onkeydown="if(event.key==='Enter')sendDanmaku()">
         <button class="btn-send" onclick="sendDanmaku()">发送</button>
+        <button class="btn-cam" id="btnCam" onclick="switchCamera()">📷 切换摄像头</button>
         <button class="btn-gifts" onclick="toggleGiftPanel()">🎁 礼物</button>
       </div>
     </div>
@@ -278,6 +281,8 @@ let isBroadcaster = false;
 let myName = '观众' + Math.floor(Math.random()*9999);
 let currentGift = null;
 let currentQR = 'wx';
+let currentFacingMode = 'user';
+let activeCalls = [];
 let viewerCount = 1;
 
 // ============ 初始化 ============
@@ -304,7 +309,7 @@ async function startBroadcast(){
   myName='云水散人';
   
   try{
-    localStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});
+    localStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:currentFacingMode},audio:true});
     document.getElementById('localVideo').srcObject=localStream;
     
     peer=new Peer(room,{debug:0});
@@ -312,6 +317,7 @@ async function startBroadcast(){
     peer.on('call',(call)=>{
       console.log('主播收到观众的call请求，正在answer...');
       call.answer(localStream);
+      activeCalls.push(call);
       // 主播也可以看观众画面（可选）
       call.on('stream',(viewerStream)=>{
         console.log('主播收到观众的视频流');
@@ -331,6 +337,7 @@ async function startBroadcast(){
       // 主播端：大屏显示自己的画面
       document.getElementById('remoteVideo').srcObject=localStream;
       document.getElementById('waitingScreen').style.display='none';
+      document.getElementById('btnCam').style.display='inline-block';
     });
     peer.on('connection',(c)=>{
       conn=c;
@@ -346,6 +353,24 @@ async function startBroadcast(){
     });
   }catch(err){
     alert('无法获取摄像头/麦克风：'+err.message);
+  }
+}
+
+async function switchCamera(){
+  currentFacingMode=currentFacingMode==='user'?'environment':'user';
+  try{
+    localStream.getTracks().forEach(t=>t.stop());
+    localStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:currentFacingMode},audio:true});
+    document.getElementById('localVideo').srcObject=localStream;
+    document.getElementById('remoteVideo').srcObject=localStream;
+    activeCalls=activeCalls.filter(c=>c.open);
+    activeCalls.forEach(call=>{
+      const sender=call.peerConnection&&call.peerConnection.getSenders().find(s=>s.track&&s.track.kind==='video');
+      if(sender)sender.replaceTrack(localStream.getVideoTracks()[0]);
+    });
+    addChatMsg('system','📷 已切换到'+(currentFacingMode==='user'?'前置':'后置')+'摄像头');
+  }catch(err){
+    alert('切换摄像头失败：'+err.message);
   }
 }
 
