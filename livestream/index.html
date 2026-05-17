@@ -46,6 +46,11 @@ body{background:#1a1a2e;font-family:'Microsoft YaHei',sans-serif;color:#fff;over
 .btn-mirror{padding:6px 16px;border:none;border-radius:20px;background:#6c5ce7;color:#fff;font-size:13px;cursor:pointer;white-space:nowrap;display:none}
 .btn-mirror:hover{background:#4834d4}
 .btn-mirror.active{background:#a29bfe}
+/* 手机端浮动礼物按钮 */
+.btn-float-gift{display:inline-block;position:absolute;top:48px;right:12px;z-index:25;width:44px;height:44px;border-radius:50%;background:#f39c12;border:none;font-size:22px;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.5);line-height:44px;text-align:center}
+.btn-float-gift:active{transform:scale(.95)}
+/* 手机端音效提示 */
+.audio-hint{display:none;position:absolute;bottom:80px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.75);color:#fff;padding:8px 20px;border-radius:20px;font-size:13px;z-index:25;cursor:pointer}
 /* 右侧面板 */
 .side-panel{width:220px;background:#16213e;border-left:1px solid #333;display:flex;flex-direction:column;flex-shrink:0;overflow:hidden}
 .panel-tabs{display:flex;border-bottom:1px solid #333;flex-shrink:0}
@@ -67,6 +72,28 @@ body{background:#1a1a2e;font-family:'Microsoft YaHei',sans-serif;color:#fff;over
 /* 收款码弹窗 */
 .qr-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:100;align-items:center;justify-content:center}
 .qr-modal.show{display:flex}
+/* 手机端礼物选择弹窗 */
+.gift-modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.75);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px}
+.gift-modal-box{background:#1a1a2e;border-radius:16px;padding:20px;max-width:360px;width:100%;max-height:80vh;overflow-y:auto}
+.gift-modal-box h3{color:#fff;text-align:center;margin-bottom:16px;font-size:16px}
+.gift-modal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.gift-modal-item{display:flex;flex-direction:column;align-items:center;padding:10px 4px;border-radius:8px;background:#16213e;border:1px solid #333;cursor:pointer;transition:all .2s}
+.gift-modal-item:active{background:#0f3460;border-color:#e94560}
+.gift-modal-item .gift-icon{font-size:28px}
+.gift-modal-item .gift-name{font-size:11px;color:#ccc;margin-top:2px}
+.gift-modal-item .gift-price{font-size:10px;color:#f39c12}
+.gift-modal-close{width:100%;padding:10px;border:none;border-radius:20px;background:#333;color:#fff;font-size:14px;cursor:pointer;margin-top:8px}
+/* 手机端适配 */
+@media(max-width:600px){
+  .side-panel{width:160px}
+  .gift-grid{grid-template-columns:repeat(3,1fr)}
+  .bottom-bar{padding:6px 8px}
+  .danmaku-input{min-width:100px;font-size:12px}
+  .btn-send,.btn-gifts,.btn-cam,.btn-mirror{padding:5px 10px;font-size:12px}
+  .btn-float-gift{top:52px;right:8px;width:40px;height:40px;font-size:20px;line-height:40px}
+  .qr-box{max-width:95%;padding:16px}
+  .qr-img{width:180px;height:180px}
+}
 .qr-box{background:#fff;border-radius:16px;padding:24px;text-align:center;max-width:360px;width:90%;color:#333}
 .qr-box h3{margin-bottom:12px;color:#333;font-size:18px}
 .qr-img{width:200px;height:200px;border-radius:8px;margin-bottom:12px}
@@ -197,6 +224,10 @@ body{background:#1a1a2e;font-family:'Microsoft YaHei',sans-serif;color:#fff;over
         <div class="gift-overlay" id="giftOverlay"></div>
         <!-- 左下角滚动字幕 -->
         <div class="subtitle-layer" id="subtitleLayer"></div>
+      <!-- 手机端浮动礼物按钮 -->
+      <button class="btn-float-gift" id="btnFloatGift" onclick="toggleGiftPanel()">🎁</button>
+      <!-- 音效提示（手机端需要点击才能出声） -->
+      <div id="audioHint" class="audio-hint" onclick="this.style.display='none'">🔊 点击任意处开启声音</div>
       </div>
       <!-- 底部 -->
       <div class="bottom-bar">
@@ -314,7 +345,14 @@ async function startBroadcast(){
   myName='云水散人';
   
   try{
-    localStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:currentFacingMode},audio:true});
+    // 优先同时获取摄像头+麦克风，失败则只获取摄像头
+    try{
+      localStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:currentFacingMode},audio:true});
+    }catch(e){
+      console.warn('同时获取音视频失败，尝试仅视频:',e.message);
+      localStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:currentFacingMode},audio:false});
+      alert('摄像头已开启，麦克风未授权请在系统设置中开启');
+    }
     document.getElementById('localVideo').srcObject=localStream;
     
     peer=new Peer(room,{debug:0});
@@ -430,6 +468,16 @@ async function joinRoom(){
       console.log('✅ 收到主播视频流！tracks:',remoteStream?remoteStream.getTracks().length:'null');
       document.getElementById('remoteVideo').srcObject=remoteStream;
       document.getElementById('waitingScreen').style.display='none';
+      // 移动端需要：显示声音提示，然后取消静音
+      const rv=document.getElementById('remoteVideo');
+      rv.muted=false;
+      rv.play().then(()=>{
+        rv.muted=false;
+        document.getElementById('audioHint').style.display='none';
+      }).catch(()=>{
+        // 自动播放被阻止，显示提示
+        document.getElementById('audioHint').style.display='block';
+      });
     });
     call.on('close',()=>{
       console.log('视频连接关闭');
@@ -619,6 +667,27 @@ function escapeHtml(s){
 // ============ 礼物系统 ============
 function toggleGiftPanel(){
   const gp=document.getElementById('giftPanelContent');
+  // 移动端：弹出礼物选择遮罩
+  if(window.innerWidth<=600){
+    const existing=document.getElementById('giftModal');
+    if(existing){existing.remove();return;}
+    const modal=document.createElement('div');
+    modal.id='giftModal';
+    modal.className='gift-modal-overlay';
+    modal.innerHTML='<div class="gift-modal-box"><h3>🎁 选择礼物</h3><div class="gift-modal-grid" id="giftModalGrid"></div><button class="gift-modal-close" onclick="document.getElementById(\'giftModal\').remove()">关闭</button></div>';
+    document.body.appendChild(modal);
+    const grid=document.getElementById('giftModalGrid');
+    GIFTS.forEach(g=>{
+      const item=document.createElement('div');
+      item.className='gift-modal-item';
+      item.innerHTML='<span class="gift-icon">'+g.icon+'</span><span class="gift-name">'+g.name+'</span><span class="gift-price">¥'+g.price+'</span>';
+      item.onclick=()=>{selectGift(g.id);document.getElementById('giftModal').remove();};
+      grid.appendChild(item);
+    });
+    modal.onclick=(e)=>{if(e.target===modal)modal.remove();};
+    return;
+  }
+  // 电脑端：切换侧边栏礼物面板
   gp.classList.toggle('show');
   if(gp.classList.contains('show')){
     document.querySelectorAll('.panel-tab')[1].click();
