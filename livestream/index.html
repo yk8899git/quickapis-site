@@ -459,15 +459,15 @@ function showMain(room){
 
 // ============ 连接处理 ============
 function setupConn(c){
-  const conn = c || window.conn || connections[connections.length-1];
-  if(!conn) return;
-  conn.on('open',()=>{
-    conn.send({type:'join',name:myName,viewerId:peer.id});
+  const theConn = c || conn || connections[connections.length-1]; // 兼容观众端(全局conn)和主播端(connections数组)
+  if(!theConn) return;
+  theConn.on('open',()=>{
+    theConn.send({type:'join',name:myName,viewerId:peer.id});
   });
-  conn.on('data',(data)=>{
+  theConn.on('data',(data)=>{
     // 收到join时把名字存到连接对象上，方便close时使用
-    if(data.type==='join') conn._name = data.name;
-    handleData(data, conn);
+    if(data.type==='join') theConn._name = data.name;
+    handleData(data, theConn);
   });
 }
 
