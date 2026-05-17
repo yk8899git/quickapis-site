@@ -30,7 +30,7 @@ body{background:#1a1a2e;font-family:'Microsoft YaHei',sans-serif;color:#fff;over
 .gift-overlay{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:20;overflow:hidden}
 /* 左下角字幕（抖音风格） */
 .subtitle-layer{position:absolute;left:16px;bottom:70px;max-width:55%;pointer-events:none;z-index:18;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
-.subtitle-item{color:#fff;font-size:14px;line-height:1.5;padding:4px 10px;border-radius:4px;background:rgba(0,0,0,.45);text-shadow:1px 1px 2px rgba(0,0,0,.9);animation:subtitle-in .35s ease forwards;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;backdrop-filter:blur(2px)}
+.subtitle-item{color:#fff;font-size:14px;line-height:1.6;padding:4px 10px;border-radius:4px;background:rgba(0,0,0,.45);text-shadow:1px 1px 2px rgba(0,0,0,.9);animation:subtitle-in .35s ease forwards;max-width:100%;word-break:break-all;white-space:normal;backdrop-filter:blur(2px)}
 @keyframes subtitle-in{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:translateY(0)}}
 
 /* 底部控制栏 */
@@ -456,13 +456,13 @@ function showMain(room){
 
 // ============ 连接处理 ============
 function setupConn(c){
-  const conn = c || connections[connections.length-1]; // 兼容旧调用
+  const conn = c || window.conn || connections[connections.length-1]; // 兼容观众端(全局conn)和主播端(connections数组)
   if(!conn) return;
   conn.on('open',()=>{
     conn.send({type:'join',name:myName,viewerId:peer.id});
   });
   conn.on('data',(data)=>{
-    handleData(data, conn); // 传入连接对象，用于识别发送者
+    handleData(data, conn);
   });
 }
 
