@@ -22,7 +22,7 @@ body{background:#1a1a2e;font-family:'Microsoft YaHei',sans-serif;color:#fff;over
 .video-section{flex:1;display:flex;flex-direction:column;position:relative;min-width:0;min-height:0}
 .video-container{flex:1;display:flex;align-items:center;justify-content:center;background:#000;position:relative;overflow:hidden;min-height:0}
 #remoteVideo{width:100%;height:100%;max-height:80vh;object-fit:contain}
-#localVideo{position:absolute;width:160px;height:120px;bottom:10px;right:10px;border-radius:8px;border:2px solid rgba(255,255,255,.25);z-index:10;object-fit:cover}
+#localVideo{position:absolute;width:160px;height:120px;bottom:10px;right:10px;border-radius:8px;border:2px solid rgba(255,255,255,.25);z-index:10;object-fit:cover;transform:scaleX(-1)}
 .waiting-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#888}
 .waiting-screen .icon{font-size:48px}
 .waiting-screen .text{font-size:14px}
@@ -43,6 +43,9 @@ body{background:#1a1a2e;font-family:'Microsoft YaHei',sans-serif;color:#fff;over
 .btn-gifts:hover{background:#e67e22}
 .btn-cam{padding:6px 16px;border:none;border-radius:20px;background:#0984e3;color:#fff;font-size:13px;cursor:pointer;white-space:nowrap;display:none}
 .btn-cam:hover{background:#074e8c}
+.btn-mirror{padding:6px 16px;border:none;border-radius:20px;background:#6c5ce7;color:#fff;font-size:13px;cursor:pointer;white-space:nowrap;display:none}
+.btn-mirror:hover{background:#4834d4}
+.btn-mirror.active{background:#a29bfe}
 /* 右侧面板 */
 .side-panel{width:220px;background:#16213e;border-left:1px solid #333;display:flex;flex-direction:column;flex-shrink:0;overflow:hidden}
 .panel-tabs{display:flex;border-bottom:1px solid #333;flex-shrink:0}
@@ -200,6 +203,7 @@ body{background:#1a1a2e;font-family:'Microsoft YaHei',sans-serif;color:#fff;over
         <input class="danmaku-input" id="danmakuInput" placeholder="发个弹幕~" maxlength="50" onkeydown="if(event.key==='Enter')sendDanmaku()">
         <button class="btn-send" onclick="sendDanmaku()">发送</button>
         <button class="btn-cam" id="btnCam" onclick="switchCamera()">📷 切换摄像头</button>
+        <button class="btn-mirror" id="btnMirror" onclick="toggleMirror()">🪞 镜像</button>
         <button class="btn-gifts" onclick="toggleGiftPanel()">🎁 礼物</button>
       </div>
     </div>
@@ -338,6 +342,7 @@ async function startBroadcast(){
       document.getElementById('remoteVideo').srcObject=localStream;
       document.getElementById('waitingScreen').style.display='none';
       document.getElementById('btnCam').style.display='inline-block';
+      document.getElementById('btnMirror').style.display='inline-block';
     });
     peer.on('connection',(c)=>{
       conn=c;
@@ -372,6 +377,14 @@ async function switchCamera(){
   }catch(err){
     alert('切换摄像头失败：'+err.message);
   }
+}
+
+let mirrored=true;
+function toggleMirror(){
+  mirrored=!mirrored;
+  document.getElementById('localVideo').style.transform=mirrored?'scaleX(-1)':'scaleX(1)';
+  document.getElementById('btnMirror').classList.toggle('active',mirrored);
+  addChatMsg('system','🪞 预览镜像已'+(mirrored?'开启':'关闭'));
 }
 
 async function joinRoom(){
