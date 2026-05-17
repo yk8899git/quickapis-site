@@ -345,13 +345,16 @@ async function startBroadcast(){
   myName='云水散人';
   
   try{
-    // 优先同时获取摄像头+麦克风，失败则只获取摄像头
+    // 优先同时获取摄像头+麦克风
     try{
       localStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:currentFacingMode},audio:true});
     }catch(e){
-      console.warn('同时获取音视频失败，尝试仅视频:',e.message);
+      // 降级：只获取摄像头，再单独尝试麦克风
       localStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:currentFacingMode},audio:false});
-      alert('摄像头已开启，麦克风未授权请在系统设置中开启');
+      try{
+        const audioStream=await navigator.mediaDevices.getUserMedia({audio:true,video:false});
+        audioStream.getAudioTracks().forEach(t=>localStream.addTrack(t));
+      }catch(e2){console.warn('麦克风未授权:',e2.message);}
     }
     document.getElementById('localVideo').srcObject=localStream;
     
@@ -466,17 +469,21 @@ async function joinRoom(){
     console.log('call对象已创建:',call);
     call.on('stream',(remoteStream)=>{
       console.log('✅ 收到主播视频流！tracks:',remoteStream?remoteStream.getTracks().length:'null');
-      document.getElementById('remoteVideo').srcObject=remoteStream;
-      document.getElementById('waitingScreen').style.display='none';
-      // 移动端需要：显示声音提示，然后取消静音
       const rv=document.getElementById('remoteVideo');
+      rv.srcObject=remoteStream;
+      document.getElementById('waitingScreen').style.display='none';
       rv.muted=false;
       rv.play().then(()=>{
         rv.muted=false;
-        document.getElementById('audioHint').style.display='none';
       }).catch(()=>{
-        // 自动播放被阻止，显示提示
-        document.getElementById('audioHint').style.display='block';
+        // 移动端自动播放被阻止，显示提示；点击提示解锁
+        const hint=document.getElementById('audioHint');
+        hint.textContent='🔊 点击这里开启声音';
+        hint.style.display='block';
+        hint.onclick=()=>{
+          rv.muted=false;
+          rv.play().then(()=>{hint.style.display='none';rv.muted=false;}).catch(()=>{});
+        };
       });
     });
     call.on('close',()=>{
