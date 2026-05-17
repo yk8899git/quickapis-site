@@ -287,6 +287,7 @@ let currentGift = null;
 let currentQR = 'wx';
 let currentFacingMode = 'user';
 let activeCalls = [];
+let connections = []; // 主播端维护所有观众连接
 let viewerCount = 1;
 
 // ============ 初始化 ============
@@ -345,8 +346,15 @@ async function startBroadcast(){
       document.getElementById('btnMirror').style.display='inline-block';
     });
     peer.on('connection',(c)=>{
-      conn=c;
-      setupConn();
+      // 多观众连接：每个新连接都加入数组
+      connections.push(c);
+      setupConn(c);
+      // 连接关闭时从数组移除
+      c.on('close',()=>{
+        connections = connections.filter(conn => conn !== c);
+        viewerCount = Math.max(1, viewerCount - 1);
+        updateViewerCount();
+      });
     });
     peer.on('error',(err)=>{
       if(err.type==='unavailable'){
@@ -447,55 +455,52 @@ function showMain(room){
 }
 
 // ============ 连接处理 ============
-function setupConn(){
+function setupConn(c){
+  const conn = c || connections[connections.length-1]; // 兼容旧调用
+  if(!conn) return;
   conn.on('open',()=>{
-    conn.send({type:'join',name:myName});
+    conn.send({type:'join',name:myName,viewerId:peer.id});
   });
   conn.on('data',(data)=>{
-    if(data.type==='join'&&data.name!==myName){
-      // 别人的join事件由handleData统一处理，这里不再重复
-    }
-    handleData(data);
-  });
-  conn.on('close',()=>{
-    viewerCount=Math.max(1,viewerCount-1);
-    updateViewerCount();
-    addChatMsg('system','一位观众离开了');
-    showSubtitle('系统','🚪 一位观众离开了');
+    handleData(data, conn); // 传入连接对象，用于识别发送者
   });
 }
 
-function handleData(data){
+function handleData(data, senderConn){
   switch(data.type){
     case 'danmaku':
       addChatMsg(data.name,data.text);
       showSubtitle(data.name,data.text);
-      sendToAll(data);
+      if(isBroadcaster) sendToAll(data);
       break;
     case 'join':
       addChatMsg('system','👋 '+data.name+' 进入了直播间');
       showSubtitle('系统','👋 '+data.name+' 进入了直播间');
-      viewerCount++;
-      updateViewerCount();
-      sendToAll(data);
+      if(isBroadcaster){
+        viewerCount++;
+        updateViewerCount();
+        sendToAll(data);
+      }
       break;
     case 'leave':
       addChatMsg('system','🚪 '+data.name+' 离开了直播间');
       showSubtitle('系统','🚪 '+data.name+' 离开了直播间');
-      viewerCount=Math.max(1,viewerCount-1);
-      updateViewerCount();
+      if(isBroadcaster){
+        viewerCount=Math.max(1,viewerCount-1);
+        updateViewerCount();
+      }
       break;
     case 'gift-request':
       if(isBroadcaster){
         showConfirmModal(data);
+        sendToAll(data);
       }
-      sendToAll(data);
       break;
     case 'gift-confirmed':
       playGiftEffect(data.giftId);
       showGiftSubtitle(data.userName, data.giftIcon||'🎁', data.giftName||getGiftName(data.giftId));
       addChatMsg('system','🎁 '+data.userName+' 送出了 '+(data.giftIcon||'🎁')+' '+(data.giftName||getGiftName(data.giftId))+'！');
-      sendToAll(data);
+      if(isBroadcaster) sendToAll(data);
       break;
     case 'gift-rejected':
       addChatMsg('system','⏳ '+data.userName+' 的礼物待确认中...');
@@ -504,8 +509,10 @@ function handleData(data){
 }
 
 function sendToAll(data){
-  // PeerJS P2P: broadcaster转发给所有观众（简化版）
-  // 完整实现需要维护connections列表
+  // 主播端广播给所有观众
+  connections.forEach(c => {
+    if(c.open) c.send(data);
+  });
 }
 
 // ============ 字幕（抖音风格）============
