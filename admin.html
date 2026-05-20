@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuickAPIs 管理后台</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--accent:#f97316;--accent2:#f43f5e;--bg:#f5f4f2;--card:#fff;--border:rgba(0,0,0,.08);--text:#1c1917;--muted:#78716c;--success:#10b981;--danger:#ef4444}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text)}
+.login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#1a1a2e,#16213e)}
+.login-box{background:#fff;border-radius:16px;padding:40px;width:360px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.login-box h1{font-size:22px;margin-bottom:8px}
+.login-box p{font-size:13px;color:var(--muted);margin-bottom:24px}
+.login-box input{width:100%;padding:12px 16px;border:2px solid var(--border);border-radius:10px;font-size:15px;outline:none;margin-bottom:16px}
+.login-box input:focus{border-color:var(--accent)}
+.login-box button{width:100%;padding:12px;border:none;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;font-size:15px;font-weight:700;cursor:pointer}
+.admin{display:none}
+.topbar{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:56px}
+.topbar h1{font-size:17px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.topbar-actions{display:flex;gap:8px;align-items:center}
+.btn{padding:8px 16px;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:.2s}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{opacity:.85}
+.btn-success{background:var(--success);color:#fff}.btn-success:hover{opacity:.85}
+.btn-danger{background:var(--danger);color:#fff}.btn-danger:hover{opacity:.85}
+.btn-outline{background:#fff;border:1.5px solid var(--border);color:var(--text)}.btn-outline:hover{border-color:var(--accent)}
+.btn-sm{padding:4px 10px;font-size:12px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;padding:20px 24px}
+.stat-card{background:#fff;border-radius:12px;padding:16px;border:1px solid var(--border)}
+.stat-card .label{font-size:12px;color:var(--muted)}
+.stat-card .value{font-size:28px;font-weight:800;margin-top:4px}
+.stat-card .sub{font-size:11px;color:var(--muted);margin-top:2px}
+.toolbar{padding:0 24px 12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.toolbar input,.toolbar select{padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;outline:none}
+.toolbar input:focus,.toolbar select:focus{border-color:var(--accent)}
+.toolbar input{flex:1;min-width:200px}
+.table-wrap{padding:0 24px 24px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--border)}
+th{background:#fafaf8;padding:10px 14px;font-size:12px;font-weight:700;color:var(--muted);text-align:left;white-space:nowrap;border-bottom:1px solid var(--border)}
+td{padding:10px 14px;font-size:13px;border-bottom:1px solid var(--border);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+tr:hover{background:#fefce8}
+.badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600}
+.badge-sw{background:#fff7ed;color:#ea580c}.badge-hw{background:#ecfdf5;color:#059669}
+.actions-cell{display:flex;gap:6px}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.show{display:flex}
+.modal{background:#fff;border-radius:16px;padding:24px;width:100%;max-width:700px;max-height:85vh;overflow-y:auto}
+.modal h2{font-size:18px;margin-bottom:16px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-group{display:flex;flex-direction:column;gap:4px}
+.form-group.full{grid-column:1/-1}
+.form-group label{font-size:12px;font-weight:600;color:var(--muted)}
+.form-group input,.form-group select,.form-group textarea{padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent)}
+.form-group textarea{resize:vertical;min-height:60px}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
+.toast{position:fixed;top:20px;right:20px;padding:12px 20px;border-radius:10px;color:#fff;font-size:14px;font-weight:600;z-index:200;animation:toast-in .3s ease}
+.toast-success{background:var(--success)}.toast-error{background:var(--danger)}
+@keyframes toast-in{0%{opacity:0;transform:translateY(-10px)}100%{opacity:1;transform:translateY(0)}}
+.pagination{display:flex;gap:6px;align-items:center;justify-content:center;padding:16px 24px}
+.pagination button{padding:6px 12px;border:1px solid var(--border);border-radius:6px;background:#fff;cursor:pointer;font-size:13px}
+.pagination button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.pagination button:disabled{opacity:.4;cursor:default}
+@media(max-width:640px){.form-grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<div class="login-wrap" id="loginWrap">
+  <div class="login-box">
+    <h1>🔧 QuickAPIs 后台</h1>
+    <p>输入管理密码</p>
+    <input type="password" id="loginPwd" placeholder="密码" onkeydown="if(event.key==='Enter')doLogin()">
+    <button onclick="doLogin()">进入后台</button>
+  </div>
+</div>
+
+<div class="admin" id="adminUI">
+  <div class="topbar">
+    <h1>🔧 QuickAPIs 管理后台</h1>
+    <div class="topbar-actions">
+      <button class="btn btn-outline" onclick="exportJSON()">📥 导出JSON</button>
+      <button class="btn btn-primary" onclick="openAddModal()">➕ 添加工具</button>
+      <button class="btn btn-outline" onclick="doLogout()">退出</button>
+    </div>
+  </div>
+  <div class="stats" id="statsBar"></div>
+  <div class="toolbar">
+    <input type="text" id="searchInput" placeholder="搜索工具名称/描述..." oninput="renderTable()">
+    <select id="filterType" onchange="renderTable()"><option value="">全部类型</option><option value="software">软件</option><option value="hardware">硬件</option></select>
+    <select id="filterCategory" onchange="renderTable()"><option value="">全部分类</option></select>
+  </div>
+  <div class="table-wrap">
+    <table><thead><tr>
+      <th>图标</th><th>名称</th><th>分类</th><th>类型</th><th>描述</th><th>定价</th><th>操作</th>
+    </tr></thead><tbody id="tableBody"></tbody></table>
+  </div>
+  <div class="pagination" id="pagination"></div>
+</div>
+
+<div class="modal-overlay" id="editModal">
+  <div class="modal">
+    <h2 id="modalTitle">添加工具</h2>
+    <div class="form-grid">
+      <div class="form-group"><label>ID（英文小写）</label><input id="fId" placeholder="如 chatgpt"></div>
+      <div class="form-group"><label>名称</label><input id="fName" placeholder="如 ChatGPT"></div>
+      <div class="form-group"><label>中文名</label><input id="fNameCn" placeholder="如 智能对话"></div>
+      <div class="form-group"><label>图标(emoji)</label><input id="fIcon" placeholder="如 🤖"></div>
+      <div class="form-group"><label>分类</label><input id="fCategory" placeholder="如 对话大模型"></div>
+      <div class="form-group"><label>类型</label><select id="fType"><option value="software">软件</option><option value="hardware">硬件</option></select></div>
+      <div class="form-group"><label>网站URL</label><input id="fUrl" placeholder="https://..."></div>
+      <div class="form-group"><label>定价</label><input id="fPricing" placeholder="如 免费/付费"></div>
+      <div class="form-group"><label>精选</label><select id="fFeatured"><option value="false">否</option><option value="true">是</option></select></div>
+      <div class="form-group"><label>Banner图URL</label><input id="fBanner" placeholder="https://..."></div>
+      <div class="form-group full"><label>描述</label><textarea id="fDesc" rows="3"></textarea></div>
+      <div class="form-group full"><label>标签（逗号分隔）</label><input id="fTags" placeholder="对话,联网,写作"></div>
+      <div class="form-group full"><label>特点（每行一条）</label><textarea id="fFeatures" rows="3"></textarea></div>
+      <div class="form-group full"><label>优点（每行一条）</label><textarea id="fPros" rows="3"></textarea></div>
+      <div class="form-group full"><label>缺点（每行一条）</label><textarea id="fCons" rows="3"></textarea></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal()">取消</button>
+      <button class="btn btn-success" onclick="saveTool()">保存</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const ADMIN_PWD='quickapis2026';
+let allTools=[];
+let categories={software:[],hardware:[]};
+let editingIdx=-1;
+let PAGE_SIZE=20;
+let currentPage=1;
+
+async function loadData(){
+  try{
+    const r=await fetch('tools.json');
+    let t=await r.text();
+    if(t.charCodeAt(0)===0xFEFF)t=t.slice(1);
+    const d=JSON.parse(t);
+    categories=d.categories||{software:[],hardware:[]};
+    allTools=d.tools||[];
+  }catch(e){
+    toast('加载tools.json失败: '+e.message,'error');
+  }
+}
+
+function doLogin(){
+  if(document.getElementById('loginPwd').value===ADMIN_PWD){
+    sessionStorage.setItem('qa_auth','1');
+    document.getElementById('loginWrap').style.display='none';
+    document.getElementById('adminUI').style.display='block';
+    loadData().then(render);
+  }else{
+    toast('密码错误','error');
+  }
+}
+
+function doLogout(){
+  sessionStorage.removeItem('qa_auth');
+  document.getElementById('adminUI').style.display='none';
+  document.getElementById('loginWrap').style.display='flex';
+}
+
+function render(){
+  renderStats();
+  renderCategoryFilter();
+  renderTable();
+}
+
+function renderStats(){
+  const sw=allTools.filter(t=>getType(t)==='software').length;
+  const hw=allTools.filter(t=>getType(t)==='hardware').length;
+  const feat=allTools.filter(t=>t.featured).length;
+  const cats=[...new Set(allTools.map(t=>t.category))].length;
+  document.getElementById('statsBar').innerHTML=`
+    <div class="stat-card"><div class="label">总工具数</div><div class="value">${allTools.length}</div></div>
+    <div class="stat-card"><div class="label">软件</div><div class="value" style="color:#f97316">${sw}</div></div>
+    <div class="stat-card"><div class="label">硬件</div><div class="value" style="color:#10b981">${hw}</div></div>
+    <div class="stat-card"><div class="label">精选</div><div class="value" style="color:#f43f5e">${feat}</div></div>
+    <div class="stat-card"><div class="label">分类数</div><div class="value">${cats}</div></div>`;
+}
+
+function getType(t){
+  if(categories.hardware && categories.hardware.includes(t.category))return 'hardware';
+  return 'software';
+}
+
+function renderCategoryFilter(){
+  const cats=[...new Set(allTools.map(t=>t.category))];
+  const sel=document.getElementById('filterCategory');
+  const cur=sel.value;
+  sel.innerHTML='<option value="">全部分类</option>'+cats.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('');
+  sel.value=cur;
+}
+
+function getFiltered(){
+  const q=document.getElementById('searchInput').value.toLowerCase();
+  const ft=document.getElementById('filterType').value;
+  const fc=document.getElementById('filterCategory').value;
+  return allTools.filter(t=>{
+    if(ft && getType(t)!==ft)return false;
+    if(fc && t.category!==fc)return false;
+    if(q && !t.name.toLowerCase().includes(q) && !t.nameCn.toLowerCase().includes(q) && !(t.description||'').toLowerCase().includes(q))return false;
+    return true;
+  });
+}
+
+function renderTable(){
+  const list=getFiltered();
+  const total=Math.ceil(list.length/PAGE_SIZE)||1;
+  if(currentPage>total)currentPage=total;
+  const start=(currentPage-1)*PAGE_SIZE;
+  const page=list.slice(start,start+PAGE_SIZE);
+  const tbody=document.getElementById('tableBody');
+  tbody.innerHTML=page.map((t,i)=>{
+    const idx=allTools.indexOf(t);
+    const tp=getType(t);
+    const pricing=t.pricing?(Array.isArray(t.pricing.plans)?t.pricing.plans[0]?.price||'':''):'';
+    return `<tr>
+      <td style="font-size:24px">${t.icon||'📦'}</td>
+      <td><b>${esc(t.name)}</b><br><span style="font-size:11px;color:#78716c">${esc(t.nameCn||'')}</span></td>
+      <td>${esc(t.category)}</td>
+      <td><span class="badge ${tp==='software'?'badge-sw':'badge-hw'}">${tp==='software'?'软件':'硬件'}</span></td>
+      <td title="${esc(t.description||'')}">${esc(t.description||'')}</td>
+      <td>${esc(pricing||t.pricing||'')}</td>
+      <td class="actions-cell">
+        <button class="btn btn-outline btn-sm" onclick="openEditModal(${idx})">编辑</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteTool(${idx})">删除</button>
+      </td>
+    </tr>`;
+  }).join('');
+  renderPagination(total);
+}
+
+function renderPagination(total){
+  const el=document.getElementById('pagination');
+  let h=`<button ${currentPage<=1?'disabled':''} onclick="currentPage--;renderTable()">上一页</button>`;
+  for(let i=1;i<=total;i++){
+    if(total>7 && Math.abs(i-currentPage)>2 && i!==1 && i!==total){if(i===2||i===total-1)h+='<span>...</span>';continue;}
+    h+=`<button class="${i===currentPage?'active':''}" onclick="currentPage=${i};renderTable()">${i}</button>`;
+  }
+  h+=`<button ${currentPage>=total?'disabled':''} onclick="currentPage++;renderTable()">下一页</button>`;
+  el.innerHTML=h;
+}
+
+function openAddModal(){
+  editingIdx=-1;
+  document.getElementById('modalTitle').textContent='添加工具';
+  ['fId','fName','fNameCn','fIcon','fCategory','fUrl','fPricing','fBanner','fDesc','fTags','fFeatures','fPros','fCons'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('fType').value='software';
+  document.getElementById('fFeatured').value='false';
+  document.getElementById('editModal').classList.add('show');
+}
+
+function openEditModal(idx){
+  editingIdx=idx;
+  const t=allTools[idx];
+  document.getElementById('modalTitle').textContent='编辑工具';
+  document.getElementById('fId').value=t.id||'';
+  document.getElementById('fName').value=t.name||'';
+  document.getElementById('fNameCn').value=t.nameCn||'';
+  document.getElementById('fIcon').value=t.icon||'';
+  document.getElementById('fCategory').value=t.category||'';
+  document.getElementById('fType').value=getType(t);
+  document.getElementById('fUrl').value=t.url||'';
+  document.getElementById('fBanner').value=t.bannerImage||'';
+  document.getElementById('fDesc').value=t.description||'';
+  document.getElementById('fFeatured').value=t.featured?'true':'false';
+  document.getElementById('fTags').value=(t.tags||[]).join(',');
+  document.getElementById('fFeatures').value=(t.features||[]).join('\n');
+  document.getElementById('fPros').value=(t.pros||[]).join('\n');
+  document.getElementById('fCons').value=(t.cons||[]).join('\n');
+  const p=t.pricing;
+  document.getElementById('fPricing').value=p?(Array.isArray(p.plans)?p.plans[0]?.price||'':''):'';
+  document.getElementById('editModal').classList.add('show');
+}
+
+function closeModal(){document.getElementById('editModal').classList.remove('show')}
+
+function saveTool(){
+  const obj={
+    id:document.getElementById('fId').value.trim(),
+    name:document.getElementById('fName').value.trim(),
+    nameCn:document.getElementById('fNameCn').value.trim(),
+    icon:document.getElementById('fIcon').value.trim()||'📦',
+    category:document.getElementById('fCategory').value.trim(),
+    url:document.getElementById('fUrl').value.trim(),
+    bannerImage:document.getElementById('fBanner').value.trim(),
+    description:document.getElementById('fDesc').value.trim(),
+    featured:document.getElementById('fFeatured').value==='true',
+    tags:document.getElementById('fTags').value.split(',').map(s=>s.trim()).filter(Boolean),
+    features:document.getElementById('fFeatures').value.split('\n').map(s=>s.trim()).filter(Boolean),
+    pros:document.getElementById('fPros').value.split('\n').map(s=>s.trim()).filter(Boolean),
+    cons:document.getElementById('fCons').value.split('\n').map(s=>s.trim()).filter(Boolean),
+    pricing:document.getElementById('fPricing').value.trim(),
+    reviews:[],specs:[],screenshots:[]
+  };
+  if(!obj.id||!obj.name){toast('ID和名称必填','error');return;}
+  // 更新categories
+  const tp=document.getElementById('fType').value;
+  if(tp==='hardware'){
+    if(!categories.hardware.includes(obj.category)){categories.hardware.push(obj.category);categories.software=categories.software.filter(c=>c!==obj.category);}
+  }else{
+    if(!categories.software.includes(obj.category)){categories.software.push(obj.category);categories.hardware=categories.hardware.filter(c=>c!==obj.category);}
+  }
+  if(editingIdx>=0){
+    allTools[editingIdx]=obj;
+    toast('已更新');
+  }else{
+    allTools.push(obj);
+    toast('已添加');
+  }
+  closeModal();
+  render();
+}
+
+function deleteTool(idx){
+  if(!confirm('确定删除 '+allTools[idx].name+' ?'))return;
+  allTools.splice(idx,1);
+  toast('已删除');
+  render();
+}
+
+function exportJSON(){
+  const data={categories,tools:allTools};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='tools.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('JSON已下载');
+}
+
+function toast(msg,type='success'){
+  const el=document.createElement('div');
+  el.className='toast toast-'+type;
+  el.textContent=msg;
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),3000);
+}
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+// Auto login
+if(sessionStorage.getItem('qa_auth')==='1'){
+  document.getElementById('loginWrap').style.display='none';
+  document.getElementById('adminUI').style.display='block';
+  loadData().then(render);
+}
+</script>
+</body>
+</html>
