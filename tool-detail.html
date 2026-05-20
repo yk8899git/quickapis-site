@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>产品详情 - QuickAPIs</title>
+<meta name="description" id="metaDesc" content="QuickAPIs - 国内AI产品导航，收录AI软体工具和AI硬件产品">
+<meta property="og:title" id="ogTitle" content="QuickAPIs - 国内AI产品导航">
+<meta property="og:description" id="ogDesc" content="收录123款国内合规AI产品，包括AI软体工具和AI硬件产品">
+<meta property="og:type" content="website">
+<meta property="og:url" id="ogUrl" content="https://quickapis.top/tool-detail.html">
+<meta property="og:image" id="ogImage" content="https://quickapis.top/favicon.svg">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -174,6 +180,18 @@ function renderDetail(tool, allTools) {
 
   // Title
   document.title = (tool.nameCn || tool.name) + ' - QuickAPIs';
+
+  // SEO: update meta tags
+  var metaDesc = document.getElementById('metaDesc');
+  if (metaDesc) metaDesc.content = (tool.description || tool.nameCn || tool.name) + ' - 收录于QuickAPIs国内AI产品导航';
+  var ogTitle = document.getElementById('ogTitle');
+  if (ogTitle) ogTitle.content = (tool.nameCn || tool.name) + ' - QuickAPIs';
+  var ogDesc = document.getElementById('ogDesc');
+  if (ogDesc) ogDesc.content = (tool.description || tool.nameCn || tool.name) + ' - 收录于QuickAPIs';
+  var ogUrl = document.getElementById('ogUrl');
+  if (ogUrl) ogUrl.content = 'https://quickapis.top/tool-detail.html?id=' + encodeURIComponent(tool.id);
+  var ogImg = document.getElementById('ogImage');
+  if (ogImg && tool.bannerImage) ogImg.content = tool.bannerImage;
 
   // Banner
   const bannerEl = document.getElementById('banner');
